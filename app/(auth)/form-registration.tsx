@@ -22,7 +22,7 @@ import { toast } from 'react-toastify';
 
 //здесь использую библиотеку компонентов shadcn/ui,классая штука
 
-const FormSchema = z.object({
+export const authSchema = z.object({
   name: z.string(),
   email: z.string().email('Invalid email').min(2, 'Email is required'),
   password: z
@@ -39,7 +39,7 @@ export const FormRegistration = () => {
   const callbackUrl = searchParams.get('callbackUrl') || '/';
 
   const form = useForm<IRegistration>({
-    resolver: zodResolver(FormSchema),
+    resolver: zodResolver(authSchema),
     defaultValues: {
       name: '',
       email: '',

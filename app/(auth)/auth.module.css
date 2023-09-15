@@ -1,8 +1,8 @@
 .wrapper {
-  @apply flex h-screen  bg-[#ececec] justify-center py-[25px] lg:py-[50px] px-4;
+  @apply flex   bg-[#ececec] justify-center py-[25px] lg:pt-[75px] pb-[100px] px-4;
 }
 .container {
-  @apply max-w-[376px] h-[530px]  bg-white rounded shadow border border-gray-200;
+  @apply max-w-[376px]  bg-white rounded shadow border border-gray-200;
 }
 .section_top {
   @apply flex flex-col gap-[10px] px-[38px] pt-[20px] pb-[10px]  border-b-[1.5px] border-gray-200;
@@ -13,8 +13,7 @@
 .subtitle_top {
   @apply text-center text-zinc-500 text-xs font-normal;
 }
-.subtitle_bottom {
-}
+
 .subtitle_bottom span {
   @apply text-gray-700 text-xs font-normal;
 }
@@ -23,7 +22,7 @@
 }
 
 .section_bottom {
-  @apply py-[10px] px-[48px];
+  @apply pt-[10px] pb-[20px] px-[48px];
 }
 .google {
   @apply flex flex-col items-center gap-2;

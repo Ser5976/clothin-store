@@ -6,3 +6,7 @@ export interface IRegistration {
 export interface IResponseRegistration {
   message: string;
 }
+export interface ILogin {
+  email: string;
+  password: string;
+}

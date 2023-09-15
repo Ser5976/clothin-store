@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import schema from './schema';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -14,4 +15,24 @@ export async function GET() {
   return NextResponse.json('Приёммм!!!', {
     headers: corsHeaders,
   });
+}
+
+interface IBody {
+  name?: string;
+  email: string;
+  password: string;
+}
+
+export async function POST(request: Request) {
+  const body: IBody = await request.json();
+  const validation = schema.safeParse(body);
+  console.log('validation:', validation);
+  if (!validation.success)
+    return NextResponse.json(validation.error.errors, { status: 400 });
+  return NextResponse.json(
+    { message: body.name },
+    {
+      headers: corsHeaders,
+    }
+  );
 }

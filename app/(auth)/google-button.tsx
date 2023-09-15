@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import styles from './signup.module.css';
+import styles from './auth.module.css';
 import { useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';

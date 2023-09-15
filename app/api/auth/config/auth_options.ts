@@ -34,7 +34,7 @@ export const authOptions: AuthOptions = {
           return null;
         }
         console.log('credentials:', credentials);
-        const user = await prismadb.user.findUnique({
+        const user = await prismadb.user.findUniqueOrThrow({
           where: {
             email: credentials.email,
           },

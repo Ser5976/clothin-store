@@ -2,14 +2,14 @@ import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { authOptions } from '../../api/auth/config/auth_options';
 import Link from 'next/link';
-import { FormRegistration } from './components/form-registration';
-import { GoogleButton } from '../signin/components/google-button';
-import styles from './components/signup.module.css';
+import { FormRegistration } from '../form-registration';
+import { GoogleButton } from '../google-button';
+import styles from '../auth.module.css';
 
 const Signup = async () => {
   //проверка аторизации при помощи next-auth(на стороне сервера,так быстрей) и редирект на главную, если аторизованы
-  // const session = await getServerSession(authOptions);
-  // session && redirect('/');
+  const session = await getServerSession(authOptions);
+  session && redirect('/');
 
   return (
     <div className={styles.wrapper}>

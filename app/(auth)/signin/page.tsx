@@ -2,9 +2,9 @@ import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { authOptions } from '../../api/auth/config/auth_options';
 import Link from 'next/link';
-import { FormLogin } from './components/form-login';
-import { GoogleButton } from './components/google-button';
-import styles from './components/signup.module.css';
+import { FormLogin } from '../form-login';
+import { GoogleButton } from '../google-button';
+import styles from '../auth.module.css';
 
 const Signin = async () => {
   //проверка аторизации при помощи next-auth(на стороне сервера,так быстрей) и редирект на главную, если аторизованы
