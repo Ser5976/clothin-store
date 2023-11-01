@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import schema from './schema';
 
-const corsHeaders = {
+/* const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
@@ -10,14 +10,13 @@ const corsHeaders = {
 export async function OPTIONS() {
   return NextResponse.json({}, { headers: corsHeaders });
 }
-
+ */
 export async function GET() {
-  return NextResponse.json('Приёммм!!!', {
-    headers: corsHeaders,
-  });
+  console.log('Связььь!!!');
+  return NextResponse.json('Приёммм!!!');
 }
 
-interface IBody {
+/* interface IBody {
   name?: string;
   email: string;
   password: string;
@@ -29,10 +28,5 @@ export async function POST(request: Request) {
   console.log('validation:', validation);
   if (!validation.success)
     return NextResponse.json(validation.error.errors, { status: 400 });
-  return NextResponse.json(
-    { message: body.name },
-    {
-      headers: corsHeaders,
-    }
-  );
-}
+  return NextResponse.json({ message: body.name });
+} */

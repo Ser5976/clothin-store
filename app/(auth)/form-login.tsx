@@ -66,9 +66,9 @@ export const FormLogin = () => {
         setIsLoading(false);
         const url = callbackUrl.slice(callbackUrl.lastIndexOf('/') + 1);
         //window потомучто нужна перезагрузка,для getServerSession
-        window.location.href = `/${url}`;
-        // router.push(`/${url}`);
-        console.log('urllllll:', url);
+        // window.location.href = `/${url}`;
+        router.push(`/${url}`);
+        //console.log('urllllll:', url);
       }
     } catch (error) {
       console.log;

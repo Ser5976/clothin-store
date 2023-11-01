@@ -1,21 +1,18 @@
+import {
+  RegisterDataType,
+  RegisterValidator,
+} from './../../../validators/register-validator';
 import { NextResponse } from 'next/server';
 import prismadb from '@/lib/prismadb';
 import { hash, genSalt } from 'bcryptjs';
-import schema from './schema';
-
-interface IRegistrationData {
-  email: string;
-  name?: string;
-  password: string;
-}
 
 export async function POST(request: Request) {
   // получение данных из request
-  const body: IRegistrationData = await request.json();
+  const body: RegisterDataType = await request.json();
   // console.log('Body:', body);
   // валидация body при помощи zod
-  const validation = schema.safeParse(body);
-  // console.log('validation:', validation);
+  const validation = RegisterValidator.safeParse(body);
+  console.log('validation:', validation);
   if (!validation.success)
     return NextResponse.json(validation.error.errors, { status: 400 });
 

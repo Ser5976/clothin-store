@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import Navbar from '@/components/navbar';
+import Navbar from '@/components/header/navbar';
 import Providers from '@/provider/providers';
 import { lato } from '@/fonts/fonts';
 import Footer from '@/components/footer';

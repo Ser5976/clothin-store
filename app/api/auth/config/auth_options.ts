@@ -41,7 +41,7 @@ export const authOptions: AuthOptions = {
         });
 
         if (!user) {
-          console.log('USEEEER!!!!:', user);
+          // console.log('USEEEER!!!!:', user);
           return null;
         }
 

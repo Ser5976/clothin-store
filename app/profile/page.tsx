@@ -1,7 +1,7 @@
-export default function Profile() {
+export default async function Profile() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      Hello Profile!!!
-    </main>
+    <div className="flex min-h-screen gap-10 p-24">
+      <div className="  text-center">Hello Profile!!!</div>
+    </div>
   );
 }

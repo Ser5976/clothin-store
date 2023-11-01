@@ -12,24 +12,18 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { IRegistration } from './types';
 import { registration } from './registration-service';
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { RotateCw } from 'lucide-react';
 import { toast } from 'react-toastify';
+import {
+  RegisterDataType,
+  RegisterValidator,
+} from '@/validators/register-validator';
 
 //здесь использую библиотеку компонентов shadcn/ui,классая штука
-
-export const authSchema = z.object({
-  name: z.string(),
-  email: z.string().email('Invalid email').min(2, 'Email is required'),
-  password: z
-    .string()
-    .min(1, 'Password is required')
-    .min(5, 'Password must have more than 5 characters'),
-});
 
 export const FormRegistration = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -38,8 +32,8 @@ export const FormRegistration = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || '/';
 
-  const form = useForm<IRegistration>({
-    resolver: zodResolver(authSchema),
+  const form = useForm<RegisterDataType>({
+    resolver: zodResolver(RegisterValidator),
     defaultValues: {
       name: '',
       email: '',
@@ -47,7 +41,7 @@ export const FormRegistration = () => {
     },
   });
 
-  async function onSubmit(data: IRegistration) {
+  async function onSubmit(data: RegisterDataType) {
     //console.log('data:', data);
     setIsLoading(true);
     try {
@@ -67,7 +61,8 @@ export const FormRegistration = () => {
         if (!login?.error) {
           //если  удачно залогинились,редиректим
           const url = callbackUrl.slice(callbackUrl.lastIndexOf('/') + 1);
-          window.location.href = `/${url}`;
+          // window.location.href = `/${url}`;
+          router.push(`/${url}`);
         }
       }
     } catch (error) {

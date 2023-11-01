@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const schema = z.object({
+export const RegisterValidator = z.object({
   name: z.string(),
   email: z.string().email('Invalid email').min(2, 'Email is required'),
   password: z
@@ -9,4 +9,4 @@ const schema = z.object({
     .min(5, 'Password must have more than 5 characters'),
 });
 
-export default schema;
+export type RegisterDataType = z.infer<typeof RegisterValidator>;
