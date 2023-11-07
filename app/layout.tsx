@@ -1,9 +1,9 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import Navbar from '@/components/header/navbar';
 import Providers from '@/provider/providers';
 import { lato } from '@/fonts/fonts';
 import Footer from '@/components/footer';
+import NavBar from '../components/header/navbar';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,12 +17,10 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en" className={lato.className}>
-      <body className=" min-h-screen">
+      <body>
         <Providers>
           <div className=" flex flex-col h-full overflow-hidden">
-            {/*@ts-expect-error server component */}
-            <Navbar />
-
+            <NavBar />
             <div className=" grow ">{children}</div>
             <Footer />
           </div>

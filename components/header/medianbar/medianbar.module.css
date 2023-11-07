@@ -1,0 +1,18 @@
+.header {
+  @apply py-[20px];
+}
+
+.row {
+  @apply flex   items-center justify-between;
+}
+
+.links {
+  @apply flex items-center gap-10;
+}
+.links a {
+  @apply text-[16px] leading-[150%] font-bold 
+   text-[#424551]  hover:text-[#17696A] transition ease-out duration-500;
+}
+.links a:last-child {
+  @apply text-[#FF4242]  hover:text-[#FF4242];
+}

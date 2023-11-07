@@ -6,7 +6,6 @@ import {
 } from '../../../validators/order-validator';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
-import { any } from 'zod';
 
 // подключаемся к YooKassa(платежная система)
 const yooKassa = new YooKassa({

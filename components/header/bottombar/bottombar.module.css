@@ -1,0 +1,19 @@
+.header {
+  @apply bg-[#17696A]  py-[9px];
+}
+.row {
+  @apply flex items-center justify-center;
+}
+.baner_text {
+  @apply flex w-[284px] items-center gap-[7px];
+}
+.inner_text {
+  @apply flex justify-start items-center gap-1;
+}
+.left_text {
+  @apply text-white text-[12px] font-black  leading-[150%];
+}
+.right_text {
+  @apply text-white text-[12px] font-normal  underline leading-[150%] cursor-pointer opacity-[0.6] 
+  hover:opacity-[1] transition ease-out duration-500;
+}

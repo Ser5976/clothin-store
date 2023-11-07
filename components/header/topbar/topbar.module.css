@@ -1,0 +1,20 @@
+.header {
+  @apply bg-zinc-800 py-[12px];
+}
+
+.row {
+  @apply flex   items-center justify-between;
+}
+.phone {
+  @apply text-[14px] leading-[150%] font-normal  text-white opacity-[0.6];
+}
+.phone span {
+  @apply font-[900];
+}
+.links {
+  @apply flex items-center gap-[32px];
+}
+.links a {
+  @apply text-[14px] leading-[150%] font-normal 
+   text-white opacity-[0.6] hover:opacity-[1] transition ease-out duration-500;
+}

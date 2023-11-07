@@ -139,7 +139,7 @@ export const FormLogin = () => {
                 className="mr-4  animate-spin"
               />
             ) : null}
-            Sung in
+            Sign in
           </Button>
         </div>
       </form>

@@ -1,0 +1,15 @@
+.account {
+  @apply flex relative gap-[5px] items-center w-[150px]  justify-center;
+}
+
+.login {
+  @apply flex gap-[5px] items-center cursor-pointer text-[14px] leading-[150%] font-normal  text-white opacity-[0.6]
+   hover:opacity-[1] transition ease-out duration-500;
+}
+.account span {
+  @apply text-[14px] leading-[150%] font-normal  text-white opacity-[0.6];
+}
+.register {
+  @apply text-[14px] leading-[150%] font-normal  text-white opacity-[0.6]
+  hover:opacity-[1] transition ease-out duration-500;
+}

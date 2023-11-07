@@ -71,9 +71,14 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-y-scroll min-h-screen;
   }
 }
 
 /* стили для билиотеки уведомлений */
 @import 'react-toastify/dist/ReactToastify.css';
+
+/* общие стили  */
+.container {
+  @apply max-w-[1260px]  m-auto px-[15px];
+}
