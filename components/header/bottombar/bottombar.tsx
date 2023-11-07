@@ -3,7 +3,7 @@ import styles from './bottombar.module.css';
 
 export const BottomBar = () => {
   return (
-    <section className={styles.header}>
+    <section className={styles.section}>
       <div className="container">
         <div className={styles.row}>
           <div className={styles.baner_text}>

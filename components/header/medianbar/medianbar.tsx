@@ -6,7 +6,7 @@ import { ToolBar } from './toolbar/toolbar';
 
 export const MedianBar = () => {
   return (
-    <section className={styles.header}>
+    <section className={styles.section}>
       <div className="container">
         <div className={styles.row}>
           <div className={styles.logo}>

@@ -25,7 +25,7 @@ export async function PUT(
       return NextResponse.json(validation.error.errors, { status: 400 });
 
     // изменения значения в базе
-    await prismadb.types.update({
+    await prismadb.type.update({
       where: { id: params.id },
       data: { name: body.name },
     });
@@ -45,7 +45,7 @@ export async function DELETE(
     }
 
     // удаление значения в базе
-    await prismadb.types.delete({
+    await prismadb.type.delete({
       where: { id: params.id },
     });
     return NextResponse.json({ message: 'Type removed' });

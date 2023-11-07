@@ -17,7 +17,7 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en" className={lato.className}>
-      <body>
+      <body className=" overflow-y-scroll">
         <Providers>
           <div className=" flex flex-col h-full overflow-hidden">
             <NavBar />

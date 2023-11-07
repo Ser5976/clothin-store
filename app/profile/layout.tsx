@@ -7,7 +7,6 @@ export default async function ProfileLayout({
 }) {
   return (
     <div className="">
-      {/*@ts-expect-error server component */}
       <Header />
       <div className="">{children}</div>
     </div>

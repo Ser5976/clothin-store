@@ -4,7 +4,7 @@ import styles from './topbar.module.css';
 
 export const TopBar = () => {
   return (
-    <section className={styles.header}>
+    <section className={styles.section}>
       <div className="container">
         <div className={styles.row}>
           <div className={styles.phone}>

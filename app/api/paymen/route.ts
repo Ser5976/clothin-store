@@ -29,15 +29,10 @@ export async function POST(request: Request) {
       return NextResponse.json('Unauthorized', { status: 401 });
     } */
     const body: any = await request.json();
-    // валидация body при помощи zod
-    /* const validation = OrderValidator.safeParse(body);
-    // console.log('validation:', validation);
-    if (!validation.success)
-      return NextResponse.json(validation.error.errors, { status: 400 });
- */
+
     console.log('Payment:', body);
-    // console.log('EVENT:', body.event);
-    // console.log('DESCRIPTION:', body.object.description.split('#')[1]);
+    console.log('EVENT:', body.event);
+    console.log('DESCRIPTION:', body.object.description.split('#')[1]);
     if (body.event === 'payment.waiting_for_capture') {
       await yooKassa.capturePayment(body.object.id, body.object.amount);
       return NextResponse.json(

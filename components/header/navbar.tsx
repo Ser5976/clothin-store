@@ -8,7 +8,7 @@ import { TopBar } from './topbar/topbar';
 
 const NavBar = () => {
   return (
-    <header className=" shadow h-32">
+    <header className=" shadow ">
       <TopBar />
       <MedianBar />
       <BottomBar />
