@@ -1,0 +1,10 @@
+.invisible {
+  @apply hidden;
+}
+.burger {
+  @apply flex flex-col justify-between  w-[24px] h-[17px] cursor-pointer
+  min-[821px]:hidden;
+}
+.rectangel {
+  @apply w-[24px] h-[2px] bg-white opacity-[0.6];
+}

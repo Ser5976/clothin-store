@@ -1,4 +1,3 @@
-'use client';
 import { RotateCw, UserCircle2 } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
@@ -38,7 +37,7 @@ export const Account = () => {
       )}
 
       {session.status === 'authenticated' && (
-        <div className={styles.login}>
+        <>
           {session.data?.user.image ? (
             <div className={styles.login}>
               <Image
@@ -69,7 +68,7 @@ export const Account = () => {
               Sine Out
             </Link>
           </div>
-        </div>
+        </>
       )}
     </div>
   );

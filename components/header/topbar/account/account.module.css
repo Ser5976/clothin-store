@@ -1,5 +1,6 @@
 .account {
-  @apply flex relative gap-[5px] items-center w-[150px]  justify-center;
+  @apply flex relative gap-[5px] items-center w-[150px]  justify-center
+  max-[820px]:ml-auto;
 }
 
 .login {

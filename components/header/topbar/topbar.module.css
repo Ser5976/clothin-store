@@ -1,20 +1,27 @@
 .section {
-  @apply bg-zinc-800 py-[12px];
+  @apply bg-zinc-800 py-[12px] h-[45px];
 }
 
 .row {
-  @apply flex   items-center justify-between;
+  @apply flex   items-center justify-between
+  max-[820px]:justify-normal;
 }
 .phone {
-  @apply text-[14px] leading-[150%] font-normal  text-white opacity-[0.6];
+  @apply flex gap-1 text-[14px] leading-[150%] font-normal  text-white opacity-[0.6]
+  max-[820px]:hidden;
 }
 .phone span {
   @apply font-[900];
 }
-.links {
-  @apply flex items-center gap-[32px];
+.for_customers {
+  @apply flex items-center gap-[32px] 
+  max-lg:gap-5
+  max-[820px]:hidden;
 }
-.links a {
+.link {
   @apply text-[14px] leading-[150%] font-normal 
    text-white opacity-[0.6] hover:opacity-[1] transition ease-out duration-500;
+}
+.link_active {
+  @apply text-white opacity-[1];
 }

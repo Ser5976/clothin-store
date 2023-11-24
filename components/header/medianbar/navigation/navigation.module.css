@@ -1,0 +1,13 @@
+.categories {
+  @apply flex items-center gap-10
+    max-[1125px]:gap-5
+    max-lg:gap-3
+    max-[820px]:hidden;
+}
+.link {
+  @apply text-[16px] leading-[150%] font-bold 
+     text-[#424551]  hover:text-[#17696A] transition ease-out duration-500;
+}
+.link_active {
+  @apply text-[#17696A];
+}

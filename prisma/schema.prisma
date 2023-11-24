@@ -283,3 +283,14 @@ model Address{
   @@index([userId])
 }
 
+model Customers{
+  id String @id @default(uuid())
+  name String @unique
+  longtext String @db.LongText
+}
+ model Phone{
+  id String @id @default(uuid())
+  title String?
+  phone String @unique
+ }
+

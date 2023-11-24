@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './bottombar.module.css';
 
 export const BottomBar = () => {
@@ -15,9 +16,9 @@ export const BottomBar = () => {
             />
             <div className={styles.inner_text}>
               <div className={styles.left_text}>Up to 70% Off. </div>
-              <div className={styles.right_text}>
+              <Link href={'/sale/latest'} className={styles.right_text}>
                 Shop our latest sale styles
-              </div>
+              </Link>
             </div>
             <Image
               src="/header/right-chevron.svg"

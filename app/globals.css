@@ -80,5 +80,7 @@
 
 /* общие стили  */
 .container {
-  @apply max-w-[1260px]  m-auto px-[15px];
+  @apply max-w-[1260px]  m-auto px-[15px] 
+  max-[820px]:max-w-[700px]
+  max-[320px]:px-[10px];
 }

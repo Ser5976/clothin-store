@@ -1,9 +1,0 @@
-.input {
-  @apply w-[380px] pt-[11px] px-[16px] pb-[12px] rounded-[4px] border border-[#D7DADD];
-}
-.input::placeholder {
-  @apply text-[14px] text-[#9A9CA5] leading-[150%];
-}
-.image {
-  @apply absolute top-[12px] right-[16px] cursor-pointer;
-}

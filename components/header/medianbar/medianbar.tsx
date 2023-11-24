@@ -1,10 +1,16 @@
+import { CategoryType } from '@/types/category_type';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SearchInput } from './search-input/searchinput';
+import { FC } from 'react';
+import { SearchInput } from '../search-input/searchinput';
 import styles from './medianbar.module.css';
+import { Navigation } from './navigation/navigation';
 import { ToolBar } from './toolbar/toolbar';
 
-export const MedianBar = () => {
+interface IMedianbarProps {
+  categories: CategoryType[] | undefined;
+}
+export const MedianBar: FC<IMedianbarProps> = ({ categories }) => {
   return (
     <section className={styles.section}>
       <div className="container">
@@ -19,14 +25,8 @@ export const MedianBar = () => {
               />
             </Link>
           </div>
-          <nav className={styles.links}>
-            <Link href="#">Women</Link>
-            <Link href="#">Men</Link>
-            <Link href="#">Girls</Link>
-            <Link href="#">Boys</Link>
-            <Link href="#">Sale</Link>
-          </nav>
-          <SearchInput />
+          <Navigation categories={categories} />
+          <SearchInput mark="medianbar" />
           <ToolBar />
         </div>
       </div>

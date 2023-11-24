@@ -11,9 +11,11 @@
   @apply relative pr-[30px];
 }
 .badge_heart {
-  @apply absolute bottom-[-1px] right-[10px] text-gray-700 text-[16px] font-normal  leading-[160%];
+  @apply absolute bottom-[-1px] right-[10px] text-gray-700 text-[16px] font-normal  leading-[160%]
+  max-[320px]:text-[14px];
 }
 .badge_cart {
   @apply absolute bottom-[0px] right-[0px] flex items-center justify-center min-w-[23px] p-1 h-5  bg-teal-500 rounded 
-  text-white text-[12px] font-black  leading-[150%];
+  text-white text-[12px] font-black  leading-[150%]
+  max-[320px]:text-[10px];
 }

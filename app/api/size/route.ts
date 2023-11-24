@@ -9,11 +9,6 @@ import { authOptions } from '../auth/config/auth_options';
 
 export async function GET() {
   try {
-    const session = await getServerSession(authOptions);
-    console.log('session:', session);
-    if (!session?.user) {
-      return NextResponse.json('Unauthorized', { status: 401 });
-    }
     const response = await prismadb.size.findMany();
     return NextResponse.json(response);
   } catch (error) {

@@ -13,7 +13,7 @@ export const GetSize = () => {
   const { data, isError } = useQuery({
     queryKey: ['size'],
     queryFn: async () => {
-      const data = await axios.get('/api/size');
+      const data = await axios.get('http://localhost:3000/api/size');
       return data;
     },
   });
