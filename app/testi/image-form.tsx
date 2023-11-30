@@ -41,7 +41,7 @@ export const ImageForm = () => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      imageUrl: imgArray || [],
+      imageUrl: [],
     },
   });
 

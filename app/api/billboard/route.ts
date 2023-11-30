@@ -7,6 +7,19 @@ import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 import { authOptions } from '../auth/config/auth_options';
 
+export async function GET(request: Request) {
+  try {
+    const billboard = await prismadb.billboard.findMany({
+      include: {
+        image: true,
+      },
+    });
+    return NextResponse.json(billboard);
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json('Something went wrong', { status: 500 });
+  }
+}
 export async function POST(request: Request) {
   try {
     /*  const session = await getServerSession(authOptions);
@@ -21,10 +34,17 @@ export async function POST(request: Request) {
       return NextResponse.json(validation.error.errors, { status: 400 });
 
     // сохранения значения в базе
-    await prismadb.billboard.create({
-      data: body,
+    const billboard = await prismadb.billboard.create({
+      data: {
+        title: body.title,
+        subTitle: body.subTitle,
+        link: body.link,
+        image: {
+          create: body.image,
+        },
+      },
     });
-    return NextResponse.json({ message: 'Data is saved' });
+    return NextResponse.json(billboard);
   } catch (error) {
     return NextResponse.json('Data is not saved', { status: 500 });
   }

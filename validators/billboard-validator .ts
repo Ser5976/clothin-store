@@ -1,8 +1,10 @@
 import { z } from 'zod';
 
 export const BillboardValidator = z.object({
-  label: z.string().min(1, 'Label is required'),
-  imageUrl: z.string().min(1, 'ImgUrl is required'),
+  title: z.string().optional(),
+  subTitle: z.string().optional(),
+  link: z.string().min(1, 'Name is required'),
+  image: z.object({ url: z.string(), fileKey: z.string() }),
 });
 
 export type BillboardDataType = z.infer<typeof BillboardValidator>;

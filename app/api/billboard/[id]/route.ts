@@ -27,7 +27,12 @@ export async function PUT(
     // изменения значения в базе
     await prismadb.billboard.update({
       where: { id: params.id },
-      data: body,
+      data: {
+        title: body.title,
+        subTitle: body.subTitle,
+        link: body.link,
+        image: { create: body.image },
+      },
     });
     return NextResponse.json({ message: 'Billboard changed' });
   } catch (error) {

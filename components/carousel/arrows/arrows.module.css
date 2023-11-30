@@ -1,0 +1,6 @@
+.arrows_right {
+  @apply rounded-full p-[5px]  bg-white opacity-[0.5] absolute top-[60%] right-[0.5%] cursor-pointer;
+}
+.arrows_left {
+  @apply rounded-full p-[5px]  bg-white opacity-[0.5] absolute top-[60%] left-[0.5%] cursor-pointer;
+}

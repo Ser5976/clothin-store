@@ -23,7 +23,7 @@ export const TopBar: FC<ITopBarProps> = ({ categories, customers, phone }) => {
 
   return (
     <section className={styles.section}>
-      <div className="container">
+      <div className="shared_container">
         <div className={styles.row}>
           <Burger show={show} setShow={setShow} />
           {!phone ? (

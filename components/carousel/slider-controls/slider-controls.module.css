@@ -1,0 +1,16 @@
+.wrapper {
+  @apply flex grow justify-start  py-[0.3%] text-[#424551] text-[24px] font-bold leading-[150%] 
+  border-b border-[#424551] opacity-[0.3] cursor-pointer
+ max-xl:text-[22px] 
+ max-[1100px]:text-[20px]
+ max-lg:text-[18px] 
+ max-[940px]:text-[16px]
+ max-[820px]:text-[14px]
+ max-md:text-[16px] 
+ max-sm:text-[14px] max-sm:py-[0.2%]
+ max-[520px]:text-[12px] max-[540px]:py-[0.15%]
+ max-[400px]:text-[10px];
+}
+.activ {
+  @apply opacity-[0.9];
+}

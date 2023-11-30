@@ -1,0 +1,12 @@
+.row {
+  @apply flex  max-w-[550px] gap-2   mt-[-17%]
+  max-xl:max-w-[450px]
+  max-[1100px]:max-w-[425px]
+  max-lg:max-w-[400px]
+  max-[940px]:w-[375px]
+  max-[820px]:max-w-[325px]
+  max-md:max-w-[275px]
+  max-sm:max-w-[225px]
+  max-[520px]:max-w-[175px]
+  max-[400px]:max-w-[150px];
+}

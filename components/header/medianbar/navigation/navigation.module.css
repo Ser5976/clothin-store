@@ -1,6 +1,6 @@
 .categories {
   @apply flex items-center gap-10
-    max-[1125px]:gap-5
+    max-xl:gap-5
     max-lg:gap-3
     max-[820px]:hidden;
 }

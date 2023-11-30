@@ -79,8 +79,17 @@
 @import 'react-toastify/dist/ReactToastify.css';
 
 /* общие стили  */
-.container {
-  @apply max-w-[1260px]  m-auto px-[15px] 
+.shared_container {
+  @apply max-w-[1260px]  m-auto px-[25px]
+  max-[1350px]:max-w-[1100px]
+  max-xl:max-w-[1024px]
+  max-[1100px]:max-w-[900px]
+  max-lg:max-w-[900px]
+  max-[940px]:w-[800px]
   max-[820px]:max-w-[700px]
-  max-[320px]:px-[10px];
+  max-md:max-w-[600px]
+  max-sm:max-w-[500px]
+  max-[520px]:max-w-[400px]
+  max-[400px]:max-w-[350px]
+  max-[350px]:max-w-[320px] max-[350px]:px-[10px];
 }

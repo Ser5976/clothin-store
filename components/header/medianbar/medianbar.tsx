@@ -13,7 +13,7 @@ interface IMedianbarProps {
 export const MedianBar: FC<IMedianbarProps> = ({ categories }) => {
   return (
     <section className={styles.section}>
-      <div className="container">
+      <div className="shared_container">
         <div className={styles.row}>
           <div className={styles.logo}>
             <Link href="/">

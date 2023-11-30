@@ -117,8 +117,8 @@ model Image{
   fileKey String
   productId String
   product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-
   @@index([productId])
+
 }
 model Category{
   id String @id @default(uuid())
@@ -160,7 +160,7 @@ model Rating{
   value Float @default(0)
   count Int @default(0)
   productId String @unique
-  product Product @relation(fields: [productId],references: [id])
+  product Product @relation(fields: [productId],references: [id],onDelete: Cascade)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
    @@index([productId])
@@ -236,10 +236,20 @@ model OrderItem {
 }
 model Billboard {
   id          String @id @default(uuid())
-  label       String
-  imageUrl    String
+  title      String?
+  subTitle   String?
+  image    BillboardImg?
+  link String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+model BillboardImg{
+  id          String @id @default(uuid())
+  url String
+  fileKey String
+  billboardId String @unique
+  billboard Billboard @relation(fields: [billboardId],references: [id],onDelete: Cascade)
+  
 }
 model Cart{
   id String @id @default(uuid())

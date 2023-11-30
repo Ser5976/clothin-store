@@ -12,10 +12,10 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    const session = await getServerSession(authOptions);
+    /* const session = await getServerSession(authOptions);
     if (!session?.user) {
       return NextResponse.json('Unauthorized', { status: 401 });
-    }
+    } */
 
     const body: ProductDataType = await request.json();
     // валидация body при помощи zod

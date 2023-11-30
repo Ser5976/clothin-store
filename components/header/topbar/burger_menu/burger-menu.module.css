@@ -1,7 +1,7 @@
 .wrapper {
   @apply w-screen h-full fixed top-0 left-0 transition-all duration-500 
   z-20 overflow-y-scroll  bg-gray-200 py-8 px-10
-  max-[280px]:w-[280px]
+  max-[320px]:w-[320px]
   max-[450px]:px-4
   min-[821px]:hidden;
 }

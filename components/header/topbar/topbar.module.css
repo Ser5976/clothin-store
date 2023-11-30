@@ -14,7 +14,8 @@
   @apply font-[900];
 }
 .for_customers {
-  @apply flex items-center gap-[32px] 
+  @apply flex items-center gap-[32px]
+  max-xl:gap-6 
   max-lg:gap-5
   max-[820px]:hidden;
 }

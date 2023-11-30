@@ -7,6 +7,7 @@
 }
 .input {
   @apply w-[380px] pt-[11px] px-[16px] pb-[12px] rounded-[4px] border border-[#D7DADD]
+  max-xl:w-[300px]
   max-lg:w-[250px];
 }
 .input_burger {
