@@ -31,7 +31,7 @@ export async function PUT(
         title: body.title,
         subTitle: body.subTitle,
         link: body.link,
-        image: { create: body.image },
+        image: { update: body.image },
       },
     });
     return NextResponse.json({ message: 'Billboard changed' });

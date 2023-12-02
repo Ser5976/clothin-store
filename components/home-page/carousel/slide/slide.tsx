@@ -32,10 +32,10 @@ export const Slide: FC<SlidePropsType> = ({ slide }) => {
       <div className={styles.img_wrapper}>
         <Image
           src={slide.image.url}
-          fill
-          objectFit="cover"
-          objectPosition="top"
+          width={1500}
+          height={700}
           alt="Picture of the author"
+          priority
         />
       </div>
     </section>

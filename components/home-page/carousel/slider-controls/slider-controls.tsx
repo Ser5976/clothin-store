@@ -14,8 +14,8 @@ export const SliderControls: FC<SliderControlsPropsType> = ({
   setCurrentSlide,
   goToSlide,
 }) => {
-  console.log('currentIndex:', currentIndex);
-  console.log('index:', index);
+  // console.log('currentIndex:', currentIndex);
+  // console.log('index:', index);
   return (
     <div
       className={cn(styles.wrapper, { [styles.activ]: index === currentIndex })}
