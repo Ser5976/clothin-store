@@ -9,15 +9,14 @@ import { authOptions } from '../auth/config/auth_options';
 
 export async function GET(request: Request) {
   try {
-    const billboard = await prismadb.topCategories.findMany({
+    const topCategories = await prismadb.topCategories.findMany({
       include: {
         image: true,
       },
     });
-    return NextResponse.json(billboard);
+    return NextResponse.json(topCategories);
   } catch (error) {
     console.log(error);
-    return NextResponse.json('Something went wrong', { status: 500 });
   }
 }
 export async function POST(request: Request) {

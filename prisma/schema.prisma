@@ -74,23 +74,21 @@ enum Role {
 
 model Product{
   id String @id @default(uuid())
-  name String @unique
+  name String 
   price Decimal
   oldPrice Decimal?
   discount      Float? 
   description   String?
   isFeatured  Boolean   @default(false)
-  isArchived  Boolean   @default(false)
+  isAvailability  Boolean   @default(true)
   isBestseller Boolean @default(false)
   image Image[]
   orderItems  OrderItem[] 
   cartItems CartItems[]
   typeId String
   type Type @relation(fields: [typeId],references: [id])
-  sizeId String
-  size Size @relation(fields: [sizeId], references: [id])
-  colorId String
-  color Color @relation(fields: [colorId],references: [id])
+  sizes   ProductOnSize[]
+  colors ProductOnColor[]
   brandId String
   brand  Brand @relation(fields: [brandId],references: [id])
   categoryId String
@@ -108,8 +106,6 @@ model Product{
   @@index([typeId])
   @@index([materialId])
   @@index([brandId])
-  @@index([sizeId])
-  @@index([colorId])
 }
 model Image{
   id String @id @default(uuid())
@@ -136,13 +132,40 @@ model Type{
 model Size{
   id String @id @default(uuid())
   value String @unique
-  product Product[]
+  product ProductOnSize[] 
+}
+
+// из-за onDelete:Cascade, пришлось сделать отношение многие ко многим явными(т.е. создать объединяющую таблицу)
+model ProductOnSize{
+  product Product @relation(fields: [productId], references: [id], onDelete:Cascade)
+  productId String 
+  size Size @relation(fields: [sizeId], references: [id])
+  sizeId String 
+  assignedAt DateTime @default(now())
+  assignedBy String
+  
+@@id([sizeId,productId])
+@@index([productId])
+@@index([sizeId])
 }
 model Color{
   id String @id @default(uuid())
   name String 
   value String @unique
-  product Product[]
+  product ProductOnColor[]
+}
+// из-за onDelete:Cascade, пришлось сделать отношение многие ко многим явными(т.е. создать объединяющую таблицу)
+model ProductOnColor{
+  product Product @relation(fields: [productId], references: [id], onDelete:Cascade)
+  productId String 
+  color Color @relation(fields: [colorId],references: [id])
+  colorId String 
+  assignedAt DateTime @default(now())
+  assignedBy String
+
+@@id([productId,colorId])
+@@index([productId])
+@@index([colorId])
 }
 model Material{
   id String @id @default(uuid())
@@ -320,4 +343,4 @@ model Customers{
   
 }
 
- 
+

@@ -8,6 +8,7 @@ export default async function Home() {
   const billboard = await getBillboard();
   //запрос для получения topCategories, на сервере при помощи fech(динамически)
   const topCategories = await getTopCategories();
+
   return (
     <main className="flex  flex-col ">
       <Carousel billboard={billboard} />

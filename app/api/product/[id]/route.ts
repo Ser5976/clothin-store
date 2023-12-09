@@ -23,6 +23,12 @@ export async function PUT(
     // console.log('validation:', validation);
     if (!validation.success)
       return NextResponse.json(validation.error.errors, { status: 400 });
+    //вычисление скидки
+    let discount;
+    if (body.oldPrice) {
+      const result = ((body.price - body.oldPrice) / body.price) * 100;
+      discount = parseFloat(result.toFixed(1));
+    }
 
     // изменения значения в базе
     await prismadb.product.update({
@@ -30,19 +36,41 @@ export async function PUT(
       data: {
         name: body.name,
         price: body.price,
+        oldPrice: body.oldPrice,
         description: body.description,
         categoryId: body.categoryId,
         typeId: body.typeId,
         materialId: body.materialId,
         brandId: body.brandId,
         image: { create: body.image },
-        sizeId: body.sizeId,
-        colorId: body.colorId,
+        sizes: {
+          deleteMany: {},
+          create: body.sizeId.map((item) => {
+            return {
+              assignedBy: body.name,
+              assignedAt: new Date(),
+              size: { connect: { id: item } },
+            };
+          }),
+        },
+        colors: {
+          deleteMany: {},
+          create: body.colorId.map((item) => {
+            return {
+              assignedBy: body.name,
+              assignedAt: new Date(),
+              color: { connect: { id: item } },
+            };
+          }),
+        },
+
+        discount: discount ?? null,
       },
     });
     return NextResponse.json({ message: 'Product changed' });
   } catch (error) {
-    return NextResponse.json('Brand is not changed', { status: 500 });
+    console.log('ERROR:', error);
+    return NextResponse.json('Product is not changed', { status: 500 });
   }
 }
 export async function DELETE(
@@ -50,10 +78,10 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const session = await getServerSession(authOptions);
+    /* const session = await getServerSession(authOptions);
     if (!session?.user) {
       return NextResponse.json('Unauthorized', { status: 401 });
-    }
+    } */
 
     // удаление товара
     await prismadb.product.delete({

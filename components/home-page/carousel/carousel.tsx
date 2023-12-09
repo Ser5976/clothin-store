@@ -10,7 +10,7 @@ import { SliderControls } from './slider-controls/slider-controls';
 import { Arrows } from './arrows/arrows';
 
 type CarouselPropsType = {
-  billboard: BillboardType[] | undefined;
+  billboard: BillboardType[];
 };
 
 const Carousel: FC<CarouselPropsType> = ({ billboard }) => {
@@ -52,28 +52,24 @@ const Carousel: FC<CarouselPropsType> = ({ billboard }) => {
   return (
     <div className=" relative">
       <Slider ref={sliderRef} {...settings}>
-        {billboard
-          ? billboard.map((slide) => {
-              return <Slide slide={slide} key={slide.id} />;
-            })
-          : null}
+        {billboard.map((slide) => {
+          return <Slide slide={slide} key={slide.id} />;
+        })}
       </Slider>
       <div className="shared_container">
         <div className={styles.row}>
-          {billboard
-            ? billboard.map((_, index) => {
-                return (
-                  /* кастомный компонент,отображает номер слайда */
-                  <SliderControls
-                    index={index}
-                    currentIndex={currentSlide}
-                    setCurrentSlide={setCurrentSlide}
-                    goToSlide={goToSlide}
-                    key={index}
-                  />
-                );
-              })
-            : null}
+          {billboard.map((_, index) => {
+            return (
+              /* кастомный компонент,отображает номер слайда */
+              <SliderControls
+                index={index}
+                currentIndex={currentSlide}
+                setCurrentSlide={setCurrentSlide}
+                goToSlide={goToSlide}
+                key={index}
+              />
+            );
+          })}
         </div>
       </div>
       {/*  кастомный компонент - стрелки */}

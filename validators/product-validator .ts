@@ -8,7 +8,7 @@ export const ProductValidator = z.object({
   oldPrice: z.number().positive().optional(),
   description: z.string().optional(),
   isFeatured: z.boolean().default(false).optional(),
-  isArchived: z.boolean().default(false).optional(),
+  isAvailability: z.boolean().default(true).optional(),
   isBestseller: z.boolean().default(false).optional(),
   image: z
     .object({ url: z.string(), fileKey: z.string() })
@@ -16,8 +16,8 @@ export const ProductValidator = z.object({
     .nonempty('Image is required'),
   categoryId: z.string().min(1, 'Category is required'),
   typeId: z.string().min(1, 'Type is required'),
-  sizeId: z.string().min(1, 'Size is required'),
-  colorId: z.string().min(1, 'Color is required'),
+  sizeId: z.array(z.string()).nonempty('Size is required'),
+  colorId: z.string().array().nonempty('Image is required'),
   materialId: z.string().min(1, 'Material is required'),
   brandId: z.string().min(1, 'Brand is required'),
 });
