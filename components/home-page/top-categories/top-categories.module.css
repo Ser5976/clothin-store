@@ -1,14 +1,19 @@
 .section {
-  @apply my-[7%] z-10;
+  @apply mt-[7%] mb-[3%] z-10;
 }
 .row {
-  @apply flex gap-[30px] items-center justify-start;
+  @apply flex gap-[30px] items-center justify-center
+  max-[1100px]:gap-[27px]
+  max-[940px]:gap-[24px]
+  max-md:gap-[18px]
+  max-sm:gap-[15px]
+  max-[400px]:gap-[15px];
 }
 .category {
   @apply flex flex-col;
 }
 .image {
-  @apply max-w-[390px];
+  @apply max-w-[290px];
 }
 .image img {
   @apply w-full h-full object-cover;

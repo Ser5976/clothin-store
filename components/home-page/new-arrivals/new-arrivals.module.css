@@ -1,0 +1,34 @@
+.section {
+  @apply flex flex-col;
+}
+.title {
+  @apply flex flex-col;
+}
+.title h2 {
+  @apply text-center text-[46px] font-black leading-[130%]
+  max-xl:text-[44px]
+  max-[1100px]:text-[40px] 
+  max-lg:text-[36px]
+  max-[940px]:text-[32px]
+  max-[820px]:text-[28px] 
+  max-md:text-[24px] 
+  max-sm:text-[20px]
+  max-[540px]:text-[16px];
+}
+.title h3 {
+  @apply flex flex-col text-center text-[18px] leading-[150%] text-[#787A80]
+  max-xl:text-[17px]
+  max-[1100px]:text-[16px] 
+  max-lg:text-[15px] 
+  max-[940px]:text-[14px]
+  max-[820px]:text-[13px]
+  max-md:text-[12px] 
+  max-sm:text-[10px]
+  max-[540px]:text-[9px];
+}
+.title a {
+  @apply underline text-[#17696A] hover:text-green-900;
+}
+.slider {
+  @apply py-[1.5%] px-[1%];
+}

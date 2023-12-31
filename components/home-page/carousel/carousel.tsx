@@ -18,7 +18,6 @@ const Carousel: FC<CarouselPropsType> = ({ billboard }) => {
   const sliderRef = useRef<any>(null);
   // состояние используем для  кастомного SliderControls,который показывает номер слайда
   const [currentSlide, setCurrentSlide] = useState(0);
-
   const settings = {
     //показывает активный слайд,нужен для кастомного SliderControls,при работе на тач скрине(перетягивание слайдов
     afterChange: (currentSlide: number) => {
@@ -56,6 +55,7 @@ const Carousel: FC<CarouselPropsType> = ({ billboard }) => {
           return <Slide slide={slide} key={slide.id} />;
         })}
       </Slider>
+      {/*  кастомный компонент - номер слайда */}
       <div className="shared_container">
         <div className={styles.row}>
           {billboard.map((_, index) => {

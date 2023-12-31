@@ -26,7 +26,7 @@ export async function PUT(
     //вычисление скидки
     let discount;
     if (body.oldPrice) {
-      const result = ((body.price - body.oldPrice) / body.price) * 100;
+      const result = ((body.oldPrice - body.price) / body.oldPrice) * 100;
       discount = parseFloat(result.toFixed(1));
     }
 

@@ -20,11 +20,11 @@ export async function POST(request: Request) {
     if (!validation.success)
       return NextResponse.json(validation.error.errors, { status: 400 });
 
-    console.log('BODY:', body);
+    // console.log('BODY:', body);
     //вычисление скидки
     let discount;
     if (body.oldPrice) {
-      const result = ((body.price - body.oldPrice) / body.price) * 100;
+      const result = ((body.oldPrice - body.price) / body.oldPrice) * 100;
       discount = parseFloat(result.toFixed(1));
     }
 
@@ -77,7 +77,7 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     //пагинация
     const page = Number(searchParams.get('page')) || 1;
-    const limit = Number(searchParams.get('limit')) || 3;
+    const limit = Number(searchParams.get('limit')) || 10;
     const offset = page * limit - limit;
     // парметры для фильтрации
     const categoryId = searchParams.get('categoryId');
@@ -128,12 +128,13 @@ export async function GET(request: Request) {
         type: { select: { id: true, name: true } },
         brand: { select: { id: true, name: true } },
         material: { select: { id: true, name: true } },
+        rating: { select: { value: true, count: true } },
         image: true,
         sizes: { select: { size: true } },
         colors: { select: { color: true } },
       },
     });
-    console.log('Product:', product);
+    // console.log('Product:', product);
     return NextResponse.json({ count, product });
   } catch (error) {
     console.log('Error:', error);

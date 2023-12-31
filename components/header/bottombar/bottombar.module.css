@@ -13,10 +13,12 @@
 }
 .left_text {
   @apply text-white text-[12px] font-black  leading-[150%]
-  max-[320px]:text-[10px];
+  max-sm:text-[10px]
+  max-[320px]:text-[9px];
 }
 .right_text {
   @apply text-white text-[12px] font-normal  underline leading-[150%] cursor-pointer opacity-[0.6] 
   hover:opacity-[1] transition ease-out duration-500
-  max-[320px]:text-[10px];
+  max-sm:text-[10px]
+  max-[320px]:text-[8px];
 }
