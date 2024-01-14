@@ -10,7 +10,7 @@ type TopCategoriesPropsType = {
 export const TopCategories: FC<TopCategoriesPropsType> = ({
   topCategories,
 }) => {
-  console.log('render top:');
+  // console.log('render top:');
   return (
     <section className={styles.section}>
       <div className="shared_container">

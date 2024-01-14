@@ -11,6 +11,7 @@ type SlidePropsType = {
 };
 
 export const Slide: FC<SlidePropsType> = ({ slide }) => {
+  //console.log('slide render:', slide);
   return (
     <section className={styles.section}>
       <div className="shared_container">

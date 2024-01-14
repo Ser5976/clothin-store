@@ -4,7 +4,7 @@
 }
 
 .login {
-  @apply flex gap-[5px] items-center cursor-pointer text-[14px] leading-[150%] font-normal  text-white opacity-[0.7]
+  @apply flex gap-[5px] items-center  text-[14px] leading-[150%] font-normal  text-white opacity-[0.7]
    hover:opacity-[1] transition ease-out duration-500;
 }
 .account span {
@@ -13,4 +13,7 @@
 .register {
   @apply text-[14px] leading-[150%] font-normal  text-white opacity-[0.7]
   hover:opacity-[1] transition ease-out duration-500;
+}
+.login_active {
+  @apply text-white opacity-[1];
 }

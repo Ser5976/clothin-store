@@ -1,0 +1,11 @@
+.toolbar {
+  @apply relative flex items-center justify-between px-[10px] w-[131px];
+}
+
+.divider {
+  @apply absolute top-[-1.3px] left-[56px] w-[2px] h-[15px] bg-zinc-200;
+}
+
+.cart {
+  @apply pr-[16px];
+}

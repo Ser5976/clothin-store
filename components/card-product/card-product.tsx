@@ -1,7 +1,7 @@
 import { ProductType } from '@/types/product_type';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { BadgeFavourites } from './badge-favourites';
 import styles from './card-product.module.css';
 // это чтобы конфликта с сервером не было(динамический роут)
@@ -13,7 +13,8 @@ type CardProductProps = {
   product: ProductType;
 };
 
-export const CardProduct: FC<CardProductProps> = ({ product }) => {
+const CardProduct: FC<CardProductProps> = ({ product }) => {
+  // console.log(' CardProduct:');
   return (
     <div className={styles.wrapper_cart}>
       <div className={styles.header}>
@@ -44,3 +45,4 @@ export const CardProduct: FC<CardProductProps> = ({ product }) => {
     </div>
   );
 };
+export default CardProduct;

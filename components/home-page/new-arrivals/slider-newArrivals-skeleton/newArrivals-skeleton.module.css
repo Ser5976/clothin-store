@@ -1,0 +1,62 @@
+.row {
+  @apply flex overflow-hidden gap-[12px] pb-[3.1%]
+  max-[1369px]:gap-[10px]
+  max-[1181px]:gap-[12px]
+  max-[1025px]:gap-[11px]
+  max-[933px]:gap-[12px]
+  max-[916px]:gap-[12px]
+  max-[821px]:gap-[11px]
+  max-[721px]:gap-[9px]
+  max-[431px]:gap-[8px]
+  max-[391px]:gap-[7px]
+  max-[376px]:gap-[10px];
+}
+.wrapper_card {
+  @apply flex flex-col;
+}
+.header {
+  @apply w-[236px] h-[260px]
+  max-[1367px]:w-[212.8px] max-[1367px]:h-[234.08px] 
+  max-[1181px]:w-[220.4px] max-[1181px]:h-[242.44px] 
+  max-[1025px]:w-[190.95px] max-[1025px]:h-[210.04px]
+  max-[933px]:w-[217.55px] max-[933px]:h-[239.3px]
+  max-[916px]:w-[213.75px] max-[916px]:h-[235.13px]
+  max-[913px]:w-[214.7px] max-[913px]:h-[236.16px]
+  max-[897px]:w-[209px] max-[897px]:h-[229px]
+  max-[845px]:w-[196.65px] max-[845px]:h-[216.41px]
+  max-[821px]:w-[190.95px] max-[821px]:h-[210.4px]
+  max-[769px]:w-[179.55px] max-[769px]:h-[197.5px]
+  max-[741px]:w-[172.9px] max-[741px]:h-[190.19px]
+  max-[721px]:w-[168.15px] max-[721px]:h-[184.96px]
+  max-[668px]:w-[155.8px] max-[678px]:h-[171.38px]
+  max-[541px]:w-[168.15px] max-[541px]:h-[184.96px]
+  max-[431px]:w-[133.95px] max-[431px]:h-[147.34px]
+  max-[415px]:w-[129.2px] max-[415px]:h-[142.11px]
+  max-[413px]:w-[128.25px] max-[413px]:h-[141.07px]
+  max-[391px]:w-[121.6px] max-[391px]:h-[133.75px]
+  max-[377px]:w-[174.8px] max-[377px]:h-[192.28px]
+  max-[361px]:w-[168.15px] max-[361px]:h-[141.07px];
+}
+
+.footer {
+  @apply flex flex-col;
+}
+.name_product {
+  @apply h-[15px] w-[35%] my-[2.7%] 
+   /* max-xl:h-[15px]
+    max-[1100px]:h-[14px] 
+  /*  max-lg:h-[13px] 
+   /* max-[940px]:h-[16px]
+    max-[820px]:h-[15px]
+    max-md:h-[14px]; */;
+}
+
+.price {
+  @apply h-[16px] w-[20%] mb-[2.7%] 
+ /* max-xl:h-[15px]
+  max-[1100px]:h-[14px] 
+  max-lg:h-[13px] 
+  /* max-[940px]:h-[16px]
+  max-[820px]:h-[15px]
+  max-md:h-[14px]; */;
+}

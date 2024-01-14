@@ -8,6 +8,7 @@ import { NextResponse } from 'next/server';
 import { authOptions } from '../auth/config/auth_options';
 
 export async function GET(request: Request) {
+  console.log('Get!!!!!');
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user) {
@@ -38,7 +39,8 @@ export async function POST(request: Request) {
     // console.log('validation:', validation);
     if (!validation.success)
       return NextResponse.json(validation.error.errors, { status: 400 });
-
+    //создаём переменную для запросов(потомуч что есть условия)
+    let newFavourites;
     // если мы получаем массив productId,значить это данные из LocalStorage(от неавторизуемого пользователя)
     if (body.productIdArray) {
       const { productIdArray } = body;
@@ -61,7 +63,7 @@ export async function POST(request: Request) {
       // ну и обновление favorites моделе User в базе данных
       // сначала мы удаляем все зачения в массиве(они должны удалиться и в самой моделе Favorites)
       // а потом, записываем новые
-      await prismadb.user.update({
+      newFavourites = await prismadb.user.update({
         where: { id: session.user.id },
         data: {
           favorites: {
@@ -85,12 +87,12 @@ export async function POST(request: Request) {
       // console.log('Check:', check);
       //если есть то удаляем
       if (check)
-        await prismadb.favorites.deleteMany({
+        newFavourites = await prismadb.favorites.deleteMany({
           where: { userId: session.user.id, productId: body.productId },
         });
       // если нет, то записываем
       if (!check)
-        await prismadb.favorites.create({
+        newFavourites = await prismadb.favorites.create({
           data: {
             userId: session.user.id,
             productId: body.productId,
@@ -98,7 +100,7 @@ export async function POST(request: Request) {
         });
     }
 
-    return NextResponse.json({ message: 'Changed' });
+    return NextResponse.json(newFavourites);
   } catch (error) {
     return NextResponse.json(error);
   }

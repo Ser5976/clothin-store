@@ -1,7 +1,7 @@
 import { CategoryType } from '@/types/category_type';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC } from 'react';
+import { FC, Suspense } from 'react';
 import { SearchInput } from '../search-input/searchinput';
 import styles from './medianbar.module.css';
 import { Navigation } from './navigation/navigation';

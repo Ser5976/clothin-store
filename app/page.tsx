@@ -12,7 +12,6 @@ export default async function Home() {
   const topCategories = await getTopCategories();
   //запрос для получения товаров, на сервере при помощи fech(динамически)
   const newArrivals = await getNewArrivals();
-
   return (
     <main className="flex  flex-col ">
       <Carousel billboard={billboard} />

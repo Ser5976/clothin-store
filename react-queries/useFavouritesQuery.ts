@@ -11,6 +11,6 @@ export const useFavouritesQuery = (
     queryFn: () => getFavouritesServise(),
     ...options,
     enabled: enabled,
-    cacheTime: 0,
+    //cacheTime: 0,
   });
 };

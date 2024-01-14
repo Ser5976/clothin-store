@@ -1,42 +1,34 @@
 'use client';
-import { CardProduct } from '@/components/card-product/card-product';
 import { ProductType } from '@/types/product_type';
 import Link from 'next/link';
-import { FC, useEffect } from 'react';
+import React, { FC, useMemo } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styles from './new-arrivals.module.css';
+import CardProduct from '@/components/card-product/card-product';
 import { useSession } from 'next-auth/react';
-import { useFavouritesStore } from '@/stores/useFavouritesStore';
-import { useFavouritesPost } from '@/react-queries/useFavouritesPost';
+import { NewArrialsSkeleton } from './slider-newArrivals-skeleton/newArrivals-skeleton';
 
 type NewArrivalsProps = {
   products: ProductType[];
 };
 
 export const NewArrivals: FC<NewArrivalsProps> = ({ products }) => {
-  //проверка авторизации
-  const session = useSession();
-  //получение данных favourites из стора
-  const state = useFavouritesStore((state) => state);
-  //кастомный хук useMutation, изменяем данные favourites в базе
-  const mutationFavourites = useFavouritesPost();
+  //это для кастыля:чтобы сделать скелетон
+  //при перезагрузки на всех размерах экрана сначало 6 карточек, а потом только срабатывает
+  //адаптив,это из-та того что на сервер не знает о изменении размера экрана,
+  //а клиент загружается позже
+  const { status } = useSession();
+  const isLoading = status === 'loading';
 
-  useEffect(() => {
-    // проверка если пользователь авторизован и в сторе есть данные, тогда записываем их в базу
-    // и очищаем стор
-    if (session.data && state.favourites.length > 0) {
-      mutationFavourites.mutate({ productIdArray: state.favourites });
-      state.clearingFavorites();
-    }
-  }, [session]);
-  console.log('render newArrivals:');
+  //настройки слайдера
   const settings = {
     dots: true,
     speed: 700,
     slidesToShow: 6,
     slidesToScroll: 6,
+    infinite: true,
     //кастомный компонент - dots(делаем из точек горизонтальные чёрточки)
     customPaging: (i: number) => {
       return (
@@ -68,7 +60,7 @@ export const NewArrivals: FC<NewArrivalsProps> = ({ products }) => {
         },
       },
       {
-        breakpoint: 820,
+        breakpoint: 640,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
@@ -76,7 +68,7 @@ export const NewArrivals: FC<NewArrivalsProps> = ({ products }) => {
         },
       },
       {
-        breakpoint: 480,
+        breakpoint: 380,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
@@ -85,21 +77,31 @@ export const NewArrivals: FC<NewArrivalsProps> = ({ products }) => {
       },
     ],
   };
-
+  console.log('newArrivals render');
+  // попытался оптимизировать,осталю для примера
+  // useMemo в данном случае не работает, видимо из-за условного рендеренга
+  const productsElement = useMemo(
+    () =>
+      products.map((product) => (
+        <CardProduct product={product} key={product.id} />
+      )),
+    [products]
+  );
   return (
     <section className={styles.section}>
       <div className={styles.title}>
         <h2>New arrivals</h2>
+
         <h3>
           Check out our latest arrivals for the upcoming season
           <Link href="#">See the collection here</Link>
         </h3>
         <div className={styles.slider}>
-          <Slider {...settings}>
-            {products.map((item) => {
-              return <CardProduct product={item} key={item.id} />;
-            })}
-          </Slider>
+          {isLoading ? (
+            <NewArrialsSkeleton />
+          ) : (
+            <Slider {...settings}>{productsElement}</Slider>
+          )}
         </div>
       </div>
     </section>

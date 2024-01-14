@@ -7,7 +7,13 @@ import { extractRouterConfig } from 'uploadthing/server';
 import Toast from './toast/Toast';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false, // default: true,чтобы не было повторных запросов при изменении фокуса
+      },
+    },
+  });
   return (
     <QueryClientProvider client={queryClient}>
       <SessionProvider>

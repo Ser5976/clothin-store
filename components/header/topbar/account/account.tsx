@@ -1,22 +1,16 @@
-import { RotateCw, UserCircle2 } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { UserCircle2 } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { AccountSkeleton } from './account-skeleton';
 import styles from './account.module.css';
 
 export const Account = () => {
   const session = useSession();
   return (
     <div className={styles.account}>
-      {session.status === 'loading' && (
-        <RotateCw
-          size={20}
-          color="#ffffff"
-          strokeWidth={1.5}
-          absoluteStrokeWidth
-          className=" self-center  animate-spin opacity-[0.6]"
-        />
-      )}
+      {session.status === 'loading' && <AccountSkeleton />}
 
       {session.status === 'unauthenticated' && (
         <>
@@ -39,7 +33,7 @@ export const Account = () => {
       {session.status === 'authenticated' && (
         <>
           {session.data?.user.image ? (
-            <div className={styles.login}>
+            <div className={cn(styles.login, styles.login_active)}>
               <Image
                 src={session.data.user.image}
                 className="w-[20px] h-[20px] rounded-full"
@@ -47,12 +41,12 @@ export const Account = () => {
                 width={20}
                 height={20}
               />
-              <Link href="#">Account</Link>
+              Account
             </div>
           ) : (
-            <div className={styles.login}>
+            <div className={cn(styles.login, styles.login_active)}>
               <UserCircle2 size={20} color="white" strokeWidth={1.5} />
-              <Link href="#">Account</Link>
+              Account
             </div>
           )}
           <span> /</span>

@@ -33,15 +33,15 @@ export const authOptions: AuthOptions = {
         if (!credentials?.email || !credentials.password) {
           return null;
         }
-        console.log('credentials:', credentials);
+        // console.log('credentials:', credentials);
         const user = await prismadb.user.findUniqueOrThrow({
           where: {
             email: credentials.email,
           },
         });
-
+        // console.log('User:', user);
         if (!user) {
-          // console.log('USEEEER!!!!:', user);
+          //console.log('USEEEER!!!!:', user);
           return null;
         }
 
@@ -79,7 +79,10 @@ export const authOptions: AuthOptions = {
     jwt: ({ token, user }) => {
       // console.log('JWT Callback', { token, user });
       if (user) {
-        const u = user as User & { id: string; role: Role };
+        const u = user as User & {
+          id: string;
+          role: Role;
+        };
         return {
           ...token,
           id: u.id,
