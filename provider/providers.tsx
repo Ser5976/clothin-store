@@ -5,15 +5,19 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SessionProvider } from 'next-auth/react';
 import { extractRouterConfig } from 'uploadthing/server';
 import Toast from './toast/Toast';
+import { useState } from 'react';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false, // default: true,чтобы не было повторных запросов при изменении фокуса
-      },
-    },
-  });
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false, // default: true,чтобы не было повторных запросов при изменении фокуса
+          },
+        },
+      })
+  );
   return (
     <QueryClientProvider client={queryClient}>
       <SessionProvider>

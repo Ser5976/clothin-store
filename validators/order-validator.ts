@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const OrderValidator = z.object({
   userId: z.string().optional(),
   phone: z.string().min(1, 'Phone is required'),
-  name: z.string().min(1, 'Phone is required'),
+  name: z.string().min(1, 'Name is required'),
   address: z.object({
     country: z.string().optional(),
     city: z.string().min(1, 'City is required'),

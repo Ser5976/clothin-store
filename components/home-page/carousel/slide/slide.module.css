@@ -12,13 +12,13 @@
 .content {
   @apply flex flex-col max-w-[450px] items-start gap-[20px] py-[5%]
   max-xl:max-w-[400px]
-  max-[1100px]:max-w-[375px]
+  max-[1100px]:max-w-[300px]
   max-lg:max-w-[300px]
   max-[940px]:max-w-[250px] 
   max-[820px]:max-w-[225px]  
   max-md:max-w-[200px] max-md:gap-[10px] 
-  max-sm:max-w-[175px] max-sm:gap-[5px] max-sm:pt-[3%]
-  max-[520px]:max-w-[150px]
+  max-sm:max-w-[125px] max-sm:gap-[5px] max-sm:pt-[3%]
+  max-[520px]:max-w-[125px]
   max-[400px]:max-w-[125px];
 }
 

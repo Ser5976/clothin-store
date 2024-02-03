@@ -8,7 +8,7 @@ import Credentials from 'next-auth/providers/credentials';
 import { Role } from '@prisma/client';
 
 export const authOptions: AuthOptions = {
-  adapter: PrismaAdapter(prismadb) as Adapter | undefined,
+  adapter: PrismaAdapter(prismadb) as Adapter | undefined, //или AuthOptions['adapter']
   session: {
     strategy: 'jwt',
   },

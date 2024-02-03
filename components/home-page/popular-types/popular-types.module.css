@@ -1,0 +1,59 @@
+.section {
+  @apply flex flex-col max-w-[1260px] w-full  m-auto px-[25px]  my-[3%] 
+  max-[1350px]:max-w-[1100px]
+  max-xl:max-w-[1024px]
+  max-[1100px]:max-w-[900px]
+  max-lg:max-w-[900px]
+  max-[940px]:w-[800px]
+  max-[820px]:max-w-[700px]
+  max-md:max-w-[600px]
+  max-sm:max-w-[500px]
+  max-[520px]:max-w-[400px]
+  max-[400px]:max-w-[350px]
+  max-[350px]:max-w-[320px] max-[350px]:px-[10px];
+}
+.title {
+  @apply self-center  text-[46px] font-black leading-[130%] mb-[1.5%]
+  max-xl:text-[44px]
+  max-[1100px]:text-[40px] 
+  max-lg:text-[36px]
+  max-[940px]:text-[32px]
+  max-[820px]:text-[28px] 
+  max-md:text-[24px] 
+  max-sm:text-[20px]
+  max-[540px]:text-[16px];
+}
+.row {
+  @apply flex gap-[30px] items-center justify-center
+    max-[1100px]:gap-[27px]
+    max-[940px]:gap-[18px]
+    max-md:gap-[16px]
+    max-sm:gap-[10px];
+}
+.image {
+  @apply w-[180px] h-[180px] rounded-full overflow-hidden
+  max-[1399px]:w-[165px] max-[1399px]:h-[165px]
+  max-[1299px]:w-[145px] max-[1299px]:h-[145px]
+  max-[1199px]:w-[125px] max-[1199px]:h-[125px]
+  max-[999px]:w-[105px] max-[999px]:h-[105px]
+  max-[899px]:w-[100px] max-[899px]:h-[100px]
+  max-[799px]:w-[85px] max-[799px]:h-[85px]
+  max-[599px]:w-[65px] max-[599px]:h-[65px]
+  max-[499px]:w-[50px] max-[499px]:h-[50px]
+  max-[399px]:w-[45px] max-[399px]:h-[45px]
+  max-[350px]:w-[40px] max-[350px]:h-[40px];
+}
+.image img {
+  @apply w-full h-full object-cover;
+}
+.name {
+  @apply flex items-center justify-center  text-[#424551] text-[20px] font-bold leading-[150%]
+        max-xl:text-[18px]
+       max-[1100px]:text-[16px] 
+       max-lg:text-[14px] 
+       max-[940px]:text-[12px]
+       max-[820px]:text-[10px]
+       max-md:text-[9px] 
+       max-sm:text-[8px]
+       max-[540px]:text-[8px];
+}

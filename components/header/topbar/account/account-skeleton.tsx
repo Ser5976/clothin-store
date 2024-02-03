@@ -7,7 +7,7 @@ export const AccountSkeleton = () => {
       <div className={styles.login}>
         <Skeleton className="w-[70px] h-[15px] bg-slate-200" />
       </div>
-      <span> /</span>
+      <span> |</span>
       <div className={styles.register}>
         <Skeleton className="w-[70px] h-[15px] bg-slate-200" />
       </div>

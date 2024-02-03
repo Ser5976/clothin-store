@@ -85,6 +85,7 @@ model Product{
   image Image[]
   orderItems  OrderItem[] 
   cartItems CartItems[]
+  collectionItems CollectionItem[]
   typeId String
   type Type @relation(fields: [typeId],references: [id])
   sizes   ProductOnSize[]
@@ -315,17 +316,19 @@ model Address{
   @@index([orderId])
   @@index([userId])
 }
-
+// модель для статей в TopBar
 model Customers{
   id String @id @default(uuid())
   name String @unique
   longtext String @db.LongText
 }
+// модель для телефона в TopBar
  model Phone{
   id String @id @default(uuid())
   title String?
   phone String @unique
  }
+ //модели  топ категорий для главной страницы 
  model TopCategories{
   id String @id @default(uuid())
   title String
@@ -335,12 +338,63 @@ model Customers{
   updatedAt   DateTime @updatedAt
  }
   model TopCategoriesImg{
-  id          String @id @default(uuid())
+  id String @id @default(uuid())
   url String
   fileKey String
   topCategoriesId String @unique
-  topCategories TopCategories @relation(fields: [topCategoriesId],references: [id],onDelete: Cascade)
-  
+  topCategories TopCategories @relation(fields: [topCategoriesId],references: [id],onDelete: Cascade) 
 }
+
+// модели  колекции товаров для главной страницы
+model ProductCollection{
+  id String @id @default(uuid())
+  name String
+  description String
+  image ProductCollectionImg?
+  collectionItem CollectionItem[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+}
+model ProductCollectionImg{
+  id String @id @default(uuid())
+  url String
+  fileKey String
+  productCollectionId String @unique
+  productCollection ProductCollection @relation(fields: [productCollectionId],references: [id],onDelete: Cascade)
+}
+
+model CollectionItem {
+  id        String  @id @default(uuid())
+  productCollectionId String 
+  productCollection ProductCollection @relation(fields: [productCollectionId],references: [id],onDelete: Cascade)
+  productId String  
+  product   Product @relation(fields: [productId], references: [id],onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([productCollectionId])
+  @@index([productId])
+}
+
+//модели  популярного типа товара, для главной страницы 
+ model PopularTypes{
+  id String @id @default(uuid())
+  title String
+  link String
+  image PopularTypesImg?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+ }
+  model PopularTypesImg{
+  id String @id @default(uuid())
+  url String
+  fileKey String
+  popularTypesId String @unique
+  popularTypes PopularTypes @relation(fields: [popularTypesId],references: [id],onDelete: Cascade) 
+}
+
+
+
 
 

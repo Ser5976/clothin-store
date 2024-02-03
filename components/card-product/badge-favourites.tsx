@@ -4,30 +4,21 @@ import { Heart, RotateCw } from 'lucide-react';
 import { useFavouritesPost } from '@/react-queries/useFavouritesPost';
 import { useSession } from 'next-auth/react';
 import { useFavouritesStore } from '@/stores/useFavouritesStore';
-import { useEffect, useState } from 'react';
+import { useStore } from 'zustand';
 
 export const BadgeFavourites = ({ productId }: { productId: string }) => {
-  const [isMounted, setIsMounted] = useState(false);
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
   //получаемм данные по авторизации
   const { status } = useSession();
   const isAuth = status === 'authenticated';
   //получаем данные из стора
-  const state = useFavouritesStore();
-  //если мы авторизованы получаем данные из базы
-  //это кастомный хук для useQuery,передаём опциональные(необязательные параметры)isAuth-при помощи которой
-  //будем блокировать или разрешать запрос(enabled в useQuery ) и select- при помощи которого
-  //переформатируем полученные данные(сделаем структуру такой как в state.favourites )
-
+  const state = useStore(useFavouritesStore, (state) => state);
   //кастомный хук useMutation, изменяем данные favourites в базе
   const mutationFavourites = useFavouritesPost(state.refetch);
   // выбираем какой массив избранных использовать(из базы или из стора)
   const selectedFavourites = isAuth
     ? state.favouritesBase
     : state.favouritesStore;
-  //удаляем или добавляем в избранное
+  //удаляем или добавляем в избранное, если пользователь авторизован работаем с базой,если нет- то со стором
   const handlerFavourites = (obj: { productId: string }) => {
     if (isAuth) {
       mutationFavourites.mutate(obj);
@@ -35,9 +26,7 @@ export const BadgeFavourites = ({ productId }: { productId: string }) => {
       state.setFavouritesStore(obj);
     }
   };
-  if (!isMounted) {
-    return null;
-  }
+
   return (
     <>
       {mutationFavourites.isLoading ? (

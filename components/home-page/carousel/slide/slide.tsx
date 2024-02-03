@@ -26,7 +26,7 @@ export const Slide: FC<SlidePropsType> = ({ slide }) => {
               styles.link_button
             )}
           >
-            Shop the {slide.subTitle?.slice(0, -5)}
+            Shop the collection
           </Link>
         </div>
       </div>

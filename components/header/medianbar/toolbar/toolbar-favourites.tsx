@@ -5,19 +5,24 @@ import { TypeFavourites } from '@/types/type_favorites';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useEffect } from 'react';
+import { useStore } from 'zustand';
 import styles from './toolbar.module.css';
 
 export const ToolbarFavourites = () => {
-  console.log('toolbarfavourites');
+  // console.log('toolbarfavourites');
   //проверка авторизации
   const session = useSession();
   const { status } = useSession();
   const isAuth = status === 'authenticated';
 
   //получение данных favourites из стора
-  const state = useFavouritesStore((state) => state);
+  const state = useStore(useFavouritesStore, (state) => state);
 
   // кастомный хук useQuery получение даных по избранным товарам из базы данных и запись их в стор
+  //если мы авторизованы получаем данные из базы, если нет берём из стора
+  //в кастомный хук для useQuery,передаём опциональные(необязательные параметры)isAuth-при помощи которой
+  //будем блокировать или разрешать запрос(enabled в useQuery ) и select- при помощи которого
+  //переформатируем полученные данные(сделаем структуру такой как в state.favourites )
   const { refetch } = useFavouritesQuery(isAuth, {
     select: (data: TypeFavourites[]) => {
       return data.map((obj) => {
@@ -29,6 +34,7 @@ export const ToolbarFavourites = () => {
       state.setFavouritesBase(data);
     },
   });
+
   //записываем refetch в стор,чтобы потом взять для bage-favourites
   useEffect(() => {
     state.setRefetch(refetch);

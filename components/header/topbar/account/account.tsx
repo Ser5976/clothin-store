@@ -49,7 +49,7 @@ export const Account = () => {
               Account
             </div>
           )}
-          <span> /</span>
+          <span> |</span>
           <div className={styles.register}>
             <Link
               href="#"
