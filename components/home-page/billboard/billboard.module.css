@@ -1,5 +1,5 @@
 .row {
-  @apply flex  max-w-[550px] gap-2   mt-[-17%]
+  @apply absolute left-[0] bottom-0 flex  w-full  max-w-[550px] gap-2   
   max-xl:max-w-[450px]
   max-[1100px]:max-w-[425px]
   max-lg:max-w-[400px]

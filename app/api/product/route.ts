@@ -88,6 +88,7 @@ export async function GET(request: Request) {
     const sizeId = searchParams.getAll('sizeId');
     const colorId = searchParams.getAll('colorId');
     const materialId = searchParams.getAll('materialId');
+    const isBestseller = searchParams.get('isBestseller');
     // создаём объект параметров фильтрации
     //Оператор in  указывает на массив значений, и условие считается выполненным,
     //если хотя бы одно из значений входит в указанный массив.
@@ -95,6 +96,7 @@ export async function GET(request: Request) {
     if (categoryId) filter.categoryId = categoryId;
     if (typeId.length > 0) filter.typeId = { in: typeId };
     if (brandId.length > 0) filter.brandId = { in: brandId };
+    if (isBestseller === 'true') filter.isBestseller = true;
     //Оператор some полезен, когда вы хотите проверить,
     // выполняется ли условие хотя бы для одного элемента массива или одной вложенной записи.
     // при явных отношениях многои ко многим немножко по вкладистей

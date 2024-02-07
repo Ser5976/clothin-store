@@ -1,4 +1,5 @@
 import { buttonVariants } from '@/components/ui/button';
+import { CustomButton } from '@/components/ui/custom-ui/custom-button/custom-button';
 import { cn } from '@/lib/utils';
 import { TypeCollection } from '@/types/type_collection';
 import Image from 'next/image';
@@ -27,14 +28,10 @@ export const Collection: FC<ICollectionProps> = ({ collections }) => {
                 <div className={styles.description}>
                   {collection.description}
                 </div>
-                <Link
-                  href="#"
-                  className={cn(
-                    buttonVariants({ variant: 'outline' }),
-                    styles.link_button
-                  )}
-                >
-                  Shop the collection
+                <Link href="#">
+                  <CustomButton small={true} size="sm">
+                    Shop the collection
+                  </CustomButton>
                 </Link>
               </div>
               <Image

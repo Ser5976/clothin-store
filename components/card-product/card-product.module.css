@@ -54,7 +54,7 @@
     max-lg:w-[24px] max-lg:h-[24px] 
     max-[940px]:w-[22px] max-[940px]:h-[22px]
     max-[820px]:w-[20px] max-[820px]:h-[20px]
-    max-md:w-[19px] max-md:h-[19px];
+    max-md:w-[15px] max-md:h-[15px];
 }
 
 .heart_active {

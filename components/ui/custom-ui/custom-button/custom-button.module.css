@@ -1,0 +1,14 @@
+.small {
+  @apply text-[14px] h-11
+  max-xl:text-[12px] max-xl:h-[42px]
+  max-lg:text-[9px] max-lg:h-[40px]
+  max-md:text-[6px] max-md:h-[30px]
+  max-sm:text-[3.5px] max-sm:h-[22px];
+}
+.big {
+  @apply text-[16px] h-[52px]
+  max-xl:text-[14px] max-xl:h-[50px]
+  max-lg:text-[11px] max-lg:h-[42px]
+  max-md:text-[8px] max-md:h-[32px]
+  max-sm:text-[5px] max-sm:h-[24px];
+}

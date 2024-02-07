@@ -13,7 +13,7 @@
   max-[350px]:max-w-[320px] max-[350px]:px-[10px];
 }
 .title {
-  @apply self-center  text-[46px] font-black leading-[130%] mb-[1.5%]
+  @apply self-center  text-[46px] font-black leading-[130%] mb-[3%]
   max-xl:text-[44px]
   max-[1100px]:text-[40px] 
   max-lg:text-[36px]

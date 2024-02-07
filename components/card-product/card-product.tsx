@@ -12,9 +12,10 @@ const RatingStar = dynamic(() => import('./rating-star'), {
 type CardProductProps = {
   product: ProductType;
 };
-
+// здесь мы сделали оптимизацию при помощи React.memo,на всякий случай, если в компоненте,
+//где будет использоваться CardProduct, будут дополнительные причины для повторного рендеренга
 const CardProduct: FC<CardProductProps> = ({ product }) => {
-  // console.log(' CardProduct:');
+  console.log(' CardProduct:');
   return (
     <div className={styles.wrapper_cart}>
       <div className={styles.header}>
@@ -45,4 +46,4 @@ const CardProduct: FC<CardProductProps> = ({ product }) => {
     </div>
   );
 };
-export default CardProduct;
+export default React.memo(CardProduct);

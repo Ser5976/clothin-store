@@ -20,7 +20,7 @@ export const starSize = (screenWidth: any) => {
     return '7.5';
   }
   if (screenWidth.windowWidth < 520) {
-    return '7.3';
+    return '5.5';
   }
 
   return '10';

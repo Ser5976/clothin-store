@@ -62,7 +62,7 @@ export async function POST(request: Request) {
       },
       confirmation: {
         type: 'redirect',
-        return_url: 'http://localhost:3000/order',
+        return_url: `${process.env.NEXTAUTH_URL}/order`,
       },
       description: `Заказ#${order.id}`,
     } as any);

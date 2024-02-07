@@ -1,17 +1,19 @@
 import { getBillboard } from '@/actions/get_billboard';
 import { getCollection } from '@/actions/get_collections';
 import { getNewArrivals } from '@/actions/get_newArrivals';
+import { getNowTrending } from '@/actions/get_now_trending';
 import { getPopularTypes } from '@/actions/get_popular-types';
 import { getTopCategories } from '@/actions/get_topCategories';
-import Carousel from '@/components/home-page/carousel/carousel';
+import Billboard from '@/components/home-page/billboard/billboard';
 import { Collection } from '@/components/home-page/collection/collection';
 import { NewArrivals } from '@/components/home-page/new-arrivals/new-arrivals';
+import { NowTrending } from '@/components/home-page/now-trending/now-trending';
 import { PopularTypes } from '@/components/home-page/popular-types/popular-types';
 import { TopCategories } from '@/components/home-page/top-categories/top-categories';
 
 export default async function Home() {
   //запрос для получения billboard, на сервере при помощи fech(динамически)
-  const billboard = await getBillboard();
+  const billboards = await getBillboard();
   //запрос для получения topCategories, на сервере при помощи fech(динамически)
   const topCategories = await getTopCategories();
   //запрос для получения товаров, на сервере при помощи fech(динамически)
@@ -20,14 +22,17 @@ export default async function Home() {
   const collections = await getCollection();
   //запрос для получения популярных типов товаров , на сервере при помощи fech(динамически)
   const popularTypes = await getPopularTypes();
+  //запрос для получения товаров,которые сейчас в тренде, на сервере при помощи fech(динамически)
+  const nowTrending = await getNowTrending();
 
   return (
     <main className="flex  flex-col ">
-      <Carousel billboard={billboard} />
+      <Billboard billboards={billboards} />
       <TopCategories topCategories={topCategories} />
       <NewArrivals products={newArrivals.product} />
       <Collection collections={collections} />
       <PopularTypes popularTypes={popularTypes} />
+      <NowTrending nowTrending={nowTrending.product} />
     </main>
   );
 }

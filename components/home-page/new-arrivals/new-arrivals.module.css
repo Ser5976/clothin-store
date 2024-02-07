@@ -30,5 +30,19 @@
   @apply underline text-[#17696A] hover:text-green-900;
 }
 .slider {
-  @apply py-[1.5%] px-[1%];
+  @apply relative py-[1.5%] px-[1%] mb-[5%];
+}
+
+.dots {
+  @apply absolute bottom-[-15%] left-0 right-0 flex justify-center items-center gap-[1.5%];
+}
+.dot {
+  @apply w-[30px]   h-[3px] bg-slate-200 rounded-[1px] cursor-pointer my-[3%]
+  max-xl:w-[29px] max-xl:h-[3px]
+  max-lg:w-[27px] max-lg:h-[3px]
+  max-md:w-[25px] max-md:h-[3px]
+  max-sm:w-[20px] max-sm:h-[3px];
+}
+.dot_active {
+  @apply bg-[#17696A];
 }
