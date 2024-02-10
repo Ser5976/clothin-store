@@ -27,7 +27,19 @@ export async function PUT(
     let discount;
     if (body.oldPrice) {
       const result = ((body.oldPrice - body.price) / body.oldPrice) * 100;
-      discount = parseFloat(result.toFixed(1));
+      //функция для округления результата
+      function roundToNearestHalf(number: number) {
+        const decimalPart = number - Math.floor(number);
+
+        if (decimalPart >= 0.5) {
+          // Округление вверх
+          return Math.ceil(number);
+        } else {
+          // Округление вниз
+          return Math.floor(number);
+        }
+      }
+      discount = roundToNearestHalf(result);
     }
 
     // изменения значения в базе

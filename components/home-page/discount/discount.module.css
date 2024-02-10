@@ -1,5 +1,5 @@
 .section {
-  @apply w-full bg-slate-100 py-[3%]  my-[3%];
+  @apply w-full  py-[3%]  my-[3%];
 }
 .container {
   @apply relative flex flex-col max-w-[1260px] w-full  m-auto px-[25px]  my-[3%] 

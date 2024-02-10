@@ -25,7 +25,19 @@ export async function POST(request: Request) {
     let discount;
     if (body.oldPrice) {
       const result = ((body.oldPrice - body.price) / body.oldPrice) * 100;
-      discount = parseFloat(result.toFixed(1));
+      //функция для округления результата
+      function roundToNearestHalf(number: number) {
+        const decimalPart = number - Math.floor(number);
+
+        if (decimalPart >= 0.5) {
+          // Округление вверх
+          return Math.ceil(number);
+        } else {
+          // Округление вниз
+          return Math.floor(number);
+        }
+      }
+      discount = roundToNearestHalf(result);
     }
 
     // сохранения значения в базе
@@ -89,6 +101,7 @@ export async function GET(request: Request) {
     const colorId = searchParams.getAll('colorId');
     const materialId = searchParams.getAll('materialId');
     const isBestseller = searchParams.get('isBestseller');
+    const discount = searchParams.get('discount');
     // создаём объект параметров фильтрации
     //Оператор in  указывает на массив значений, и условие считается выполненным,
     //если хотя бы одно из значений входит в указанный массив.
@@ -108,6 +121,7 @@ export async function GET(request: Request) {
       filter.price = { gte: Number(minPrice), lte: Number(maxPrice) };
     if (minPrice && maxPrice === null) filter.price = { gte: Number(minPrice) };
     if (maxPrice && minPrice === null) filter.price = { lte: Number(maxPrice) };
+    if (discount) filter.discount = { not: null };
 
     console.log('filter:', filter);
     // получает количество для пагинации
@@ -121,9 +135,8 @@ export async function GET(request: Request) {
       skip: offset,
       take: limit,
       where: filter,
-      orderBy: {
-        createdAt: 'desc', // Сортировка по убыванию даты создания
-      },
+      orderBy: discount ? { discount: 'desc' } : { createdAt: 'desc' }, // Сортировка по убыванию даты создания и убывание скидки(если есть запрос на скидку)
+
       // оператор include показывает вложенную запись, при помощи оператора select выбираешь какое поле показать
       include: {
         category: { select: { id: true, name: true } },

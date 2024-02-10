@@ -1,4 +1,4 @@
-import { GetProductsType } from './../types/get_products_type';
+import { GetProductsType } from '../types/get_products_type';
 
 export const getNewArrivals = async (): Promise<GetProductsType> => {
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/product?limit=30`, {

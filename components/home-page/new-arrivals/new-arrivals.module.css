@@ -1,5 +1,5 @@
 .section {
-  @apply flex flex-col;
+  @apply flex flex-col py-[3%] my-[3%];
 }
 .title {
   @apply flex flex-col;
@@ -30,7 +30,7 @@
   @apply underline text-[#17696A] hover:text-green-900;
 }
 .slider {
-  @apply relative py-[1.5%] px-[1%] mb-[5%];
+  @apply relative py-[3%] px-[1%];
 }
 
 .dots {

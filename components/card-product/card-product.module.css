@@ -2,7 +2,7 @@
   @apply flex flex-col mr-[5%];
 }
 .header {
-  @apply relative  pb-[110%] overflow-hidden;
+  @apply relative   pb-[110%] overflow-hidden;
 }
 
 .rating {
@@ -59,4 +59,15 @@
 
 .heart_active {
   @apply fill-red-400;
+}
+.discount {
+  @apply absolute top-[2%] left-[2%] p-[2%] bg-red-600 text-white rounded-[2px]
+  text-center text-[15px] leading-[150%]
+  max-xl:text-[14px]
+  max-[1100px]:text-[14px] 
+  max-lg:text-[13px] 
+  max-[940px]:text-[12px]
+  max-[820px]:text-[11px]
+  max-md:text-[10px] 
+  max-sm:text-[7px];
 }

@@ -2,6 +2,7 @@ import { ProductType } from '@/types/product_type';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import React, { FC } from 'react';
+import { BageDiscount } from './badge-discount';
 import { BadgeFavourites } from './badge-favourites';
 import styles from './card-product.module.css';
 // это чтобы конфликта с сервером не было(динамический роут)
@@ -19,6 +20,7 @@ const CardProduct: FC<CardProductProps> = ({ product }) => {
   return (
     <div className={styles.wrapper_cart}>
       <div className={styles.header}>
+        {product.discount && <BageDiscount discount={product.discount} />}
         <div className={styles.rating}>
           <RatingStar rating={product.rating} />
         </div>

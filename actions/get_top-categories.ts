@@ -1,4 +1,4 @@
-import { TopCategoriesType } from './../types/topCategories_type';
+import { TopCategoriesType } from '../types/topCategories_type';
 
 export const getTopCategories = async (): Promise<TopCategoriesType[]> => {
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/top-categories`, {
