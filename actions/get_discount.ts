@@ -11,5 +11,6 @@ export const getDiscount = async (): Promise<GetProductsType> => {
     // This will activate the closest `error.js` Error Boundary
     throw new Error('Failed to fetch data');
   }
-  return res.json();
+  const discount = res.json();
+  return discount;
 };

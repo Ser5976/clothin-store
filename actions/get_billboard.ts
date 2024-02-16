@@ -7,5 +7,6 @@ export const getBillboard = async (): Promise<BillboardType[]> => {
     // This will activate the closest `error.js` Error Boundary
     throw new Error('Failed to fetch data');
   }
-  return res.json();
+  const billboards = res.json();
+  return billboards;
 };

@@ -53,6 +53,7 @@ model User{
   catr Cart?
   address Address[]
   review Review[]
+  storeReviews StoreReviews[]
   favorites Favorites[]
   estimation Estimation[]
   order Order[]
@@ -204,7 +205,7 @@ model Estimation{
 }
 model Review{
   id String @id @default(uuid())
-  content String
+  content String @db.LongText
   response String?
   userId String 
   user User @relation(fields: [userId],references: [id],onDelete: Cascade)
@@ -392,6 +393,19 @@ model CollectionItem {
   fileKey String
   popularTypesId String @unique
   popularTypes PopularTypes @relation(fields: [popularTypesId],references: [id],onDelete: Cascade) 
+}
+model StoreReviews{
+  id String @id @default(uuid())
+  content String @db.LongText
+  response String?
+  userId String 
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([userId])
+
 }
 
 

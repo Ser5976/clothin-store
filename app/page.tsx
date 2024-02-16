@@ -4,6 +4,7 @@ import { getDiscount } from '@/actions/get_discount';
 import { getNewArrivals } from '@/actions/get_new-arrivals';
 import { getNowTrending } from '@/actions/get_now_trending';
 import { getPopularTypes } from '@/actions/get_popular-types';
+import { getSoreReviews } from '@/actions/get_store_reviews';
 import { getTopCategories } from '@/actions/get_top-categories';
 import Billboard from '@/components/home-page/billboard/billboard';
 import { Collection } from '@/components/home-page/collection/collection';
@@ -12,23 +13,46 @@ import { NewArrivals } from '@/components/home-page/new-arrivals/new-arrivals';
 import { NowTrending } from '@/components/home-page/now-trending/now-trending';
 import { PopularTypes } from '@/components/home-page/popular-types/popular-types';
 import { TopCategories } from '@/components/home-page/top-categories/top-categories';
+import { WriteToUs } from '@/components/home-page/write-to-us/write-to-us';
 
 export default async function Home() {
   //запрос для получения billboard, на сервере при помощи fech(динамически)
-  const billboards = await getBillboard();
+  const billboardsPromise = getBillboard();
   //запрос для получения topCategories, на сервере при помощи fech(динамически)
-  const topCategories = await getTopCategories();
+  const topCategoriesPromise = getTopCategories();
   //запрос для получения товаров, на сервере при помощи fech(динамически)
-  const newArrivals = await getNewArrivals();
+  const newArrivalsPromise = getNewArrivals();
   //запрос для получения коллекции товаров , на сервере при помощи fech(динамически)
-  const collections = await getCollection();
+  const collectionsPromise = getCollection();
   //запрос для получения популярных типов товаров , на сервере при помощи fech(динамически)
-  const popularTypes = await getPopularTypes();
+  const popularTypesPromise = getPopularTypes();
   //запрос для получения товаров,которые сейчас в тренде, на сервере при помощи fech(динамически)
-  const nowTrending = await getNowTrending();
+  const nowTrendingPromise = getNowTrending();
   //запрос для получения товаров,которые сейчас в тренде, на сервере при помощи fech(динамически)
-  const discount = await getDiscount();
-  console.log('newarrivals:', newArrivals);
+  const discountPromise = getDiscount();
+  //запрос для получения отзывов о магазине, на сервере при помощи fech(динамически)
+  const storeReviewsPromise = getSoreReviews();
+  // при помощи промиса делаем так, чтобы все запросы на этой странице были параллельными, а не последовательными
+  // это улучшает скорость закрузки, хотя что то не заметно
+  const [
+    billboards,
+    collections,
+    discount,
+    newArrivals,
+    topCategories,
+    popularTypes,
+    nowTrending,
+    storeReviews,
+  ] = await Promise.all([
+    billboardsPromise,
+    collectionsPromise,
+    discountPromise,
+    newArrivalsPromise,
+    topCategoriesPromise,
+    popularTypesPromise,
+    nowTrendingPromise,
+    storeReviewsPromise,
+  ]);
 
   return (
     <main className="flex  flex-col ">
@@ -39,6 +63,7 @@ export default async function Home() {
       <PopularTypes popularTypes={popularTypes} />
       <NowTrending nowTrending={nowTrending.product} />
       <Discount discount={discount.product} />
+      <WriteToUs reviews={storeReviews[0]} />
     </main>
   );
 }

@@ -8,5 +8,6 @@ export const getNewArrivals = async (): Promise<GetProductsType> => {
     // This will activate the closest `error.js` Error Boundary
     throw new Error('Failed to fetch data');
   }
-  return res.json();
+  const newArrivals = res.json();
+  return newArrivals;
 };
