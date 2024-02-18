@@ -16,13 +16,19 @@ export const TopFooter: FC<TopFooterProps> = ({ customers, requisites }) => {
         <div className={styles.wrapper_top}>
           <div className={styles.wrapper_column}>
             <div className={styles.title}>HELP</div>
-            {customers?.map((el) => {
-              return (
-                <Link href="#" className={styles.link} key={el.id}>
-                  {el.name}
-                </Link>
-              );
-            })}
+            {!customers ? (
+              <h1 className="text-[14px] leading-[150%] font-bold text-[#FF4242] max-sm:text-[10px]">
+                No data received!
+              </h1>
+            ) : (
+              customers?.map((el) => {
+                return (
+                  <Link href="#" className={styles.link} key={el.id}>
+                    {el.name}
+                  </Link>
+                );
+              })
+            )}
           </div>
           <div className={styles.wrapper_column}>
             <div className={styles.title}>Shop</div>
@@ -38,14 +44,20 @@ export const TopFooter: FC<TopFooterProps> = ({ customers, requisites }) => {
           </div>
           <div className={styles.wrapper_column}>
             <div className={styles.title}>Get in touch</div>
-            {requisites?.map((el) => {
-              return (
-                <React.Fragment key={el.id}>
-                  <div className={styles.link}>Call:{el.phone}</div>
-                  <div className={styles.link}>Email:{el.email}</div>
-                </React.Fragment>
-              );
-            })}
+            {!requisites ? (
+              <h1 className="text-[14px] leading-[150%] font-bold text-[#FF4242] max-sm:text-[10px]">
+                No data received!
+              </h1>
+            ) : (
+              requisites?.map((el) => {
+                return (
+                  <React.Fragment key={el.id}>
+                    <div className={styles.link}>Call:{el.phone}</div>
+                    <div className={styles.link}>Email:{el.email}</div>
+                  </React.Fragment>
+                );
+              })
+            )}
           </div>
         </div>
       </div>

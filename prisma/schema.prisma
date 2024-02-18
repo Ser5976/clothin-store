@@ -323,12 +323,8 @@ model Customers{
   name String @unique
   longtext String @db.LongText
 }
-// модель для телефона в TopBar
- model Phone{
-  id String @id @default(uuid())
-  title String?
-  phone String @unique
- }
+
+ // модель для реквизитов(телефон,email)
  model Requisites{
   id String @id @default(uuid())
   title String?

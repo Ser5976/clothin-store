@@ -2,7 +2,7 @@
 import { cn } from '@/lib/utils';
 import { CategoryType } from '@/types/category_type';
 import { CustomersType } from '@/types/customers_type';
-import { Phone } from '@prisma/client';
+import { RequisitesType } from '@/types/requisites_type';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FC, useState } from 'react';
@@ -14,10 +14,14 @@ import styles from './topbar.module.css';
 interface ITopBarProps {
   categories: CategoryType[] | undefined;
   customers: CustomersType[] | undefined;
-  phone: Phone[] | undefined;
+  requisites: RequisitesType[] | undefined;
 }
 
-export const TopBar: FC<ITopBarProps> = ({ categories, customers, phone }) => {
+export const TopBar: FC<ITopBarProps> = ({
+  categories,
+  customers,
+  requisites,
+}) => {
   const [show, setShow] = useState(false);
   const pathname = usePathname();
 
@@ -26,12 +30,12 @@ export const TopBar: FC<ITopBarProps> = ({ categories, customers, phone }) => {
       <div className="shared_container">
         <div className={styles.row}>
           <Burger show={show} setShow={setShow} />
-          {!phone ? (
+          {!requisites ? (
             <h1 className="text-[14px] leading-[150%] font-bold text-[#FF4242] max-[820px]:hidden">
               No data received!
             </h1>
           ) : (
-            phone.map((item) => {
+            requisites.map((item) => {
               return (
                 <div className={styles.phone} key={item.id}>
                   <div>{item.title}</div>
