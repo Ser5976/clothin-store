@@ -1,0 +1,14 @@
+.bottom {
+  @apply border-t border-gray-500 py-[24px]
+    max-sm:py-[20px];
+}
+.wrapper_bottom {
+  @apply flex justify-between items-center;
+}
+.wrapper_bottom_left {
+  @apply flex items-center text-white text-xs font-normal  leading-[18px]
+    max-[420px]:text-[10px] max-[420px]:leading-[14px];
+}
+.go_to_top {
+  @apply opacity-60 text-white text-base font-bold  leading-relaxed cursor-pointer;
+}

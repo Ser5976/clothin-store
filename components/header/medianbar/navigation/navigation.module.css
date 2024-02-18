@@ -5,8 +5,8 @@
     max-[820px]:hidden;
 }
 .link {
-  @apply text-[16px] leading-[150%] font-bold 
-     text-[#424551]  hover:text-[#17696A] transition ease-out duration-500;
+  @apply text-gray-700 text-base font-bold  leading-relaxed  
+  hover:text-[#17696A] transition ease-out duration-500;
 }
 .link_active {
   @apply text-[#17696A];

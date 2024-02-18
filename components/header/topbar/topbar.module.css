@@ -20,8 +20,8 @@
   max-[820px]:hidden;
 }
 .link {
-  @apply text-[14px] leading-[150%] font-normal 
-   text-white opacity-[0.6] hover:opacity-[1] transition ease-out duration-500;
+  @apply opacity-60 text-white text-sm font-normal  leading-[21px]
+ hover:opacity-[1] transition ease-out duration-500;
 }
 .link_active {
   @apply text-white opacity-[1];

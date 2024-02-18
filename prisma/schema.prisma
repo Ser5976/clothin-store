@@ -329,6 +329,12 @@ model Customers{
   title String?
   phone String @unique
  }
+ model Requisites{
+  id String @id @default(uuid())
+  title String?
+  phone String @unique
+  email String
+ }
  //модели  топ категорий для главной страницы 
  model TopCategories{
   id String @id @default(uuid())

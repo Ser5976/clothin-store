@@ -2,7 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import Providers from '@/provider/providers';
 import { lato } from '@/fonts/fonts';
-import Footer from '@/components/footer';
+import Footer from '@/components/footer/footer';
 import NavBar from '../components/header/navbar';
 
 export const metadata: Metadata = {

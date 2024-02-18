@@ -1,7 +1,7 @@
 import { CategoryType } from '@/types/category_type';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC, Suspense } from 'react';
+import { FC } from 'react';
 import { SearchInput } from '../search-input/searchinput';
 import styles from './medianbar.module.css';
 import { Navigation } from './navigation/navigation';
@@ -15,16 +15,9 @@ export const MedianBar: FC<IMedianbarProps> = ({ categories }) => {
     <section className={styles.section}>
       <div className="shared_container">
         <div className={styles.row}>
-          <div className={styles.logo}>
-            <Link href="/">
-              <Image
-                src="/header/logo.png"
-                alt="logo"
-                width={130}
-                height={22}
-              />
-            </Link>
-          </div>
+          <Link href="/">
+            <Image src="/header/logo.png" alt="logo" width={130} height={22} />
+          </Link>
           <Navigation categories={categories} />
           <SearchInput mark="medianbar" />
           <ToolBar />

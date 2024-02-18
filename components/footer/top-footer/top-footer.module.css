@@ -1,0 +1,17 @@
+.top {
+  @apply py-[5%];
+}
+.wrapper_top {
+  @apply flex justify-between;
+}
+.wrapper_column {
+  @apply flex flex-col;
+}
+.title {
+  @apply text-white text-base font-bold  uppercase leading-relaxed tracking-wide mb-[6px]
+    max-sm:text-xs max-sm:mb-[3px];
+}
+.link {
+  @apply opacity-60 text-white text-base font-normal  leading-relaxed my-[6px]
+    max-sm:text-xs max-sm:mb-[3px];
+}
