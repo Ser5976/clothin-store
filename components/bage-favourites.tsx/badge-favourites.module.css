@@ -1,0 +1,10 @@
+.heart_active {
+  @apply fill-red-400;
+}
+
+.button_favourites {
+  @apply grow max-w-[200px] h-11 border border-cyan-800 flex gap-2 max-[800px]:px-3;
+}
+.button_favourites_text {
+  @apply text-center text-cyan-800 text-sm font-bold  leading-[44px] tracking-wide max-lg:hidden;
+}

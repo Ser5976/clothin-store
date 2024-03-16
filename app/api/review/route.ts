@@ -19,10 +19,15 @@ export async function POST(request: Request) {
     // console.log('validation:', validation);
     if (!validation.success)
       return NextResponse.json(validation.error.errors, { status: 400 });
+    //делаем проверку есть ли оценка выбранного товара,если в есть ,то записываем в отзыв
+
+    const estimation = await prismadb.estimation.findFirst({
+      where: { userId: body.userId, productId: body.productId },
+    });
 
     // сохранения значения в базе
     await prismadb.review.create({
-      data: body,
+      data: { ...body, estimation: estimation ? estimation.value : 0 },
     });
     return NextResponse.json({ message: 'Review is saved' });
   } catch (error) {

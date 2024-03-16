@@ -6,11 +6,11 @@
 }
 
 .rating {
-  @apply absolute top-[2%] right-[2%] p-[2%];
+  @apply absolute top-[2%] right-[2%] p-[2%] z-10;
 }
 
 .img_product {
-  @apply absolute left-0 top-0 w-full h-full object-cover rounded -z-10;
+  @apply absolute left-0 top-0 w-full h-full object-cover rounded;
 }
 
 .footer {
@@ -49,7 +49,7 @@
   max-sm:text-[7px];
 }
 .badge_favourites {
-  @apply absolute bottom-[2%] right-[2%] flex items-center justify-center 
+  @apply absolute bottom-[2%] right-[2%] flex items-center justify-center z-10 
     p-[3px] w-[25px] h-[25px] rounded-full bg-white cursor-pointer 
     max-lg:w-[24px] max-lg:h-[24px] 
     max-[940px]:w-[22px] max-[940px]:h-[22px]
@@ -61,7 +61,7 @@
   @apply fill-red-400;
 }
 .discount {
-  @apply absolute top-[2%] left-[2%] p-[2%] bg-red-600 text-white rounded-[2px]
+  @apply absolute top-[2%] left-[2%] p-[2%] bg-red-600 text-white rounded-[2px] z-10
   text-center text-[15px] leading-[150%]
   max-xl:text-[14px]
   max-[1100px]:text-[14px] 

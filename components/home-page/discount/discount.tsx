@@ -51,7 +51,7 @@ export const Discount: FC<DiscountTypesProps> = ({ discount }) => {
           {/* кастомный компонент стрелок */}
           <Arrows scrollNext={scrollNext} scrollPrev={scrollPrev} />
         </Carousel>
-        <Link href="#" className="self-center">
+        <Link href="./discount" className="self-center">
           <CustomButton>See all sale products</CustomButton>
         </Link>
       </div>

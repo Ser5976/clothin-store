@@ -7,6 +7,20 @@ import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 import { authOptions } from '../../auth/config/auth_options';
 
+export async function GET(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const reviews = await prismadb.review.findMany({
+      where: { productId: params.id },
+    });
+    return NextResponse.json(reviews);
+  } catch (error) {
+    return NextResponse.json('Reviews is dont received', { status: 500 });
+  }
+}
+
 export async function PUT(
   request: Request,
   { params }: { params: { id: string } }

@@ -1,17 +1,34 @@
+'use client';
 import { cn } from '@/lib/utils';
-import styles from './card-product.module.css';
+import styles from './badge-favourites.module.css';
 import { Heart, RotateCw } from 'lucide-react';
 import { useFavouritesPost } from '@/react-queries/useFavouritesPost';
 import { useSession } from 'next-auth/react';
 import { useFavouritesStore } from '@/stores/useFavouritesStore';
-import { useStore } from 'zustand';
+import { useEffect, useState } from 'react';
+import { Button } from '../ui/button';
 
-export const BadgeFavourites = ({ productId }: { productId: string }) => {
+export const BadgeFavourites = ({
+  productId,
+  button = false,
+}: {
+  productId: string;
+  button?: boolean;
+}) => {
+  //это кастыль, чтобы предотвратить конфликт с сервером
+  // компонет рендериться на сревере и на клиенте
+  // на сервере у компонента не будет данных из стора, поэтому конфликт
+  // при помощи этого кастыля мы не рендерим компонент на сервере
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   //получаемм данные по авторизации
   const { status } = useSession();
   const isAuth = status === 'authenticated';
   //получаем данные из стора
-  const state = useStore(useFavouritesStore, (state) => state);
+  const state = useFavouritesStore((state) => state);
   //кастомный хук useMutation, изменяем данные favourites в базе
   const mutationFavourites = useFavouritesPost(state.refetch);
   // выбираем какой массив избранных использовать(из базы или из стора)
@@ -26,8 +43,37 @@ export const BadgeFavourites = ({ productId }: { productId: string }) => {
       state.setFavouritesStore(obj);
     }
   };
-
-  return (
+  if (!isMounted) {
+    return null;
+  }
+  return button ? (
+    <Button
+      size="default"
+      variant="outline"
+      className={styles.button_favourites}
+      onClick={() => handlerFavourites({ productId })}
+    >
+      {mutationFavourites.isLoading ? (
+        <RotateCw
+          size={24}
+          color="#808080"
+          strokeWidth={1.5}
+          absoluteStrokeWidth
+          className="  animate-spin"
+        />
+      ) : (
+        <Heart
+          color="#17696A"
+          className={cn({
+            [styles.heart_active]: selectedFavourites?.some(
+              (obj) => obj.productId === productId
+            ),
+          })}
+        />
+      )}
+      <div className={styles.button_favourites_text}>Favourite</div>
+    </Button>
+  ) : (
     <>
       {mutationFavourites.isLoading ? (
         <RotateCw
@@ -39,7 +85,7 @@ export const BadgeFavourites = ({ productId }: { productId: string }) => {
         />
       ) : (
         <Heart
-          color="#B0B0B0"
+          color="#17696A"
           className={cn({
             [styles.heart_active]: selectedFavourites?.some(
               (obj) => obj.productId === productId

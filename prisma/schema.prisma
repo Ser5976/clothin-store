@@ -57,6 +57,8 @@ model User{
   favorites Favorites[]
   estimation Estimation[]
   order Order[]
+  likeReview LikeReview[]
+  dislikeReview DislikeReview[]
 
  @@index([id,email])
 }
@@ -79,7 +81,7 @@ model Product{
   price Decimal
   oldPrice Decimal?
   discount      Float? 
-  description   String?
+  description   String?@db.LongText
   isFeatured  Boolean   @default(false)
   isAvailability  Boolean   @default(true)
   isBestseller Boolean @default(false)
@@ -190,24 +192,12 @@ model Rating{
   updatedAt   DateTime  @updatedAt
    @@index([productId])
 }
+// это оценка от юзера для товара,
+//в роуте рейтинга обрабатываем все оценки конкретного товара и записываем в модель Rating
 model Estimation{
   id String @id @default(uuid())
   value Float
-  userId String @unique
-  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
-  productId String @unique
-  product Product @relation(fields: [productId],references: [id])
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-
-  @@index([userId])
-  @@index([productId])
-}
-model Review{
-  id String @id @default(uuid())
-  content String @db.LongText
-  response String?
-  userId String 
+  userId String
   user User @relation(fields: [userId],references: [id],onDelete: Cascade)
   productId String 
   product Product @relation(fields: [productId],references: [id])
@@ -217,6 +207,43 @@ model Review{
   @@index([userId])
   @@index([productId])
 }
+model Review{
+  id String @id @default(uuid())
+  name String
+  content String @db.LongText
+  response String?
+  estimation Int @default(0)
+  userId String 
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+  productId String 
+  product Product @relation(fields: [productId],references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  likeReview LikeReview[]
+  dislikeReview DislikeReview[]
+
+  @@index([userId])
+  @@index([productId])
+}
+model LikeReview{
+  id String @id @default(uuid())
+  userId String 
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+  reviewId String
+  review Review @relation(fields: [reviewId],references: [id],onDelete: Cascade)
+  @@index([userId])
+  @@index([reviewId])
+}
+model DislikeReview{
+  id String @id @default(uuid())
+  userId String 
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+  reviewId String
+  review Review @relation(fields: [reviewId],references: [id],onDelete: Cascade)
+  @@index([userId])
+  @@index([reviewId])
+}
+
 model Favorites{
   id String @id @default(uuid())
   userId String 

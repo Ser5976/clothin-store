@@ -16,7 +16,7 @@ export const PopularTypes: FC<PopularTypesProps> = ({ popularTypes }) => {
         {popularTypes.map((type) => {
           return (
             <Link
-              href={`/types/${type.link}`}
+              href={`/type/${type.link}`}
               key={type.id}
               className={styles.category_wrapper}
             >

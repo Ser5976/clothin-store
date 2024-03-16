@@ -1,3 +1,4 @@
+import { TypeReviews } from '@/types/type_reviews';
 import { RatingType } from './rating_type';
 import { ColorType } from './color_type';
 import { SizeType } from './../app/profile/get-size';
@@ -5,6 +6,7 @@ import { BrandType } from './brand_type';
 import { TypeType } from './type_type';
 import { CategoryType } from '@/types/category_type';
 import { MaterialType } from './material_type';
+
 export type ProductType = {
   id: string;
   name: string;
@@ -36,4 +38,5 @@ export type ProductType = {
   ];
   sizes: { size: SizeType }[];
   colors: { color: ColorType }[];
+  review: TypeReviews[];
 };

@@ -51,7 +51,7 @@ export const NowTrending: FC<NowTrendingTypesProps> = ({ nowTrending }) => {
           {/* кастомный компонент стрелок */}
           <Arrows scrollNext={scrollNext} scrollPrev={scrollPrev} />
         </Carousel>
-        <Link href="#" className="self-center">
+        <Link href="./trending-now" className="self-center">
           <CustomButton>Explore top sales</CustomButton>
         </Link>
       </div>

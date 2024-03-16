@@ -97,25 +97,3 @@
 .star-ratings {
   display: flex !important;
 }
-/* стили для кастомного компонента dots слайдер в компоненте NewArrivals*/
-.custom-indicator {
-  display: flex !important;
-  @apply justify-center gap-3 my-[1%] m-auto
-  max-[1100px]:gap-[11px]
-  max-[940px]:gap-[10px]
-  max-md:gap-[9px]
-  max-sm:gap-[8px]
-  max-[400px]:gap-[7px];
-}
-.custom-indicator li {
-  @apply w-[30px] h-4 border-b-[3px] border-[#424551] opacity-[0.3] cursor-pointer
-  max-[1100px]:w-[27px] max-[1100px]:border-b-[2.8px]
-  max-[940px]:w-[24px] max-[940px]:border-b-[2.6px]
-  max-md:w-[21px] max-md:border-b-[2.4px]
-  max-sm:w-[18px] max-sm:border-b-[2.2px]
-  max-[400px]:w-[15px] max-[400px]:border-b-[2px];
-}
-
-.custom-indicator li.slick-active {
-  @apply opacity-[0.9];
-}

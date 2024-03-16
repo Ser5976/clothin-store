@@ -1,0 +1,59 @@
+.container {
+  @apply flex flex-col gap-[15px] mt-[5%] sm:gap-[24px] sm:col-span-3 sm:ml-[5%] sm:mt-0;
+}
+.price {
+  @apply text-red-500 text-[24px] font-bold  leading-[130%];
+}
+.oldPrice_discount {
+  @apply w-[125px] md:w-[150px] lg:w-[200px]  flex justify-between ml-[5%] md:ml-[10%] lg:ml-[15%];
+}
+
+.oldPrice {
+  @apply text-zinc-500 text-[18px] font-normal  line-through leading-[150%];
+}
+.discount {
+  @apply max-w-[54px] max-h-7 px-2 py-px bg-red-500 rounded 
+justify-start items-center gap-2.5 inline-flex;
+}
+.discount_text {
+  @apply text-white text-[16px] font-bold  leading-[160%];
+}
+.number_reviews {
+  @apply text-zinc-500 text-[14px] font-normal  leading-[150%];
+}
+.color_title {
+  @apply text-gray-700 text-[14px] font-normal  leading-[150%];
+}
+.color_name {
+  @apply text-cyan-800 text-[14px] font-normal  leading-[150%];
+}
+.outer_circle {
+  @apply w-6 h-6 left-0 top-0 absolute rounded-full border  border-gray-200;
+}
+.outer_circle_active {
+  @apply border-cyan-800;
+}
+.inner_circle {
+  @apply w-4 h-4 left-[4px] top-[4px] absolute border border-gray-200 rounded-full;
+}
+.label_size {
+  @apply text-gray-700 text-[14px] font-normal  leading-[150%];
+}
+.quantity_wrapper {
+  @apply w-20 h-11 px-4  bg-white rounded border border-gray-300 justify-center items-center 
+  gap-[23px] inline-flex;
+}
+.quantity {
+  @apply text-gray-700 text-sm font-normal  leading-[150px];
+}
+.quantity_icons {
+  @apply w-8 h-8 relative flex-col justify-start items-start flex;
+}
+.button_cart {
+  @apply text-center text-white text-sm font-bold  leading-[44px] tracking-wide bg-cyan-800 
+  grow h-11 flex gap-2 max-[800px]:px-3;
+}
+.button_favourites {
+  @apply text-center text-cyan-800 text-sm font-bold  leading-[44px] tracking-wide 
+  grow max-w-[200px] h-11 border border-cyan-800 flex gap-2 max-[800px]:px-3;
+}

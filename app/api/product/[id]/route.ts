@@ -7,6 +7,34 @@ import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 import { authOptions } from '../../auth/config/auth_options';
 
+export async function GET(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const product = await prismadb.product.findUnique({
+      where: {
+        id: params.id,
+      },
+      // оператор include показывает вложенную запись, при помощи оператора select выбираешь какое поле показать
+      include: {
+        category: { select: { id: true, name: true } },
+        type: { select: { id: true, name: true } },
+        brand: { select: { id: true, name: true } },
+        material: { select: { id: true, name: true } },
+        rating: { select: { value: true, count: true } },
+        image: true,
+        sizes: { select: { size: true } },
+        colors: { select: { color: true } },
+        review: true,
+      },
+    });
+    return NextResponse.json(product);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function PUT(
   request: Request,
   { params }: { params: { id: string } }
@@ -54,7 +82,10 @@ export async function PUT(
         typeId: body.typeId,
         materialId: body.materialId,
         brandId: body.brandId,
-        image: { create: body.image },
+        image: {
+          deleteMany: {},
+          create: body.image,
+        },
         sizes: {
           deleteMany: {},
           create: body.sizeId.map((item) => {

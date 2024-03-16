@@ -1,0 +1,16 @@
+.container {
+  @apply relative flex flex-col sm:col-span-2 col-span-1;
+}
+.arrows_right {
+  @apply rounded-full p-[5px]  bg-white opacity-[0.5] absolute top-[40%] right-[0.5%] cursor-pointer;
+}
+.arrows_left {
+  @apply rounded-full p-[5px]  bg-white opacity-[0.5] absolute top-[40%] left-[0.5%] cursor-pointer;
+}
+.dots {
+  @apply grid grid-cols-5 gap-2 mt-[3%];
+}
+
+.dot_active {
+  @apply border-[2px] border-[#17696A];
+}
