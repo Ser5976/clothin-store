@@ -16,7 +16,7 @@ export const CustomButton: React.FC<CustomButtonProps> = ({
   return (
     <Button
       className={cn(
-        'border-[#17696A] text-[#17696A]font-bold   leading-[325%] tracking-wide',
+        'border-[#17696A] text-[#17696A]font-bold   leading-[325%] tracking-wide hover:bg-[#17696A]/50',
         className,
         {
           [styles.small]: small,

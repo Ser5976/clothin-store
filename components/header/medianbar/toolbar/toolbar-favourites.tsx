@@ -11,7 +11,6 @@ import styles from './toolbar.module.css';
 export const ToolbarFavourites = () => {
   // console.log('toolbarfavourites');
   //проверка авторизации
-  const session = useSession();
   const { status } = useSession();
   const isAuth = status === 'authenticated';
 
@@ -46,10 +45,12 @@ export const ToolbarFavourites = () => {
   //запись данных по избранным продуктам от неавторизованного пользователя в базу данных при авторизации
   useEffect(() => {
     // проверка если пользователь авторизован и в сторе есть данные, тогда записываем их в базу
-    // и очищаем стор
+
     if (isAuth && state.favouritesStore.length > 0) {
       -mutationFavourites.mutate({ productIdArray: state.favouritesStore });
-      state.clearingFavoritesStore();
+      // и очищаем стор, очищаем не реактивным способом(без рендеренга)
+      useFavouritesStore.setState({ favouritesStore: [] });
+      //state.clearingFavoritesStore()
     }
   }, [isAuth]);
   // выбор переменной для отображения

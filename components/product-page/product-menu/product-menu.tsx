@@ -21,15 +21,20 @@ export const ProductMenu: FC<ProductMenu> = ({ productId }) => {
 
   // получение setProductReviews из useProductReviewsStore,для  записи данных по отзывам
   // в zustand(наш стор),чтобы использовать в product-reviews
-  const { setProductReviews } = useStore(
+  const { setProductReviews, setError } = useStore(
     useProductReviewsStore,
     (state) => state
   );
-  //получение данных из базы по отзывам,при помощи кастомного хука для useQuery
+  //получаем данные по отзывам отдельным запросом ,при помощи кастомного хука, для useQuery, useReviewsProductQuery
+  // это нужно для интерактива на клиенте
   const { data, isError, isLoading } = useReviewsProductQuery(productId, {
     //при положительном результате записываем данные в  useProductReviewsStore
     onSuccess(data) {
       setProductReviews(data);
+    },
+    //при ошибке,записываем ошибку в useProductReviewsStore
+    onError() {
+      setError(true);
     },
   });
 

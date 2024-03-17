@@ -24,14 +24,14 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
   const [sizeName, setSizeName] = useState(() =>
     product.sizes.length === 1 ? product.sizes[0].size.value : false
   );
-  console.log('sizeName:', sizeName);
+
   return (
     <div className={styles.container}>
       <PriceRating
         price={product.price}
         oldPrice={product.oldPrice}
         discount={product.discount}
-        rating={product.rating}
+        productId={product.id}
       />
       <Productcolor
         colors={product.colors}
@@ -43,19 +43,25 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
         sizeName={sizeName}
         setSizeName={setSizeName}
       />
-      <div className=" flex gap-[5%] mt-[3%]">
-        <QuantityProduct />
-        <Button size="lg" className={styles.button_cart}>
-          <Image
-            src="/header/cart-white.svg"
-            alt="cart"
-            width={20.63}
-            height={18.79}
-          />
-          Add to cart
-        </Button>
+      <div className=" grid grid-cols-4 mt-[3%]">
+        <div className=" flex gap-[7%] pr-[7%] max-[821px]:pr-[3%] max-[821px]:gap-[3%] col-span-3">
+          <QuantityProduct />
+          <Button size="lg" className={styles.button_cart}>
+            <Image
+              src="/header/cart-white.svg"
+              alt="cart"
+              width={20.63}
+              height={18.79}
+            />
+            Add to cart
+          </Button>
+        </div>
 
-        <BadgeFavourites productId={product.id} button />
+        <BadgeFavourites
+          productId={product.id}
+          button
+          className=" col-span-1"
+        />
       </div>
 
       {/* 

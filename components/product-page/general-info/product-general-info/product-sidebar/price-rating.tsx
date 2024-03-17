@@ -1,4 +1,5 @@
-import { RatingType } from '@/types/rating_type';
+import RatingSkeleton from '@/components/ui/custom-ui/rating-star/rating-skeleton';
+import { useRatingProductQuery } from '@/react-queries/useRatingProductQuery ';
 import dynamic from 'next/dynamic';
 import React, { FC, memo } from 'react';
 import styles from './product-sidebar.module.css';
@@ -15,7 +16,7 @@ type PriceRatingProps = {
   price: string;
   oldPrice: null | string;
   discount: null | string;
-  rating: RatingType | null;
+  productId: string;
 };
 
 // здесь мы сделали оптимизацию при помощи React.memo,чтобы избежать ненужных рендеренгов,
@@ -24,11 +25,15 @@ const PriceRating: FC<PriceRatingProps> = ({
   price,
   oldPrice,
   discount,
-  rating,
+  productId,
 }) => {
   console.log('render price-rating');
+  //получаем данные по рейтингу из базы отдельным запросом, при помощи кастомного хука(для useQuery)
+  //это нужно для интерактива на клиенте
+  const { data, isLoading, isError } = useRatingProductQuery(productId);
+
   return (
-    <div className="flex justify-between  w-full">
+    <div className=" relative flex justify-between  w-full">
       <div className="flex items-baseline">
         <div className={styles.price}>${price}</div>
         {oldPrice && discount && (
@@ -40,14 +45,22 @@ const PriceRating: FC<PriceRatingProps> = ({
           </div>
         )}
       </div>
-      <div className=" flex flex-col">
-        <RatingStar rating={rating} size="big" />
-        {rating?.value ? (
-          <div className={styles.number_reviews}>{rating.count} Reviews</div>
-        ) : (
-          <div className={styles.number_reviews}>Estimation:0</div>
-        )}
-      </div>
+
+      {isError ? (
+        <div className=" text-red-500 flex flex-col">
+          <div>Rating</div>
+          <div>data not received</div>
+        </div>
+      ) : isLoading ? (
+        <RatingSkeleton className="absolute top-0 right-0" />
+      ) : (
+        <RatingStar
+          rating={data}
+          size="big"
+          estimation
+          className="absolute top-0 right-0"
+        />
+      )}
     </div>
   );
 };

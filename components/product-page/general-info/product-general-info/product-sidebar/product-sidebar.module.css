@@ -40,8 +40,8 @@ justify-start items-center gap-2.5 inline-flex;
   @apply text-gray-700 text-[14px] font-normal  leading-[150%];
 }
 .quantity_wrapper {
-  @apply w-20 h-11 px-4  bg-white rounded border border-gray-300 justify-center items-center 
-  gap-[23px] inline-flex;
+  @apply max-w-[80px] w-full h-11 px-4  bg-white rounded border border-gray-300 justify-center items-center 
+  gap-[23px] inline-flex col-span-2;
 }
 .quantity {
   @apply text-gray-700 text-sm font-normal  leading-[150px];
@@ -51,9 +51,5 @@ justify-start items-center gap-2.5 inline-flex;
 }
 .button_cart {
   @apply text-center text-white text-sm font-bold  leading-[44px] tracking-wide bg-cyan-800 
-  grow h-11 flex gap-2 max-[800px]:px-3;
-}
-.button_favourites {
-  @apply text-center text-cyan-800 text-sm font-bold  leading-[44px] tracking-wide 
-  grow max-w-[200px] h-11 border border-cyan-800 flex gap-2 max-[800px]:px-3;
+   h-11 max-w-[349px] w-full flex gap-2 max-[800px]:px-3 col-span-5;
 }

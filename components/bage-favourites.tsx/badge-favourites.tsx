@@ -5,52 +5,56 @@ import { Heart, RotateCw } from 'lucide-react';
 import { useFavouritesPost } from '@/react-queries/useFavouritesPost';
 import { useSession } from 'next-auth/react';
 import { useFavouritesStore } from '@/stores/useFavouritesStore';
-import { useEffect, useState } from 'react';
+import { HTMLAttributes, useEffect, useState } from 'react';
 import { Button } from '../ui/button';
+import { useStore } from 'zustand';
 
 export const BadgeFavourites = ({
   productId,
   button = false,
+  className,
 }: {
   productId: string;
   button?: boolean;
+  className?: HTMLAttributes<HTMLDivElement> | string;
 }) => {
-  //это кастыль, чтобы предотвратить конфликт с сервером
-  // компонет рендериться на сревере и на клиенте
-  // на сервере у компонента не будет данных из стора, поэтому конфликт
-  // при помощи этого кастыля мы не рендерим компонент на сервере
-  const [isMounted, setIsMounted] = useState(false);
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
   //получаемм данные по авторизации
   const { status } = useSession();
   const isAuth = status === 'authenticated';
   //получаем данные из стора
-  const state = useFavouritesStore((state) => state);
-  //кастомный хук useMutation, изменяем данные favourites в базе
-  const mutationFavourites = useFavouritesPost(state.refetch);
+  const { favouritesBase, favouritesStore, refetch, setFavouritesStore } =
+    useStore(useFavouritesStore, (state) => state);
+
   // выбираем какой массив избранных использовать(из базы или из стора)
-  const selectedFavourites = isAuth
-    ? state.favouritesBase
-    : state.favouritesStore;
+  // делаем это при помощи useEffect,чтобы избежать конфликта с сервером
+  const [selectedFavourites, setSelectedFavourites] = useState<
+    { productId: string }[]
+  >([]);
+
+  useEffect(() => {
+    if (isAuth) {
+      setSelectedFavourites(favouritesBase);
+    } else {
+      setSelectedFavourites(favouritesStore);
+    }
+  }, [isAuth, favouritesBase, favouritesStore]);
+
+  //кастомный хук useMutation, изменяем данные favourites в базе
+  const mutationFavourites = useFavouritesPost(refetch);
+
   //удаляем или добавляем в избранное, если пользователь авторизован работаем с базой,если нет- то со стором
   const handlerFavourites = (obj: { productId: string }) => {
     if (isAuth) {
       mutationFavourites.mutate(obj);
     } else {
-      state.setFavouritesStore(obj);
+      setFavouritesStore(obj);
     }
   };
-  if (!isMounted) {
-    return null;
-  }
   return button ? (
     <Button
       size="default"
       variant="outline"
-      className={styles.button_favourites}
+      className={`${styles.button_favourites} ${className}`}
       onClick={() => handlerFavourites({ productId })}
     >
       {mutationFavourites.isLoading ? (

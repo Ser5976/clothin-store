@@ -52,7 +52,7 @@ export async function POST(request: Request) {
       //удаление имеющихся и добавление отсутствующих productId
       // Удаление дубликатов из currentFavourites
       const uniqueFavourites = currentFavourites.filter(
-        (obg) => !productIdArray.some((el) => el.productId === obg.id)
+        (obg) => !productIdArray.some((el) => el.productId === obg.productId)
       );
       // Объединение уникальных значений из uniqueFavourites и получаемого массива productId
       const mergedProductId = [...uniqueFavourites, ...body.productIdArray].map(
