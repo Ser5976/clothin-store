@@ -350,6 +350,16 @@ model Customers{
   name String @unique
   longtext String @db.LongText
 }
+model Delivery{
+  id String @id @default(uuid())
+  longtext String @db.LongText
+  standartPrice String
+  expressPrice String
+  orderPrice String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+}
 
  // модель для реквизитов(телефон,email)
  model Requisites{

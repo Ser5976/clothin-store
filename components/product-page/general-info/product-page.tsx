@@ -1,6 +1,7 @@
 'use client';
 import { useProductMenuStore } from '@/stores/useProductMenuStore';
 import useStore from '@/stores/useStore';
+import { DeliveryType } from '@/types/delivery_type';
 import { ProductType } from '@/types/product_type';
 import { FC } from 'react';
 import { ProductDetails } from './product-details/product-details';
@@ -9,9 +10,10 @@ import { ProductReviews } from './product-reviews/product-reviews';
 
 type ProductPageProps = {
   product: ProductType;
+  delivery: DeliveryType[];
 };
 
-export const ProductPage: FC<ProductPageProps> = ({ product }) => {
+export const ProductPage: FC<ProductPageProps> = ({ product, delivery }) => {
   //получение данных menuActive из стора,для навигации
   const state = useStore(useProductMenuStore, (state) => state);
 
@@ -19,7 +21,7 @@ export const ProductPage: FC<ProductPageProps> = ({ product }) => {
   if ('general-info' === state?.menuActive) {
     return (
       <div className="py-[2.5%]">
-        <ProductGeneralInfo product={product} />
+        <ProductGeneralInfo product={product} delivery={delivery} />
       </div>
     );
   }
@@ -40,7 +42,7 @@ export const ProductPage: FC<ProductPageProps> = ({ product }) => {
 
   return (
     <div className="py-[2.5%]">
-      <ProductGeneralInfo product={product} />
+      <ProductGeneralInfo product={product} delivery={delivery} />
     </div>
   );
 };

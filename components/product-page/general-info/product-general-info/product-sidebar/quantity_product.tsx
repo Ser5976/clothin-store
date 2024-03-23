@@ -9,12 +9,12 @@ export const QuantityProduct = () => {
         <ArrowBigUp
           size={18}
           color="#17696A"
-          className=" cursor-pointer mb-[-2px]"
+          className=" cursor-pointer mb-[-2px] fill-cyan-800 transition-colors hover:fill-cyan-900 "
         />
         <ArrowBigDown
           size={18}
           color="#17696A"
-          className=" cursor-pointer mt-[-2px]"
+          className=" cursor-pointer mt-[-2px]  fill-cyan-800 transition-colors hover:fill-cyan-900 "
         />
       </div>
     </div>

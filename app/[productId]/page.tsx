@@ -1,4 +1,5 @@
 import { getAllProducts } from '@/actions/get_all_products ';
+import { getDelivery } from '@/actions/get_delivery';
 import { getProduct } from '@/actions/get_product';
 import { ProductPage } from '@/components/product-page/general-info/product-page';
 import { ProductMenu } from '@/components/product-page/product-menu/product-menu';
@@ -17,13 +18,18 @@ export async function generateMetadata({
 }
 
 const Product = async ({ params }: { params: { productId: string } }) => {
-  const product = await getProduct(params.productId);
+  const productPromise = getProduct(params.productId);
+  const deliveryPromise = getDelivery();
+  const [product, delivery] = await Promise.all([
+    productPromise,
+    deliveryPromise,
+  ]);
   return (
     <main className="shared_container  pt-[5%]">
       <ProductTitle title={product.name} />
       <ProductMenu productId={params.productId} />
       <div className=" w-full h-[0px] border border-gray-200"></div>
-      <ProductPage product={product} />
+      <ProductPage product={product} delivery={delivery} />
     </main>
   );
 };

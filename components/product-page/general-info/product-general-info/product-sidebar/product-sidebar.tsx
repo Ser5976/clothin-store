@@ -1,10 +1,12 @@
 'use client';
 import { BadgeFavourites } from '@/components/bage-favourites.tsx/badge-favourites';
 import { Button } from '@/components/ui/button';
+import { DeliveryType } from '@/types/delivery_type';
 import { ProductType } from '@/types/product_type';
 import Image from 'next/image';
 import { useState } from 'react';
 import { FC } from 'react';
+import { DeliveryTable } from './delivery-table';
 import PriceRating from './price-rating';
 import Productcolor from './product-color';
 import styles from './product-sidebar.module.css';
@@ -13,8 +15,12 @@ import SelectSize from './select-size';
 
 type ProductSidebarProps = {
   product: ProductType;
+  delivery: DeliveryType[];
 };
-export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
+export const ProductSidebar: FC<ProductSidebarProps> = ({
+  product,
+  delivery,
+}) => {
   //это состояние для цвета,понадобиться при формировани объекта продукта для корзины и для активного стиля
   // выбранного цвета
   const [colorName, setColorName] = useState(() =>
@@ -44,7 +50,7 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
         setSizeName={setSizeName}
       />
       <div className=" grid grid-cols-4 mt-[3%]">
-        <div className=" flex gap-[7%] pr-[7%] max-[821px]:pr-[3%] max-[821px]:gap-[3%] col-span-3">
+        <div className={styles.quantity_button_cart_wrapper}>
           <QuantityProduct />
           <Button size="lg" className={styles.button_cart}>
             <Image
@@ -63,7 +69,7 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({ product }) => {
           className=" col-span-1"
         />
       </div>
-
+      <DeliveryTable delivery={delivery} />
       {/* 
       <div className={styles.size}></div>
       <div className={styles.cart_favorites}></div>
