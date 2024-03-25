@@ -35,7 +35,7 @@ const CardProduct: FC<CardProductProps> = ({ product }) => {
         <Link href={`./${product.id}`}>
           <Image
             className={styles.img_product}
-            src={product.image[0].url}
+            src={product?.image[0]?.url}
             width={200}
             height={245}
             alt="Picture of the author"

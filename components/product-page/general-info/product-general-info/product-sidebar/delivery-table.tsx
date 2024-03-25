@@ -19,7 +19,7 @@ export const DeliveryTable = ({ delivery }: { delivery: DeliveryType[] }) => {
       <div className="text-gray-700 text-sm font-normal  leading-[21px]">
         Free standard shipping on orders
         <span className="text-gray-700 text-sm font-bold  leading-[21px] mx-[1%]">
-          over ${delivery[0].orderPrice}
+          over ${delivery[0]?.orderPrice}
         </span>
         before tax, plus free returns.
       </div>
@@ -35,12 +35,12 @@ export const DeliveryTable = ({ delivery }: { delivery: DeliveryType[] }) => {
           <TableRow>
             <TableCell>Standard delivery</TableCell>
             <TableCell>1-4 business days</TableCell>
-            <TableCell>${delivery[0].standartPrice}</TableCell>
+            <TableCell>${delivery[0]?.standartPrice}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Express delivery</TableCell>
             <TableCell>1 business day</TableCell>
-            <TableCell>${delivery[0].expressPrice}</TableCell>
+            <TableCell>${delivery[0]?.expressPrice}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Pick up in store</TableCell>
