@@ -1,0 +1,10 @@
+.selectTrigger_big {
+  @apply w-[50%] sm:w-[45%];
+}
+.selectTrigger_small {
+  @apply w-[55%] h-5 sm:h-7 xl:h-8 my-1 text-[10px] sm:text-[12px] xl:text-[14px];
+}
+
+.label_size {
+  @apply text-gray-700 text-[14px] font-normal  leading-[150%];
+}

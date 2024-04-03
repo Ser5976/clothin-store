@@ -21,27 +21,7 @@ justify-start items-center gap-2.5 inline-flex;
 .number_reviews {
   @apply text-zinc-500 text-[14px] font-normal  leading-[150%];
 }
-.color_title {
-  @apply text-gray-700 text-[14px] font-normal  leading-[150%];
-}
-.color_name {
-  @apply text-cyan-800 text-[14px] font-normal  leading-[150%];
-}
-.outer_circle {
-  @apply w-6 h-6 left-0 top-0 absolute rounded-full border  border-gray-200;
-}
-.outer_circle_active {
-  @apply border-cyan-800;
-}
-.inner_circle {
-  @apply w-4 h-4 left-[4px] top-[4px] absolute border border-gray-200 rounded-full;
-}
-.label_size {
-  @apply text-gray-700 text-[14px] font-normal  leading-[150%];
-}
-.quantity_button_cart_wrapper {
-  @apply flex gap-[7%] pr-[7%] max-[821px]:pr-[3%] max-[821px]:gap-[3%] col-span-3;
-}
+
 .quantity_wrapper {
   @apply max-w-[80px] w-full h-11 px-4  bg-white rounded border border-gray-300 justify-center items-center 
   gap-[23px] inline-flex col-span-2;
@@ -54,7 +34,7 @@ justify-start items-center gap-2.5 inline-flex;
 }
 .button_cart {
   @apply text-center text-white text-sm font-bold  leading-[44px] tracking-wide bg-cyan-800 hover:bg-cyan-900 
-   h-11 max-w-[349px] w-full flex gap-2 max-[800px]:px-3;
+   h-11 max-w-[549px] w-full flex gap-2 max-[800px]:px-3;
 }
 .table_header {
   @apply text-zinc-500 text-xs font-normal  leading-[18px] tracking-wide;

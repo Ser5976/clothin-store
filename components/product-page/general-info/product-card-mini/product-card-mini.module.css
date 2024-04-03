@@ -1,0 +1,77 @@
+.header {
+  @apply relative  pb-[120%] overflow-hidden;
+}
+
+.rating {
+  @apply absolute top-[2%] right-[2%] p-[2%] z-10;
+}
+
+.img_product {
+  @apply absolute left-0 top-0 w-full h-full object-cover rounded;
+}
+
+.footer {
+  @apply flex flex-col gap-[8px] mt-[8px] max-md:gap-[6px] max-md:mt-[6px];
+}
+.name_product {
+  @apply text-[#424551] text-[16px]  leading-[150%]
+  max-xl:text-[15px]
+  max-[1100px]:text-[14px] 
+  max-lg:text-[13px] 
+  max-[940px]:text-[12px]
+  max-[820px]:text-[11px]
+  max-md:text-[10px];
+}
+.price_product {
+  @apply flex gap-1 items-baseline;
+}
+.price {
+  @apply text-[#1E212C] text-[18px] font-bold leading-[150%]
+  max-xl:text-[17px]
+  max-[1100px]:text-[16px] 
+  max-lg:text-[15px] 
+  max-[940px]:text-[14px]
+  max-[820px]:text-[13px]
+  max-md:text-[11px] 
+  max-sm:text-[9px];
+}
+.old_price {
+  @apply text-[#787A80] text-[15px] leading-[150%] line-through
+  max-xl:text-[14px]
+  max-[1100px]:text-[14px] 
+  max-lg:text-[13px] 
+  max-[940px]:text-[12px]
+  max-[820px]:text-[11px]
+  max-md:text-[10px] 
+  max-sm:text-[7px];
+}
+.badge_favourites {
+  @apply absolute bottom-[2%] right-[2%] flex items-center justify-center z-10 
+    p-[3px] w-[30px] h-[30px] rounded-full bg-white cursor-pointer 
+    max-lg:w-[28px] max-lg:h-[28px] 
+    max-[940px]:w-[26px] max-[940px]:h-[26px]
+    max-[820px]:w-[24px] max-[820px]:h-[24px]
+    max-md:w-[22px] max-md:h-[22px]
+    max-sm:w-[20px] max-sm:h-[20px]
+    max-[520px]:w-[18px] max-[520px]:h-[18px]
+    max-[420px]:w-[15px] max-[420px]:h-[15px];
+}
+
+.heart_active {
+  @apply fill-red-400;
+}
+.discount {
+  @apply absolute top-[2%] left-[2%] p-[2%] bg-red-600 text-white rounded-[2px] z-10
+  text-center text-[15px] leading-[150%]
+  max-xl:text-[14px]
+  max-[1100px]:text-[14px] 
+  max-lg:text-[13px] 
+  max-[940px]:text-[12px]
+  max-[820px]:text-[11px]
+  max-md:text-[10px] 
+  max-sm:text-[7px];
+}
+.button_cart {
+  @apply text-center text-white text-sm font-bold  leading-[44px] tracking-wide bg-cyan-800 hover:bg-cyan-900 
+   h-11 max-w-[349px] w-full flex gap-2 max-[800px]:px-3 max-sm:h-8 max-sm:px-1 max-sm:gap-1 max-sm:text-xs;
+}

@@ -1,17 +1,16 @@
 'use client';
 import { BadgeFavourites } from '@/components/bage-favourites.tsx/badge-favourites';
+import SelectSize from '@/components/product-page/select-size/select-size';
 import { Button } from '@/components/ui/button';
 import { DeliveryType } from '@/types/delivery_type';
 import { ProductType } from '@/types/product_type';
 import Image from 'next/image';
-import { useState } from 'react';
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import ProductColor from '../../product-color/product-color';
 import { DeliveryTable } from './delivery-table';
 import PriceRating from './price-rating';
-import Productcolor from './product-color';
 import styles from './product-sidebar.module.css';
 import { QuantityProduct } from './quantity_product';
-import SelectSize from './select-size';
 
 type ProductSidebarProps = {
   product: ProductType;
@@ -21,16 +20,14 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({
   product,
   delivery,
 }) => {
-  //это состояние для цвета,понадобиться при формировани объекта продукта для корзины и для активного стиля
-  // выбранного цвета
+  //цвет товара,понадобиться при формировани объекта продукта, для корзины и для активного стиля выбранного цвета
   const [colorName, setColorName] = useState(() =>
-    product.colors.length === 1 ? product.colors[0].color.name : false
+    product.colors.length === 1 ? product.colors[0].color.name : ''
   );
-  //это состояние для размера,понадобиться при формировани объекта продукта для корзины
+  //размер товара,понадобиться при формировани объекта продукта, для корзины
   const [sizeName, setSizeName] = useState(() =>
-    product.sizes.length === 1 ? product.sizes[0].size.value : false
+    product.sizes.length === 1 ? product.sizes[0].size.value : ''
   );
-
   return (
     <div className={styles.container}>
       <PriceRating
@@ -39,35 +36,26 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({
         discount={product.discount}
         productId={product.id}
       />
-      <Productcolor
+      <ProductColor
         colors={product.colors}
+        size="big"
         colorName={colorName}
         setColorName={setColorName}
       />
-      <SelectSize
-        sizes={product.sizes}
-        sizeName={sizeName}
-        setSizeName={setSizeName}
-      />
-      <div className=" grid grid-cols-4 mt-[3%]">
-        <div className={styles.quantity_button_cart_wrapper}>
-          <QuantityProduct />
-          <Button size="lg" className={styles.button_cart}>
-            <Image
-              src="/header/cart-white.svg"
-              alt="cart"
-              width={20.63}
-              height={18.79}
-            />
-            Add to cart
-          </Button>
-        </div>
+      <SelectSize sizes={product.sizes} setSizeName={setSizeName} size="big" />
+      <div className=" flex justify-between gap-[5%] mt-[3%]">
+        <QuantityProduct />
+        <Button size="lg" className={styles.button_cart}>
+          <Image
+            src="/header/cart-white.svg"
+            alt="cart"
+            width={20.63}
+            height={18.79}
+          />
+          Add to cart
+        </Button>
 
-        <BadgeFavourites
-          productId={product.id}
-          button
-          className=" col-span-1"
-        />
+        <BadgeFavourites productId={product.id} button />
       </div>
       <DeliveryTable delivery={delivery} />
       {/* 

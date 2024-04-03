@@ -42,10 +42,10 @@ export const useFavouritesStore = create<FavouritesStoreType>()(
     }),
     {
       name: 'favourites-storage', // name of item in the storage (must be unique)
-      storage: createJSONStorage(() => localStorage), // (optional) by default the 'localStorage' is used
+      /*  storage: createJSONStorage(() => localStorage), // (optional) by default the 'localStorage' is used
       partialize: (state) => ({
         favouritesStore: state.favouritesStore,
-      }),
+      }), */
     }
   )
 );

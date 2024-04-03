@@ -9,8 +9,9 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { SizeType } from '@/types/size_type';
-import styles from './product-sidebar.module.css';
+import styles from './select-size.module.css';
 import { Dispatch, FC, memo, SetStateAction } from 'react';
+import { cn } from '@/lib/utils';
 
 type SelectSizeProps = {
   sizes:
@@ -18,19 +19,28 @@ type SelectSizeProps = {
         size: SizeType;
       }[]
     | undefined;
-  sizeName: string | boolean;
-  setSizeName: Dispatch<SetStateAction<string | boolean>>;
+  size: 'big' | 'small';
+  setSizeName: Dispatch<SetStateAction<string>>;
 };
 
 // здесь мы сделали оптимизацию при помощи React.memo,чтобы избежать ненужных рендеренгов,
 //т.к. в родители есть useState
-const SelectSize: FC<SelectSizeProps> = ({ sizes, sizeName, setSizeName }) => {
+const SelectSize: FC<SelectSizeProps> = ({ sizes, size, setSizeName }) => {
   return (
     <Select onValueChange={(value) => setSizeName(value)}>
       <SelectGroup>
-        <SelectLabel className={styles.label_size}>Size</SelectLabel>
-        <SelectTrigger className="w-[50%] sm:w-[45%]">
-          <SelectValue placeholder="Please select" />
+        {size === 'big' && (
+          <SelectLabel className={styles.label_size}>Size</SelectLabel>
+        )}
+        <SelectTrigger
+          className={cn({
+            [styles.selectTrigger_big]: size === 'big',
+            [styles.selectTrigger_small]: size === 'small',
+          })}
+        >
+          <SelectValue
+            placeholder={size === 'big' ? 'Please select' : 'Size'}
+          />
         </SelectTrigger>
 
         <SelectContent>

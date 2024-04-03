@@ -1,0 +1,29 @@
+.color_title {
+  @apply text-gray-700 text-[14px] font-normal  leading-[150%];
+}
+.color_name {
+  @apply text-cyan-800 text-[14px] font-normal  leading-[150%];
+}
+.wrapper_circle {
+  @apply w-6 h-6 relative cursor-pointer;
+}
+.wrapper_circle_small {
+  @apply w-6 h-6 relative cursor-pointer max-md:w-4 max-md:h-4;
+}
+.outer_circle {
+  @apply w-6 h-6 left-0 top-0 absolute rounded-full border  border-gray-200;
+}
+.outer_circle_small {
+  @apply w-6 h-6 left-0 top-0 absolute rounded-full border  border-gray-200
+  max-md:w-4 max-md:h-4;
+}
+.outer_circle_active {
+  @apply border-2 border-cyan-800;
+}
+.inner_circle {
+  @apply w-4 h-4 left-[4px] top-[4px] absolute border border-gray-200 rounded-full;
+}
+.inner_circle_small {
+  @apply w-4 h-4 left-[4px] top-[4px] absolute border border-gray-200 rounded-full
+  max-md:w-2 max-md:h-2;
+}
