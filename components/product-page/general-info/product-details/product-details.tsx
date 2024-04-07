@@ -10,7 +10,7 @@ type ProductDetailsProps = {
 export const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
   return (
     <div className="grid grid-cols-4 max-md:grid-cols-3 ">
-      <Detalis />
+      <Detalis detalis={product.description} />
       <ProductCardMini product={product} />
     </div>
   );

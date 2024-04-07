@@ -35,7 +35,7 @@ export const ProductPage: FC<ProductPageProps> = ({ product, delivery }) => {
   if ('reviews' === state?.menuActive) {
     return (
       <div className="py-[2.5%]">
-        <ProductReviews />
+        <ProductReviews product={product} />
       </div>
     );
   }

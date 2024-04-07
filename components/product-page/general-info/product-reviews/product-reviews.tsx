@@ -1,24 +1,20 @@
-import { useProductReviewsStore } from '@/stores/useProductReviewsStore';
-import { useStore } from 'zustand';
+import { ProductType } from '@/types/product_type';
+import { FC } from 'react';
+import { ProductCardMini } from '../product-card-mini/product-card-mini';
 import styles from './product-reviews.module.css';
+import { Reviews } from './reviews';
 
-export const ProductReviews = () => {
-  const { reviews, error } = useStore(useProductReviewsStore, (state) => state);
+type ProductReviewsProps = {
+  product: ProductType;
+};
+
+export const ProductReviews: FC<ProductReviewsProps> = ({ product }) => {
   return (
-    <div className={styles.container}>
-      {error ? (
-        <div className=" text-lg text-red-500">What went wrong</div>
-      ) : reviews.length > 0 ? (
-        reviews.map((review) => {
-          return (
-            <div key={review.id} className="mr-2">
-              {review.name} {review.estimation}
-            </div>
-          );
-        })
-      ) : (
-        <div className=" text-lg ">The list of reviews is empty</div>
-      )}
+    <div className="grid grid-cols-4 max-md:grid-cols-3 ">
+      <div className=" flex flex-col col-span-3 max-md:col-span-2">
+        <Reviews />
+      </div>
+      <ProductCardMini product={product} />
     </div>
   );
 };

@@ -9,7 +9,16 @@
 .img_product {
   @apply absolute left-0 top-0 w-full h-full object-cover rounded;
 }
-
+.chevron_left {
+  @apply absolute top-[50%] left-[0.1%] cursor-pointer  z-10
+  max-sm:w-4 max-sm:h-4 
+  max-lg:w-5 max-lg:h-5;
+}
+.chevron_right {
+  @apply absolute top-[50%] right-[0.1%] cursor-pointer z-10
+  max-sm:w-4 max-sm:h-4 
+  max-lg:w-5 max-lg:h-5;
+}
 .footer {
   @apply flex flex-col gap-[8px] mt-[8px] max-md:gap-[6px] max-md:mt-[6px];
 }

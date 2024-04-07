@@ -7,6 +7,7 @@ import {
   CarouselItem,
 } from '@/components/ui/carousel';
 import { ProductType } from '@/types/product_type';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { FC, useCallback, useEffect, useState } from 'react';
@@ -63,7 +64,16 @@ export const HeaderCard: FC<HeaderCardProps> = ({ product }) => {
               <div className={styles.badge_favourites}>
                 <BadgeFavourites productId={product.id} />
               </div>
-
+              <ChevronLeft
+                className={styles.chevron_left}
+                color="#424551"
+                onClick={scrollPrev}
+              />
+              <ChevronRight
+                className={styles.chevron_right}
+                color="#424551"
+                onClick={scrollNext}
+              />
               <Image
                 className={styles.img_product}
                 src={slide.url}
