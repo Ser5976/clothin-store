@@ -1,0 +1,31 @@
+.reviews_info {
+  @apply max-w-[235px] flex flex-col gap-[10px];
+}
+.reviews_info_title {
+  @apply text-zinc-800 text-[32px] font-black
+  max-xl:text-[28px]
+  max-lg:text-[26px]
+  max-md:text-[24px] 
+  max-sm:text-[22px];
+}
+.reviews_info_subtitle {
+  @apply text-zinc-500 text-sm;
+}
+.reviews_info_error {
+  @apply text-red-500 text-sm;
+}
+.progress_tel {
+  @apply bg-teal-500;
+}
+.progress_green {
+  @apply bg-green-500;
+}
+.progress_yellow {
+  @apply bg-yellow-300;
+}
+.progress_orange {
+  @apply bg-orange-400;
+}
+.progress_red {
+  @apply bg-red-500;
+}

@@ -1,11 +1,5 @@
 import prismadb from '@/lib/prismadb';
-import {
-  ReviewUpdateDataType,
-  ReviewUpdateValidator,
-} from '../../../../validators/reviewUpdate-validator';
-import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
-import { authOptions } from '../../auth/config/auth_options';
 
 //Это API мы используем для аналитики в product-reviews
 // из базы получаем данные по оценкам выбранного товара, при помощи агрегации
@@ -24,7 +18,7 @@ export async function GET(
       },
     });
     // Дальше  полученную структуру данных мы преобразуем в удобную для нас струкуру
-    // это массив объектов со значениями номер оценки (от 1 до 5),количество кажной оценки и процент каждой оценки
+    // это массив объектов со значениями номер оценки (от 1 до 5),количество каждой оценки и процент каждой оценки
 
     //при помощи метода reduce() выщитывает  колличество всех оценок( т.е. сколько поставлено оценок),
     // это нужно для рассчёта % для каждой оценки
@@ -62,8 +56,22 @@ export async function GET(
         percentage: ratingPercentage,
       };
     });
+    const reversedArray = ratingsArray.map(
+      (_, index, arr) => arr[arr.length - 1 - index]
+    );
+    // это маленькое дополнение,для reviews-info
+    //складываем количество пользователей ,которые поставили оценку 5 или 4
+    // это будут пользователи, которые рекомендуют купить товар
+    const positiveEstimation = ratingsArray[3].count + ratingsArray[4].count;
+    const positevePercentage =
+      positiveEstimation === 0 ? 0 : (positiveEstimation / totalRatings) * 100;
 
-    return NextResponse.json(ratingsArray);
+    return NextResponse.json({
+      ratingsArray: reversedArray,
+      positiveEstimation,
+      totalRatings,
+      positevePercentage,
+    });
   } catch (error) {
     return NextResponse.json('Reviews is dont received', { status: 500 });
   }
