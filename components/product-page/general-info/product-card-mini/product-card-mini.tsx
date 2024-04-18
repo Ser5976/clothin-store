@@ -1,5 +1,5 @@
 import { ProductType } from '@/types/product_type';
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { FooterCard } from './footer-card';
 import { HeaderCard } from './header-card';
 
@@ -7,11 +7,12 @@ type ProductCardMiniProps = {
   product: ProductType;
 };
 
-export const ProductCardMini: FC<ProductCardMiniProps> = ({ product }) => {
+const ProductCardMini: FC<ProductCardMiniProps> = ({ product }) => {
   return (
-    <div className="col-span-1 ">
+    <div className="">
       <HeaderCard product={product} />
       <FooterCard product={product} />
     </div>
   );
 };
+export default memo(ProductCardMini);

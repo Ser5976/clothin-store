@@ -1,10 +1,8 @@
 import RatingSkeleton from '@/components/ui/custom-ui/rating-star/rating-skeleton';
 import { useRatingProductQuery } from '@/react-queries/useRatingProductQuery ';
-import { useProductReviewsStore } from '@/stores/useProductReviewsStore';
 import { RotateCw } from 'lucide-react';
 import dynamic from 'next/dynamic';
-import React, { FC } from 'react';
-import { useStore } from 'zustand';
+import React, { FC, memo } from 'react';
 import styles from './product-reviews.module.css';
 // это чтобы конфликта с сервером не было(динамический роут)
 const RatingStar = dynamic(
@@ -21,17 +19,17 @@ type ReviewsInfoProps = {
   positiveEstimation: number | undefined;
   totalRatings: number | undefined;
   positevePercentage: number | undefined;
+  quantityReviews: number | undefined;
 };
-
-export const ReviewsInfo: FC<ReviewsInfoProps> = ({
+const ReviewsInfo: FC<ReviewsInfoProps> = ({
   productId,
   isLoadingEstimation,
   isErrorEstimation,
   positiveEstimation,
   totalRatings,
   positevePercentage,
+  quantityReviews,
 }) => {
-  const { reviews } = useStore(useProductReviewsStore, (state) => state);
   //получаем данные по рейтингу из базы отдельным запросом, при помощи кастомного хука(для useQuery)
   //это нужно для интерактива на клиенте
   const {
@@ -39,12 +37,11 @@ export const ReviewsInfo: FC<ReviewsInfoProps> = ({
     isLoading: isLoadingRating,
     isError: isErrorRating,
   } = useRatingProductQuery(productId);
-  const islod = true;
-  const iser = true;
+
   return (
     <div className={styles.reviews_info}>
       <div className={styles.reviews_info_title}>
-        {reviews.length > 0 ? reviews.length : 0} reviews
+        {quantityReviews && quantityReviews} reviews
       </div>
       <div>
         <div className=" w-[90px] ">
@@ -106,3 +103,4 @@ export const ReviewsInfo: FC<ReviewsInfoProps> = ({
     </div>
   );
 };
+export default memo(ReviewsInfo);

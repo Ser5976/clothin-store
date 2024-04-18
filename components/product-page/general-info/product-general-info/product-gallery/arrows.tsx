@@ -11,10 +11,10 @@ export const Arrows: FC<ArrowsPropsType> = ({ prevArrow, nextArrow }) => {
   return (
     <div>
       <div className={styles.arrows_right} onClick={nextArrow}>
-        <MoveRight size={16} strokeWidth={2} color="#17696A" />
+        <MoveRight size={18} strokeWidth={2} color="#17696A" />
       </div>
       <div className={styles.arrows_left} onClick={prevArrow}>
-        <MoveLeft size={16} strokeWidth={2} color="#17696A" />
+        <MoveLeft size={18} strokeWidth={2} color="#17696A" />
       </div>
     </div>
   );

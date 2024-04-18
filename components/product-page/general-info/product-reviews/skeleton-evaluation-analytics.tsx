@@ -2,7 +2,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 export const SkeletonEvaluationAnalytics = () => {
   return (
-    <div className=" flex flex-col grow  max-w-[420px] gap-[20px]">
+    <div className=" flex flex-col grow  max-w-[420px] gap-[20px] mb-[100px] max-md:mb-[65px]">
       {new Array(5).fill(1).map((_, i) => {
         return (
           <div key={i} className=" flex gap-[15px] items-center">

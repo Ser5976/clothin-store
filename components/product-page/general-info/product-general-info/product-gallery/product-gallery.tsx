@@ -43,7 +43,7 @@ export const ProductGallery: FC<ProductGalleryProps> = ({ product }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.images}>
+      <div className="relative">
         <Carousel
           setApi={setApi}
           opts={{
@@ -68,6 +68,8 @@ export const ProductGallery: FC<ProductGalleryProps> = ({ product }) => {
             ))}
           </CarouselContent>
         </Carousel>
+        {/* кастомные стрелки */}
+        <Arrows prevArrow={scrollPrev} nextArrow={scrollNext} />
       </div>
       {/* кастомные точки */}
       <div className={styles.dots}>
@@ -91,8 +93,6 @@ export const ProductGallery: FC<ProductGalleryProps> = ({ product }) => {
           </div>
         ))}
       </div>
-      {/* кастомные стрелки */}
-      <Arrows prevArrow={scrollPrev} nextArrow={scrollNext} />
     </div>
   );
 };

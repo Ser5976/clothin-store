@@ -1,5 +1,5 @@
 import { CommonEstimationType } from '@/types/estimation_type';
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { Star } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import styles from './product-reviews.module.css';
@@ -11,7 +11,7 @@ type EvaluationAnalyticsProps = {
   estimations: CommonEstimationType | undefined;
 };
 
-export const EvaluationAnalytics: FC<EvaluationAnalyticsProps> = ({
+const EvaluationAnalytics: FC<EvaluationAnalyticsProps> = ({
   isLoadingEstimation,
   isErrorEstimation,
   estimations,
@@ -25,7 +25,7 @@ export const EvaluationAnalytics: FC<EvaluationAnalyticsProps> = ({
       ) : isLoadingEstimation ? (
         <SkeletonEvaluationAnalytics />
       ) : (
-        <div className=" flex flex-col grow  max-w-[420px] gap-[5%]">
+        <div className=" flex flex-col grow  max-w-[420px] gap-[5%] mb-[100px] max-md:mb-[65px]">
           {estimations?.ratingsArray.map((estimation) => {
             return (
               <div
@@ -57,3 +57,4 @@ export const EvaluationAnalytics: FC<EvaluationAnalyticsProps> = ({
     </>
   );
 };
+export default memo(EvaluationAnalytics);

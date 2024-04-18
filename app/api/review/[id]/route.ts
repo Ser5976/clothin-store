@@ -1,3 +1,4 @@
+import { SortReviewValidator } from './../../../../validators/sort-review-validator';
 import prismadb from '@/lib/prismadb';
 import {
   ReviewUpdateDataType,
@@ -6,16 +7,50 @@ import {
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 import { authOptions } from '../../auth/config/auth_options';
+import { SortReviewDataType } from '@/validators/sort-review-validator';
 
-export async function GET(
+//Здесь мы получаем отзывы при помощи POST т.к. передаём объкт сортировки не через query параметры,а через body
+export async function POST(
   request: Request,
   { params }: { params: { id: string } }
 ) {
   try {
-    const reviews = await prismadb.review.findMany({
+    const body: SortReviewDataType = await request.json();
+    // валидация body при помощи zod
+    const validation = SortReviewValidator.safeParse(body);
+    // console.log('validation:', validation);
+    if (!validation.success)
+      return NextResponse.json(validation.error.errors, { status: 400 });
+
+    //пагинация
+    const page = body.page || 1;
+    const limit = 2;
+    const offset = page * limit - limit;
+    // получает количество для пагинации
+    const count = await prismadb.review.count({
       where: { productId: params.id },
     });
-    return NextResponse.json(reviews);
+    //рассчёт количества страниц,для пагинации
+    const pageQty = Math.ceil(count / limit);
+
+    const reviews = await prismadb.review.findMany({
+      skip: offset,
+      take: limit,
+      where: { productId: params.id },
+      orderBy: body.newest
+        ? { createdAt: 'desc' }
+        : body.rating
+        ? { estimation: 'desc' }
+        : body.reset
+        ? { createdAt: 'asc' }
+        : { createdAt: 'asc' },
+      // оператор include показывает вложенную запись
+      include: {
+        likeReview: true,
+        dislikeReview: true,
+      },
+    });
+    return NextResponse.json({ reviews, count, pageQty });
   } catch (error) {
     return NextResponse.json('Reviews is dont received', { status: 500 });
   }

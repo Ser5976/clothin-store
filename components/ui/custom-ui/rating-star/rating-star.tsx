@@ -9,7 +9,7 @@ import { starSize } from './star-size';
 // RatingStar нужно импортировать  через динамический роут,чтобы избежать конфликта с сервером
 
 type RatingStarProps = {
-  rating: RatingType | null;
+  rating: RatingType | null | { value: number; count: 0 };
   size: 'small' | 'middle' | 'big';
   estimation?: boolean;
   className?: HTMLAttributes<HTMLDivElement> | string;

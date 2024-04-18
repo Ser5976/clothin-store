@@ -1,5 +1,5 @@
 .section {
-  @apply w-full bg-slate-100 py-[3%]  mt-[3%];
+  @apply w-full bg-slate-100 py-[5%];
 }
 .wrapper {
   @apply flex justify-between;

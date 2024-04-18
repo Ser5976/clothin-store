@@ -31,10 +31,10 @@ export const starSize = {
       return '14';
     }
     if (screenWidth.windowWidth < 1024 && screenWidth.windowWidth >= 940) {
-      return '13';
+      return '12';
     }
     if (screenWidth.windowWidth < 940 && screenWidth.windowWidth >= 820) {
-      return '12';
+      return '11';
     }
     if (screenWidth.windowWidth < 820 && screenWidth.windowWidth >= 768) {
       return '10';
@@ -47,7 +47,7 @@ export const starSize = {
       return '7.5';
     }
     if (screenWidth.windowWidth < 520) {
-      return '5.5';
+      return '7.5';
     }
 
     return '15';

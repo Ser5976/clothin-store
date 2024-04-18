@@ -75,10 +75,10 @@ export const HeaderCard: FC<HeaderCardProps> = ({ product }) => {
                 onClick={scrollNext}
               />
               <Image
-                className={styles.img_product}
+                className="rounded"
+                fill
                 src={slide.url}
-                width={390}
-                height={420}
+                objectFit="cover"
                 alt="Picture of the author"
                 quality={100}
                 priority

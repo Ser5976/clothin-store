@@ -2,7 +2,6 @@
 import { cn } from '@/lib/utils';
 import { useReviewsProductQuery } from '@/react-queries/useReviewsProductQuery';
 import { useProductMenuStore } from '@/stores/useProductMenuStore';
-import { useProductReviewsStore } from '@/stores/useProductReviewsStore';
 import { RotateCw } from 'lucide-react';
 import { FC } from 'react';
 import { useStore } from 'zustand';
@@ -19,26 +18,16 @@ export const ProductMenu: FC<ProductMenu> = ({ productId }) => {
     (state) => state
   );
 
-  // получение setProductReviews из useProductReviewsStore,для  записи данных по отзывам
-  // в zustand(наш стор),чтобы использовать в product-reviews
-  const { setProductReviews, setError } = useStore(
-    useProductReviewsStore,
-    (state) => state
-  );
   //получаем данные по отзывам отдельным запросом ,при помощи кастомного хука, для useQuery, useReviewsProductQuery
-  // это нужно для интерактива на клиенте
+  // это нужно для интерактива на клиенте, для получения количества отзывов
   const { data, isError, isLoading } = useReviewsProductQuery(productId, {
-    //при положительном результате записываем данные в  useProductReviewsStore
-    onSuccess(data) {
-      setProductReviews(data);
-    },
-    //при ошибке,записываем ошибку в useProductReviewsStore
-    onError() {
-      setError(true);
-    },
+    newest: false,
+    rating: false,
+    reset: false,
+    page: 1,
   });
 
-  console.log('data:', data);
+  // console.log('data:', data);
   return (
     <div className={styles.menu_container}>
       <div
@@ -98,8 +87,8 @@ export const ProductMenu: FC<ProductMenu> = ({ productId }) => {
                 absoluteStrokeWidth
                 className="  animate-spin"
               />
-            ) : data.length > 0 ? (
-              data.length
+            ) : data.count > 0 ? (
+              data.count
             ) : null}
           </div>
         </div>

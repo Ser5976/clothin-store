@@ -29,3 +29,42 @@
 .progress_red {
   @apply bg-red-500;
 }
+.review_name_wrapper {
+  @apply col-span-1 flex flex-col gap-2;
+}
+.review_name {
+  @apply text-zinc-800 text-lg font-bold
+  max-md:text-base;
+}
+.review_date {
+  @apply text-zinc-500 text-xs
+  max-md:text-[10px];
+}
+.review_content_wrapper {
+  @apply col-span-2 flex flex-col gap-3;
+}
+.review_content {
+  @apply text-gray-700 text-base
+  max-md:text-sm;
+}
+.review_reply_vote {
+  @apply flex justify-between;
+}
+.review_reply {
+  @apply flex items-baseline gap-1 cursor-pointer;
+}
+.review_vote {
+  @apply flex gap-3 items-baseline;
+}
+.review_like {
+  @apply w-4 h-4;
+}
+.review_like_active {
+  @apply fill-[#03CEA4];
+}
+.review_dislike {
+  @apply w-4 h-4;
+}
+.review_dislike_active {
+  @apply fill-[#FF4242];
+}

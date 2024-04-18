@@ -1,5 +1,5 @@
 .header {
-  @apply relative  pb-[120%] overflow-hidden;
+  @apply relative w-[300px] h-[350px] max-xl:max-w-[250px] max-xl:max-h-[300px] max-lg:w-[200px] max-lg:h-[250px];
 }
 
 .rating {
