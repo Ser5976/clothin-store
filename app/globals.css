@@ -97,3 +97,7 @@
 .star-ratings {
   display: flex !important;
 }
+
+.modal_open {
+  overflow: hidden;
+}

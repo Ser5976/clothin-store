@@ -5,6 +5,7 @@ import { ProductType } from '@/types/product_type';
 import { FC, useState } from 'react';
 import ProductCardMini from '../product-card-mini/product-card-mini';
 import EvaluationAnalytics from './evaluation-analytics';
+import LeaveReviewModal from './leave-review/leave-review-modal';
 import { Reviews } from './reviews';
 import ReviewsInfo from './reviews-info';
 import ReviewsToolbar from './reviews-toolbar';
@@ -17,11 +18,13 @@ export const ProductReviews: FC<ProductReviewsProps> = ({ product }) => {
   //получаем данные по рейтингу из базы отдельным запросом, при помощи кастомного хука(для useQuery)
   //это нужно для интерактива на клиенте
   const {
+    refetch: refetchEstimation,
     data: estimations,
     isLoading: isLoadingEstimation,
     isError: isErrorEstimation,
   } = useEstimationProductQuery(product.id);
 
+  //console.log('estimations:', estimations);
   //состояние для сортировки
   const [sort, setSort] = useState(() => ({
     newest: false,
@@ -29,19 +32,22 @@ export const ProductReviews: FC<ProductReviewsProps> = ({ product }) => {
     reset: false,
     page: 1,
   }));
-
+  //открытие модального окна для редактирования брэнда
+  const [show, setShow] = useState(false);
   //console.log('sort:', sort);
   //получаем отсортированные данные по отзывам отдельным запросом ,при помощи кастомного хука, для useQuery, useReviewsProductQuery
   // это нужно для интерактива на клиенте, для получения количества отзывов
   const {
+    refetch: refetchReviws,
     data,
     isError: isErrorReviws,
     isLoading: isLoadingReviews,
   } = useReviewsProductQuery(product.id, sort);
+
   return (
     <div className="flex justify-between gap-[25px]">
       <div className=" flex flex-col grow  max-w-[780px]  ">
-        <div className=" flex gap-[20px]  justify-between  max-sm:flex-col ">
+        <div className=" flex gap-[20px]  justify-between  max-sm:flex-col mb-[100px] max-md:mb-[65px] ">
           <ReviewsInfo
             productId={product.id}
             isLoadingEstimation={isLoadingEstimation}
@@ -57,7 +63,7 @@ export const ProductReviews: FC<ProductReviewsProps> = ({ product }) => {
             isErrorEstimation={isErrorEstimation}
           />
         </div>
-        <ReviewsToolbar setSort={setSort} />
+        <ReviewsToolbar setSort={setSort} setShow={setShow} />
         <Reviews
           reviews={data?.reviews}
           isLoadingReviews={isLoadingReviews}
@@ -74,6 +80,13 @@ export const ProductReviews: FC<ProductReviewsProps> = ({ product }) => {
       <div className="w-[300px]  max-xl:max-w-[250px] max-lg:w-[200px] max-[822px]:hidden">
         <ProductCardMini product={product} />
       </div>
+      <LeaveReviewModal
+        setShow={setShow}
+        show={show}
+        productId={product.id}
+        refetchEstimation={refetchEstimation}
+        refetchReviews={refetchReviws}
+      />
     </div>
   );
 };

@@ -17,10 +17,18 @@ export async function GET(
         value: true,
       },
     });
-    // Дальше  полученную структуру данных мы преобразуем в удобную для нас струкуру
+    //console.log('estimationCounts:', estimationCounts);
+    // пулучаем estimationCounts:
+    /* [
+  { _count: { value: 2 }, value: 5 },
+  { _count: { value: 1 }, value: 3 },
+  { _count: { value: 1 }, value: 2 }
+] */
+    // Дальше  полученную структуру данных(где value-номер оценки,_count.value-сколько пользователей поставило эту оценку)
+    //мы преобразуем в удобную для нас струкуру
     // это массив объектов со значениями номер оценки (от 1 до 5),количество каждой оценки и процент каждой оценки
 
-    //при помощи метода reduce() выщитывает  колличество всех оценок( т.е. сколько поставлено оценок),
+    //при помощи метода reduce() выщитываем  колличество всех оценок( т.е. сколько поставлено оценок),
     // это нужно для рассчёта % для каждой оценки
     const totalRatings = estimationCounts.reduce(
       (acc, obj) => acc + obj._count.value,
@@ -42,7 +50,7 @@ export async function GET(
       const ratingValue = index + 1;
       //здесь мы определяем количество той  или иной оценки, а если количества нет в наших данных , той оценки ставим 0
       // делаем при помощи метода find(),выщемливаем в наших данных, если есть,
-      //нужный на объект с количеством для данной оценки,берём это количество ,если нет - ставим 0
+      //нужный нам объект с количеством для данной оценки,берём это количество ,если нет - ставим 0
       const ratingCount =
         estimationCounts.find((rating) => rating.value === ratingValue)?._count
           .value || 0;
@@ -63,8 +71,9 @@ export async function GET(
     //складываем количество пользователей ,которые поставили оценку 5 или 4
     // это будут пользователи, которые рекомендуют купить товар
     const positiveEstimation = ratingsArray[3].count + ratingsArray[4].count;
-    const positevePercentage =
-      positiveEstimation === 0 ? 0 : (positiveEstimation / totalRatings) * 100;
+    const positevePercentage = Math.floor(
+      positiveEstimation === 0 ? 0 : (positiveEstimation / totalRatings) * 100
+    );
 
     return NextResponse.json({
       ratingsArray: reversedArray,

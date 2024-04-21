@@ -16,6 +16,7 @@ const EvaluationAnalytics: FC<EvaluationAnalyticsProps> = ({
   isErrorEstimation,
   estimations,
 }) => {
+  const lll = true;
   return (
     <>
       {isErrorEstimation ? (
@@ -25,7 +26,7 @@ const EvaluationAnalytics: FC<EvaluationAnalyticsProps> = ({
       ) : isLoadingEstimation ? (
         <SkeletonEvaluationAnalytics />
       ) : (
-        <div className=" flex flex-col grow  max-w-[420px] gap-[5%] mb-[100px] max-md:mb-[65px]">
+        <div className=" flex flex-col grow  max-w-[420px] gap-[5%] ">
           {estimations?.ratingsArray.map((estimation) => {
             return (
               <div
