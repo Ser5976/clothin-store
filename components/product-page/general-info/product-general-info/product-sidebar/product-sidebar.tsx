@@ -58,11 +58,6 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({
         <BadgeFavourites productId={product.id} button />
       </div>
       <DeliveryTable delivery={delivery} />
-      {/* 
-      <div className={styles.size}></div>
-      <div className={styles.cart_favorites}></div>
-      <div className={styles.delivery}></div>
-      <div className={styles.bank_cards}></div> */}
     </div>
   );
 };

@@ -6,7 +6,7 @@ import { ProductSidebar } from './product-sidebar/product-sidebar';
 
 type ProductGeneralInfoProps = {
   product: ProductType;
-  delivery: DeliveryType[]
+  delivery: DeliveryType[];
 };
 
 export const ProductGeneralInfo: FC<ProductGeneralInfoProps> = ({

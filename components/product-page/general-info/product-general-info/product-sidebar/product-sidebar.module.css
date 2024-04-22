@@ -34,7 +34,7 @@ justify-start items-center gap-2.5 inline-flex;
 }
 .button_cart {
   @apply text-center text-white text-sm font-bold  leading-[44px] tracking-wide bg-cyan-800 hover:bg-cyan-900 
-   h-11 max-w-[549px] w-full flex gap-2 max-[800px]:px-3;
+   h-11 max-w-[549px] w-full flex gap-2 max-[821px]:px-3 max-[401px]:px-[10px];
 }
 .table_header {
   @apply text-zinc-500 text-xs font-normal  leading-[18px] tracking-wide;
