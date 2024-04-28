@@ -14,7 +14,8 @@ export const ToolbarFavourites = () => {
   const { status } = useSession();
   const isAuth = status === 'authenticated';
 
-  //получение данных favourites из стора
+  //получение данных favourites из стора(приемер useStore из zustand для избежания конфликта с сервером,
+  //только что-то он не помог  в BadgeFavourites)
   const state = useStore(useFavouritesStore, (state) => state);
 
   // кастомный хук useQuery получение даных по избранным товарам из базы данных и запись их в стор
@@ -31,13 +32,11 @@ export const ToolbarFavourites = () => {
     onSuccess(data) {
       // записываем данные в стор ,чтобы воспользоваться ими в другом компоненте
       state.setFavouritesBase(data);
+      //записываем refetch в стор,чтобы потом взять для bage-favourites
+      state.setRefetch(refetch);
     },
   });
 
-  //записываем refetch в стор,чтобы потом взять для bage-favourites
-  useEffect(() => {
-    state.setRefetch(refetch);
-  }, []);
   //кастомный хук useMutation, изменяем данные favourites в базе
   //из-за нестабильной работы queryClient.invalidateQueries,изваращаюсь с refetch
   const mutationFavourites = useFavouritesPost(refetch);
@@ -47,10 +46,9 @@ export const ToolbarFavourites = () => {
     // проверка если пользователь авторизован и в сторе есть данные, тогда записываем их в базу
 
     if (isAuth && state.favouritesStore.length > 0) {
-      -mutationFavourites.mutate({ productIdArray: state.favouritesStore });
+      mutationFavourites.mutate({ productIdArray: state.favouritesStore });
       // и очищаем стор, очищаем не реактивным способом(без рендеренга)
       useFavouritesStore.setState({ favouritesStore: [] });
-      //state.clearingFavoritesStore()
     }
   }, [isAuth]);
   // выбор переменной для отображения

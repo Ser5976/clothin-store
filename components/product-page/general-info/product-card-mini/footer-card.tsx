@@ -1,5 +1,9 @@
 import { Button } from '@/components/ui/button';
+import { useCartPost } from '@/react-queries/useCartPost';
+import { useCartStore } from '@/stores/useCartStore';
 import { ProductType } from '@/types/product_type';
+import { addToCart } from '@/utils/add-to-cart';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { FC, useState } from 'react';
 import SelectSize from '../../select-size/select-size';
@@ -10,6 +14,8 @@ type FooterCardProps = {
   product: ProductType;
 };
 export const FooterCard: FC<FooterCardProps> = ({ product }) => {
+  //проверка авторизации
+  const { data } = useSession();
   //цвет товара,понадобиться при формировани объекта продукта, для корзины и для активного стиля выбранного цвета
   const [colorName, setColorName] = useState(() =>
     product.colors.length === 1 ? product.colors[0].color.name : ''
@@ -18,6 +24,13 @@ export const FooterCard: FC<FooterCardProps> = ({ product }) => {
   const [sizeName, setSizeName] = useState(() =>
     product.sizes.length === 1 ? product.sizes[0].size.value : ''
   );
+  //получаем данные из стора
+  const { refetch, cartBase, cartItems, setCartItems } = useCartStore(
+    (state) => state
+  );
+  //кастомный хук useMutation, добавляет данные  в базу корзины
+  //из-за нестабильной работы queryClient.invalidateQueries,изваращаюсь с refetch
+  const mutationAddCart = useCartPost(refetch);
 
   return (
     <div className={styles.footer}>
@@ -39,7 +52,24 @@ export const FooterCard: FC<FooterCardProps> = ({ product }) => {
         setSizeName={setSizeName}
         size="small"
       />
-      <Button size="sm" className={styles.button_cart}>
+      <Button
+        size="sm"
+        className={styles.button_cart}
+        onClick={() =>
+          //добавление товара в корзину, функция в utils
+          addToCart({
+            product,
+            cartStore: cartItems,
+            cartBase: cartBase.cart ? cartBase.cart.items : [],
+            colorName,
+            sizeName,
+            quantity: 1,
+            mutate: mutationAddCart.mutate,
+            setCartItems: setCartItems,
+            isAuth: data,
+          })
+        }
+      >
         <Image
           src="/header/cart-white.svg"
           alt="cart"

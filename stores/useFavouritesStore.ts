@@ -4,7 +4,6 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 export type FavouritesStoreType = {
   favouritesStore: { productId: string }[];
   setFavouritesStore: (data: { productId: string }) => void;
-  clearingFavoritesStore: () => void;
   favouritesBase: { productId: string }[];
   setFavouritesBase: (data: { productId: string }[]) => void;
   refetch: any; //из-за нестабильной работы queryClient.invalidateQueries,изваращаюсь с refetch
@@ -36,7 +35,6 @@ export const useFavouritesStore = create<FavouritesStoreType>()(
           set(() => ({ favouritesStore: copyFavourites }));
         }
       },
-      clearingFavoritesStore: () => set({ favouritesStore: [] }),
       setFavouritesBase: (data) => set({ favouritesBase: data }),
       setRefetch: (data) => set({ refetch: data }),
     }),

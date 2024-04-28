@@ -26,7 +26,7 @@ export const BadgeFavourites = ({
     useStore(useFavouritesStore, (state) => state);
 
   // выбираем какой массив избранных использовать(из базы или из стора)
-  // делаем это при помощи useEffect,чтобы избежать конфликта с сервером
+  // делаем это при помощи useEffect,чтобы избежать конфликта с сервером(useStore из zustand не помогает)
   const [selectedFavourites, setSelectedFavourites] = useState<
     { productId: string }[]
   >([]);

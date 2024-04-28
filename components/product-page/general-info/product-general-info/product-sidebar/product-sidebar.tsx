@@ -2,8 +2,12 @@
 import { BadgeFavourites } from '@/components/bage-favourites.tsx/badge-favourites';
 import SelectSize from '@/components/product-page/select-size/select-size';
 import { Button } from '@/components/ui/button';
+import { useCartPost } from '@/react-queries/useCartPost';
+import { useCartStore } from '@/stores/useCartStore';
 import { DeliveryType } from '@/types/delivery_type';
 import { ProductType } from '@/types/product_type';
+import { addToCart } from '@/utils/add-to-cart';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { FC, useState } from 'react';
 import ProductColor from '../../product-color/product-color';
@@ -20,6 +24,9 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({
   product,
   delivery,
 }) => {
+  //проверка авторизации
+  const { data } = useSession();
+
   //цвет товара,понадобиться при формировани объекта продукта, для корзины и для активного стиля выбранного цвета
   const [colorName, setColorName] = useState(() =>
     product.colors.length === 1 ? product.colors[0].color.name : ''
@@ -28,6 +35,17 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({
   const [sizeName, setSizeName] = useState(() =>
     product.sizes.length === 1 ? product.sizes[0].size.value : ''
   );
+  //изменения количества товара
+  const [quantity, setQuantity] = useState(1);
+
+  //получаем данные из стора
+  const { refetch, cartBase, cartItems, setCartItems } = useCartStore(
+    (state) => state
+  );
+  //кастомный хук useMutation, добавляет данные  в базу корзины
+  //из-за нестабильной работы queryClient.invalidateQueries,изваращаюсь с refetch
+  const mutationAddCart = useCartPost(refetch);
+
   return (
     <div className={styles.container}>
       <PriceRating
@@ -44,8 +62,25 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({
       />
       <SelectSize sizes={product.sizes} setSizeName={setSizeName} size="big" />
       <div className=" flex justify-between gap-[5%] mt-[3%]">
-        <QuantityProduct />
-        <Button size="lg" className={styles.button_cart}>
+        <QuantityProduct quantity={quantity} setQuantity={setQuantity} />
+        <Button
+          size="lg"
+          className={styles.button_cart}
+          onClick={() =>
+            //добавление товара в корзину, функция в utils
+            addToCart({
+              product,
+              cartStore: cartItems,
+              cartBase: cartBase.cart ? cartBase.cart.items : [],
+              colorName,
+              sizeName,
+              quantity,
+              mutate: mutationAddCart.mutate,
+              setCartItems: setCartItems,
+              isAuth: data,
+            })
+          }
+        >
           <Image
             src="/header/cart-white.svg"
             alt="cart"

@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { ToolbarSkeleton } from './skeletons/slider-newArrivals-skeleton/toolbar-skeleton';
+import { ToolbarCart } from './toolbar-cart';
 import { ToolbarFavourites } from './toolbar-favourites';
 import styles from './toolbar.module.css';
 
@@ -25,10 +26,7 @@ export const ToolBar = () => {
     <div className={styles.toolbar}>
       <ToolbarFavourites />
       <div className={styles.divider}></div>
-      <div className={styles.cart}>
-        <Image src="/header/cart.svg" alt="cart" width={20.63} height={18.79} />
-        <div className={styles.badge_cart}>14</div>
-      </div>
+      <ToolbarCart />
     </div>
   );
 };

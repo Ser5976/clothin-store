@@ -8,7 +8,7 @@
   @apply absolute top-[2px] left-[56px] w-[2px] h-[15px] bg-zinc-200;
 }
 .cart {
-  @apply relative pr-[30px];
+  @apply relative pr-[30px] cursor-pointer;
 }
 .badge_heart {
   @apply absolute bottom-[-1px] right-[10px] text-gray-700 text-[16px] font-normal  leading-[160%]
