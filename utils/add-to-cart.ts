@@ -1,17 +1,17 @@
+import { CartItemType } from '@/types/cart_type';
 import { ProductType } from '@/types/product_type';
 import { CartDataType } from '@/validators/cart-validator';
-import { UseMutateFunction } from '@tanstack/react-query';
+import { UseMutateAsyncFunction } from '@tanstack/react-query';
 import { Session } from 'next-auth';
 import { toast } from 'react-toastify';
-
 type DataType = {
   product: ProductType;
-  cartStore: CartDataType;
-  cartBase: CartDataType;
+  cartStore: CartItemType[];
+  cartBase: CartItemType[];
   colorName: string;
   sizeName: string;
   quantity: number;
-  mutate: UseMutateFunction<any, unknown, CartDataType, unknown>;
+  mutate: UseMutateAsyncFunction<any, unknown, CartDataType, unknown>;
   setCartItems: (data: CartDataType) => void;
   isAuth: Session | null;
 };

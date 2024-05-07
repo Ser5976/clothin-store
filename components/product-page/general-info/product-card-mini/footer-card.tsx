@@ -64,7 +64,7 @@ export const FooterCard: FC<FooterCardProps> = ({ product }) => {
             colorName,
             sizeName,
             quantity: 1,
-            mutate: mutationAddCart.mutate,
+            mutate: mutationAddCart.mutateAsync,
             setCartItems: setCartItems,
             isAuth: data,
           })

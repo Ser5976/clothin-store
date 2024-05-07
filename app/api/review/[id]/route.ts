@@ -4,9 +4,7 @@ import {
   ReviewUpdateDataType,
   ReviewUpdateValidator,
 } from '../../../../validators/reviewUpdate-validator';
-import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
-import { authOptions } from '../../auth/config/auth_options';
 import { SortReviewDataType } from '@/validators/sort-review-validator';
 
 //Здесь мы получаем отзывы при помощи POST т.к. передаём объкт сортировки не через query параметры,а через body
@@ -37,13 +35,13 @@ export async function POST(
       skip: offset,
       take: limit,
       where: { productId: params.id },
-      orderBy: body.newest
-        ? { createdAt: 'desc' }
+      orderBy: body.oldest
+        ? { createdAt: 'asc' }
         : body.rating
         ? { estimation: 'desc' }
         : body.reset
-        ? { createdAt: 'asc' }
-        : { createdAt: 'asc' },
+        ? { createdAt: 'desc' }
+        : { createdAt: 'desc' },
       // оператор include показывает вложенную запись
       include: {
         likeReview: true,

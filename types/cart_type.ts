@@ -1,7 +1,20 @@
-import { CartDataType } from '@/validators/cart-validator';
+export type CartItemType = {
+  id?: string;
+  productId: string;
+  name: string;
+  price: number;
+  oldPrice: number | null;
+  totalPrice: number;
+  totalOldPrice: number;
+  discount: number | null;
+  image: string;
+  quantity: number;
+  size: string;
+  color: string;
+};
 
 export type CartType = {
-  items: CartDataType;
+  items: CartItemType[];
   id: string;
   userId: string;
 };

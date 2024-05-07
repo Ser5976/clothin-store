@@ -21,7 +21,7 @@ export async function GET(
         items: true,
       },
     });
-    console.log('cart:', cart);
+    // console.log('cart:', cart);
     //вычесляем общую сумму товаров
     const sumTotalPrice = cart?.items.reduce((acc, item) => {
       return acc + Number(item.totalPrice);
@@ -52,14 +52,14 @@ export async function PUT(
     if (!session?.user) {
       return NextResponse.json('Unauthorized', { status: 401 });
     }
-
     const body: CartUpdateDataType = await request.json();
+    console.log('body:', body);
+    console.log('id:', params.id);
     // валидация body при помощи zod
     const validation = CartUpdateValidator.safeParse(body);
-    // console.log('validation:', validation);
+    // console.log('validation:', validation.success);
     if (!validation.success)
       return NextResponse.json(validation.error.errors, { status: 400 });
-
     // изменения значения в базе
     await prismadb.cartItems.update({
       where: { id: params.id },
@@ -71,6 +71,7 @@ export async function PUT(
     });
     return NextResponse.json({ message: 'Quantity  changed' });
   } catch (error) {
+    console.log(error);
     return NextResponse.json('Quantity is not changed', { status: 500 });
   }
 }

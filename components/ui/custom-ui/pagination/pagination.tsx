@@ -10,7 +10,7 @@ import {
 import ReactPaginate from 'react-paginate';
 
 type SortType = {
-  newest: boolean;
+  oldest: boolean;
   rating: boolean;
   reset: boolean;
   page: number;

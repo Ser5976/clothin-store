@@ -27,7 +27,7 @@ export const ProductReviews: FC<ProductReviewsProps> = ({ product }) => {
   //console.log('estimations:', estimations);
   //состояние для сортировки
   const [sort, setSort] = useState(() => ({
-    newest: false,
+    oldest: false,
     rating: false,
     reset: false,
     page: 1,

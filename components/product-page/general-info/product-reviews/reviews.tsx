@@ -26,8 +26,6 @@ export const Reviews: FC<ReviewsType> = ({
   isErrorReviews,
   isLoadingReviews,
 }) => {
-  const rrr = true;
-  const lll = true;
   return (
     <div className={styles.container}>
       {isErrorReviews ? (

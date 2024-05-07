@@ -13,7 +13,7 @@ import React from 'react';
 import { Dispatch, FC, memo, SetStateAction } from 'react';
 
 type SortType = {
-  newest: boolean;
+  oldest: boolean;
   rating: boolean;
   reset: boolean;
   page: number;
@@ -49,8 +49,6 @@ const LeaveRevieButton = ({
     if (data) {
       setShow(true);
       // При открытии модального окна убираем скролл(причина в select shadcn,
-      //при открытии select в модалки исчезает скролл поэтому дергается макет,так тоже дергается но... )
-      document.body.classList.add('modal_open');
     } else {
       router.push(`/signin?callbackUrl=${path}`);
     }
@@ -76,17 +74,17 @@ const SortReviews = ({
     switch (value) {
       case 'rating':
         setSort((prev) => {
-          return { ...prev, rating: true, newest: false, reset: false };
+          return { ...prev, rating: true, oldest: false, reset: false };
         });
         break;
       case 'reset':
         setSort((prev) => {
-          return { ...prev, reset: true, newest: false, rating: false };
+          return { ...prev, reset: true, oldest: false, rating: false };
         });
         break;
-      case 'newest':
+      case 'oldest':
         setSort((prev) => {
-          return { ...prev, rating: false, newest: true, reset: false };
+          return { ...prev, rating: false, oldest: true, reset: false };
         });
         break;
       default:
@@ -103,7 +101,7 @@ const SortReviews = ({
 
         <SelectContent>
           <SelectItem value="rating"> high rating</SelectItem>
-          <SelectItem value="newest">newest</SelectItem>
+          <SelectItem value="oldest">oldest</SelectItem>
           <SelectItem value="reset"> reset</SelectItem>
         </SelectContent>
       </SelectGroup>

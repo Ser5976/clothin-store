@@ -21,7 +21,7 @@ export const ProductMenu: FC<ProductMenu> = ({ productId }) => {
   //получаем данные по отзывам отдельным запросом ,при помощи кастомного хука, для useQuery, useReviewsProductQuery
   // это нужно для интерактива на клиенте, для получения количества отзывов
   const { data, isError, isLoading } = useReviewsProductQuery(productId, {
-    newest: false,
+    oldest: false,
     rating: false,
     reset: false,
     page: 1,

@@ -1,3 +1,4 @@
+'use client';
 import { useFavouritesPost } from '@/react-queries/useFavouritesPost';
 import { useFavouritesQuery } from '@/react-queries/useFavouritesQuery';
 import { useFavouritesStore } from '@/stores/useFavouritesStore';

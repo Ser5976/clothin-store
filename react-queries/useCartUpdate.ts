@@ -1,11 +1,11 @@
-import { postCartServise } from './servises/postCartServise';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
+import { updateCartServise } from './servises/updateCartServise';
 
-export const useCartPost = (refetch?: any) => {
+export const useCartUpdate = (refetch?: any) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: postCartServise,
+    mutationFn: updateCartServise,
     onSuccess: () => {
       //после успешной матации, по ключу, обновляем данные,классная штука ,
       //но как-то работает через раз , непредсказуемо

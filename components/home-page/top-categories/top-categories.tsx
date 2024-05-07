@@ -7,9 +7,11 @@ import Link from 'next/link';
 type TopCategoriesPropsType = {
   topCategories: TopCategoriesType[];
 };
-export const TopCategories: FC<TopCategoriesPropsType> = ({
+export default function TopCategories({
   topCategories,
-}) => {
+}: {
+  topCategories: TopCategoriesType[];
+}) {
   // console.log('render top:');
   return (
     <section className={styles.section}>
@@ -39,4 +41,4 @@ export const TopCategories: FC<TopCategoriesPropsType> = ({
       </div>
     </section>
   );
-};
+}

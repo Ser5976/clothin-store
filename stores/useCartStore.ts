@@ -1,5 +1,5 @@
+import { CartDataType } from './../validators/cart-validator';
 import { CommonCartType } from '@/types/cart_type';
-import { CartDataType } from '@/validators/cart-validator';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 

@@ -2,7 +2,7 @@ import { CommenTypeReviews } from './../../types/type_reviews';
 import axios from 'axios';
 
 export type SortType = {
-  newest: boolean;
+  oldest: boolean;
   rating: boolean;
   reset: boolean;
   page?: number;

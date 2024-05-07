@@ -75,7 +75,7 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({
               colorName,
               sizeName,
               quantity,
-              mutate: mutationAddCart.mutate,
+              mutate: mutationAddCart.mutateAsync,
               setCartItems: setCartItems,
               isAuth: data,
             })

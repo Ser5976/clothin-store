@@ -1,4 +1,4 @@
-import { CartDataType } from '@/validators/cart-validator';
+import { CartDataType } from './../../validators/cart-validator';
 import axios from 'axios';
 
 export const postCartServise = async (cartItems: CartDataType) => {

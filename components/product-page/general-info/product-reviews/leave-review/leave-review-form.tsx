@@ -56,11 +56,9 @@ export const LeaveReviewForm: FC<LeaveReviewFormProps> = ({
   const onSubmit = (data: ReviewFormType) => {
     // console.log('data:', data);
     const review = { ...data, productId };
-    mutationRiview.mutate(review);
+    mutationRiview.mutateAsync(review);
     // закрываем модальное окно
     setShow(false);
-    // При закрытии модального окна  возвращаем скролл
-    document.body.classList.remove('modal_open');
     toast.success('Your review has been saved');
   };
 

@@ -32,7 +32,7 @@ const CardProduct: FC<CardProductProps> = ({ product }) => {
         <div className={styles.badge_favourites}>
           <BadgeFavourites productId={product.id} />
         </div>
-        <Link href={`./${product.id}`}>
+        <Link href={`/${product.id}`}>
           <Image
             className={styles.img_product}
             src={product?.image[0]?.url}
