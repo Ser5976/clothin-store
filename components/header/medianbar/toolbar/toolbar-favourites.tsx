@@ -10,10 +10,11 @@ import { useStore } from 'zustand';
 import styles from './toolbar.module.css';
 
 export const ToolbarFavourites = () => {
-  // console.log('toolbarfavourites');
+  // console.log('toolbar-favourites');
   //проверка авторизации
   const { status } = useSession();
   const isAuth = status === 'authenticated';
+  const isLoadingAuth = status === 'loading';
 
   //получение данных favourites из стора(приемер useStore из zustand для избежания конфликта с сервером,
   //только что-то он не помог  в BadgeFavourites)
@@ -45,18 +46,24 @@ export const ToolbarFavourites = () => {
   //запись данных по избранным продуктам от неавторизованного пользователя в базу данных при авторизации
   useEffect(() => {
     // проверка если пользователь авторизован и в сторе есть данные, тогда записываем их в базу
-
     if (isAuth && state.favouritesStore.length > 0) {
       mutationFavourites.mutate({ productIdArray: state.favouritesStore });
-      // и очищаем стор, очищаем не реактивным способом(без рендеренга)
+      // и очищаем стор, очищаем нереактивным способом(без рендеренга)
       useFavouritesStore.setState({ favouritesStore: [] });
+    }
+    // если неавторизованный, то  очищают стор от данных из базы
+    if (!isAuth) {
+      useFavouritesStore.setState({ favouritesBase: [] });
     }
   }, [isAuth]);
   // выбор переменной для отображения
   const numberFavorites = isAuth
     ? state.favouritesBase.length
     : state.favouritesStore.length;
-  // console.log('tolbar-favorites render');
+  //выбор места откуда берём массив избранных товаров (база или стор)
+  const favouritesProducts = isAuth
+    ? state.favouritesBase
+    : state.favouritesStore;
   return (
     <div className={styles.wishlist}>
       <Image src="/header/heart.svg" alt="heart" width={20} height={20} />

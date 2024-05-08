@@ -47,7 +47,6 @@ export const ToolbarCart = () => {
       setRefetch(refetch);
     },
   });
-  const er = true;
   //кастомный хук useMutation, добавляет данные  в базу корзины
   //из-за нестабильной работы queryClient.invalidateQueries,изваращаюсь с refetch
   const mutationAddCart = useCartPost(refetch);
