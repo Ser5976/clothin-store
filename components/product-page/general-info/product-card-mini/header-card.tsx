@@ -62,7 +62,15 @@ export const HeaderCard: FC<HeaderCardProps> = ({ product }) => {
                 <RatingStar rating={product.rating} size="middle" />
               </div>
               <div className={styles.badge_favourites}>
-                <BadgeFavourites productId={product.id} />
+                <BadgeFavourites
+                  product={{
+                    productId: product.id,
+                    name: product.name,
+                    price: Number(product.price),
+                    oldPrice: Number(product.oldPrice),
+                    image: product.image[0].url,
+                  }}
+                />
               </div>
               <ChevronLeft
                 className={styles.chevron_left}

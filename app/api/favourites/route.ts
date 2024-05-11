@@ -8,7 +8,6 @@ import { NextResponse } from 'next/server';
 import { authOptions } from '../auth/config/auth_options';
 
 export async function GET(request: Request) {
-  /// console.log('Get!!!!!');
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user) {
@@ -17,6 +16,11 @@ export async function GET(request: Request) {
     const favourites = await prismadb.favorites.findMany({
       where: {
         userId: session.user.id,
+      },
+      include: {
+        product: {
+          select: { name: true, image: true, price: true, oldPrice: true },
+        },
       },
     });
     return NextResponse.json(favourites);
@@ -39,7 +43,7 @@ export async function POST(request: Request) {
     // console.log('validation:', validation);
     if (!validation.success)
       return NextResponse.json(validation.error.errors, { status: 400 });
-    //создаём переменную для запросов(потомуч что есть условия)
+    //создаём переменную для запросов(потому что есть условие)
     let newFavourites;
     // если мы получаем массив productId,значить это данные из LocalStorage(от неавторизуемого пользователя)
     if (body.productIdArray) {

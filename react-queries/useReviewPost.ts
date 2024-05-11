@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 import { postReviewServise } from './servises/postReviewServise';
 
 export const useReviewPost = (refetchEstimation: any, refetchReviews: any) => {
@@ -13,6 +14,9 @@ export const useReviewPost = (refetchEstimation: any, refetchReviews: any) => {
       // поэтому изваращаюсь с refetch
       refetchEstimation();
       refetchReviews();
+    },
+    onError: () => {
+      toast.error('Something went wrong');
     },
   });
 };

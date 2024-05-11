@@ -1,5 +1,6 @@
 import { postLikeReviewServise } from './servises/postLikeReviewServise';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 
 export const useLikeReviewPost = (refetchLike: any, refetchDislike: any) => {
   const queryClient = useQueryClient();
@@ -13,6 +14,9 @@ export const useLikeReviewPost = (refetchLike: any, refetchDislike: any) => {
       // поэтому изваращаюсь с refetch
       refetchLike();
       refetchDislike();
+    },
+    onError: () => {
+      toast.error('Something went wrong');
     },
   });
 };

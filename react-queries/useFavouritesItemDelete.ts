@@ -1,19 +1,18 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import { postDislikeReviewServise } from './servises/postDislikeReviewServise';
+import { deleteFavouritesItemServise } from './servises/deleteFavouritesItemServise';
 
-export const useDislikeReviewPost = (refetchLike: any, refetchDislike: any) => {
+export const useFavoretesItemDelete = (refetch?: any) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: postDislikeReviewServise,
+    mutationFn: deleteFavouritesItemServise,
     onSuccess: () => {
       //после успешной матации, по ключу, обновляем данные,классная штука ,
       //но как-то работает через раз , непредсказуемо
       // почему то работает нестабильно, не знаю
-      //queryClient.invalidateQueries({ queryKey: ['favourites'] });
+      // queryClient.invalidateQueries({ queryKey: ['favourites'] });
       // поэтому изваращаюсь с refetch
-      refetchLike();
-      refetchDislike();
+      refetch();
     },
     onError: () => {
       toast.error('Something went wrong');

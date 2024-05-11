@@ -1,12 +1,20 @@
 'use client';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 import { useFavouritesPost } from '@/react-queries/useFavouritesPost';
 import { useFavouritesQuery } from '@/react-queries/useFavouritesQuery';
 import { useFavouritesStore } from '@/stores/useFavouritesStore';
 import { TypeFavourites } from '@/types/type_favorites';
+import { Heart, RotateCw } from 'lucide-react';
 import { useSession } from 'next-auth/react';
-import Image from 'next/image';
 import { useEffect } from 'react';
 import { useStore } from 'zustand';
+import { FavoritesItem } from './favorites-item';
 import styles from './toolbar.module.css';
 
 export const ToolbarFavourites = () => {
@@ -22,13 +30,19 @@ export const ToolbarFavourites = () => {
 
   // кастомный хук useQuery получение даных по избранным товарам из базы данных и запись их в стор
   //если мы авторизованы получаем данные из базы, если нет берём из стора
-  //в кастомный хук для useQuery,передаём опциональные(необязательные параметры)isAuth-при помощи которой
+  //в кастомный хук для useQuery,передаём опциональные параметры isAuth-при помощи которой
   //будем блокировать или разрешать запрос(enabled в useQuery ) и select- при помощи которого
-  //переформатируем полученные данные(сделаем структуру такой как в state.favourites )
-  const { refetch } = useFavouritesQuery(isAuth, {
+  //переформатируем полученные данные(сделаем структуру такой как в state.favourites ) и onSuccess
+  const { refetch, isLoading, isError } = useFavouritesQuery(isAuth, {
     select: (data: TypeFavourites[]) => {
-      return data.map((obj) => {
-        return { productId: obj.productId };
+      return data.map((item) => {
+        return {
+          productId: item.productId,
+          name: item.product.name,
+          price: item.product.price,
+          oldPrice: item.product.oldPrice,
+          image: item.product.image[0].url,
+        };
       });
     },
     onSuccess(data) {
@@ -47,7 +61,11 @@ export const ToolbarFavourites = () => {
   useEffect(() => {
     // проверка если пользователь авторизован и в сторе есть данные, тогда записываем их в базу
     if (isAuth && state.favouritesStore.length > 0) {
-      mutationFavourites.mutate({ productIdArray: state.favouritesStore });
+      mutationFavourites.mutate({
+        productIdArray: state.favouritesStore.map((item) => ({
+          productId: item.productId,
+        })),
+      });
       // и очищаем стор, очищаем нереактивным способом(без рендеренга)
       useFavouritesStore.setState({ favouritesStore: [] });
     }
@@ -64,10 +82,75 @@ export const ToolbarFavourites = () => {
   const favouritesProducts = isAuth
     ? state.favouritesBase
     : state.favouritesStore;
+
   return (
-    <div className={styles.wishlist}>
-      <Image src="/header/heart.svg" alt="heart" width={20} height={20} />
-      <div className={styles.badge_heart}>{numberFavorites}</div>
-    </div>
+    <Sheet>
+      <SheetTrigger asChild>
+        <div className={styles.wishlist}>
+          <Heart size="20" color="#424551" />
+
+          {isAuth && isError ? (
+            <span className="text-red-500 ">?</span>
+          ) : isLoadingAuth || (isAuth && isLoading) ? (
+            <RotateCw
+              size={16}
+              color="#424551"
+              strokeWidth={1.5}
+              absoluteStrokeWidth
+              className=" absolute top-[1px] left-[22px]  animate-spin"
+            />
+          ) : (
+            <div className={styles.badge_heart}>{numberFavorites}</div>
+          )}
+        </div>
+      </SheetTrigger>
+      <SheetContent>
+        <SheetHeader>
+          <SheetTitle className={styles.sheet_title}>
+            <div>Your favorites products</div>
+            {isAuth && isError ? (
+              <span className="text-red-500 ">?</span>
+            ) : isAuth && isLoading ? (
+              <div className=" flex items-center">
+                <RotateCw
+                  size={16}
+                  color="#808080"
+                  strokeWidth={1}
+                  absoluteStrokeWidth
+                  className="  animate-spin"
+                />
+              </div>
+            ) : (
+              <div>({numberFavorites})</div>
+            )}
+          </SheetTitle>
+        </SheetHeader>
+        <div className="custom-scroll-cart">
+          {isAuth && isError ? (
+            <div className=" text-red-500 text-sm  flex  items-center py-4">
+              <div> Data not received</div>
+            </div>
+          ) : isLoadingAuth || (isAuth && isLoading) ? (
+            <div className="py-4">...Loading</div>
+          ) : favouritesProducts?.length === 0 ? (
+            <div className=" py-4">The basket is empty</div>
+          ) : (
+            <div className=" flex flex-col">
+              {favouritesProducts.map((item) => {
+                return (
+                  <FavoritesItem
+                    key={item.productId}
+                    item={item}
+                    isAuth={isAuth}
+                    deleteFavouritesItem={state.deleteFavouritesItem}
+                    refetch={refetch}
+                  />
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </SheetContent>
+    </Sheet>
   );
 };

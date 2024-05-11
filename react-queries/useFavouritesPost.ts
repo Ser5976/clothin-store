@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 import { postFavouritesServise } from './servises/postFavouritesServise';
 
 export const useFavouritesPost = (refetch?: any) => {
@@ -12,6 +13,9 @@ export const useFavouritesPost = (refetch?: any) => {
       //queryClient.invalidateQueries({ queryKey: ['favourites'] });
       // поэтому изваращаюсь с refetch
       refetch();
+    },
+    onError: () => {
+      toast.error('Something went wrong');
     },
   });
 };

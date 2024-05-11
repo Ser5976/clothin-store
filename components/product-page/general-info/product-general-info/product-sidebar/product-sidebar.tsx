@@ -90,7 +90,16 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({
           Add to cart
         </Button>
 
-        <BadgeFavourites productId={product.id} button />
+        <BadgeFavourites
+          product={{
+            productId: product.id,
+            name: product.name,
+            price: Number(product.price),
+            oldPrice: Number(product.oldPrice),
+            image: product.image[0].url,
+          }}
+          button
+        />
       </div>
       <DeliveryTable delivery={delivery} />
     </div>
