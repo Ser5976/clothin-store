@@ -10,7 +10,7 @@ export const useReviewPost = (refetchEstimation: any, refetchReviews: any) => {
       //после успешной матации, по ключу, обновляем данные,классная штука ,
       //но как-то работает через раз , непредсказуемо
       // почему то работает нестабильно, не знаю
-      //queryClient.invalidateQueries({ queryKey: ['favourites'] });
+      queryClient.invalidateQueries({ queryKey: ['rating-product'] });
       // поэтому изваращаюсь с refetch
       refetchEstimation();
       refetchReviews();

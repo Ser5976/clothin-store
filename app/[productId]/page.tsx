@@ -1,6 +1,7 @@
 import { getAllProducts } from '@/actions/get_all_products ';
 import { getDelivery } from '@/actions/get_delivery';
 import { getProduct } from '@/actions/get_product';
+import { BreadcrumbComponent } from '@/components/product-page/breadcrumb';
 import { ProductPage } from '@/components/product-page/general-info/product-page';
 import { ProductMenu } from '@/components/product-page/product-menu/product-menu';
 import { ProductTitle } from '@/components/product-page/product-title/product-title';
@@ -26,6 +27,7 @@ const Product = async ({ params }: { params: { productId: string } }) => {
   ]);
   return (
     <main className="shared_container  pt-[5%]">
+      <BreadcrumbComponent product={product} />
       <ProductTitle title={product.name} />
       <ProductMenu productId={params.productId} />
       <div className=" w-full h-[0px] border border-gray-200"></div>

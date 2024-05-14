@@ -12,17 +12,28 @@ import styles from './product-reviews.module.css';
 
 const VoteReview = ({ reviewId }: { reviewId: string }) => {
   //проверка авторизации
-  const { data } = useSession();
+  const { data, status } = useSession();
+  const isAuth = status === 'authenticated';
+  const isLoadingAuth = status === 'loading';
 
   //кастомный хук useQuery, получаем данные по лайкам выбранного отзыва
-  const { data: likes, refetch: refetchLike } = useLikeReviewQurety(reviewId);
+  const {
+    data: likes,
+    refetch: refetchLike,
+    isLoading: isLoadingLike,
+  } = useLikeReviewQurety(reviewId);
   //кастомный хук useQuery, получаем данные по дислайкам выбранного отзыва
-  const { data: dislikes, refetch: refetchDislike } =
-    useDislikeReviewQurety(reviewId);
+  const {
+    data: dislikes,
+    refetch: refetchDislike,
+    isLoading: isLoadingDislike,
+  } = useDislikeReviewQurety(reviewId);
 
   return (
     <div className={styles.review_vote}>
       <LikeReview
+        isAuth={isAuth}
+        isLoadingLike={isLoadingLike}
         reviewId={reviewId}
         likes={likes}
         refetchLike={refetchLike}
@@ -30,6 +41,8 @@ const VoteReview = ({ reviewId }: { reviewId: string }) => {
         userId={data?.user.id}
       />
       <DislikeReview
+        isAuth={isAuth}
+        isLoadingDislike={isLoadingDislike}
         reviewId={reviewId}
         dislikes={dislikes}
         refetchDislike={refetchDislike}
@@ -43,12 +56,16 @@ const VoteReview = ({ reviewId }: { reviewId: string }) => {
 export default memo(VoteReview);
 
 const LikeReview = ({
+  isAuth,
+  isLoadingLike,
   reviewId,
   refetchLike,
   refetchDislike,
   userId,
   likes,
 }: {
+  isAuth: boolean;
+  isLoadingLike: boolean;
   reviewId: string;
   refetchLike: any;
   refetchDislike: any;
@@ -86,7 +103,7 @@ const LikeReview = ({
       <div>
         {mutationLikeReview.isError ? (
           <span className="  text-red-500 ">?</span>
-        ) : mutationLikeReview.isLoading ? (
+        ) : (isAuth && isLoadingLike) || mutationLikeReview.isLoading ? (
           <RotateCw
             size={16}
             color="#808080"
@@ -103,12 +120,16 @@ const LikeReview = ({
 };
 
 const DislikeReview = ({
+  isAuth,
+  isLoadingDislike,
   reviewId,
   refetchDislike,
   refetchLike,
   userId,
   dislikes,
 }: {
+  isAuth: boolean;
+  isLoadingDislike: boolean;
   reviewId: string;
   refetchDislike: any;
   refetchLike: any;
@@ -147,7 +168,7 @@ const DislikeReview = ({
       <div>
         {mutationDislikeReview.isError ? (
           <span className="  text-red-500 ">?</span>
-        ) : mutationDislikeReview.isLoading ? (
+        ) : (isAuth && isLoadingDislike) || mutationDislikeReview.isLoading ? (
           <RotateCw
             size={16}
             color="#808080"

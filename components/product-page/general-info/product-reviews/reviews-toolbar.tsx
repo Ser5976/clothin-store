@@ -8,9 +8,18 @@ import {
 } from '@/components/ui/select';
 import { Select } from '@radix-ui/react-select';
 import { useSession } from 'next-auth/react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 import { Dispatch, FC, memo, SetStateAction } from 'react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { LeaveReviewForm } from './leave-review/leave-review-form';
+import Link from 'next/link';
 
 type SortType = {
   oldest: boolean;
@@ -21,46 +30,96 @@ type SortType = {
 
 type ReviewsToolbarProps = {
   setSort: Dispatch<SetStateAction<SortType>>;
-  setShow: Dispatch<SetStateAction<boolean>>;
+  productId: string;
+  refetchEstimation: any;
+  refetchReviews: any;
 };
-const ReviewsToolbar: FC<ReviewsToolbarProps> = ({ setSort, setShow }) => {
+const ReviewsToolbar: FC<ReviewsToolbarProps> = ({
+  setSort,
+  productId,
+  refetchEstimation,
+  refetchReviews,
+}) => {
   // console.log('Render:ReviewsToolbar');
 
   return (
     <div className=" flex justify-between mb-[60px] max-md:mb-[40px]">
-      <LeaveRevieButton setShow={setShow} />
+      <LeaveReviewModal
+        productId={productId}
+        refetchEstimation={refetchEstimation}
+        refetchReviews={refetchReviews}
+      />
       <SortReviews setSort={setSort} />
     </div>
   );
 };
 export default memo(ReviewsToolbar);
 
-const LeaveRevieButton = ({
-  setShow,
+const LeaveReviewModal = ({
+  productId,
+  refetchEstimation,
+  refetchReviews,
 }: {
-  setShow: Dispatch<SetStateAction<boolean>>;
+  productId: string;
+  refetchEstimation: any;
+  refetchReviews: any;
 }) => {
   //проверка авторизации(отзыв может написать только авторизованный пользователь)
   const { data } = useSession();
   // для редиректа на логин и обратно при авторизации
   const path = usePathname();
-  const router = useRouter();
-  const openModal = () => {
-    if (data) {
-      setShow(true);
-      // При открытии модального окна убираем скролл(причина в select shadcn,
-    } else {
-      router.push(`/signin?callbackUrl=${path}`);
-    }
-  };
+
   return (
-    <Button
-      size="sm"
-      className=" text-[14px] h-11 bg-cyan-800 w-[180px] hover:bg-cyan-900 max-md:w-[150px] "
-      onClick={openModal}
-    >
-      Leave a review
-    </Button>
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button
+          size="sm"
+          className=" text-[14px] h-11 bg-cyan-800 w-[180px] hover:bg-cyan-900 max-md:w-[150px] "
+        >
+          Leave a review
+        </Button>
+      </DialogTrigger>
+
+      {data ? (
+        <DialogContent className="max-w-[350px] mx-2 rounded-sm">
+          <DialogHeader>
+            <DialogTitle className="text-center text-zinc-800 text-[28px] font-bold mb-4">
+              Leave a review
+            </DialogTitle>
+          </DialogHeader>
+          <LeaveReviewForm
+            productId={productId}
+            refetchEstimation={refetchEstimation}
+            refetchReviews={refetchReviews}
+          />
+        </DialogContent>
+      ) : (
+        <DialogContent className="max-w-[350px] mx-2 rounded-sm   ">
+          <DialogHeader>
+            <DialogTitle className="text-center text-zinc-800 text-[28px] font-bold mb-4">
+              Log in to leave a review
+            </DialogTitle>
+          </DialogHeader>
+          <Link href={`/signin?callbackUrl=${path}`}>
+            <Button className=" w-full bg-cyan-800 hover:bg-cyan-900 mt-[12px] ">
+              Sign in
+            </Button>
+          </Link>
+
+          <div className="">
+            <span className=" text-gray-700 text-xs font-normal">
+              Don't have an account?{' '}
+            </span>
+            <Link
+              href={`/signup?callbackUrl=${path}`}
+              className=" text-cyan-800 text-xs font-normal hover:text-cyan-900 underline underline-offset-2"
+            >
+              Sign up
+            </Link>
+          </div>
+        </DialogContent>
+      )}
+    </Dialog>
   );
 };
 

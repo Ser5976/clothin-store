@@ -16,7 +16,6 @@ const EvaluationAnalytics: FC<EvaluationAnalyticsProps> = ({
   isErrorEstimation,
   estimations,
 }) => {
-  const lll = true;
   return (
     <>
       {isErrorEstimation ? (

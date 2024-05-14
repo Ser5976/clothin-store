@@ -5,7 +5,7 @@ import { BottomBar } from './bottombar/bottombar';
 import { MedianBar } from './medianbar/medianbar';
 import { TopBar } from './topbar/topbar';
 
-const NavBar = async () => {
+async function NavBar() {
   //т.к. запросы через fetch на внутренний API(т.е. свои обработчики маршрутов)
   //из серверных компонентов макета(NavBar и др.)
   // не проходят при build, делаем запросы напрямую к базе
@@ -32,6 +32,6 @@ const NavBar = async () => {
       <BottomBar />
     </header>
   );
-};
+}
 
 export default NavBar;

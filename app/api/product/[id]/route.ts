@@ -56,7 +56,7 @@ export async function PUT(
     if (body.oldPrice) {
       const result = ((body.oldPrice - body.price) / body.oldPrice) * 100;
       //функция для округления результата
-      function roundToNearestHalf(number: number) {
+      const roundToNearestHalf = (number: number) => {
         const decimalPart = number - Math.floor(number);
 
         if (decimalPart >= 0.5) {
@@ -66,7 +66,7 @@ export async function PUT(
           // Округление вниз
           return Math.floor(number);
         }
-      }
+      };
       discount = roundToNearestHalf(result);
     }
 

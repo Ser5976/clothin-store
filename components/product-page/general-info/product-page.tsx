@@ -17,7 +17,7 @@ export const ProductPage: FC<ProductPageProps> = ({ product, delivery }) => {
   //получение данных menuActive из стора,для навигации
   const state = useStore(useProductMenuStore, (state) => state);
 
-  // выполняем условие какой компанент визуализировать
+  // выполняем условие какой компонент визуализировать
   if ('general-info' === state?.menuActive) {
     return (
       <div className="py-[2.5%]">

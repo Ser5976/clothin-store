@@ -20,7 +20,7 @@
   max-[320px]:text-[10px];
 }
 .sheet_title {
-  @apply flex gap-1  text-zinc-800 text-xl font-bold pb-4 border-b border-slate-200;
+  @apply flex gap-1  text-zinc-800 text-lg  sm:text-xl font-bold pb-4 border-b border-slate-200;
 }
 
 .sheet_quantity_wrapper {

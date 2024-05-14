@@ -20,8 +20,9 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { z } from 'zod';
-import { Dispatch, FC, SetStateAction } from 'react';
+import { FC } from 'react';
 import { useReviewPost } from '@/react-queries/useReviewPost';
+import { DialogClose } from '@/components/ui/dialog';
 
 const ReviewFormValidator = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -35,14 +36,12 @@ type LeaveReviewFormProps = {
   productId: string;
   refetchEstimation: any;
   refetchReviews: any;
-  setShow: Dispatch<SetStateAction<boolean>>;
 };
 
 export const LeaveReviewForm: FC<LeaveReviewFormProps> = ({
   productId,
   refetchEstimation,
   refetchReviews,
-  setShow,
 }) => {
   const form = useForm<ReviewFormType>({
     resolver: zodResolver(ReviewFormValidator),
@@ -57,8 +56,7 @@ export const LeaveReviewForm: FC<LeaveReviewFormProps> = ({
     // console.log('data:', data);
     const review = { ...data, productId };
     mutationRiview.mutateAsync(review);
-    // закрываем модальное окно
-    setShow(false);
+
     toast.success('Your review has been saved');
   };
 
@@ -138,13 +136,14 @@ export const LeaveReviewForm: FC<LeaveReviewFormProps> = ({
             </FormItem>
           )}
         />
-
-        <Button
-          type="submit"
-          className=" w-full bg-cyan-800 hover:bg-cyan-900 mt-[12px] text-center text-white text-sm font-bold "
-        >
-          Submit a review
-        </Button>
+        <DialogClose>
+          <Button
+            type="submit"
+            className=" w-full bg-cyan-800 hover:bg-cyan-900 mt-[12px] text-center text-white text-sm font-bold "
+          >
+            Submit a review
+          </Button>
+        </DialogClose>
       </form>
     </Form>
   );
