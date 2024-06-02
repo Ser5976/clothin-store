@@ -35,7 +35,7 @@ export const WriteToUs: FC<WriteToUsPropsType> = ({ reviews }) => {
             <Image
               src="/home/letters.png"
               alt="image letters"
-              width={416}
+              width={461}
               height={416}
               priority
             />

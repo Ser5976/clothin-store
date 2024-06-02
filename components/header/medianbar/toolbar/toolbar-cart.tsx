@@ -18,6 +18,7 @@ import { CartItem } from './cart-item';
 import { Button } from '@/components/ui/button';
 import { CommonCartType } from '@/types/cart_type';
 import { RotateCw, ShoppingCart } from 'lucide-react';
+import Link from 'next/link';
 
 export const ToolbarCart = () => {
   //проверка авторизации
@@ -185,18 +186,20 @@ export const ToolbarCart = () => {
                     </div>
 
                     <SheetClose asChild>
-                      <Button
-                        size="lg"
-                        className=" flex  gap-2 text-center text-white text-base font-bold  bg-cyan-800 hover:bg-cyan-900 "
-                      >
-                        <Image
-                          src="/cart/card.svg"
-                          alt="cart"
-                          width={21.5}
-                          height={18.5}
-                        />
-                        Checkout
-                      </Button>
+                      <Link href="/checkout">
+                        <Button
+                          size="lg"
+                          className=" flex  gap-2 text-center text-white text-base font-bold  bg-cyan-800 hover:bg-cyan-900 w-full "
+                        >
+                          <Image
+                            src="/cart/card.svg"
+                            alt="cart"
+                            width={21.5}
+                            height={18.5}
+                          />
+                          Checkout
+                        </Button>
+                      </Link>
                     </SheetClose>
                   </div>
                 </div>

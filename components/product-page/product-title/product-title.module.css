@@ -1,7 +1,4 @@
 .title {
-  @apply text-zinc-800 text-[46px] font-black  leading-[130%] my-[3%]
-  max-xl:text-[40px]
-  max-lg:text-[36px]
-  max-md:text-[32px] 
-  max-sm:text-[28px];
+  @apply text-zinc-800 text-[36px] font-black  leading-[130%] my-[3%]
+  lg:text-[46px];
 }

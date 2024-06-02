@@ -10,7 +10,7 @@ export const useDislikeReviewPost = (refetchLike: any, refetchDislike: any) => {
       //после успешной матации, по ключу, обновляем данные,классная штука ,
       //но как-то работает через раз , непредсказуемо
       // почему то работает нестабильно, не знаю
-      //queryClient.invalidateQueries({ queryKey: ['favourites'] });
+      //queryClient.invalidateQueries({ queryKey: ['dislike-review'] });
       // поэтому изваращаюсь с refetch
       refetchLike();
       refetchDislike();

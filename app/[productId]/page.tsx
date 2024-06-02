@@ -26,12 +26,18 @@ const Product = async ({ params }: { params: { productId: string } }) => {
     deliveryPromise,
   ]);
   return (
-    <main className="shared_container  pt-[5%]">
-      <BreadcrumbComponent product={product} />
-      <ProductTitle title={product.name} />
-      <ProductMenu productId={params.productId} />
-      <div className=" w-full h-[0px] border border-gray-200"></div>
-      <ProductPage product={product} delivery={delivery} />
+    <main>
+      <div className="bg-[#F4F5F6] py-4">
+        <div className="shared_container">
+          <BreadcrumbComponent product={product} />
+        </div>
+      </div>
+      <div className="shared_container  pt-[2%]">
+        <ProductTitle title={product.name} />
+        <ProductMenu productId={params.productId} />
+        <div className=" w-full h-[0px] border border-gray-200"></div>
+        <ProductPage product={product} delivery={delivery} />
+      </div>
     </main>
   );
 };

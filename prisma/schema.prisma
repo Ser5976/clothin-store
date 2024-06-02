@@ -260,7 +260,9 @@ model Order {
   id        String    @id @default(uuid())
   userId String?
   user User? @relation(fields: [userId],references: [id],onDelete: Cascade)
-  name String
+  firstName String
+  lastName String
+  email String
   orderItems OrderItem[] 
   isPaid     Boolean   @default(false)
   amount Decimal

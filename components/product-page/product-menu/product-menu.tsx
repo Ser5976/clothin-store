@@ -13,10 +13,7 @@ type ProductMenu = {
 
 export const ProductMenu: FC<ProductMenu> = ({ productId }) => {
   //получение данных menuActive,setMenuActive из стора,для навигации
-  const { menuActive, setMenuActive } = useStore(
-    useProductMenuStore,
-    (state) => state
-  );
+  const { menuActive, setMenuActive } = useProductMenuStore((state) => state);
 
   //получаем данные по отзывам отдельным запросом ,при помощи кастомного хука, для useQuery, useReviewsProductQuery
   // это нужно для интерактива на клиенте, для получения количества отзывов

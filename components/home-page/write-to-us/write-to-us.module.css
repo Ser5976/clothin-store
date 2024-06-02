@@ -58,9 +58,9 @@
   max-md:text-[10px] max-md:max-h-[115px]
   max-sm:text-[7px] max-sm:max-h-[75px];
 }
-.image_wrapper {
-  @apply max-w-[416px];
+.imag {
+  @apply max-w-[161px] sm:max-w-[261px] md:max-w-[361px]      lg:max-w-[461px];
 }
-.image_wrapper img {
+.imag img {
   @apply w-full h-full object-cover;
 }
