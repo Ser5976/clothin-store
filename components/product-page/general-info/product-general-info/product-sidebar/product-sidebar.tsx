@@ -1,17 +1,20 @@
 'use client';
 import { BadgeFavourites } from '@/components/bage-favourites.tsx/badge-favourites';
+import SelectSize from '@/components/product-page/select-size/select-size';
 import { Button } from '@/components/ui/button';
+import { useCartPost } from '@/react-queries/useCartPost';
+import { useCartStore } from '@/stores/useCartStore';
 import { DeliveryType } from '@/types/delivery_type';
 import { ProductType } from '@/types/product_type';
+import { addToCart } from '@/utils/add-to-cart';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import { useState } from 'react';
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import ProductColor from '../../product-color/product-color';
 import { DeliveryTable } from './delivery-table';
 import PriceRating from './price-rating';
-import Productcolor from './product-color';
 import styles from './product-sidebar.module.css';
 import { QuantityProduct } from './quantity_product';
-import SelectSize from './select-size';
 
 type ProductSidebarProps = {
   product: ProductType;
@@ -21,15 +24,27 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({
   product,
   delivery,
 }) => {
-  //это состояние для цвета,понадобиться при формировани объекта продукта для корзины и для активного стиля
-  // выбранного цвета
+  //проверка авторизации
+  const { data } = useSession();
+
+  //цвет товара,понадобиться при формировани объекта продукта, для корзины и для активного стиля выбранного цвета
   const [colorName, setColorName] = useState(() =>
-    product.colors.length === 1 ? product.colors[0].color.name : false
+    product.colors.length === 1 ? product.colors[0].color.name : ''
   );
-  //это состояние для размера,понадобиться при формировани объекта продукта для корзины
+  //размер товара,понадобиться при формировани объекта продукта, для корзины
   const [sizeName, setSizeName] = useState(() =>
-    product.sizes.length === 1 ? product.sizes[0].size.value : false
+    product.sizes.length === 1 ? product.sizes[0].size.value : ''
   );
+  //изменения количества товара
+  const [quantity, setQuantity] = useState(1);
+
+  //получаем данные из стора
+  const { refetch, cartBase, cartItems, setCartItems } = useCartStore(
+    (state) => state
+  );
+  //кастомный хук useMutation, добавляет данные  в базу корзины
+  //из-за нестабильной работы queryClient.invalidateQueries,изваращаюсь с refetch
+  const mutationAddCart = useCartPost(refetch);
 
   return (
     <div className={styles.container}>
@@ -39,42 +54,54 @@ export const ProductSidebar: FC<ProductSidebarProps> = ({
         discount={product.discount}
         productId={product.id}
       />
-      <Productcolor
+      <ProductColor
         colors={product.colors}
+        size="big"
         colorName={colorName}
         setColorName={setColorName}
       />
-      <SelectSize
-        sizes={product.sizes}
-        sizeName={sizeName}
-        setSizeName={setSizeName}
-      />
-      <div className=" grid grid-cols-4 mt-[3%]">
-        <div className={styles.quantity_button_cart_wrapper}>
-          <QuantityProduct />
-          <Button size="lg" className={styles.button_cart}>
-            <Image
-              src="/header/cart-white.svg"
-              alt="cart"
-              width={20.63}
-              height={18.79}
-            />
-            Add to cart
-          </Button>
-        </div>
+      <SelectSize sizes={product.sizes} setSizeName={setSizeName} size="big" />
+      <div className=" flex justify-between gap-[5%] mt-[3%]">
+        <QuantityProduct quantity={quantity} setQuantity={setQuantity} />
+        <Button
+          size="lg"
+          className={styles.button_cart}
+          onClick={() =>
+            //добавление товара в корзину, функция в utils
+            addToCart({
+              product,
+              cartStore: cartItems,
+              cartBase: cartBase.cart ? cartBase.cart.items : [],
+              colorName,
+              sizeName,
+              quantity,
+              mutate: mutationAddCart.mutateAsync,
+              setCartItems: setCartItems,
+              isAuth: data,
+            })
+          }
+        >
+          <Image
+            src="/header/cart-white.svg"
+            alt="cart"
+            width={20.63}
+            height={18.79}
+          />
+          Add to cart
+        </Button>
 
         <BadgeFavourites
-          productId={product.id}
+          product={{
+            productId: product.id,
+            name: product.name,
+            price: Number(product.price),
+            oldPrice: Number(product.oldPrice),
+            image: product.image[0].url,
+          }}
           button
-          className=" col-span-1"
         />
       </div>
       <DeliveryTable delivery={delivery} />
-      {/* 
-      <div className={styles.size}></div>
-      <div className={styles.cart_favorites}></div>
-      <div className={styles.delivery}></div>
-      <div className={styles.bank_cards}></div> */}
     </div>
   );
 };

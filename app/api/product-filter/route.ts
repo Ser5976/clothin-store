@@ -45,6 +45,8 @@ export async function GET(request: Request) {
     const count = await prismadb.product.count({
       where: filter,
     });
+    //рассчёт количества страниц,для пагинации
+    const pageQty = Math.ceil(count / limit);
     // ну и сам запрос
     //skip: Определяет количество записей, которые следует пропустить перед началом возвращаемых результатов.
     //take: Определяет количество записей, которые следует взять из результата.
@@ -67,7 +69,7 @@ export async function GET(request: Request) {
       },
     });
     // console.log('Product:', product);
-    return NextResponse.json({ count, product });
+    return NextResponse.json({ count, product, pageQty });
   } catch (error) {
     console.log('Error:', error);
     return NextResponse.json('Something went wrong', { status: 500 });

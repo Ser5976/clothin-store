@@ -9,10 +9,10 @@ import { authOptions } from '../auth/config/auth_options';
 
 export async function POST(request: Request) {
   try {
-    /* const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions);
     if (!session?.user) {
       return NextResponse.json('Unauthorized', { status: 401 });
-    } */
+    }
     const body: CartDataType = await request.json();
     // валидация body при помощи zod
     const validation = CartValidator.safeParse(body);
@@ -22,7 +22,7 @@ export async function POST(request: Request) {
 
     //получаем данные по товарам в корзине юзера
     const cart = await prismadb.cart.findUnique({
-      where: { userId: body.userId },
+      where: { userId: session.user.id },
       include: {
         items: true,
       },
@@ -32,10 +32,8 @@ export async function POST(request: Request) {
       // если корзины нет создаём
       await prismadb.cart.create({
         data: {
-          userId: body.userId,
-          items: {
-            create: body.items,
-          },
+          userId: session.user.id,
+          items: { create: body },
         },
       });
       return NextResponse.json({ message: 'Data is saved 1' });
@@ -45,18 +43,27 @@ export async function POST(request: Request) {
     //  Сначала создаем Set с уникальными productId из items корзины(для последующей фильтрации)
     const uniqueProductIds = new Set(cart?.items.map((item) => item.productId));
     // потом фильтруем наши поступившие данные
-    const uniqueItems = body.items.filter(
+    const uniqueProducts = body.filter(
       (item) => !uniqueProductIds.has(item.productId)
     );
-    console.log('uniqueItems:', uniqueItems);
+    // console.log('uniqueItems:', uniqueProducts);
     // потом если у нас в uniqueItems что-то есть,создаём cartItem
-    if (uniqueItems.length !== 0) {
+    if (uniqueProducts.length !== 0) {
       await prismadb.cartItems.createMany({
-        data: uniqueItems.map((item) => {
+        data: uniqueProducts.map((item) => {
           return {
             cartId: cart.id,
             quantity: item.quantity,
             productId: item.productId,
+            name: item.name,
+            price: item.price,
+            oldPrice: item.oldPrice,
+            image: item.image,
+            size: item.size,
+            color: item.color,
+            discount: item.discount ?? null,
+            totalPrice: item.totalPrice,
+            totalOldPrice: item.totalOldPrice,
           };
         }),
       });

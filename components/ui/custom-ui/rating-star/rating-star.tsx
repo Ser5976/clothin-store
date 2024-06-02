@@ -9,8 +9,8 @@ import { starSize } from './star-size';
 // RatingStar нужно импортировать  через динамический роут,чтобы избежать конфликта с сервером
 
 type RatingStarProps = {
-  rating: RatingType | null;
-  size: 'small' | 'big';
+  rating: RatingType | null | { value: number; count: 0 };
+  size: 'small' | 'middle' | 'big';
   estimation?: boolean;
   className?: HTMLAttributes<HTMLDivElement> | string;
 };
@@ -25,6 +25,22 @@ const RatingStar: FC<RatingStarProps> = ({
   // короче ради адаптива,потому что не смог добраться до стилей css библиотеки react-star-ratings
   const { screenWidth } = useMediaQuery();
   // console.log('render rating:');
+  //определяем начальный размер звёздочек
+  function handleSize(key: typeof size): string {
+    switch (key) {
+      case 'small':
+        return starSize.small(screenWidth);
+
+      case 'middle':
+        return starSize.middle(screenWidth);
+
+      case 'big':
+        return starSize.big(screenWidth);
+
+      default:
+        return starSize.small(screenWidth);
+    }
+  }
   return (
     <div className={`flex-col ${className}`}>
       <StarRatings
@@ -33,11 +49,7 @@ const RatingStar: FC<RatingStarProps> = ({
         // starHoverColor="gold"
         starEmptyColor="#848482"
         numberOfStars={5}
-        starDimension={
-          size === 'small'
-            ? starSize.small(screenWidth)
-            : starSize.big(screenWidth)
-        }
+        starDimension={handleSize(size)}
         starSpacing={'0'}
       />
       {estimation ? (

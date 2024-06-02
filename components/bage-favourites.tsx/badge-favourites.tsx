@@ -7,26 +7,28 @@ import { useSession } from 'next-auth/react';
 import { useFavouritesStore } from '@/stores/useFavouritesStore';
 import { HTMLAttributes, useEffect, useState } from 'react';
 import { Button } from '../ui/button';
+import { FavoritesItemsStoreType } from '../../types/type_favorites_items_store';
 import { useStore } from 'zustand';
 
 export const BadgeFavourites = ({
-  productId,
+  product,
   button = false,
   className,
 }: {
-  productId: string;
+  product: FavoritesItemsStoreType;
   button?: boolean;
   className?: HTMLAttributes<HTMLDivElement> | string;
 }) => {
   //получаемм данные по авторизации
   const { status } = useSession();
   const isAuth = status === 'authenticated';
+
   //получаем данные из стора
   const { favouritesBase, favouritesStore, refetch, setFavouritesStore } =
     useStore(useFavouritesStore, (state) => state);
 
   // выбираем какой массив избранных использовать(из базы или из стора)
-  // делаем это при помощи useEffect,чтобы избежать конфликта с сервером
+  // делаем это при помощи useEffect,чтобы избежать конфликта с сервером(useStore из zustand не помогает)
   const [selectedFavourites, setSelectedFavourites] = useState<
     { productId: string }[]
   >([]);
@@ -43,11 +45,11 @@ export const BadgeFavourites = ({
   const mutationFavourites = useFavouritesPost(refetch);
 
   //удаляем или добавляем в избранное, если пользователь авторизован работаем с базой,если нет- то со стором
-  const handlerFavourites = (obj: { productId: string }) => {
+  const handlerFavourites = () => {
     if (isAuth) {
-      mutationFavourites.mutate(obj);
+      mutationFavourites.mutateAsync({ productId: product.productId });
     } else {
-      setFavouritesStore(obj);
+      setFavouritesStore(product);
     }
   };
   return button ? (
@@ -55,7 +57,7 @@ export const BadgeFavourites = ({
       size="default"
       variant="outline"
       className={`${styles.button_favourites} ${className}`}
-      onClick={() => handlerFavourites({ productId })}
+      onClick={handlerFavourites}
     >
       {mutationFavourites.isLoading ? (
         <RotateCw
@@ -70,7 +72,7 @@ export const BadgeFavourites = ({
           color="#17696A"
           className={cn({
             [styles.heart_active]: selectedFavourites?.some(
-              (obj) => obj.productId === productId
+              (item) => item.productId === product.productId
             ),
           })}
         />
@@ -92,10 +94,10 @@ export const BadgeFavourites = ({
           color="#17696A"
           className={cn({
             [styles.heart_active]: selectedFavourites?.some(
-              (obj) => obj.productId === productId
+              (item) => item.productId === product.productId
             ),
           })}
-          onClick={() => handlerFavourites({ productId })}
+          onClick={handlerFavourites}
         />
       )}
     </>

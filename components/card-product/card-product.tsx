@@ -30,12 +30,20 @@ const CardProduct: FC<CardProductProps> = ({ product }) => {
           <RatingStar rating={product.rating} size="small" />
         </div>
         <div className={styles.badge_favourites}>
-          <BadgeFavourites productId={product.id} />
+          <BadgeFavourites
+            product={{
+              productId: product.id,
+              name: product.name,
+              price: Number(product.price),
+              oldPrice: Number(product.oldPrice),
+              image: product.image[0].url,
+            }}
+          />
         </div>
-        <Link href={`./${product.id}`}>
+        <Link href={`/${product.id}`}>
           <Image
             className={styles.img_product}
-            src={product.image[0].url}
+            src={product?.image[0]?.url}
             width={200}
             height={245}
             alt="Picture of the author"

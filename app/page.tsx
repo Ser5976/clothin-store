@@ -12,7 +12,7 @@ import { Discount } from '@/components/home-page/discount/discount';
 import { NewArrivals } from '@/components/home-page/new-arrivals/new-arrivals';
 import { NowTrending } from '@/components/home-page/now-trending/now-trending';
 import { PopularTypes } from '@/components/home-page/popular-types/popular-types';
-import { TopCategories } from '@/components/home-page/top-categories/top-categories';
+import  TopCategories  from '@/components/home-page/top-categories/top-categories';
 import { WriteToUs } from '@/components/home-page/write-to-us/write-to-us';
 
 export default async function Home() {

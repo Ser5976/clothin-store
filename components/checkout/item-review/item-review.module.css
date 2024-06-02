@@ -1,0 +1,10 @@
+.quantity_wrapper {
+  @apply max-w-[60px] w-full h-8 px-2  bg-white rounded border border-gray-300 justify-center items-center 
+    gap-3 inline-flex col-span-2;
+}
+.quantity {
+  @apply text-gray-700 text-sm font-normal  leading-[150px] text-center;
+}
+.quantity_icons {
+  @apply w-6 h-6 relative flex-col justify-start items-start flex;
+}

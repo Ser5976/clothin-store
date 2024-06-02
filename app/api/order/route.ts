@@ -6,6 +6,7 @@ import {
 } from '../../../validators/order-validator';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
+import { authOptions } from '../auth/config/auth_options';
 
 // подключаемся к YooKassa(платежная система)
 const yooKassa = new YooKassa({
@@ -16,10 +17,10 @@ const yooKassa = new YooKassa({
 
 export async function POST(request: Request) {
   try {
-    /* const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions);
     if (!session?.user) {
       return NextResponse.json('Unauthorized', { status: 401 });
-    } */
+    }
     const body: OrderDataType = await request.json();
     // валидация body при помощи zod
     const validation = OrderValidator.safeParse(body);
@@ -27,25 +28,21 @@ export async function POST(request: Request) {
     if (!validation.success)
       return NextResponse.json(validation.error.errors, { status: 400 });
 
-    // рассчитываем сумму заказа
-    const amount = body.orderItems.reduce((acc, item) => {
-      return acc + item.price * item.quantity;
-    }, 0);
     // console.log('body:', body);
     // создаём заказ и записываем в базу
     const order = await prismadb.order.create({
       data: {
-        userId: body.userId,
-        name: body.name,
+        userId: session.user.id,
+        firstName: body.firstName,
+        lastName: body.lastName,
+        email: body.email,
         phone: body.phone,
-        amount,
+        amount: body.amount,
         address: {
           create: body.address,
         },
         orderItems: {
-          create: body.orderItems.map((item) => {
-            return { productId: item.productId, quantity: item.quantity }; //чтобы не влючать свойство price
-          }),
+          create: body.orderItems,
         },
       },
     });
@@ -62,7 +59,7 @@ export async function POST(request: Request) {
       },
       confirmation: {
         type: 'redirect',
-        return_url: `${process.env.NEXTAUTH_URL}/order`,
+        return_url: `${process.env.NEXTAUTH_URL}/checkout`,
       },
       description: `Заказ#${order.id}`,
     } as any);

@@ -1,0 +1,12 @@
+.form {
+  @apply relative text-xs  bg-white   p-5 rounded-sm w-[350px] 
+  max-xl:w-[30%] max-lg:w-[40%] max-md:w-[50%] max-sm:w-[75%]
+  max-[400px]:w-[85%];
+}
+.title {
+  @apply text-center text-zinc-800 text-[28px] font-bold mb-4;
+}
+
+.icon {
+  @apply absolute top-3 right-3 h-7 w-7 text-[#9ca3af] hover:text-cyan-800  cursor-pointer;
+}
