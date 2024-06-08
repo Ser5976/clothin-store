@@ -16,9 +16,9 @@ import {
 import styles from './toolbar.module.css';
 import { CartItem } from './cart-item';
 import { Button } from '@/components/ui/button';
-import { CommonCartType } from '@/types/cart_type';
 import { RotateCw, ShoppingCart } from 'lucide-react';
-import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { CommonCartType } from '@/types/cart_type';
 
 export const ToolbarCart = () => {
   //проверка авторизации
@@ -26,6 +26,10 @@ export const ToolbarCart = () => {
   const isAuth = status === 'authenticated';
   const isLoadingAuth = status === 'loading';
   const userId = data?.user.id;
+  // для редиректа на логин и обратно при авторизации
+  const path = usePathname();
+  // для редиректа на главную, если нет товаров
+  const route = useRouter();
   //получение данных корзины из стора
   const {
     setCartBase,
@@ -66,7 +70,9 @@ export const ToolbarCart = () => {
     }
     // если неавторизованный, то  очищают стор от данных из базы
     if (!isAuth) {
-      useCartStore.setState({ cartBase: {} as CommonCartType });
+      useCartStore.setState({
+        cartBase: {} as CommonCartType,
+      });
     }
   }, [isAuth]);
   // выбор переменной для отображения количества товаров в корзине
@@ -84,6 +90,15 @@ export const ToolbarCart = () => {
       ? cartBase.cart.items
       : []
     : cartItems;
+  //перейти на страницу заказа
+  const goOverCheckout = () => {
+    if (!isAuth) {
+      route.push(`/signin?callbackUrl=${path}`);
+    } else {
+      route.push('/checkout');
+    }
+  };
+
   //конечно с условиями я здесь нагородил
   return (
     <Sheet>
@@ -186,20 +201,19 @@ export const ToolbarCart = () => {
                     </div>
 
                     <SheetClose asChild>
-                      <Link href="/checkout">
-                        <Button
-                          size="lg"
-                          className=" flex  gap-2 text-center text-white text-base font-bold  bg-cyan-800 hover:bg-cyan-900 w-full "
-                        >
-                          <Image
-                            src="/cart/card.svg"
-                            alt="cart"
-                            width={21.5}
-                            height={18.5}
-                          />
-                          Checkout
-                        </Button>
-                      </Link>
+                      <Button
+                        onClick={goOverCheckout}
+                        size="lg"
+                        className=" flex  gap-2 text-center text-white text-base font-bold  bg-cyan-800 hover:bg-cyan-900 w-full "
+                      >
+                        <Image
+                          src="/cart/card.svg"
+                          alt="cart"
+                          width={21.5}
+                          height={18.5}
+                        />
+                        Checkout
+                      </Button>
                     </SheetClose>
                   </div>
                 </div>

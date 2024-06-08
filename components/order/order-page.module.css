@@ -15,12 +15,12 @@
 .subtitle {
   @apply text-zinc-800 text-lg  lg:text-xl xl:text-2xl font-bold leading-[31.20px] mb-[2%];
 }
-.subtotal {
-  @apply p-[5%] text-right text-zinc-800 text-base lg:text-lg xl:text-xl font-bold leading-[27px];
+.totalPrice {
+  @apply text-zinc-800 text-base lg:text-lg xl:text-xl font-bold leading-[27px];
 }
 
 .right {
-  @apply md:w-[40%] flex flex-col md:gap-[2%]  mb-[5%];
+  @apply md:w-[40%]   mb-[5%];
 }
 .quantity_wrapper {
   @apply max-w-[60px] w-full h-8 px-2  bg-white rounded border border-gray-300 justify-center items-center 
@@ -28,7 +28,4 @@
 }
 .quantity {
   @apply text-gray-700 text-sm font-normal  leading-[150px] text-center;
-}
-.quantity_icons {
-  @apply w-6 h-6 relative flex-col justify-start items-start flex;
 }

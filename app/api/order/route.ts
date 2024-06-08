@@ -21,6 +21,7 @@ export async function POST(request: Request) {
     if (!session?.user) {
       return NextResponse.json('Unauthorized', { status: 401 });
     }
+
     const body: OrderDataType = await request.json();
     // валидация body при помощи zod
     const validation = OrderValidator.safeParse(body);
@@ -28,7 +29,7 @@ export async function POST(request: Request) {
     if (!validation.success)
       return NextResponse.json(validation.error.errors, { status: 400 });
 
-    // console.log('body:', body);
+    console.log('body:', body);
     // создаём заказ и записываем в базу
     const order = await prismadb.order.create({
       data: {
@@ -37,6 +38,9 @@ export async function POST(request: Request) {
         lastName: body.lastName,
         email: body.email,
         phone: body.phone,
+        subtotal: body.subtotal,
+        shippingCost: body.shippingCost,
+        discount: body.discount,
         amount: body.amount,
         address: {
           create: body.address,
@@ -59,7 +63,7 @@ export async function POST(request: Request) {
       },
       confirmation: {
         type: 'redirect',
-        return_url: `${process.env.NEXTAUTH_URL}/checkout`,
+        return_url: `${process.env.NEXTAUTH_URL}/order/${order.id}`,
       },
       description: `Заказ#${order.id}`,
     } as any);

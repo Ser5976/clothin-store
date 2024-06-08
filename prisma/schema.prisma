@@ -265,6 +265,9 @@ model Order {
   email String
   orderItems OrderItem[] 
   isPaid     Boolean   @default(false)
+  subtotal Decimal
+  shippingCost Decimal
+  discount Decimal?
   amount Decimal
   phone      String  
   address    Address?
@@ -281,7 +284,16 @@ model OrderItem {
   order     Order   @relation(fields: [orderId], references: [id],onDelete: Cascade)
   productId String  
   product   Product @relation(fields: [productId], references: [id],onDelete: Cascade)
-  quantity Int
+  name String 
+  price Decimal
+  oldPrice Decimal?
+  discount      Float?
+  image String
+  quantity Int @default(1)
+  size String
+  color String
+  totalPrice Decimal @default(0)
+  totalOldPrice Decimal @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
