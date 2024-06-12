@@ -18,5 +18,12 @@
   @apply text-[14px] text-[#9A9CA5] leading-[150%];
 }
 .image {
-  @apply absolute top-[12px] right-[16px] cursor-pointer;
+  @apply absolute top-[12px] right-[16px];
+}
+
+.container_search {
+  @apply absolute top-[57px] w-full shadow-lg min-h-[70px] py-2 rounded-sm  transition-all duration-500 bg-white z-50;
+}
+.item_search {
+  @apply text-sm text-gray-600 py-1 px-4 cursor-pointer rounded-sm hover:bg-slate-100;
 }

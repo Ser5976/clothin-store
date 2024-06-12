@@ -1,36 +1,54 @@
 'use client';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import { useSearchQuery } from '@/react-queries/useSearchQuery';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from 'react';
+import Link from 'next/link';
+import {
+  ChangeEvent,
+  Dispatch,
+  FC,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import styles from './searchinput.module.css';
 
 //SearchInput используем в двух компонентах, из-за отличий в css делаем условия
 interface SearchInputProps {
   mark: 'medianbar' | 'burger-menu';
-  setShow?: Dispatch<SetStateAction<boolean>>; //для закрытия burger-menu
+  setShow?: Dispatch<SetStateAction<boolean>>; //для закрытия burger-menu на мобилках
 }
 
 export const SearchInput: FC<SearchInputProps> = ({ mark, setShow }) => {
-  const route = useRouter();
-  const [search, setSearch] = useState('');
-  const handler = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-  };
-  const submit = () => {
-    route.push(`/search?value=${search}`);
-    setSearch('');
+  const [query, setQuery] = useState('');
+  //закрываем область поиска а в бургере закрываем бурге меню
+  const handlerLink = () => {
+    setQuery('');
     setShow && setShow(false);
   };
-  // тоже но только после нажатия на кнопку энтер
-  const pressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && search !== '') {
-      route.push(`/search?value=${search}`);
-      setSearch('');
-      setShow && setShow(false);
-    }
+  //закрываем область поиска
+  const handlerInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
   };
+
+  //делаем запрос в базу данных type,brand,material,ищем  по name
+  // кастомный хук useQuery
+  const { data, refetch } = useSearchQuery(query);
+  //т.к. при  вводе данных в поисковую строку результаты будут загружаться в реальном времени,делать задержку
+  // чтобы было меньше запросов
+  useEffect(() => {
+    const debounceFetch = setTimeout(() => {
+      if (query.length > 0) {
+        refetch();
+      }
+    }, 300);
+
+    return () => clearTimeout(debounceFetch);
+  }, [query, refetch]);
+
+  //console.log('query:', data);
+
   return (
     <div
       className={cn({
@@ -45,9 +63,8 @@ export const SearchInput: FC<SearchInputProps> = ({ mark, setShow }) => {
           [styles.input]: mark === 'medianbar',
           [styles.input_burger]: mark === 'burger-menu',
         })}
-        value={search}
-        onChange={handler}
-        onKeyPress={pressEnter}
+        value={query}
+        onChange={handlerInput}
       />
 
       <Image
@@ -56,8 +73,31 @@ export const SearchInput: FC<SearchInputProps> = ({ mark, setShow }) => {
         width={16}
         height={16}
         className={styles.image}
-        onClick={submit}
       />
+      {data && query.length > 0 && (
+        <div className={styles.container_search}>
+          <ul className="flex flex-col ">
+            {data.length === 0 ? (
+              <div className="text-sm text-gray-600 py-1 px-4 rounded-sm">
+                We didn't find anything
+              </div>
+            ) : (
+              data?.map((item) => {
+                return (
+                  <Link
+                    key={item.id}
+                    href={`/search?${item.search}=${item.id}`}
+                    className={styles.item_search}
+                    onClick={handlerLink}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })
+            )}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
