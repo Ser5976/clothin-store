@@ -47,7 +47,7 @@ const Burger: FC<BurgerProps> = ({ categories, customers }) => {
         </SheetHeader>
         <div className={styles.content}>
           <div className={styles.search}>
-            <SearchInput mark="burger-menu" burgerImput={true} />
+            <SearchInput mark="burger-menu" isBurger={true} />
           </div>
 
           <nav className={styles.categories}>

@@ -11,10 +11,10 @@ import styles from './searchinput.module.css';
 //SearchInput используем в двух компонентах, из-за отличий в css делаем условия
 interface SearchInputProps {
   mark: 'medianbar' | 'burger-menu';
-  burgerImput: boolean;
+  isBurger: boolean;
 }
 
-export const SearchInput: FC<SearchInputProps> = ({ mark, burgerImput }) => {
+export const SearchInput: FC<SearchInputProps> = ({ mark, isBurger }) => {
   const [query, setQuery] = useState('');
   //закрываем область поиска а в бургере закрываем бурге меню
   const handlerLink = () => {
@@ -78,7 +78,7 @@ export const SearchInput: FC<SearchInputProps> = ({ mark, burgerImput }) => {
               data?.map((item) => {
                 return (
                   <React.Fragment key={item.id}>
-                    {burgerImput ? (
+                    {isBurger ? (
                       <SheetClose asChild>
                         <Link
                           href={`/search?${item.search}=${item.id}`}
