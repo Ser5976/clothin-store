@@ -1,10 +1,37 @@
-.invisible {
-  @apply hidden;
-}
 .burger {
   @apply flex flex-col justify-between  w-[24px] h-[17px] cursor-pointer
   min-[821px]:hidden;
 }
 .rectangel {
   @apply w-[24px] h-[2px] bg-white opacity-[0.6];
+}
+
+.header {
+  @apply flex  justify-between;
+}
+
+.content {
+  @apply flex flex-col max-w-[520px] mx-auto px-[20px] pt-9  gap-9;
+}
+.search {
+  @apply flex justify-center;
+}
+
+.categories {
+  @apply flex flex-col items-center  gap-8;
+}
+.link_categories {
+  @apply text-[16px] leading-[150%] font-bold 
+  text-[#424551] z-30 uppercase;
+}
+
+.for_customers {
+  @apply flex flex-col py-4 gap-4 border-t border-gray-300 z-30;
+}
+.link_customers {
+  @apply text-[16px] leading-[150%] font-bold 
+  text-[#424551] z-30;
+}
+.link_active {
+  @apply text-[#17696A];
 }

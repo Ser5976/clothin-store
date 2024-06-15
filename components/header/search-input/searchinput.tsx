@@ -1,31 +1,24 @@
 'use client';
 import { Input } from '@/components/ui/input';
+import { SheetClose } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 import { useSearchQuery } from '@/react-queries/useSearchQuery';
 import Image from 'next/image';
 import Link from 'next/link';
-import {
-  ChangeEvent,
-  Dispatch,
-  FC,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react';
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import styles from './searchinput.module.css';
 
 //SearchInput используем в двух компонентах, из-за отличий в css делаем условия
 interface SearchInputProps {
   mark: 'medianbar' | 'burger-menu';
-  setShow?: Dispatch<SetStateAction<boolean>>; //для закрытия burger-menu на мобилках
+  burgerImput: boolean;
 }
 
-export const SearchInput: FC<SearchInputProps> = ({ mark, setShow }) => {
+export const SearchInput: FC<SearchInputProps> = ({ mark, burgerImput }) => {
   const [query, setQuery] = useState('');
   //закрываем область поиска а в бургере закрываем бурге меню
   const handlerLink = () => {
     setQuery('');
-    setShow && setShow(false);
   };
   //закрываем область поиска
   const handlerInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -84,14 +77,27 @@ export const SearchInput: FC<SearchInputProps> = ({ mark, setShow }) => {
             ) : (
               data?.map((item) => {
                 return (
-                  <Link
-                    key={item.id}
-                    href={`/search?${item.search}=${item.id}`}
-                    className={styles.item_search}
-                    onClick={handlerLink}
-                  >
-                    {item.name}
-                  </Link>
+                  <React.Fragment key={item.id}>
+                    {burgerImput ? (
+                      <SheetClose asChild>
+                        <Link
+                          href={`/search?${item.search}=${item.id}`}
+                          className={styles.item_search}
+                          onClick={handlerLink}
+                        >
+                          {item.name}
+                        </Link>
+                      </SheetClose>
+                    ) : (
+                      <Link
+                        href={`/search?${item.search}=${item.id}`}
+                        className={styles.item_search}
+                        onClick={handlerLink}
+                      >
+                        {item.name}
+                      </Link>
+                    )}
+                  </React.Fragment>
                 );
               })
             )}

@@ -5,10 +5,9 @@ import { CustomersType } from '@/types/customers_type';
 import { RequisitesType } from '@/types/requisites_type';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Account } from './account/account';
 import Burger from './burger/burger';
-import BurgerMenu from './burger_menu/burger-menu';
 import styles from './topbar.module.css';
 
 interface ITopBarProps {
@@ -22,14 +21,13 @@ export const TopBar: FC<ITopBarProps> = ({
   customers,
   requisites,
 }) => {
-  const [show, setShow] = useState(false);
   const pathname = usePathname();
 
   return (
     <section className={styles.section}>
       <div className="shared_container">
         <div className={styles.row}>
-          <Burger show={show} setShow={setShow} />
+          <Burger categories={categories} customers={customers} />
           {!requisites ? (
             <h1 className="text-[14px] leading-[150%] font-bold text-[#FF4242] max-[820px]:hidden">
               No data received!
@@ -69,12 +67,6 @@ export const TopBar: FC<ITopBarProps> = ({
           <Account />
         </div>
       </div>
-      <BurgerMenu
-        show={show}
-        setShow={setShow}
-        categories={categories}
-        customers={customers}
-      />
     </section>
   );
 };

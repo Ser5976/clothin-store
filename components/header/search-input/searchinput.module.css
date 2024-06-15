@@ -2,8 +2,8 @@
   @apply relative max-[820px]:hidden;
 }
 .burger_menu {
-  @apply relative w-[380px] min-[820px]:hidden
-  max-[450px]:w-[250px];
+  @apply relative w-[250px]  min-[821px]:hidden
+  max-[450px]:w-[200px];
 }
 .input {
   @apply w-[380px] pt-[11px] px-[16px] pb-[12px] rounded-[4px] border border-[#D7DADD]
@@ -11,8 +11,8 @@
   max-lg:w-[250px];
 }
 .input_burger {
-  @apply w-[380px] pt-[11px] px-[16px] pb-[12px] rounded-[4px] border border-[#D7DADD]
-  max-[450px]:w-[250px];
+  @apply w-[250px] pt-[11px] px-[16px] pb-[12px] rounded-[4px] border border-[#D7DADD]
+  max-[450px]:w-[200px] focus:outline-none;
 }
 .input::placeholder {
   @apply text-[14px] text-[#9A9CA5] leading-[150%];
