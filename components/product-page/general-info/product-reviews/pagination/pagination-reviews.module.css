@@ -1,0 +1,13 @@
+.pagination {
+  @apply flex list-none items-center justify-center my-5 text-gray-400 gap-[1px];
+}
+.pageNum {
+  @apply px-2  cursor-pointer   hover:text-cyan-900  hover:font-semibold;
+}
+
+.active {
+  @apply text-cyan-900 font-semibold;
+}
+.disabled {
+  @apply hidden;
+}

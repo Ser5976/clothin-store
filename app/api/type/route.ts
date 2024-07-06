@@ -37,3 +37,12 @@ export async function POST(request: Request) {
     return NextResponse.json('Data is not saved', { status: 500 });
   }
 }
+
+export async function GET(request: Request) {
+  try {
+    const type = await prismadb.type.findMany();
+    return NextResponse.json(type);
+  } catch (error) {
+    console.log(error);
+  }
+}

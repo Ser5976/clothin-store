@@ -15,7 +15,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div>
+    <div className=" max-w-[300px] w-full mx-auto mt-[200px] text-center  text-xl text-red-700">
       <h2>Something went wrong!</h2>
       <button
         onClick={

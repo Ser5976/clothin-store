@@ -1,10 +1,10 @@
-import Pagination from '@/components/ui/custom-ui/pagination/pagination';
 import { useEstimationProductQuery } from '@/react-queries/useEstimationProductQuery';
 import { useReviewsProductQuery } from '@/react-queries/useReviewsProductQuery';
 import { ProductType } from '@/types/product_type';
 import { FC, useState } from 'react';
 import ProductCardMini from '../product-card-mini/product-card-mini';
 import EvaluationAnalytics from './evaluation-analytics';
+import PaginationReviews from './pagination/pagination-reviews';
 import { Reviews } from './reviews';
 import ReviewsInfo from './reviews-info';
 import ReviewsToolbar from './reviews-toolbar';
@@ -72,7 +72,7 @@ export const ProductReviews: FC<ProductReviewsProps> = ({ product }) => {
           isErrorReviews={isErrorReviws}
         />
         {data && data.pageQty > 1 && (
-          <Pagination
+          <PaginationReviews
             page={sort.page}
             pageQty={data?.pageQty}
             setSort={setSort}

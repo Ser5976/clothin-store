@@ -104,12 +104,6 @@ export const ToolbarCart = () => {
     <Sheet>
       <SheetTrigger asChild>
         <div className={styles.cart}>
-          {/*   <Image
-            src="/header/cart.svg"
-            alt="cart"
-            width={20.63}
-            height={18.79}
-          /> */}
           <ShoppingCart size="20" color="#424551" />
           <div className={styles.badge_cart}>
             {isAuth && isError ? (

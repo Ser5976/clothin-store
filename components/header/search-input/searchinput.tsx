@@ -3,8 +3,10 @@ import { Input } from '@/components/ui/input';
 import { SheetClose } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 import { useSearchQuery } from '@/react-queries/useSearchQuery';
+import { useSearchNameStore } from '@/stores/useSearchNameStore';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import styles from './searchinput.module.css';
 
@@ -15,10 +17,15 @@ interface SearchInputProps {
 }
 
 export const SearchInput: FC<SearchInputProps> = ({ mark, isBurger }) => {
+  const router = useRouter();
   const [query, setQuery] = useState('');
-  //закрываем область поиска а в бургере закрываем бурге меню
-  const handlerLink = () => {
+  //стор для поискового имени
+  const setSearchName = useSearchNameStore((state) => state.setSearchName);
+  //закрываем область поиска а в бургере закрываем бурге меню, а так же передаём  в стор поискового слова для страницы shearh
+  const handlerLink = (name: string, search: string, id: string) => {
+    setSearchName(name);
     setQuery('');
+    router.push(`/search?${search}=${id}`);
   };
   //закрываем область поиска
   const handlerInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +35,7 @@ export const SearchInput: FC<SearchInputProps> = ({ mark, isBurger }) => {
   //делаем запрос в базу данных type,brand,material,ищем  по name
   // кастомный хук useQuery
   const { data, refetch } = useSearchQuery(query);
-  //т.к. при  вводе данных в поисковую строку результаты будут загружаться в реальном времени,делать задержку
+  //т.к. при  вводе данных в поисковую строку результаты будут загружаться в реальном времени,делаем задержку
   // чтобы было меньше запросов
   useEffect(() => {
     const debounceFetch = setTimeout(() => {
@@ -80,22 +87,24 @@ export const SearchInput: FC<SearchInputProps> = ({ mark, isBurger }) => {
                   <React.Fragment key={item.id}>
                     {isBurger ? (
                       <SheetClose asChild>
-                        <Link
-                          href={`/search?${item.search}=${item.id}`}
+                        <div
                           className={styles.item_search}
-                          onClick={handlerLink}
+                          onClick={() =>
+                            handlerLink(item.name, item.search, item.id)
+                          }
                         >
                           {item.name}
-                        </Link>
+                        </div>
                       </SheetClose>
                     ) : (
-                      <Link
-                        href={`/search?${item.search}=${item.id}`}
+                      <div
                         className={styles.item_search}
-                        onClick={handlerLink}
+                        onClick={() =>
+                          handlerLink(item.name, item.search, item.id)
+                        }
                       >
                         {item.name}
-                      </Link>
+                      </div>
                     )}
                   </React.Fragment>
                 );
