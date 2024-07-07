@@ -35,44 +35,24 @@ export const createParamsFilter = ({
   if (filter.type.length > 0) {
     params.delete('typeId');
     filter.type.forEach((typeId) => params.append('typeId', typeId));
-  } else {
-    if (searchParams.getAll('typeId')) {
-      params.delete('typeId');
-    }
   }
   if (filter.brand.length > 0) {
     params.delete('brandId');
     filter.brand.forEach((brandId) => params.append('brandId', brandId));
-  } else {
-    if (searchParams.getAll('brandId')) {
-      params.delete('brandId');
-    }
   }
   if (filter.color.length > 0) {
     params.delete('colorId');
     filter.color.forEach((colorId) => params.append('colorId', colorId));
-  } else {
-    if (searchParams.getAll('colorId')) {
-      params.delete('colorId');
-    }
   }
   if (filter.material.length > 0) {
     params.delete('materialId');
     filter.material.forEach((materialId) =>
       params.append('materialId', materialId)
     );
-  } else {
-    if (searchParams.getAll('materialId')) {
-      params.delete('materialId');
-    }
   }
   if (filter.size.length > 0) {
     params.delete('sizeId');
     filter.size.forEach((sizeId) => params.append('sizeId', sizeId));
-  } else {
-    if (searchParams.getAll('sizeId')) {
-      params.delete('sizeId');
-    }
   }
 
   router.push(`${pathname}?${params}`);

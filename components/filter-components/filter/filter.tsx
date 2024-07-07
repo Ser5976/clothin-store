@@ -33,7 +33,7 @@ export type FilterStateType = {
   size: string[] | [];
   color: string[] | [];
 };
-
+// Filter сделал с помощью состояния, которое синхронизировал с URL(адресной строки)
 export const Filter: FC<FilterType> = ({
   categories,
   materials,
@@ -47,9 +47,9 @@ export const Filter: FC<FilterType> = ({
   const searchParams = useSearchParams();
   //Т.к. в useSearchParams() 'next/navigation'мы можем только читать а изменять,добавлять не можем ,
   //мы используем метод  js new URLSearchParams()
-  // добавляем в него searchParams , чтобы он знал какие параметры есть, ну дальше меняем,добавляем
+  // добавляем в него searchParams , чтобы он знал какие параметры уже есть, дальше меняем, добавляем
   const params = new URLSearchParams(searchParams);
-  //стейт для фильтров
+  //стейт для фильтров, для цены сделал отдельно
   const [filter, setFilter] = useState<FilterStateType>(() => ({
     gender: searchParams.get('categoryId'),
     type: searchParams.getAll('typeId'),
@@ -72,7 +72,7 @@ export const Filter: FC<FilterType> = ({
   useEffect(() => {
     setDefaultValue(createDefaultValue(searchParams));
   }, [searchParams]);
-  console.log('default:', defaultValue);
+  // console.log('default:', defaultValue);
   return (
     <div className="flex flex-col gap-4">
       <PriceFilter />

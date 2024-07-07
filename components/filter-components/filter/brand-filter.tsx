@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC,useEffect, useState  } from 'react';
 import {
   AccordionContent,
   AccordionItem,
@@ -8,6 +8,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { FilterStateType } from './filter';
 import { changingFilter } from './apply-filter';
 import { BrandType } from '@/types/brand_type';
+import { useSearchNameStore } from '@/stores/useSearchNameStore';
 
 type BrandFilterType = {
   brands: BrandType[] | undefined;
@@ -20,6 +21,16 @@ export const BrandFilter: FC<BrandFilterType> = ({
   filter,
   setFilter,
 }) => {
+  //это для того ,чтобы не показывать тот фильтр, котой изначально есть
+  //из-за конфликта zustam c сервером приходиться кастылить с useEffect и useState
+  const [name, setName] = useState('');
+  const searchName = useSearchNameStore((state) => state.searchName);
+  useEffect(() => {
+    setName(searchName);
+  }, [searchName]);
+  const check = brands?.find((item) => item.name === name);
+  if (check) return null;
+
   return (
     <AccordionItem value="brand">
       <AccordionTrigger className=" text-zinc-800 text-base font-bold">

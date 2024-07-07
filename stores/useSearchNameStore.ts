@@ -1,4 +1,3 @@
-import { FavoritesItemsStoreType } from '../types/type_favorites_items_store';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 

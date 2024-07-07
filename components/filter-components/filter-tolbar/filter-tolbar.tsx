@@ -6,6 +6,7 @@ import PaginationFilter from './pagination/pagination-filter';
 import { ProductsPerPage } from './products-per-page';
 import { SortBy } from './sort-by';
 
+//FilterTolbar  сделал без участия состояния(useState(), только с помощью URL(адресной строки))
 const FilterTolbar = ({ pageQty }: { pageQty: number | undefined }) => {
   return (
     <div className={styles.container}>
@@ -21,13 +22,21 @@ const FilterTolbar = ({ pageQty }: { pageQty: number | undefined }) => {
       <div className=" justify-self-start order-1   md:order-3 ">
         <ProductsPerPage />
       </div>
-      {pageQty ? (
-        pageQty <= 1 ? null : (
-          <div className=" justify-self-end  order-2 md:order-4 ">
+      <div className=" justify-self-end items-  order-2 md:order-4 h-wull flex items-center ">
+        {pageQty ? (
+          pageQty <= 1 ? (
+            <div className="text-xs sm:text-sm sm:px-1 lg:text-base flex ">
+              {'<'} 1 {'>'}
+            </div>
+          ) : (
             <PaginationFilter pageQty={pageQty} />
+          )
+        ) : (
+          <div className="text-xs sm:text-sm sm:px-1 lg:text-base">
+            {'<'} 1 {'>'}
           </div>
-        )
-      ) : null}
+        )}
+      </div>
     </div>
   );
 };
