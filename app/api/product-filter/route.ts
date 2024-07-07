@@ -2,6 +2,7 @@ import prismadb from '@/lib/prismadb';
 import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
+  console.log('работает');
   try {
     const { searchParams } = new URL(request.url);
     //пагинация
@@ -19,6 +20,7 @@ export async function GET(request: Request) {
     const materialId = searchParams.getAll('materialId');
     const isBestseller = searchParams.get('isBestseller');
     const discount = searchParams.get('discount');
+    const sort = searchParams.get('sort');
     // создаём объект параметров фильтрации
     //Оператор in  указывает на массив значений, и условие считается выполненным,
     //если хотя бы одно из значений входит в указанный массив.
@@ -29,8 +31,8 @@ export async function GET(request: Request) {
     if (isBestseller === 'true') filter.isBestseller = true;
     //Оператор some полезен, когда вы хотите проверить,
     // выполняется ли условие хотя бы для одного элемента массива или одной вложенной записи.
-    // при явных отношениях многои ко многим немножко по вкладистей
-    if (sizeId.length > 0) filter.sizes = { some: { colorId: { in: sizeId } } };
+    // при явных отношениях многие ко многим немножко по вкладистей
+    if (sizeId.length > 0) filter.sizes = { some: { sizeId: { in: sizeId } } };
     if (colorId.length > 0)
       filter.colors = { some: { colorId: { in: colorId } } };
     if (materialId.length > 0) filter.materialId = { in: materialId };
@@ -41,12 +43,18 @@ export async function GET(request: Request) {
     if (discount) filter.discount = { not: null };
 
     console.log('filter:', filter);
+    console.log('discount:', discount);
+    console.log('sort:', sort);
+    console.log('limit:', limit);
+    console.log('page:', page);
+
     // получает количество для пагинации
     const count = await prismadb.product.count({
       where: filter,
     });
     //рассчёт количества страниц,для пагинации
     const pageQty = Math.ceil(count / limit);
+
     // ну и сам запрос
     //skip: Определяет количество записей, которые следует пропустить перед началом возвращаемых результатов.
     //take: Определяет количество записей, которые следует взять из результата.
@@ -54,7 +62,17 @@ export async function GET(request: Request) {
       skip: offset,
       take: limit,
       where: filter,
-      orderBy: discount ? { discount: 'desc' } : { createdAt: 'desc' }, // Сортировка по убыванию даты создания и убывание скидки(если есть запрос на скидку)
+      orderBy: discount
+        ? { discount: 'desc' }
+        : sort && sort === 'priceAsc'
+        ? { price: 'asc' }
+        : sort && sort === 'priceDesc'
+        ? { price: 'desc' }
+        : sort && sort === 'ratingAsc'
+        ? { rating: { value: 'asc' } }
+        : sort && sort === 'ratingDesc'
+        ? { rating: { value: 'desc' } }
+        : { createdAt: 'desc' }, //создаём строку сортировки
 
       // оператор include показывает вложенную запись, при помощи оператора select выбираешь какое поле показать
       include: {
@@ -68,7 +86,7 @@ export async function GET(request: Request) {
         colors: { select: { color: true } },
       },
     });
-    // console.log('Product:', product);
+    console.log('Product:', count);
     return NextResponse.json({ count, product, pageQty });
   } catch (error) {
     console.log('Error:', error);

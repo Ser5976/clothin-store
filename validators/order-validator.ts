@@ -5,6 +5,9 @@ export const OrderValidator = z.object({
   phone: z.string().min(1, 'Phone is required'),
   firstName: z.string().min(1, 'firstName is required'),
   lastName: z.string().min(1, 'lastName is required'),
+  subtotal: z.number({ required_error: 'Subtotal is required' }),
+  shippingCost: z.number({ required_error: 'SppingCost is required' }),
+  discount: z.number().nullable(),
   amount: z.number({ required_error: 'Amount is required' }),
   address: z.object({
     country: z.string().optional(),
@@ -17,7 +20,16 @@ export const OrderValidator = z.object({
   orderItems: z.array(
     z.object({
       productId: z.string().min(1, 'ProductId is required'),
-      quantity: z.number().min(1).default(1),
+      name: z.string().min(1, 'Name is required'),
+      price: z.number(),
+      oldPrice: z.number().nullable(),
+      totalPrice: z.number(),
+      totalOldPrice: z.number(),
+      discount: z.number().nullable(),
+      image: z.string().min(1, 'Image is required'),
+      quantity: z.number().default(1),
+      size: z.string().min(1, 'Size is required'),
+      color: z.string().min(1, 'Color is required'),
     })
   ),
 });

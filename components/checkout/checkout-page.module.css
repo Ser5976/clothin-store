@@ -1,22 +1,18 @@
 .container {
-  @apply grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-24;
+  @apply grid grid-cols-1 md:flex md:gap-10;
 }
 .left {
-  @apply md:col-span-2;
+  @apply md:w-[60%];
 }
 .title {
-  @apply text-zinc-800 text-[52px] font-black leading-[59.80px] mb-[2%];
-}
-.sigin {
-  @apply flex flex-wrap w-full px-2 py-2 gap-1 rounded bg-cyan-800/5  border border-cyan-800/25  
-  justify-start items-center text-cyan-800 text-sm leading-relaxed mb-[3%]
-lg:text-base lg:px-4 xl:py-4;
+  @apply text-zinc-800 text-[36px] font-black  leading-[130%] my-[3%]
+  lg:text-[46px];
 }
 .divider {
-  @apply h-[0px] border border-gray-200 mb-[3%];
+  @apply h-[0px] border border-gray-200 my-[7%] md:my-[3%];
 }
 
-.title {
+.subtitle {
   @apply text-zinc-800 text-lg  lg:text-xl xl:text-2xl font-bold leading-[31.20px] mb-[2%];
 }
 .subtotal {
@@ -24,5 +20,15 @@ lg:text-base lg:px-4 xl:py-4;
 }
 
 .right {
-  @apply md:col-span-1 flex flex-col md:gap-[2%] pt-[5%] md:pt-[15%] mb-[5%];
+  @apply md:w-[40%] flex flex-col md:gap-[2%]  mb-[5%];
+}
+.quantity_wrapper {
+  @apply max-w-[60px] w-full h-8 px-2  bg-white rounded border border-gray-300 justify-center items-center 
+    gap-3 inline-flex col-span-2;
+}
+.quantity {
+  @apply text-gray-700 text-sm font-normal  leading-[150px] text-center;
+}
+.quantity_icons {
+  @apply w-6 h-6 relative flex-col justify-start items-start flex;
 }

@@ -2,19 +2,13 @@ import { Button } from '@/components/ui/button';
 import { useCartDelete } from '@/react-queries/useCartDelete';
 import { useCartUpdate } from '@/react-queries/useCartUpdate';
 import { CartItemType } from '@/types/cart_type';
-import { DeliveryType } from '@/types/delivery_type';
-import { ArrowBigDown, ArrowBigUp, Trash2 } from 'lucide-react';
+import { ArrowBigDown, ArrowBigUp } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import styles from './item-review.module.css';
+import { FC } from 'react';
+import styles from './checkout-page.module.css';
 
-export const ItemReview = ({
-  item,
-  isAuth,
-  updateQuantityProduct,
-  refetch,
-  deleteProduct,
-}: {
+type ItemReviewPropsType = {
   item: CartItemType;
   isAuth: boolean;
   refetch: any;
@@ -24,6 +18,14 @@ export const ItemReview = ({
     quantity: number;
   }) => void;
   deleteProduct: (data: { productId: string }) => void;
+};
+
+export const ItemReview: FC<ItemReviewPropsType> = ({
+  item,
+  isAuth,
+  updateQuantityProduct,
+  refetch,
+  deleteProduct,
 }) => {
   //кастомный хук useMutation, изменяет данные  в базе
   //из-за нестабильной работы queryClient.invalidateQueries,изваращаюсь с refetch

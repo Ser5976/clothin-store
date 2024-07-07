@@ -19,7 +19,7 @@ export const MedianBar: FC<IMedianbarProps> = ({ categories }) => {
             <Image src="/header/logo.png" alt="logo" width={130} height={22} />
           </Link>
           <Navigation categories={categories} />
-          <SearchInput mark="medianbar" />
+          <SearchInput mark="medianbar" isBurger={false} />
           <ToolBar />
         </div>
       </div>

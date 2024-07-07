@@ -4,16 +4,18 @@ import { Button } from '../ui/button';
 
 type OrderTotalsType = {
   subtotal: number;
-  oldSubtotal: number;
   delivery: DeliveryType[];
   standartPrice: boolean;
+  orderTotal: number;
+  discount: number | null;
 };
 
 export const OrderTotals: FC<OrderTotalsType> = ({
   subtotal,
   delivery,
   standartPrice,
-  oldSubtotal,
+  discount,
+  orderTotal,
 }) => {
   //определяем стоимость доставки
   const shippingCosts =
@@ -24,14 +26,7 @@ export const OrderTotals: FC<OrderTotalsType> = ({
     ) : (
       <span>${delivery[0].expressPrice}</span>
     );
-  //вычисляем скидку
-  const discount = oldSubtotal ? oldSubtotal - subtotal : 0;
-  //вычисляем общую сумму
-  const orderTotal =
-    subtotal +
-    (standartPrice
-      ? Number(delivery[0].standartPrice)
-      : Number(delivery[0].expressPrice));
+
   return (
     <>
       <div className="w-full  bg-neutral-100 rounded flex-col justify-start items-start inline-flex ">
@@ -64,7 +59,7 @@ export const OrderTotals: FC<OrderTotalsType> = ({
       </div>
       <Button
         size="lg"
-        className="text-white text-base font-bold bg-cyan-800 rounded mt-5 md:mt-0 h-12"
+        className=" w-full text-white text-base font-bold bg-cyan-800 rounded mt-5 md:mt-5 h-12"
       >
         Complete order
       </Button>

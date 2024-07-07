@@ -3,19 +3,24 @@ import { useCartStore } from '@/stores/useCartStore';
 import { CartItemType } from '@/types/cart_type';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSession } from 'next-auth/react';
-import Image from 'next/image';
-import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { CheckoutForm } from './checkout-form/checkout-form';
+import { CheckoutForm } from './checkout-form';
 import { CheckoutSkeleton } from './checkout-sekelton';
 import { FormSchema, FormSchemaType } from './form-schema';
-import { ItemReview } from './item-review/item-review';
+import { ItemReview } from './item-review';
 import styles from './checkout-page.module.css';
 import { OrderTotals } from './order-totals';
 import { DeliveryType } from '@/types/delivery_type';
 import { useOrderPost } from '@/react-queries/useOrderPost';
+import { Form } from '../ui/form';
+
+type SelectedOrderType = {
+  items: CartItemType[];
+  sumTotalPrice: number;
+  sumTotalOldPrice: number;
+};
 
 export const CheckoutPage = ({ delivery }: { delivery: DeliveryType[] }) => {
   //проверка авторизации
@@ -27,34 +32,33 @@ export const CheckoutPage = ({ delivery }: { delivery: DeliveryType[] }) => {
   // для редиректа на главную, если нет товаров
   const route = useRouter();
   //получение данных корзины из стора
-  const {
-    refetch,
-    cartItems,
-    cartBase,
-    sumTotalPrice,
-    sumTotalOldPrice,
-    updateQuantityProduct,
-    deleteProduct,
-  } = useCartStore((state) => state);
+
+  const { refetch, cartBase, updateQuantityProduct, deleteProduct } =
+    useCartStore((state) => state);
   //выбор места откуда берём массив товаров корзины(база или стор)
   // делаем это при помощи useEffect,чтобы избежать конфликта с сервером(useStore из zustand не помогает)
-  const [selectedProducts, setSelectedProducts] = useState<CartItemType[]>([]);
+  const [selectedOrder, setSelectedOrder] = useState<SelectedOrderType>(() => ({
+    items: [],
+    sumTotalPrice: 0,
+    sumTotalOldPrice: 0,
+  }));
 
   useEffect(() => {
-    if (isAuth) {
-      if (!cartBase.cart || cartBase.cart.items.length === 0) {
-        route.push('/');
-      } else {
-        setSelectedProducts(cartBase.cart ? cartBase.cart.items : []);
-      }
-    } else {
-      if (cartItems.length === 0) {
-        route.push('/');
-      } else {
-        setSelectedProducts(cartItems);
-      }
+    if (cartBase.cart?.items.length === 0) {
+      route.push('/');
+      return;
     }
-  }, [isAuth, cartBase, cartItems]);
+
+    setSelectedOrder({
+      ...selectedOrder,
+      items: cartBase.cart ? cartBase.cart.items : [],
+      sumTotalPrice: cartBase.sumTotalPrice ? cartBase.sumTotalPrice : 0,
+      sumTotalOldPrice: cartBase.sumTotalOldPrice
+        ? cartBase.sumTotalOldPrice
+        : 0,
+    });
+  }, [isAuth, cartBase]);
+  console.log('render checkout');
 
   //кастомный хук useMutation,добавляет заказ в базу
   const mutationPostOrder = useOrderPost();
@@ -77,27 +81,33 @@ export const CheckoutPage = ({ delivery }: { delivery: DeliveryType[] }) => {
     },
   });
 
-  //определяем,когда будет выбран метод доставки standartPrice
+  //определяем,когда будет выбран метод доставки standartPrice, используем в условии для определение цены доставки
   const standartPrice = form.watch('type') === delivery[0].standartPrice;
-  //вычисляем общую сумму
-  const subtotal = isAuth
-    ? cartBase.sumTotalPrice
-      ? cartBase.sumTotalPrice
-      : 0
-    : sumTotalPrice;
 
+  //вычисляем общую сумму
   const orderTotal =
-    subtotal +
+    selectedOrder.sumTotalPrice +
     (standartPrice
       ? Number(delivery[0].standartPrice)
       : Number(delivery[0].expressPrice));
 
+  //вычисляем скидку
+  const discount = selectedOrder.sumTotalOldPrice
+    ? selectedOrder.sumTotalOldPrice - selectedOrder.sumTotalPrice
+    : null;
+
+  //отправляем заказ в базу и данные в ю-кассу,получаем ссылку от ю-кассы и редиректим на ю-кассу
   const onSubmit = async (data: FormSchemaType) => {
     const order = {
       email: data.email,
       phone: data.phone,
       firstName: data.firstName,
       lastName: data.lastName,
+      subtotal: selectedOrder.sumTotalPrice,
+      shippingCost: standartPrice
+        ? Number(delivery[0].standartPrice)
+        : Number(delivery[0].expressPrice),
+      discount: discount,
       amount: orderTotal,
       address: {
         country: data.country,
@@ -107,9 +117,19 @@ export const CheckoutPage = ({ delivery }: { delivery: DeliveryType[] }) => {
         flat: data.flat,
         postalCode: data.postalCode,
       },
-      orderItems: selectedProducts.map((orderItem) => {
-        return { productId: orderItem.productId, quantity: orderItem.quantity };
-      }),
+      orderItems: selectedOrder.items.map((item) => ({
+        productId: item.productId,
+        name: item.name,
+        price: Number(item.price),
+        oldPrice: Number(item.oldPrice),
+        totalPrice: Number(item.totalPrice),
+        totalOldPrice: Number(item.totalOldPrice),
+        discount: item.discount,
+        image: item.image,
+        quantity: item.quantity,
+        size: item.size,
+        color: item.color,
+      })),
     };
     console.log('order:', order);
     const request = await mutationPostOrder.mutateAsync(order);
@@ -119,34 +139,17 @@ export const CheckoutPage = ({ delivery }: { delivery: DeliveryType[] }) => {
 
   return (
     <section>
-      <form onSubmit={form.handleSubmit(onSubmit)} className={styles.container}>
+      <h1 className={styles.title}>Checkout</h1>
+      <div className={styles.divider}></div>
+      <div className={styles.container}>
         <div className={styles.left}>
-          <h1 className={styles.title}>Checkout</h1>
-          <div className={styles.sigin}>
-            <Image
-              src="/checkout/Person.svg"
-              alt="login"
-              width={14}
-              height={14}
-            />
-
-            <div>Already have an account? </div>
-            <Link
-              href={`/signin?callbackUrl=${path}`}
-              className=" font-bold underline"
-            >
-              Sign in
-            </Link>
-            {/* <div> for faster checkout experience</div> */}
-          </div>
-          <div className={styles.divider}></div>
           <div>
-            <div className={styles.title}>1. Item Review</div>
+            <div className={styles.subtitle}>Item Review</div>
             {isLoadingAuth || (isAuth && !cartBase.sumTotalPrice) ? (
               <CheckoutSkeleton />
             ) : (
-              <div className=" flex flex-col bg-neutral-100 rounded px-1 mb-[3%]">
-                {selectedProducts.map((item) => {
+              <div className=" flex flex-col bg-neutral-100 rounded px-1 ">
+                {cartBase.cart?.items.map((item) => {
                   return (
                     <ItemReview
                       item={item}
@@ -160,43 +163,30 @@ export const CheckoutPage = ({ delivery }: { delivery: DeliveryType[] }) => {
                 })}
                 <div className={styles.subtotal}>
                   Subtotal: $
-                  {selectedProducts.length !== 0 &&
-                    (isAuth ? cartBase.sumTotalPrice : sumTotalPrice)}
+                  {selectedOrder.items.length !== 0 &&
+                    selectedOrder.sumTotalPrice}
                 </div>
               </div>
             )}
           </div>
-          <div className={styles.divider}></div>
-          <div>
-            <div className={styles.title}>
-              2. Shipping Address & Shipping Method
-            </div>
-            <CheckoutForm form={form} delivery={delivery} />
-          </div>
+          <div className={`${styles.divider} md:hidden`}></div>
         </div>
         <div className={styles.right}>
-          <OrderTotals
-            subtotal={
-              isAuth
-                ? cartBase.sumTotalPrice
-                  ? cartBase.sumTotalPrice
-                  : 0
-                : sumTotalPrice
-            }
-            oldSubtotal={
-              isAuth
-                ? cartBase.sumTotalOldPrice
-                  ? cartBase.sumTotalOldPrice
-                  : 0
-                : sumTotalOldPrice
-                ? sumTotalOldPrice
-                : 0
-            }
-            delivery={delivery}
-            standartPrice={standartPrice}
-          />
+          <div className={styles.subtitle}>Shipping Address</div>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <CheckoutForm form={form} delivery={delivery} />
+              <OrderTotals
+                discount={discount}
+                subtotal={selectedOrder.sumTotalPrice}
+                delivery={delivery}
+                standartPrice={standartPrice}
+                orderTotal={orderTotal}
+              />
+            </form>
+          </Form>
         </div>
-      </form>
+      </div>
     </section>
   );
 };
