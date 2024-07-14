@@ -5,22 +5,19 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Checkbox } from '@/components/ui/checkbox';
-import { FilterStateType } from './filter';
-import { changingFilter } from './apply-filter';
 import { TypeType } from '@/types/type_type';
 import { useSearchNameStore } from '@/stores/useSearchNameStore';
+import { useSearchParams } from 'next/navigation';
+import { useChangingFilter } from './useChangingFilter';
 
 type TypeFilterType = {
   types: TypeType[] | undefined;
-  setFilter: React.Dispatch<React.SetStateAction<FilterStateType>>;
-  filter: FilterStateType;
 };
 
-export const TypeFilter: FC<TypeFilterType> = ({
-  types,
-  filter,
-  setFilter,
-}) => {
+export const TypeFilter: FC<TypeFilterType> = ({ types }) => {
+  const searchParams = useSearchParams();
+  const { changingFilter } = useChangingFilter(); // какстомный хук для фильтрации
+
   //это для того ,чтобы не показывать тот фильтр, котой изначально есть
   //из-за конфликта zustam c сервером приходиться кастылить с useEffect и useState
   const [name, setName] = useState('');
@@ -42,16 +39,11 @@ export const TypeFilter: FC<TypeFilterType> = ({
             return (
               <li className=" flex items-center space-x-2" key={item.id}>
                 <Checkbox
-                  checked={filter.type.includes(item.id as never)}
+                  checked={searchParams
+                    .getAll('typeId')
+                    .includes(item.id as never)}
                   id={`type${i}`}
-                  onCheckedChange={() =>
-                    changingFilter({
-                      category: 'type',
-                      filter,
-                      setFilter,
-                      value: item.id,
-                    })
-                  }
+                  onCheckedChange={() => changingFilter('typeId', item.id)}
                 />
                 <label
                   htmlFor={`type${i}`}

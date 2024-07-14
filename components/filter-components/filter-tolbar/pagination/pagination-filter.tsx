@@ -27,7 +27,7 @@ const PaginationFilter = ({ pageQty }: { pageQty: number | undefined }) => {
       nextLabel=">"
       onPageChange={handlePageClick}
       pageRangeDisplayed={1}
-      pageCount={100}
+      pageCount={Number(pageQty)}
       previousLabel="<"
       containerClassName={styles.pagination}
       pageLinkClassName={styles.pageNum}

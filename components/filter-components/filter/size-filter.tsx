@@ -5,21 +5,18 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Checkbox } from '@/components/ui/checkbox';
-import { FilterStateType } from './filter';
-import { changingFilter } from './apply-filter';
 import { SizeType } from '@/app/profile/get-size';
+import { useSearchParams } from 'next/navigation';
+import { useChangingFilter } from './useChangingFilter';
 
 type SizeFilterType = {
   sizes: SizeType[] | undefined;
-  setFilter: React.Dispatch<React.SetStateAction<FilterStateType>>;
-  filter: FilterStateType;
 };
 
-export const SizeFilter: FC<SizeFilterType> = ({
-  sizes,
-  filter,
-  setFilter,
-}) => {
+export const SizeFilter: FC<SizeFilterType> = ({ sizes }) => {
+  const searchParams = useSearchParams();
+  const { changingFilter } = useChangingFilter(); // какстомный хук для фильтрации
+
   return (
     <AccordionItem value="size">
       <AccordionTrigger className=" text-zinc-800 text-base font-bold">
@@ -31,16 +28,9 @@ export const SizeFilter: FC<SizeFilterType> = ({
             return (
               <li className=" flex items-center space-x-2" key={item.id}>
                 <Checkbox
-                  checked={filter.size.includes(item.id as never)}
                   id={`size${i}`}
-                  onCheckedChange={() =>
-                    changingFilter({
-                      category: 'size',
-                      filter,
-                      setFilter,
-                      value: item.id,
-                    })
-                  }
+                  checked={searchParams.getAll('sizeId').includes(item.id)}
+                  onCheckedChange={() => changingFilter('sizeId', item.id)}
                 />
                 <label
                   htmlFor={`size${i}`}

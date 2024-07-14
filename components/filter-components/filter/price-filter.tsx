@@ -3,7 +3,7 @@ import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-
+// здесь более сложная ситуация, поэтому для фильтрации используем состояние, которое синхронизируем с адресной строкой
 export const PriceFilter = () => {
   const router = useRouter();
   const pathname = usePathname();

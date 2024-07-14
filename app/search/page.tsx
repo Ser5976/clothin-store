@@ -1,4 +1,3 @@
-import { getBillboard } from '@/actions/get_billboard';
 import { getBrands } from '@/actions/get_brands';
 import { getCategories } from '@/actions/get_categories';
 import { getColors } from '@/actions/get_colors';
@@ -7,6 +6,7 @@ import { getSizes } from '@/actions/get_size';
 import { getTypes } from '@/actions/get_type';
 import { BreadcrumbSearch } from '@/components/search-page/breadcrumb-search';
 import { SearchPage } from '@/components/search-page/search-page';
+import { Loader } from 'lucide-react';
 import { Suspense } from 'react';
 
 const Search = async () => {
@@ -51,5 +51,9 @@ const Search = async () => {
 
 export default Search;
 function SearchBarFallback() {
-  return <>placeholder</>;
+  return (
+    <div className=" w-[32px] lg:w-[50px] mx-auto my-[300px] animate-spin">
+      <Loader size={32} color="#17696a" />
+    </div>
+  );
 }

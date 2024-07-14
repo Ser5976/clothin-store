@@ -7,7 +7,7 @@ import { useSearchNameStore } from '@/stores/useSearchNameStore';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { ChangeEvent, FC, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
 import styles from './searchinput.module.css';
 
 //SearchInput используем в двух компонентах, из-за отличий в css делаем условия
@@ -48,7 +48,15 @@ export const SearchInput: FC<SearchInputProps> = ({ mark, isBurger }) => {
   }, [query, refetch]);
 
   //console.log('query:', data);
+  /* const inputRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    // Убираем фокус с input после монтирования компонента
+    if (inputRef.current) {
+      inputRef.current.blur();
+    }
+  }, []);
+ */
   return (
     <div
       className={cn({

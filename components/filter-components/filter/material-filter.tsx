@@ -5,22 +5,19 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Checkbox } from '@/components/ui/checkbox';
-import { FilterStateType } from './filter';
-import { changingFilter } from './apply-filter';
 import { MaterialType } from '@/types/material_type';
 import { useSearchNameStore } from '@/stores/useSearchNameStore';
+import { useSearchParams } from 'next/navigation';
+import { useChangingFilter } from './useChangingFilter';
 
 type MaterialFilterType = {
   materials: MaterialType[] | undefined;
-  setFilter: React.Dispatch<React.SetStateAction<FilterStateType>>;
-  filter: FilterStateType;
 };
 
-export const MaterialFilter: FC<MaterialFilterType> = ({
-  materials,
-  filter,
-  setFilter,
-}) => {
+export const MaterialFilter: FC<MaterialFilterType> = ({ materials }) => {
+  const searchParams = useSearchParams();
+  const { changingFilter } = useChangingFilter(); // какстомный хук для фильтрации
+
   //это для того ,чтобы не показывать тот фильтр, котой изначально есть
   //из-за конфликта zustam c сервером приходиться кастылить с useEffect и useState
   const [name, setName] = useState('');
@@ -41,16 +38,9 @@ export const MaterialFilter: FC<MaterialFilterType> = ({
             return (
               <li className=" flex items-center space-x-2" key={item.id}>
                 <Checkbox
-                  checked={filter.material.includes(item.id as never)}
                   id={`material${i}`}
-                  onCheckedChange={() =>
-                    changingFilter({
-                      category: 'material',
-                      filter,
-                      setFilter,
-                      value: item.id,
-                    })
-                  }
+                  checked={searchParams.getAll('materialId').includes(item.id)}
+                  onCheckedChange={() => changingFilter('materialId', item.id)}
                 />
                 <label
                   htmlFor={`material${i}`}

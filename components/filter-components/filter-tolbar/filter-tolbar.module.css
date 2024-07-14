@@ -4,9 +4,10 @@
     min-[850px]:grid-cols-4;
 }
 .button_filter {
-  @apply text-center text-white text-xs w-[120px]  bg-cyan-800 hover:bg-cyan-900  flex gap-2
-sm:w-[150px] sm:text-sm  min-[850px]:w-full xl:w-full xl:h-11 xl:text-base;
+  @apply hidden md:flex gap-2  text-center text-white  bg-cyan-800 hover:bg-cyan-900  
+md:w-[150px] md:text-sm  min-[850px]:w-full xl:w-full xl:h-11 xl:text-base;
 }
+
 .limit_wrapper {
   @apply w-[50px]  h-9 px-2  bg-white rounded border border-gray-300 justify-center items-center 
     gap-[10px] inline-flex lg:w-[60px] xl:w-[70px] xl:h-11;

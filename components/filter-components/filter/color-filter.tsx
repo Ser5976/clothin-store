@@ -5,21 +5,18 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Checkbox } from '@/components/ui/checkbox';
-import { FilterStateType } from './filter';
-import { changingFilter } from './apply-filter';
 import { ColorType } from '@/types/color_type';
+import { useSearchParams } from 'next/navigation';
+import { useChangingFilter } from './useChangingFilter';
 
 type ColorFilterType = {
   colors: ColorType[] | undefined;
-  setFilter: React.Dispatch<React.SetStateAction<FilterStateType>>;
-  filter: FilterStateType;
 };
 
-export const ColorFilter: FC<ColorFilterType> = ({
-  colors,
-  filter,
-  setFilter,
-}) => {
+export const ColorFilter: FC<ColorFilterType> = ({ colors }) => {
+  const searchParams = useSearchParams();
+  const { changingFilter } = useChangingFilter(); // какстомный хук для фильтрации
+
   return (
     <AccordionItem value="color">
       <AccordionTrigger className=" text-zinc-800 text-base font-bold">
@@ -31,16 +28,9 @@ export const ColorFilter: FC<ColorFilterType> = ({
             return (
               <li className=" flex items-center space-x-2" key={item.id}>
                 <Checkbox
-                  checked={filter.color.includes(item.id as never)}
                   id={`colors${i}`}
-                  onCheckedChange={() =>
-                    changingFilter({
-                      category: 'color',
-                      filter,
-                      setFilter,
-                      value: item.id,
-                    })
-                  }
+                  checked={searchParams.getAll('colorId').includes(item.id)}
+                  onCheckedChange={() => changingFilter('colorId', item.id)}
                 />
                 <label
                   htmlFor={`colors${i}`}

@@ -6,20 +6,17 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Checkbox } from '@/components/ui/checkbox';
-import { FilterStateType } from './filter';
-import { changingFilter } from './apply-filter';
+import { useSearchParams } from 'next/navigation';
+import { useChangingFilter } from './useChangingFilter';
 
 type GenderFilterType = {
   categories: CategoryType[] | undefined;
-  setFilter: React.Dispatch<React.SetStateAction<FilterStateType>>;
-  filter: FilterStateType;
 };
 
-export const GenderFilter: FC<GenderFilterType> = ({
-  categories,
-  filter,
-  setFilter,
-}) => {
+export const GenderFilter: FC<GenderFilterType> = ({ categories }) => {
+  const searchParams = useSearchParams();
+  const { changingFilter } = useChangingFilter(); // какстомный хук для фильтрации
+
   return (
     <AccordionItem value="gender">
       <AccordionTrigger className=" text-zinc-800 text-base font-bold">
@@ -31,16 +28,9 @@ export const GenderFilter: FC<GenderFilterType> = ({
             return (
               <li className=" flex items-center space-x-2" key={item.id}>
                 <Checkbox
-                  checked={filter.gender === item.id}
+                  checked={searchParams.get('categoryId') === item.id}
                   id={`gender${i}`}
-                  onCheckedChange={() =>
-                    changingFilter({
-                      category: 'gender',
-                      filter,
-                      setFilter,
-                      value: item.id,
-                    })
-                  }
+                  onCheckedChange={() => changingFilter('categoryId', item.id)}
                 />
                 <label
                   htmlFor={`gender${i}`}
