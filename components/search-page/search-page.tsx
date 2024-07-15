@@ -56,6 +56,8 @@ export const SearchPage: FC<SearchPageType> = ({
             isLoading={isLoading}
           />
           <FilterComponent
+            isError={isError}
+            isLoading={isLoading}
             filteredProducts={data}
             categories={categories}
             materials={materials}

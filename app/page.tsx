@@ -4,7 +4,6 @@ import { getDiscount } from '@/actions/get_discount';
 import { getNewArrivals } from '@/actions/get_new-arrivals';
 import { getNowTrending } from '@/actions/get_now_trending';
 import { getPopularTypes } from '@/actions/get_popular-types';
-import { getSoreReviews } from '@/actions/get_store_reviews';
 import { getTopCategories } from '@/actions/get_top-categories';
 import Billboard from '@/components/home-page/billboard/billboard';
 import { Collection } from '@/components/home-page/collection/collection';
@@ -13,7 +12,6 @@ import { NewArrivals } from '@/components/home-page/new-arrivals/new-arrivals';
 import { NowTrending } from '@/components/home-page/now-trending/now-trending';
 import { PopularTypes } from '@/components/home-page/popular-types/popular-types';
 import TopCategories from '@/components/home-page/top-categories/top-categories';
-import { WriteToUs } from '@/components/home-page/write-to-us/write-to-us';
 
 export default async function Home() {
   //запрос для получения billboard, на сервере при помощи fech(динамически)
@@ -31,8 +29,6 @@ export default async function Home() {
   //запрос для получения товаров,которые сейчас в тренде, на сервере при помощи fech(динамически)
   const discountPromise = getDiscount();
   //запрос для получения отзывов о магазине, на сервере при помощи fech(динамически)
-  const storeReviewsPromise = getSoreReviews();
-  // при помощи промиса делаем так, чтобы все запросы на этой странице были параллельными, а не последовательными
   // это улучшает скорость закрузки, хотя что то не заметно
   const [
     billboards,
@@ -42,7 +38,6 @@ export default async function Home() {
     topCategories,
     popularTypes,
     nowTrending,
-    storeReviews,
   ] = await Promise.all([
     billboardsPromise,
     collectionsPromise,
@@ -51,7 +46,6 @@ export default async function Home() {
     topCategoriesPromise,
     popularTypesPromise,
     nowTrendingPromise,
-    storeReviewsPromise,
   ]);
 
   return (
@@ -63,7 +57,6 @@ export default async function Home() {
       <PopularTypes popularTypes={popularTypes} />
       <NowTrending nowTrending={nowTrending.product} />
       <Discount discount={discount.product} />
-      <WriteToUs reviews={storeReviews[0]} />
     </main>
   );
 }

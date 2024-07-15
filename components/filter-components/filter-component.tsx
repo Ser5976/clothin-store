@@ -6,12 +6,16 @@ import { MaterialType } from '@/types/material_type';
 import { ProductFilterType } from '@/types/product_filter_type';
 import { SizeType } from '@/types/size_type';
 import { TypeType } from '@/types/type_type';
+import { isError } from '@tanstack/react-query';
+import { Loader } from 'lucide-react';
 import React, { FC, useState } from 'react';
 import CardProduct from '../card-product/card-product';
 import FilterTolbar from './filter-tolbar/filter-tolbar';
 import { Filter } from './filter/filter';
 
 type FilterComponentType = {
+  isLoading: boolean;
+  isError: boolean;
   filteredProducts: ProductFilterType | undefined;
   categories: CategoryType[] | undefined;
   materials: MaterialType[] | undefined;
@@ -22,6 +26,8 @@ type FilterComponentType = {
 };
 
 export const FilterComponent: FC<FilterComponentType> = ({
+  isError,
+  isLoading,
   filteredProducts,
   categories,
   materials,
@@ -59,19 +65,34 @@ export const FilterComponent: FC<FilterComponentType> = ({
         </div>
         <div
           className={cn(
-            'grow self-start gap-y-8 gap-x-4',
+            ' relative grow self-start gap-y-8 gap-x-4',
             openFilter
               ? 'w-3/4 grid grid-cols-2 md:grid-cols-3'
               : 'w-full grid grid-cols-2 md:grid-cols-4 '
           )}
         >
-          {filteredProducts?.product.map((product) => {
-            return (
-              <div key={product.id} className=" ">
-                <CardProduct product={product} />
-              </div>
-            );
-          })}
+          {isError ? (
+            <div className=" absolute top-0 left-[30%] text-lg text-center text-red-700 ">
+              {' '}
+              Something went wrong
+            </div>
+          ) : isLoading ? (
+            <div className=" absolute top-0 left-[50%] w-[32px] lg:w-[50px]  my-[50px] animate-spin">
+              <Loader size={32} color="#17696a" />
+            </div>
+          ) : filteredProducts?.product.length === 0 ? (
+            <div className=" absolute top-0 left-[30%]  text-lg text-center ">
+              Nothing was found
+            </div>
+          ) : (
+            filteredProducts?.product.map((product) => {
+              return (
+                <div key={product.id} className=" ">
+                  <CardProduct product={product} />
+                </div>
+              );
+            })
+          )}
         </div>
       </div>
     </div>
