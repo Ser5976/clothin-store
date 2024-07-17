@@ -18,6 +18,10 @@ export const ProductsPerPage = () => {
   // поэтому сделал так
   const sendLimit = (marker: string) => {
     const quantity = marker === 'plus' ? limit + 1 : limit - 1;
+    // это чтобы пагинацию вернуть на первую страницу,потому что при изменении лимита пагинация должна быть на 1 странице
+    if (searchParams.get('page')) {
+      params.set('page', '1');
+    }
     if (searchParams.get('limit')) {
       params.set('limit', String(quantity));
     } else {

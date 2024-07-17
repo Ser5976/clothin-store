@@ -43,7 +43,7 @@ export const SearchPage: FC<SearchPageType> = ({
   }, [searchParams]);
   // console.log('data-filter:', data);
   return (
-    <div className="shared_container  pt-[2%]">
+    <div className="shared_container  pt-[2%] pb-[5%]">
       {session.status === 'loading' ? (
         <div className=" w-[32px] lg:w-[50px] mx-auto my-[300px] animate-spin">
           <Loader size={32} color="#17696a" />

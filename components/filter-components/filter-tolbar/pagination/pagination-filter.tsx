@@ -1,5 +1,5 @@
 import styles from './pagination-filter.module.css';
-import { memo, useState } from 'react';
+import { experimental_useEffectEvent, memo, useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
@@ -11,6 +11,9 @@ const PaginationFilter = ({ pageQty }: { pageQty: number | undefined }) => {
   const [page, setPage] = useState(() =>
     searchParams.get('page') ? Number(searchParams.get('page')) : 1
   );
+  useEffect(() => {
+    setPage(Number(searchParams.get('page')));
+  }, [searchParams]);
   //добавляем в адресс изменённый номер страницы и формируем полный адрес
   const handlePageClick = (event: any) => {
     if (searchParams.get('page')) {
