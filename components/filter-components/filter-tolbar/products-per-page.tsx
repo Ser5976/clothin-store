@@ -21,6 +21,8 @@ export const ProductsPerPage = () => {
     // это чтобы пагинацию вернуть на первую страницу,потому что при изменении лимита пагинация должна быть на 1 странице
     if (searchParams.get('page')) {
       params.set('page', '1');
+    } else {
+      params.append('page', '1');
     }
     if (searchParams.get('limit')) {
       params.set('limit', String(quantity));
