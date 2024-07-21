@@ -22,7 +22,6 @@ import {
 import { z } from 'zod';
 import { FC } from 'react';
 import { useReviewPost } from '@/react-queries/useReviewPost';
-import { DialogClose } from '@/components/ui/dialog';
 
 const ReviewFormValidator = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -35,15 +34,11 @@ type ReviewFormType = z.infer<typeof ReviewFormValidator>;
 type LeaveReviewFormProps = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   productId: string;
-  refetchEstimation: any;
-  refetchReviews: any;
 };
 
 export const LeaveReviewForm: FC<LeaveReviewFormProps> = ({
   setIsOpen,
   productId,
-  refetchEstimation,
-  refetchReviews,
 }) => {
   const form = useForm<ReviewFormType>({
     resolver: zodResolver(ReviewFormValidator),
@@ -53,7 +48,7 @@ export const LeaveReviewForm: FC<LeaveReviewFormProps> = ({
     },
   });
 
-  const mutationRiview = useReviewPost(refetchEstimation, refetchReviews);
+  const mutationRiview = useReviewPost();
   const onSubmit = (data: ReviewFormType) => {
     //console.log('data:', data);
     const review = { ...data, productId };

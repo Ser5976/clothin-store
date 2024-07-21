@@ -31,39 +31,20 @@ type SortType = {
 type ReviewsToolbarProps = {
   setSort: Dispatch<SetStateAction<SortType>>;
   productId: string;
-  refetchEstimation: any;
-  refetchReviews: any;
 };
-const ReviewsToolbar: FC<ReviewsToolbarProps> = ({
-  setSort,
-  productId,
-  refetchEstimation,
-  refetchReviews,
-}) => {
+const ReviewsToolbar: FC<ReviewsToolbarProps> = ({ setSort, productId }) => {
   // console.log('Render:ReviewsToolbar');
 
   return (
     <div className=" flex justify-between mb-[60px] max-md:mb-[40px]">
-      <LeaveReviewModal
-        productId={productId}
-        refetchEstimation={refetchEstimation}
-        refetchReviews={refetchReviews}
-      />
+      <LeaveReviewModal productId={productId} />
       <SortReviews setSort={setSort} />
     </div>
   );
 };
 export default memo(ReviewsToolbar);
 
-const LeaveReviewModal = ({
-  productId,
-  refetchEstimation,
-  refetchReviews,
-}: {
-  productId: string;
-  refetchEstimation: any;
-  refetchReviews: any;
-}) => {
+const LeaveReviewModal = ({ productId }: { productId: string }) => {
   //проверка авторизации(отзыв может написать только авторизованный пользователь)
   const { data } = useSession();
   // для редиректа на логин и обратно при авторизации
@@ -87,12 +68,7 @@ const LeaveReviewModal = ({
               Leave a review
             </DialogTitle>
           </DialogHeader>
-          <LeaveReviewForm
-            setIsOpen={setIsOpen}
-            productId={productId}
-            refetchEstimation={refetchEstimation}
-            refetchReviews={refetchReviews}
-          />
+          <LeaveReviewForm setIsOpen={setIsOpen} productId={productId} />
         </DialogContent>
       ) : (
         <DialogContent className="max-w-[350px] mx-2 rounded-sm   ">

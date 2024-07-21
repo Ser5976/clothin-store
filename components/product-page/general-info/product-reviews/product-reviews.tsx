@@ -17,7 +17,6 @@ export const ProductReviews: FC<ProductReviewsProps> = ({ product }) => {
   //получаем данные по рейтингу из базы отдельным запросом, при помощи кастомного хука(для useQuery)
   //это нужно для интерактива на клиенте
   const {
-    refetch: refetchEstimation,
     data: estimations,
     isLoading: isLoadingEstimation,
     isError: isErrorEstimation,
@@ -35,7 +34,6 @@ export const ProductReviews: FC<ProductReviewsProps> = ({ product }) => {
   //получаем отсортированные данные по отзывам отдельным запросом ,при помощи кастомного хука, для useQuery, useReviewsProductQuery
   // это нужно для интерактива на клиенте, для получения количества отзывов
   const {
-    refetch: refetchReviws,
     data,
     isError: isErrorReviws,
     isLoading: isLoadingReviews,
@@ -60,12 +58,7 @@ export const ProductReviews: FC<ProductReviewsProps> = ({ product }) => {
             isErrorEstimation={isErrorEstimation}
           />
         </div>
-        <ReviewsToolbar
-          setSort={setSort}
-          productId={product.id}
-          refetchEstimation={refetchEstimation}
-          refetchReviews={refetchReviws}
-        />
+        <ReviewsToolbar setSort={setSort} productId={product.id} />
         <Reviews
           reviews={data?.reviews}
           isLoadingReviews={isLoadingReviews}

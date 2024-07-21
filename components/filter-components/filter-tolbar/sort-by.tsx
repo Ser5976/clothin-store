@@ -57,7 +57,7 @@ export const SortBy = () => {
           <SelectValue placeholder="Sort by" />
         </SelectTrigger>
 
-        <SelectContent>
+        <SelectContent position="item-aligned">
           <SelectItem value="priceAsc"> low price </SelectItem>
           <SelectItem value="priceDesc">high price</SelectItem>
           <SelectItem value="ratingAsc"> low rating</SelectItem>
