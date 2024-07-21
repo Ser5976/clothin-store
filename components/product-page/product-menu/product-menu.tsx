@@ -4,7 +4,6 @@ import { useReviewsProductQuery } from '@/react-queries/useReviewsProductQuery';
 import { useProductMenuStore } from '@/stores/useProductMenuStore';
 import { RotateCw } from 'lucide-react';
 import { FC } from 'react';
-import { useStore } from 'zustand';
 import styles from './product-menu.module.css';
 
 type ProductMenu = {

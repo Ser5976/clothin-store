@@ -2,7 +2,7 @@ import {
   getReviewsProductServise,
   SortType,
 } from './servises/getReviewsProductServise';
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 export const useReviewsProductQuery = (productId: string, sort: SortType) => {
   return useQuery({

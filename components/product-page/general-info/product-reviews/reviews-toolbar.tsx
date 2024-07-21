@@ -9,7 +9,7 @@ import {
 import { Select } from '@radix-ui/react-select';
 import { useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 import { Dispatch, FC, memo, SetStateAction } from 'react';
 import {
   Dialog,
@@ -68,9 +68,9 @@ const LeaveReviewModal = ({
   const { data } = useSession();
   // для редиректа на логин и обратно при авторизации
   const path = usePathname();
-
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button
           size="sm"
@@ -88,6 +88,7 @@ const LeaveReviewModal = ({
             </DialogTitle>
           </DialogHeader>
           <LeaveReviewForm
+            setIsOpen={setIsOpen}
             productId={productId}
             refetchEstimation={refetchEstimation}
             refetchReviews={refetchReviews}

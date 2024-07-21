@@ -33,12 +33,14 @@ const ReviewFormValidator = z.object({
 type ReviewFormType = z.infer<typeof ReviewFormValidator>;
 
 type LeaveReviewFormProps = {
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   productId: string;
   refetchEstimation: any;
   refetchReviews: any;
 };
 
 export const LeaveReviewForm: FC<LeaveReviewFormProps> = ({
+  setIsOpen,
   productId,
   refetchEstimation,
   refetchReviews,
@@ -53,10 +55,10 @@ export const LeaveReviewForm: FC<LeaveReviewFormProps> = ({
 
   const mutationRiview = useReviewPost(refetchEstimation, refetchReviews);
   const onSubmit = (data: ReviewFormType) => {
-    // console.log('data:', data);
+    //console.log('data:', data);
     const review = { ...data, productId };
     mutationRiview.mutateAsync(review);
-
+    setIsOpen(false);
     toast.success('Your review has been saved');
   };
 
@@ -82,7 +84,7 @@ export const LeaveReviewForm: FC<LeaveReviewFormProps> = ({
                   className=" placeholder:text-zinc-400 text-sm font-normal"
                 />
               </FormControl>
-              <FormMessage className=" absolute text-[11px] top-[55px] " />
+              <FormMessage className=" absolute text-[11px] top-[60px] " />
             </FormItem>
           )}
         />
@@ -113,7 +115,7 @@ export const LeaveReviewForm: FC<LeaveReviewFormProps> = ({
                   </SelectContent>
                 </Select>
               </FormControl>
-              <FormMessage className=" absolute text-[11px] top-[55px] " />
+              <FormMessage className=" absolute text-[11px] top-[60px] " />
             </FormItem>
           )}
         />
@@ -132,18 +134,17 @@ export const LeaveReviewForm: FC<LeaveReviewFormProps> = ({
                   {...field}
                 />
               </FormControl>
-              <FormMessage className=" absolute text-[11px] top-[77px] " />
+              <FormMessage className=" absolute text-[11px] top-[83px] " />
             </FormItem>
           )}
         />
-        <DialogClose>
-          <Button
-            type="submit"
-            className=" w-full bg-cyan-800 hover:bg-cyan-900 mt-[12px] text-center text-white text-sm font-bold "
-          >
-            Submit a review
-          </Button>
-        </DialogClose>
+
+        <Button
+          type="submit"
+          className=" w-full bg-cyan-800 hover:bg-cyan-900 mt-[12px] text-center text-white text-sm font-bold "
+        >
+          Submit a review
+        </Button>
       </form>
     </Form>
   );
