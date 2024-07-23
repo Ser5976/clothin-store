@@ -63,7 +63,7 @@ export async function POST(request: Request) {
       },
       confirmation: {
         type: 'redirect',
-        return_url: `${process.env.NEXTAUTH_URL}/order/${order.id}`,
+        return_url: `${process.env.NEXT_ORDER}/order/${order.id}`,
       },
       description: `Заказ#${order.id}`,
     } as any);

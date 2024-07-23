@@ -10,7 +10,13 @@ import { usePathname, useRouter } from 'next/navigation';
 import React, { memo } from 'react';
 import styles from './product-reviews.module.css';
 
-const VoteReview = ({ reviewId }: { reviewId: string }) => {
+const VoteReview = ({
+  reviewId,
+  userReview,
+}: {
+  reviewId: string;
+  userReview: string;
+}) => {
   //проверка авторизации
   const { data, status } = useSession();
   const isAuth = status === 'authenticated';
@@ -32,6 +38,7 @@ const VoteReview = ({ reviewId }: { reviewId: string }) => {
   return (
     <div className={styles.review_vote}>
       <LikeReview
+        userReview={userReview}
         isAuth={isAuth}
         isLoadingLike={isLoadingLike}
         reviewId={reviewId}
@@ -41,6 +48,7 @@ const VoteReview = ({ reviewId }: { reviewId: string }) => {
         userId={data?.user.id}
       />
       <DislikeReview
+        userReview={userReview}
         isAuth={isAuth}
         isLoadingDislike={isLoadingDislike}
         reviewId={reviewId}
@@ -56,6 +64,7 @@ const VoteReview = ({ reviewId }: { reviewId: string }) => {
 export default memo(VoteReview);
 
 const LikeReview = ({
+  userReview,
   isAuth,
   isLoadingLike,
   reviewId,
@@ -64,6 +73,7 @@ const LikeReview = ({
   userId,
   likes,
 }: {
+  userReview: string;
   isAuth: boolean;
   isLoadingLike: boolean;
   reviewId: string;
@@ -81,6 +91,9 @@ const LikeReview = ({
   //нсли не аторизованы, редиректим на логин(callbackUrl,для того чтобы нас, при авторизации, назад редеректнули,
   //специально прописал в логине и регистрации)
   const likeReviewHandler = () => {
+    // если отзыв принадлежит юзеру то блокируем
+    if (userReview === userId) return;
+
     if (userId) {
       mutationLikeReview.mutate({ reviewId });
     } else {
@@ -89,7 +102,10 @@ const LikeReview = ({
   };
   return (
     <div
-      className=" relative grid grid-cols-2 gap-1 items-baseline cursor-pointer"
+      className={cn(
+        'relative grid grid-cols-2 gap-1 items-baseline cursor-pointer',
+        { ' cursor-default': userReview === userId }
+      )}
       onClick={likeReviewHandler}
     >
       <ThumbsUp
@@ -120,6 +136,7 @@ const LikeReview = ({
 };
 
 const DislikeReview = ({
+  userReview,
   isAuth,
   isLoadingDislike,
   reviewId,
@@ -128,6 +145,7 @@ const DislikeReview = ({
   userId,
   dislikes,
 }: {
+  userReview: string;
   isAuth: boolean;
   isLoadingDislike: boolean;
   reviewId: string;
@@ -146,6 +164,9 @@ const DislikeReview = ({
     refetchLike
   );
   const dislikeReviewHandler = () => {
+    // если отзыв принадлежит юзеру то блокируем
+    if (userReview === userId) return;
+
     if (userId) {
       mutationDislikeReview.mutate({ reviewId });
     } else {
@@ -154,7 +175,10 @@ const DislikeReview = ({
   };
   return (
     <div
-      className=" relative grid grid-cols-2 gap-1 items-baseline cursor-pointer"
+      className={cn(
+        'relative grid grid-cols-2 gap-1 items-baseline cursor-pointer',
+        { ' cursor-default': userReview === userId }
+      )}
       onClick={dislikeReviewHandler}
     >
       <ThumbsDown
@@ -163,6 +187,7 @@ const DislikeReview = ({
           [styles.review_dislike_active]: dislikes?.some(
             (obj) => obj.userId === userId
           ),
+          ' cursor-default': userReview === userId,
         })}
       />
       <div>

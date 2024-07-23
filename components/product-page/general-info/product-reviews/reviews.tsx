@@ -57,7 +57,10 @@ export const Reviews: FC<ReviewsType> = ({
                 <div className={styles.review_content_wrapper}>
                   <div className={styles.review_content}>{review.content}</div>
                   <div className={styles.review_vote}>
-                    <VoteReview reviewId={review.id} />
+                    <VoteReview
+                      reviewId={review.id}
+                      userReview={review.userId}
+                    />
                   </div>
                 </div>
               </div>
