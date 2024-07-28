@@ -33,7 +33,7 @@ export const SearchPage: FC<SearchPageType> = ({
   //получаем параметры запроса
   const searchParams = useSearchParams();
   const session = useSession();
-
+  console.log('categories:', categories);
   // делаем запрос  в базу данных для получения отфильтрованных продуктов
   // кастомный хук useQuery
   const { data, isError, isLoading, refetch } =

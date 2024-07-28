@@ -59,18 +59,20 @@ export const ProductReviews: FC<ProductReviewsProps> = ({ product }) => {
           />
         </div>
         <ReviewsToolbar setSort={setSort} productId={product.id} />
-        <Reviews
-          reviews={data?.reviews}
-          isLoadingReviews={isLoadingReviews}
-          isErrorReviews={isErrorReviws}
-        />
-        {data && data.pageQty > 1 && (
-          <PaginationReviews
-            page={sort.page}
-            pageQty={data?.pageQty}
-            setSort={setSort}
+        <div className=" pt-10 pb-[200px]">
+          {data && data.pageQty > 1 && (
+            <PaginationReviews
+              page={sort.page}
+              pageQty={data?.pageQty}
+              setSort={setSort}
+            />
+          )}
+          <Reviews
+            reviews={data?.reviews}
+            isLoadingReviews={isLoadingReviews}
+            isErrorReviews={isErrorReviws}
           />
-        )}
+        </div>
       </div>
       <div className="w-[300px]  max-xl:max-w-[250px] max-lg:w-[200px] max-[822px]:hidden">
         <ProductCardMini product={product} />

@@ -123,6 +123,7 @@ model Image{
 model Category{
   id String @id @default(uuid())
   name String @unique
+  types Type[]
   product Product[]
 
 }
@@ -130,6 +131,7 @@ model Type{
   id String @id @default(uuid())
   name  String @unique
   product Product[]
+  categories Category[]
 
 }
 

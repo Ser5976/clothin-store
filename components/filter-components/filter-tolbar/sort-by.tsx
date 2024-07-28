@@ -3,6 +3,7 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
@@ -52,18 +53,19 @@ export const SortBy = () => {
       onValueChange={getSorting}
       defaultValue={searchParams.get('sort') ?? undefined}
     >
-      <SelectGroup>
-        <SelectTrigger className=" w-[110px] h-9    xl:h-11">
-          <SelectValue placeholder="Sort by" />
-        </SelectTrigger>
+      <SelectTrigger className=" w-[110px] h-9    xl:h-11">
+        <SelectValue placeholder="Sort by" />
+      </SelectTrigger>
 
-        <SelectContent>
+      <SelectContent className=" absolute top-[-200px] left-[-10px]">
+        <SelectGroup>
+          <SelectLabel>Sort by</SelectLabel>
           <SelectItem value="priceAsc"> low price </SelectItem>
           <SelectItem value="priceDesc">high price</SelectItem>
           <SelectItem value="ratingAsc"> low rating</SelectItem>
           <SelectItem value="ratingDesc"> high rating</SelectItem>
-        </SelectContent>
-      </SelectGroup>
+        </SelectGroup>
+      </SelectContent>
     </Select>
   );
 };
