@@ -21,6 +21,27 @@ export async function POST(request: Request) {
       return NextResponse.json(validation.error.errors, { status: 400 });
 
     // console.log('BODY:', body);
+    // добавление в модель категорию тип товара
+    // сначало получаем нужную категорию
+    const selectedCategory = await prismadb.category.findUnique({
+      where: { id: body.categoryId },
+      include: { types: true },
+    });
+    //теперь проверяем если выбранный тип в этой категории
+    const isType = selectedCategory?.types.find(
+      (type) => type.id === body.typeId
+    );
+    // ну и добавляем тип в категорию,если он отсутствует
+    if (!isType) {
+      await prismadb.category.update({
+        where: { id: body.categoryId },
+        data: {
+          types: {
+            connect: [{ id: body.typeId }],
+          },
+        },
+      });
+    }
     //вычисление скидки
     let discount;
     if (body.oldPrice) {
