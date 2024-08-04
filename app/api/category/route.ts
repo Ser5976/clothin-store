@@ -9,9 +9,7 @@ import { authOptions } from '../auth/config/auth_options';
 
 export async function GET(request: Request) {
   try {
-    const category = await prismadb.category.findMany({
-      include: { types: true },
-    });
+    const category = await prismadb.category.findMany();
     return NextResponse.json(category);
   } catch (error) {
     console.log(error);
