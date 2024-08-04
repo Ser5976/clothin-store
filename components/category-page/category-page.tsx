@@ -1,34 +1,31 @@
 'use client';
 import { useProductFilterQuery } from '@/react-queries/useProductFilterQuery';
+import { useSearchNameStore } from '@/stores/useSearchNameStore';
 import { BrandType } from '@/types/brand_type';
 import { CategoryType } from '@/types/category_type';
 import { ColorType } from '@/types/color_type';
 import { MaterialType } from '@/types/material_type';
 import { SizeType } from '@/types/size_type';
-import { TypeType } from '@/types/type_type';
 import { Loader } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import React, { FC, useEffect } from 'react';
 import { FilterComponent } from '../filter-components/filter-component';
-import { SearchTitle } from './search-title';
 
-type SearchPageType = {
+type CategoryPageType = {
   categories: CategoryType[] | undefined;
   materials: MaterialType[] | undefined;
   colors: ColorType[] | undefined;
   sizes: SizeType[] | undefined;
   brands: BrandType[] | undefined;
-  types: TypeType[] | undefined;
 };
 
-export const SearchPage: FC<SearchPageType> = ({
+export const CategoryPage: FC<CategoryPageType> = ({
   categories,
   materials,
   colors,
   sizes,
   brands,
-  types,
 }) => {
   //получаем параметры запроса
   const searchParams = useSearchParams();
@@ -42,6 +39,10 @@ export const SearchPage: FC<SearchPageType> = ({
     refetch();
   }, [searchParams]);
   // console.log('data-filter:', data);
+  //определяем имя категории
+  const title = categories?.filter(
+    (category) => category.id === searchParams.get('categoryId')
+  );
   return (
     <div className="shared_container  pt-[2%] pb-[5%]">
       {session.status === 'loading' ? (
@@ -50,11 +51,12 @@ export const SearchPage: FC<SearchPageType> = ({
         </div>
       ) : (
         <>
-          <SearchTitle
-            quantity={data?.count}
-            isError={isError}
-            isLoading={isLoading}
-          />
+          <h1
+            className="text-zinc-800 text-sm sm:text-base md:text-lg  lg:text-xl xl:text-2xl
+           font-bold leading-[31.20px] mb-[2%]"
+          >
+            {title ? title[0].name : null}
+          </h1>
           <FilterComponent
             isError={isError}
             isLoading={isLoading}
@@ -62,7 +64,7 @@ export const SearchPage: FC<SearchPageType> = ({
             categories={categories}
             materials={materials}
             colors={colors}
-            types={types}
+            types={title ? title[0].types : []}
             brands={brands}
             sizes={sizes}
           />

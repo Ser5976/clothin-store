@@ -4,7 +4,7 @@ import { ColorType } from '@/types/color_type';
 import { MaterialType } from '@/types/material_type';
 import { SizeType } from '@/types/size_type';
 import { TypeType } from '@/types/type_type';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Accordion } from '@/components/ui/accordion';
 import { GenderFilter } from './gender-filter';
 import { useSearchParams } from 'next/navigation';
@@ -35,19 +35,20 @@ export const Filter: FC<FilterType> = ({
 }) => {
   const searchParams = useSearchParams();
 
-  //стейт для дефолтных значений аккордиона
-  const [defaultValue, setDefaultValue] = useState<string[]>(() =>
-    createDefaultValue(searchParams)
+  //дефолтное значение для аккордиона
+  const defaultValue = useCallback(
+    () => createDefaultValue(searchParams),
+    [searchParams]
   );
-  // формируем дефолтные значения для аккордиона
-  useEffect(() => {
-    setDefaultValue(createDefaultValue(searchParams));
-  }, [searchParams]);
-  // console.log('default:', defaultValue);
+  // console.log('def:', defaultValue());
   return (
     <div className="flex flex-col gap-4">
       <PriceFilter />
-      <Accordion type="multiple" defaultValue={defaultValue} className="w-full">
+      <Accordion
+        type="multiple"
+        defaultValue={defaultValue()}
+        className="w-full"
+      >
         <GenderFilter categories={categories} />
         <TypeFilter types={types} />
         <BrandFilter brands={brands} />

@@ -6,7 +6,6 @@ import { MaterialType } from '@/types/material_type';
 import { ProductFilterType } from '@/types/product_filter_type';
 import { SizeType } from '@/types/size_type';
 import { TypeType } from '@/types/type_type';
-import { isError } from '@tanstack/react-query';
 import { Loader } from 'lucide-react';
 import React, { FC, useState } from 'react';
 import CardProduct from '../card-product/card-product';

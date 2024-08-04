@@ -3,5 +3,5 @@
 }
 
 .row {
-  @apply relative flex   items-center justify-between;
+  @apply flex   items-center justify-between;
 }

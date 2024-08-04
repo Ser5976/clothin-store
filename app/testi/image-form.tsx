@@ -35,19 +35,31 @@ const imgArray = [
     url: 'https://utfs.io/f/18c053eb-bea9-49ed-bc9a-71534ba2f532-h40jwx.jpg',
     fileKey: '18c053eb-bea9-49ed-bc9a-71534ba2f532-h40jwx.jpg',
   },
+  {
+    id: '12730978-7e28-4145-9632-54db761aed33',
+    url: 'https://utfs.io/f/5211c613-3f1e-4fe8-a053-99973f68d00e-te4axq.webp',
+    fileKey: '5211c613-3f1e-4fe8-a053-99973f68d00e-te4axq.webp',
+  },
+  {
+    id: '12730978-7e28-4145-9632-54db761aed37',
+    url: 'https://utfs.io/f/7a1d67f5-5f93-4ce5-8645-668d7867b83f-mt1713.webp',
+    fileKey: '7a1d67f5-5f93-4ce5-8645-668d7867b83f-mt1713.webp',
+  },
 ];
 
 export const ImageForm = () => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      imageUrl: [],
+      imageUrl: imgArray,
     },
   });
 
   const onSubmit = async (data: FormValues) => {
     // фильтруем данные (удаляем те,что у нас есть в базе(это объекты с id))
-    let test = data.imageUrl.filter((item) => (item.id ? false : true));
+    let test = data.imageUrl.map((value) => {
+      return { url: value.url, fileKey: value.fileKey };
+    });
     console.log('Data:', test);
   };
   console.log('getValue:', form.getValues('imageUrl'));

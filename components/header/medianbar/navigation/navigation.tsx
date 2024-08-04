@@ -4,14 +4,15 @@ import styles from './navigation.module.css';
 import Link from 'next/link';
 import { FC } from 'react';
 import { cn } from '@/lib/utils';
-import { usePathname } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useSearchNameStore } from '@/stores/useSearchNameStore';
 
 interface INavigationProps {
   categories: CategoryType[] | undefined;
 }
 
 export const Navigation: FC<INavigationProps> = ({ categories }) => {
-  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   return (
     <nav className={styles.categories}>
@@ -24,10 +25,10 @@ export const Navigation: FC<INavigationProps> = ({ categories }) => {
           return (
             <Link
               key={category.id}
-              href={`/categories/${category.id}`}
+              href={`/categories?categoryId=${category.id}`}
               className={cn(styles.link, {
                 [styles.link_active]:
-                  `${pathname.split('/')[2]}` === category.id,
+                  searchParams.get('categoryId') === category.id,
               })}
             >
               {category.name}

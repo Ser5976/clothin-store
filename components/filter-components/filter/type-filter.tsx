@@ -7,7 +7,7 @@ import {
 import { Checkbox } from '@/components/ui/checkbox';
 import { TypeType } from '@/types/type_type';
 import { useSearchNameStore } from '@/stores/useSearchNameStore';
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useChangingFilter } from './useChangingFilter';
 
 type TypeFilterType = {
@@ -15,17 +15,22 @@ type TypeFilterType = {
 };
 
 export const TypeFilter: FC<TypeFilterType> = ({ types }) => {
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const { changingFilter } = useChangingFilter(); // какстомный хук для фильтрации
+  const searchName = useSearchNameStore((state) => state.searchName); // стейт имени поискового значения
 
-  //это для того ,чтобы не показывать тот фильтр, котой изначально есть
+  //это для того ,чтобы не показывать тот фильтр, который изначально выбран в поиске
   //из-за конфликта zustam c сервером приходиться кастылить с useEffect и useState
   const [name, setName] = useState('');
-  const searchName = useSearchNameStore((state) => state.searchName);
+  let check = undefined; //это чтобы только на странице search это происходило
   useEffect(() => {
     setName(searchName);
   }, [searchName]);
-  const check = types?.find((item) => item.name === name);
+  if (pathname === '/search') {
+    check = types?.find((item) => item.name === name);
+  }
+  //делаем проверку,если check есть, компанент фильтра не показываем
   if (check) return null;
 
   return (
