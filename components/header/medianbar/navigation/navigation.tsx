@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { FC } from 'react';
 import { cn } from '@/lib/utils';
 import { useSearchParams } from 'next/navigation';
-import { useSearchNameStore } from '@/stores/useSearchNameStore';
 
 interface INavigationProps {
   categories: CategoryType[] | undefined;

@@ -20,7 +20,7 @@ export default function TopCategories({
           {topCategories.map((category) => {
             return (
               <Link
-                href={`/categories/${category.link}`}
+                href={`/categories?categoryId=${category.link}`}
                 key={category.id}
                 className={styles.category_wrapper}
               >

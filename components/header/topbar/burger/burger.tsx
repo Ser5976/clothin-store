@@ -14,7 +14,7 @@ import { SearchInput } from '../../search-input/searchinput';
 import { CategoryType } from '@/types/category_type';
 import { CustomersType } from '@/types/customers_type';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 interface BurgerProps {
   categories: CategoryType[] | undefined;
@@ -22,6 +22,7 @@ interface BurgerProps {
 }
 
 const Burger: FC<BurgerProps> = ({ categories, customers }) => {
+  const searchParams = useSearchParams();
   const pathname = usePathname();
   return (
     <Sheet>
@@ -60,10 +61,10 @@ const Burger: FC<BurgerProps> = ({ categories, customers }) => {
                 return (
                   <SheetClose key={category.id} asChild>
                     <Link
-                      href={`/categories/${category.id}`}
-                      className={cn(styles.link_categories, {
+                      href={`/categories?categoryId=${category.id}`}
+                      className={cn(styles.link, {
                         [styles.link_active]:
-                          `${pathname.split('/')[2]}` === category.id,
+                          searchParams.get('categoryId') === category.id,
                       })}
                     >
                       {category.name}

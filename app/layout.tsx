@@ -21,12 +21,12 @@ export default async function RootLayout({
       <body className=" overflow-y-scroll min-w-[320px]   h-full ">
         <Providers>
           <div className=" flex flex-col">
-            <Suspense fallback={<SearchBarFallback />}>
+            <Suspense >
               <NavBar />
             </Suspense>
 
             <div className=" grow  min-h-screen ">{children}</div>
-            <Suspense fallback={<SearchBarFallback />}>
+            <Suspense >
               <Footer />
             </Suspense>
           </div>
@@ -36,6 +36,3 @@ export default async function RootLayout({
   );
 }
 
-function SearchBarFallback() {
-  return <>placeholder</>;
-}

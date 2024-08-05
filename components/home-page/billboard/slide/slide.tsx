@@ -1,6 +1,4 @@
-import { buttonVariants } from '@/components/ui/button';
 import { CustomButton } from '@/components/ui/custom-ui/custom-button/custom-button';
-import { cn } from '@/lib/utils';
 import { BillboardType } from '@/types/carousel_type';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -19,7 +17,7 @@ export const Slide: FC<SlidePropsType> = ({ slide }) => {
         <div className={styles.content}>
           <div className={styles.title}>{slide.title}</div>
           <div className={styles.subtitle}>{slide.subTitle}</div>
-          <Link href={`./categories/${slide.link}`}>
+          <Link href={`/categories?categoryId=${slide.link}`}>
             <CustomButton>Shop the collection</CustomButton>
           </Link>
         </div>
