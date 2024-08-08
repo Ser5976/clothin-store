@@ -18,19 +18,19 @@
 }
 
 .categories {
-  @apply flex flex-col items-center  gap-8;
+  @apply flex flex-col   gap-8;
 }
 .link_categories {
-  @apply text-[16px] leading-[150%] font-bold 
-  text-[#424551] z-30 uppercase;
+  @apply text-[16px] leading-[150%] 
+  text-gray-500 z-30 uppercase;
 }
 
 .for_customers {
-  @apply flex flex-col py-4 gap-4 border-t border-gray-300 z-30;
+  @apply flex flex-col py-4 gap-8  z-30;
 }
 .link_customers {
-  @apply text-[16px] leading-[150%] font-bold 
-  text-[#424551] z-30;
+  @apply text-[16px] leading-[150%] 
+  text-gray-500 z-30 uppercase;
 }
 .link_active {
   @apply text-[#17696A];

@@ -5,7 +5,7 @@
     max-[820px]:hidden;
 }
 .link {
-  @apply text-gray-700 text-base font-bold  leading-relaxed  
+  @apply text-gray-500 text-base font-bold  leading-relaxed  
   hover:text-[#17696A] transition ease-out duration-500 cursor-pointer;
 }
 .link_active {
