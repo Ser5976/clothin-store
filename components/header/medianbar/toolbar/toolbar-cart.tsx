@@ -10,6 +10,7 @@ import {
   SheetClose,
   SheetContent,
   SheetHeader,
+  SheetOverlay,
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';

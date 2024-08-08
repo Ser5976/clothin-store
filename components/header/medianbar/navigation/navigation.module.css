@@ -6,8 +6,14 @@
 }
 .link {
   @apply text-gray-700 text-base font-bold  leading-relaxed  
-  hover:text-[#17696A] transition ease-out duration-500;
+  hover:text-[#17696A] transition ease-out duration-500 cursor-pointer;
 }
 .link_active {
   @apply text-[#17696A];
+}
+.close {
+  @apply hidden;
+}
+.dropdown_menu {
+  @apply z-50 absolute inset-0 pt-[120px];
 }

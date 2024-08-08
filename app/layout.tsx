@@ -21,12 +21,12 @@ export default async function RootLayout({
       <body className=" overflow-y-scroll min-w-[320px]   h-full ">
         <Providers>
           <div className=" flex flex-col">
-            <Suspense >
+            <Suspense>
               <NavBar />
             </Suspense>
 
             <div className=" grow  min-h-screen ">{children}</div>
-            <Suspense >
+            <Suspense>
               <Footer />
             </Suspense>
           </div>
@@ -35,4 +35,3 @@ export default async function RootLayout({
     </html>
   );
 }
-
