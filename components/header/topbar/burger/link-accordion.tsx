@@ -34,7 +34,7 @@ const LinkAccordion = ({ category }: { category: CategoryType }) => {
               <SheetClose key={type.id} asChild>
                 <Link
                   href={`/categories?categoryId=${category.id}&typeId=${type.id}`}
-                  className={cn('text-gray-500', {
+                  className={cn('text-gray-400', {
                     [styles.link_active]:
                       searchParams.get('typeId') === type.id,
                   })}

@@ -7,7 +7,7 @@ export const ProductsPerPage = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams); //метод  jsдля работы search параметрами адресной строки
+  const params = new URLSearchParams(searchParams); //метод  js для работы search параметрами адресной строки
 
   const [limit, setLimit] = useState(() =>
     searchParams.get('limit') ? Number(searchParams.get('limit')) : 10

@@ -17,7 +17,7 @@ export const Slide: FC<SlidePropsType> = ({ slide }) => {
         <div className={styles.content}>
           <div className={styles.title}>{slide.title}</div>
           <div className={styles.subtitle}>{slide.subTitle}</div>
-          <Link href={`/categories?categoryId=${slide.link}`}>
+          <Link href={`/categories?categoryId=${slide.link}&year=year`}>
             <CustomButton>Shop the collection</CustomButton>
           </Link>
         </div>

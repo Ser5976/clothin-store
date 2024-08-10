@@ -2,7 +2,6 @@ import prismadb from '@/lib/prismadb';
 import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
-  console.log('работает');
   try {
     const { searchParams } = new URL(request.url);
     //пагинация
@@ -21,6 +20,15 @@ export async function GET(request: Request) {
     const isBestseller = searchParams.get('isBestseller');
     const discount = searchParams.get('discount');
     const sort = searchParams.get('sort');
+    const year = searchParams.get('year');
+
+    // определение года,это для фильтрации товаров по году
+    const currentYear = new Date().getFullYear(); // Получаем текущий год
+    const startOfYear = new Date(currentYear, 0, 1); // 1 января года
+    const endOfYear = new Date(currentYear + 1, 0, 1); // 1 января следующего года
+    /* console.log('currentYear:', currentYear);
+    console.log('startOfYear:', startOfYear);
+    console.log('endOfYear:', endOfYear); */
     // создаём объект параметров фильтрации
     //Оператор in  указывает на массив значений, и условие считается выполненным,
     //если хотя бы одно из значений входит в указанный массив.
@@ -41,12 +49,19 @@ export async function GET(request: Request) {
     if (minPrice && maxPrice === null) filter.price = { gte: Number(minPrice) };
     if (maxPrice && minPrice === null) filter.price = { lte: Number(maxPrice) };
     if (discount) filter.discount = { not: null };
+    if (year)
+      filter.createdAt = {
+        gte: startOfYear, // больше или равно началу текущего года
+        lt: endOfYear, // меньше начала следующего года
+      };
 
-    console.log('filter:', filter);
+    /* console.log('filter:', filter);
     console.log('discount:', discount);
     console.log('sort:', sort);
     console.log('limit:', limit);
     console.log('page:', page);
+    console.log('year:', year);
+ */
 
     // получает количество для пагинации
     const count = await prismadb.product.count({

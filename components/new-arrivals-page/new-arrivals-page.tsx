@@ -5,26 +5,29 @@ import { CategoryType } from '@/types/category_type';
 import { ColorType } from '@/types/color_type';
 import { MaterialType } from '@/types/material_type';
 import { SizeType } from '@/types/size_type';
+import { TypeType } from '@/types/type_type';
 import { Loader } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import React, { FC, useEffect } from 'react';
 import { FilterComponent } from '../filter-components/filter-component';
 
-type CategoryPageType = {
+type NewArrivalsPageType = {
   categories: CategoryType[] | undefined;
   materials: MaterialType[] | undefined;
   colors: ColorType[] | undefined;
   sizes: SizeType[] | undefined;
   brands: BrandType[] | undefined;
+  types: TypeType[] | undefined;
 };
 
-export const CategoryPage: FC<CategoryPageType> = ({
+export const NewArrivalsPage: FC<NewArrivalsPageType> = ({
   categories,
   materials,
   colors,
   sizes,
   brands,
+  types,
 }) => {
   //получаем параметры запроса
   const searchParams = useSearchParams();
@@ -38,10 +41,7 @@ export const CategoryPage: FC<CategoryPageType> = ({
     refetch();
   }, [searchParams]);
   // console.log('data-filter:', data);
-  //определяем имя категории
-  const title = categories?.filter(
-    (category) => category.id === searchParams.get('categoryId')
-  );
+
   return (
     <div className="shared_container  pt-[2%] pb-[5%]">
       {session.status === 'loading' ? (
@@ -54,7 +54,7 @@ export const CategoryPage: FC<CategoryPageType> = ({
             className="text-zinc-800 text-sm sm:text-base md:text-lg  lg:text-xl xl:text-2xl
            font-bold leading-[31.20px] mb-[2%]"
           >
-            {title ? title[0].name : null}
+            New Arrivals
           </h1>
           <FilterComponent
             isError={isError}
@@ -63,7 +63,7 @@ export const CategoryPage: FC<CategoryPageType> = ({
             categories={categories}
             materials={materials}
             colors={colors}
-            types={title ? title[0].types : []}
+            types={types}
             brands={brands}
             sizes={sizes}
           />

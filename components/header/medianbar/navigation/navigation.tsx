@@ -49,7 +49,7 @@ export const Navigation: FC<INavigationProps> = ({ categories }) => {
               className={cn(styles.link, {
                 [styles.link_active]:
                   searchParams.get('categoryId') === category.id ||
-                  selectCategory.id === category.id,
+                  (selectCategory.id === category.id && isOpen),
               })}
               onClick={() => handelCategory(category)}
             >
@@ -67,7 +67,7 @@ export const Navigation: FC<INavigationProps> = ({ categories }) => {
           [styles.dropdown_menu]: isOpen,
         })}
       >
-        <div className=" bg-white border-b">
+        <div className=" bg-white border-b transition duration-700 ease-in-out ">
           <div className="shared_container py-5 custom-scroll-navigation-dropdown ">
             <div className="grid grid-cols-4 gap-4 mx-auto w-full   ">
               {selectCategory.types?.map((type) => {
@@ -75,6 +75,10 @@ export const Navigation: FC<INavigationProps> = ({ categories }) => {
                   <div key={type.id}>
                     <Link
                       href={`/categories?categoryId=${selectCategory.id}&typeId=${type.id}`}
+                      className={cn('text-gray-400', {
+                        [styles.link_active]:
+                          searchParams.get('typeId') === type.id,
+                      })}
                       onClick={() => setIsOpen(false)}
                     >
                       {type.name}

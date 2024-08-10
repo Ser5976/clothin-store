@@ -51,7 +51,7 @@ export default async function Home() {
   return (
     <main className="flex  flex-col ">
       <Billboard billboards={billboards} />
-      <TopCategories topCategories={topCategories} />
+
       <NewArrivals products={newArrivals.product} />
       <Collection collections={collections} />
       <PopularTypes popularTypes={popularTypes} />

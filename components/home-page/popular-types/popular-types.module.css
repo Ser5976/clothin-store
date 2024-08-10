@@ -1,5 +1,5 @@
 .section {
-  @apply flex flex-col max-w-[1260px] w-full  m-auto px-[25px] py-[3%]  my-[3%] 
+  @apply flex flex-col max-w-[1260px] w-full  m-auto px-[25px] py-[3%]  
   max-[1350px]:max-w-[1100px]
   max-xl:max-w-[1024px]
   max-[1100px]:max-w-[900px]

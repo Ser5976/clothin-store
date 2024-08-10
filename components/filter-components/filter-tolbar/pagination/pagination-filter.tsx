@@ -8,11 +8,13 @@ const PaginationFilter = ({ pageQty }: { pageQty: number | undefined }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams); //метод  js для работы search параметрами адресной строки
-  const [page, setPage] = useState(() =>
-    searchParams.get('page') ? Number(searchParams.get('page')) : 1
-  );
+  const [page, setPage] = useState(1);
+
   useEffect(() => {
-    setPage(Number(searchParams.get('page')));
+    const numberPage = searchParams.get('page')
+      ? Number(searchParams.get('page'))
+      : 1;
+    setPage(numberPage);
   }, [searchParams]);
   //добавляем в адресс изменённый номер страницы и формируем полный адрес
   const handlePageClick = (event: any) => {

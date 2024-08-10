@@ -1,5 +1,5 @@
 .section {
-  @apply px-[1%] py-[3%] my-[3%];
+  @apply px-[1%] py-[3%];
 }
 .row {
   @apply grid grid-cols-5 gap-[0.5%];
