@@ -44,7 +44,7 @@ export async function POST(request: Request) {
 
 export async function GET(request: Request) {
   try {
-    const topCategories = await prismadb.productCollection.findMany({
+    const collections = await prismadb.productCollection.findMany({
       orderBy: {
         createdAt: 'desc',
       },
@@ -68,7 +68,7 @@ export async function GET(request: Request) {
         },
       },
     });
-    return NextResponse.json(topCategories);
+    return NextResponse.json(collections);
   } catch (error) {
     console.log(error);
   }

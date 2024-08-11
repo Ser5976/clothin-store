@@ -28,7 +28,7 @@ export const Collection: FC<ICollectionProps> = ({ collections }) => {
                 <div className={styles.description}>
                   {collection.description}
                 </div>
-                <Link href={`./collection/${collection.id}`}>
+                <Link href={`./collection?collectionId=${collection.id}`}>
                   <CustomButton small={true} size="sm">
                     Shop the collection
                   </CustomButton>

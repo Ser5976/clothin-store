@@ -27,7 +27,7 @@ const PriceRating: FC<PriceRatingProps> = ({
   discount,
   productId,
 }) => {
-  console.log('render price-rating');
+  // console.log('render price-rating');
 
   //получаем данные по рейтингу из базы отдельным запросом, при помощи кастомного хука(для useQuery)
   //это нужно для интерактива на клиенте

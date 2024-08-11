@@ -21,6 +21,7 @@ export async function GET(request: Request) {
     const discount = searchParams.get('discount');
     const sort = searchParams.get('sort');
     const year = searchParams.get('year');
+    const collectionId = searchParams.get('collectionId');
 
     // определение года,это для фильтрации товаров по году
     const currentYear = new Date().getFullYear(); // Получаем текущий год
@@ -54,6 +55,8 @@ export async function GET(request: Request) {
         gte: startOfYear, // больше или равно началу текущего года
         lt: endOfYear, // меньше начала следующего года
       };
+    if (collectionId)
+      filter.collectionItems = { some: { productCollectionId: collectionId } };
 
     /* console.log('filter:', filter);
     console.log('discount:', discount);
@@ -99,9 +102,10 @@ export async function GET(request: Request) {
         image: true,
         sizes: { select: { size: true } },
         colors: { select: { color: true } },
+        collectionItems: true,
       },
     });
-    console.log('Product:', count);
+    // console.log('Product:', count);
     return NextResponse.json({ count, product, pageQty });
   } catch (error) {
     console.log('Error:', error);

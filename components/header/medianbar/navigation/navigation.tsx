@@ -22,10 +22,10 @@ export const Navigation: FC<INavigationProps> = ({ categories }) => {
   //выпадающий список
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log('isOpen:', isOpen);
+  // console.log('isOpen:', isOpen);
 
   const handleClickOutside = (event: any) => {
-    console.log('работает handleClickOutside');
+    // console.log('работает handleClickOutside');
     if (
       event.target.id === 'overlay_top' ||
       event.target.id === 'overlay_bottom'
@@ -34,7 +34,7 @@ export const Navigation: FC<INavigationProps> = ({ categories }) => {
       setSelectCategory({} as CategoryType);
     }
   };
-  console.log('selectCategory:', selectCategory);
+  //console.log('selectCategory:', selectCategory);
   return (
     <nav className={styles.categories}>
       {!categories ? (

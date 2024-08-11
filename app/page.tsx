@@ -1,5 +1,5 @@
 import { getBillboard } from '@/actions/get_billboard';
-import { getCollection } from '@/actions/get_collections';
+import { getCollections } from '@/actions/get_collections';
 import { getDiscount } from '@/actions/get_discount';
 import { getNewArrivals } from '@/actions/get_new-arrivals';
 import { getNowTrending } from '@/actions/get_now_trending';
@@ -11,7 +11,6 @@ import { Discount } from '@/components/home-page/discount/discount';
 import { NewArrivals } from '@/components/home-page/new-arrivals/new-arrivals';
 import { NowTrending } from '@/components/home-page/now-trending/now-trending';
 import { PopularTypes } from '@/components/home-page/popular-types/popular-types';
-import TopCategories from '@/components/home-page/top-categories/top-categories';
 
 export default async function Home() {
   //запрос для получения billboard, на сервере при помощи fech(динамически)
@@ -21,7 +20,7 @@ export default async function Home() {
   //запрос для получения товаров, на сервере при помощи fech(динамически)
   const newArrivalsPromise = getNewArrivals();
   //запрос для получения коллекции товаров , на сервере при помощи fech(динамически)
-  const collectionsPromise = getCollection();
+  const collectionsPromise = getCollections();
   //запрос для получения популярных типов товаров , на сервере при помощи fech(динамически)
   const popularTypesPromise = getPopularTypes();
   //запрос для получения товаров,которые сейчас в тренде, на сервере при помощи fech(динамически)
@@ -35,7 +34,6 @@ export default async function Home() {
     collections,
     discount,
     newArrivals,
-    topCategories,
     popularTypes,
     nowTrending,
   ] = await Promise.all([
@@ -43,7 +41,6 @@ export default async function Home() {
     collectionsPromise,
     discountPromise,
     newArrivalsPromise,
-    topCategoriesPromise,
     popularTypesPromise,
     nowTrendingPromise,
   ]);
@@ -51,7 +48,6 @@ export default async function Home() {
   return (
     <main className="flex  flex-col ">
       <Billboard billboards={billboards} />
-
       <NewArrivals products={newArrivals.product} />
       <Collection collections={collections} />
       <PopularTypes popularTypes={popularTypes} />

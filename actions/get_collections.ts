@@ -1,7 +1,7 @@
 import { TypeCollection } from './../types/type_collection';
 
-export const getCollection = async (): Promise<TypeCollection[]> => {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/collection`, {
+export const getCollections = async (): Promise<TypeCollection[]> => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/collection`, {
     next: { revalidate: 60 },
   });
   if (!res.ok) {

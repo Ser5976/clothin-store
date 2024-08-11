@@ -46,3 +46,39 @@ export async function PUT(
     return NextResponse.json('Collection is not changed', { status: 500 });
   }
 }
+
+export async function GET(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const collection = await prismadb.productCollection.findFirst({
+      where: { id: params.id },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      include: {
+        image: true,
+        collectionItem: {
+          include: {
+            product: {
+              include: {
+                category: { select: { id: true, name: true } },
+                type: { select: { id: true, name: true } },
+                brand: { select: { id: true, name: true } },
+                material: { select: { id: true, name: true } },
+                rating: { select: { value: true, count: true } },
+                image: true,
+                sizes: { select: { size: true } },
+                colors: { select: { color: true } },
+              },
+            },
+          },
+        },
+      },
+    });
+    return NextResponse.json(collection);
+  } catch (error) {
+    console.log(error);
+  }
+}
