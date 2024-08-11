@@ -24,16 +24,12 @@ async function NavBar() {
 
   return (
     <header className=" shadow ">
-      <Suspense>
-        <TopBar
-          categories={categories}
-          customers={customers}
-          requisites={requisites}
-        />
-      </Suspense>
-      <Suspense>
-        <MedianBar categories={categories} />
-      </Suspense>
+      <TopBar
+        categories={categories}
+        customers={customers}
+        requisites={requisites}
+      />
+      <MedianBar categories={categories} />
       <BottomBar />
     </header>
   );
