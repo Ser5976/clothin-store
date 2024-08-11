@@ -1,6 +1,7 @@
 import { getCategories } from '@/actions/get_categories';
 import { getCustomers } from '@/actions/get_customers';
 import { getRequisites } from '@/actions/get_requisites';
+import { Suspense } from 'react';
 import { BottomBar } from './bottombar/bottombar';
 import { MedianBar } from './medianbar/medianbar';
 import { TopBar } from './topbar/topbar';
@@ -23,12 +24,16 @@ async function NavBar() {
 
   return (
     <header className=" shadow ">
-      <TopBar
-        categories={categories}
-        customers={customers}
-        requisites={requisites}
-      />
-      <MedianBar categories={categories} />
+      <Suspense>
+        <TopBar
+          categories={categories}
+          customers={customers}
+          requisites={requisites}
+        />
+      </Suspense>
+      <Suspense>
+        <MedianBar categories={categories} />
+      </Suspense>
       <BottomBar />
     </header>
   );

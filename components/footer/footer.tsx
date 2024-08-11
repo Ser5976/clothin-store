@@ -4,6 +4,7 @@ import { TopFooter } from './top-footer/top-footer';
 import { BottomFooter } from './bottom-footer/bottom-footer';
 import { getSoreReviews } from '@/actions/get_store_reviews';
 import { WriteToUs } from './write-to-us/write-to-us';
+import { Suspense } from 'react';
 
 const Footer = async () => {
   const requisitesPromise = getRequisites();
@@ -19,8 +20,12 @@ const Footer = async () => {
 
   return (
     <section className="bg-[#1E212C]">
-      <WriteToUs reviews={storeReviews[0]} />
-      <TopFooter requisites={requisites} customers={customers} />
+      <Suspense>
+        <WriteToUs reviews={storeReviews[0]} />
+      </Suspense>
+      <Suspense>
+        <TopFooter requisites={requisites} customers={customers} />
+      </Suspense>
       <BottomFooter />
     </section>
   );
