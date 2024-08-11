@@ -26,7 +26,6 @@ const Collection = async ({
   const brandsPromise = getBrands();
   // при помощи промиса делаем так, чтобы все запросы на этой странице были параллельными, а не последовательными
   // это улучшает скорость загрузки
-  // console.log('searchParams:', searchParams);
   const [categories, brands, sizes, colors, materials, collection, types] =
     await Promise.all([
       categoriesPromise,
@@ -48,7 +47,7 @@ const Collection = async ({
           />
         </div>
       </div>
-      <Suspense fallback={<CategoriesBarFallback />}>
+      <Suspense fallback={<CollectionBarFallback />}>
         <CollectionPage
           collectionName={collection.name}
           categories={categories}
@@ -63,7 +62,7 @@ const Collection = async ({
   );
 };
 export default Collection;
-function CategoriesBarFallback() {
+function CollectionBarFallback() {
   return (
     <div className=" w-[32px] lg:w-[50px] mx-auto my-[300px] animate-spin">
       <Loader size={32} color="#17696a" />
