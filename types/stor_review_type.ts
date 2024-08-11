@@ -3,10 +3,25 @@ export type StoreReviewType = {
   content: string;
   response: string | null;
   userId: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
   user: {
-    email: string;
-    name: string;
+    email: string | null;
+    name: string | null;
   };
 };
+
+/* const storeReviews: ({
+  user: {
+      email: string | null;
+      name: string | null;
+  };
+} & {
+  id: string;
+  content: string;
+  response: string | null;
+  userId: string;
+  createdAt: Date;
+  updatedAt: Date;
+})[]
+ */

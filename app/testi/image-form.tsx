@@ -60,9 +60,9 @@ export const ImageForm = () => {
     let test = data.imageUrl.map((value) => {
       return { url: value.url, fileKey: value.fileKey };
     });
-    console.log('Data:', test);
+    // console.log('Data:', test);
   };
-  console.log('getValue:', form.getValues('imageUrl'));
+  //console.log('getValue:', form.getValues('imageUrl'));
   return (
     <>
       <div className="flex items-center justify-between">
