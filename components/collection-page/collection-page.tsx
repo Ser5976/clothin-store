@@ -33,17 +33,27 @@ export const CollectionPage: FC<CollectionPageType> = ({
 }) => {
   //получаем параметры запроса
   const searchParams = useSearchParams();
+  //проверка на наличие квэри параметров
+  const hasAnyParams = [...searchParams.entries()].length > 0;
   const session = useSession();
   // console.log('categories:', categories);
   // делаем запрос  в базу данных для получения отфильтрованных продуктов
   // кастомный хук useQuery
-  const { data, isError, isLoading, refetch } =
-    useProductFilterQuery(searchParams);
+  const { data, isError, isLoading, refetch } = useProductFilterQuery(
+    searchParams,
+    hasAnyParams
+  );
   useEffect(() => {
-    refetch();
+    if (hasAnyParams) refetch();
   }, [searchParams]);
   // console.log('data-filter:', data);
-
+  // если квэри параметров нет, рэндерим только это
+  if (!hasAnyParams)
+    return (
+      <div className=" text-center pt-32 text-red-500 text-xl">
+        The collection is not selected
+      </div>
+    );
   return (
     <div className="shared_container  pt-[2%] pb-[5%]">
       {session.status === 'loading' ? (

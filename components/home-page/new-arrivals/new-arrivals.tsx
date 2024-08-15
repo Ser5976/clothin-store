@@ -39,7 +39,7 @@ export const NewArrivals: FC<NewArrivalsProps> = ({ products }) => {
         <h2>New arrivals</h2>
         <h3>
           Check out our latest arrivals for the upcoming season
-          <Link href="./new-arrivals">See the collection here</Link>
+          <Link href="./new-arrivals?limit=30">See the collection here</Link>
         </h3>
         <div className={styles.slider}>
           <Carousel

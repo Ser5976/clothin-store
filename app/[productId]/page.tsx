@@ -40,7 +40,7 @@ export default Product;
 
 //generateStaticParams  используют в сочетании с динамическими сегментами маршрутов
 //для статического создания маршрутов во время сборки, а не по требованию во время запроса.
-export async function generateStaticParams() {
+/* export async function generateStaticParams() {
   const products = await getAllProducts();
   //здесь ограничили количества товаров(берём только 3) , остальные будут подгружаться сами
   // это чтобы при сборке небыло дахера страниц(будет долго загружаться)
@@ -49,7 +49,7 @@ export async function generateStaticParams() {
   return topProducts.map((product) => ({
     productId: product.id,
   }));
-}
+} */
 
 type ProductComponentPageProps = {
   product: ProductType;

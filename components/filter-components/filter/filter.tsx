@@ -49,8 +49,8 @@ export const Filter: FC<FilterType> = ({
         defaultValue={defaultValue()}
         className="w-full"
       >
-        <GenderFilter categories={categories} />
-        <TypeFilter types={types} />
+        {categories ? <GenderFilter categories={categories} /> : null}
+        {types ? <TypeFilter types={types} /> : null}
         <BrandFilter brands={brands} />
         <MaterialFilter materials={materials} />
         <ColorFilter colors={colors} />

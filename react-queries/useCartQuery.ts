@@ -10,7 +10,7 @@ export const useCarQuery = (
   return useQuery({
     queryKey: ['cart'],
     queryFn: () => getCartServise(cartId),
-    ...options,
     enabled: enabled,
+    ...options,
   });
 };

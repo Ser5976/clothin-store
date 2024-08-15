@@ -3,6 +3,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
+  BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { HomeIcon } from 'lucide-react';
@@ -19,7 +20,7 @@ export const BreadcrumbNewArrivals = () => {
 
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href={`/new-arrivals`}>New Arrivals</BreadcrumbLink>
+          <BreadcrumbPage>New Arrivals</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>

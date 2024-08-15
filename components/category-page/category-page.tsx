@@ -28,20 +28,41 @@ export const CategoryPage: FC<CategoryPageType> = ({
 }) => {
   //получаем параметры запроса
   const searchParams = useSearchParams();
+  //проверка на наличие квэри параметров
+  const hasAnyParams = [...searchParams.entries()].length > 0;
   const session = useSession();
-  // console.log('categories:', categories);
-  // делаем запрос  в базу данных для получения отфильтрованных продуктов
+  // делаем запрос  в базу данных для получения отфильтрованных продуктов, если квэри параметров нет(hasAnyParams=false)
+  // блокируем запрос
   // кастомный хук useQuery
-  const { data, isError, isLoading, refetch } =
-    useProductFilterQuery(searchParams);
+  const { data, isError, isLoading, refetch } = useProductFilterQuery(
+    searchParams,
+    hasAnyParams
+  );
   useEffect(() => {
-    refetch();
+    if (hasAnyParams) refetch();
   }, [searchParams]);
   // console.log('data-filter:', data);
-  //определяем имя категории
-  const title = categories?.filter(
-    (category) => category.id === searchParams.get('categoryId')
-  );
+  //определяем имя категории и тип одежды
+  const findFilterNames = (): {
+    category: string | undefined;
+    type: string | undefined;
+  } => {
+    const selectCategory = categories?.find(
+      (category) => category.id === searchParams.get('categoryId')
+    );
+    const selectType = selectCategory?.types.find(
+      (type) => type.id === searchParams.get('typeId')
+    );
+    return { category: selectCategory?.name, type: selectType?.name };
+  };
+  // если квэри параметров нет, рэндерим только это
+  if (!hasAnyParams)
+    return (
+      <div className=" text-center pt-32 text-red-500 text-xl">
+        The category is not selected
+      </div>
+    );
+  // console.log('hasAnyParams:', hasAnyParams);
   return (
     <div className="shared_container  pt-[2%] pb-[5%]">
       {session.status === 'loading' ? (
@@ -50,20 +71,34 @@ export const CategoryPage: FC<CategoryPageType> = ({
         </div>
       ) : (
         <>
-          <h1
-            className="text-zinc-800 text-sm sm:text-base md:text-lg  lg:text-xl xl:text-2xl
-           font-bold leading-[31.20px] mb-[2%]"
-          >
-            {title ? title[0].name : null}
-          </h1>
+          <div className="mb-[2%]">
+            <span
+              className="text-zinc-800 text-sm sm:text-base md:text-lg  lg:text-xl xl:text-2xl
+           font-bold leading-[31.20px] "
+            >
+              {findFilterNames().category ? findFilterNames().category : null}
+            </span>
+            <span
+              className="text-zinc-800 text-sm sm:text-base md:text-lg  lg:text-xl xl:text-2xl
+              font-bold leading-[31.20px] "
+            >
+              {findFilterNames().type ? '/' : null}
+            </span>
+            <span
+              className="text-zinc-800 text-sm sm:text-base md:text-lg  lg:text-xl xl:text-2xl
+              font-bold leading-[31.20px] lowercase "
+            >
+              {findFilterNames().type ? findFilterNames().type : null}
+            </span>
+          </div>
           <FilterComponent
             isError={isError}
             isLoading={isLoading}
             filteredProducts={data}
-            categories={categories}
+            categories={undefined}
             materials={materials}
             colors={colors}
-            types={title ? title[0].types : []}
+            types={undefined}
             brands={brands}
             sizes={sizes}
           />

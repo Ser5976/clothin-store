@@ -58,8 +58,8 @@ export async function GET(request: Request) {
     if (collectionId)
       filter.collectionItems = { some: { productCollectionId: collectionId } };
 
-    /* console.log('filter:', filter);
-    console.log('discount:', discount);
+    //console.log('filter:', filter);
+    /* console.log('discount:', discount);
     console.log('sort:', sort);
     console.log('limit:', limit);
     console.log('page:', page);

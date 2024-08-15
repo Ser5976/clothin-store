@@ -6,7 +6,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { ProductType } from '@/types/product_type';
+
 import { HomeIcon } from 'lucide-react';
 
 export const BreadcrumbSearch = () => {
@@ -21,7 +21,7 @@ export const BreadcrumbSearch = () => {
 
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href={`/search`}>Search</BreadcrumbLink>
+          <BreadcrumbPage>Search</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>

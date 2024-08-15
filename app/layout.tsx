@@ -24,9 +24,7 @@ export default async function RootLayout({
           <div className=" flex flex-col">
             <Suspense fallback={<CategoriesBarFallback />}>
               <NavBar />
-            </Suspense>
-            <div className=" grow  min-h-screen ">{children}</div>
-            <Suspense fallback={<CategoriesBarFallback />}>
+              <div className=" grow  min-h-screen ">{children}</div>
               <Footer />
             </Suspense>
           </div>

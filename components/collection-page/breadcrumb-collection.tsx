@@ -3,6 +3,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
+  BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { HomeIcon } from 'lucide-react';
@@ -27,9 +28,7 @@ export const BreadcrumbCollection = ({
 
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href={`/collection/${collectionId}`}>
-            {collectionName}
-          </BreadcrumbLink>
+          <BreadcrumbPage>{collectionName}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>

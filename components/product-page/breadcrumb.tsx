@@ -21,18 +21,6 @@ export const BreadcrumbComponent = ({ product }: { product: ProductType }) => {
 
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href={`/categories/${product.categoryId}`}>
-            {product.category.name}
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink href={`/type/${product.typeId}`}>
-            {product.type.name}
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
           <BreadcrumbPage>{product.name}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
