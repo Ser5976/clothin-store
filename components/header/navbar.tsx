@@ -1,6 +1,7 @@
 import { getCategories } from '@/actions/get_categories';
 import { getCustomers } from '@/actions/get_customers';
 import { getRequisites } from '@/actions/get_requisites';
+import { Suspense } from 'react';
 import { BottomBar } from './bottombar/bottombar';
 import { MedianBar } from './medianbar/medianbar';
 import { TopBar } from './topbar/topbar';

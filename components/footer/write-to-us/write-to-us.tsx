@@ -22,7 +22,7 @@ export const WriteToUs: FC<WriteToUsPropsType> = ({ reviews }) => {
                 {reviews?.user.name ?? reviews?.user.email}
               </div>
               <div className={styles.date}>
-                {dateFormatting(reviews?.createdAt)}
+                {dateFormatting(String(reviews?.createdAt))}
               </div>
             </div>
 

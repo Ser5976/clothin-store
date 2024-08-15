@@ -41,10 +41,12 @@ const Collection = async ({
     <main className="min-h-screen">
       <div className="bg-[#F4F5F6] py-4">
         <div className="shared_container">
-          <BreadcrumbCollection
-            collectionId={searchParams.collectionId}
-            collectionName={collection.name}
-          />
+          <Suspense>
+            <BreadcrumbCollection
+              collectionId={searchParams.collectionId}
+              collectionName={collection.name}
+            />
+          </Suspense>
         </div>
       </div>
       <Suspense fallback={<CollectionBarFallback />}>
