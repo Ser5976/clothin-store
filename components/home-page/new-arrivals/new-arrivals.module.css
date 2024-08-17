@@ -1,5 +1,5 @@
 .section {
-  @apply flex flex-col py-[3%] mt-[10%];
+  @apply flex flex-col py-[3%];
 }
 .title {
   @apply flex flex-col;
