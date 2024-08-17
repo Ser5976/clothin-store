@@ -40,14 +40,14 @@ const Billboard: FC<BillboardPropsType> = ({ billboards }) => {
   const scrollNext = useCallback(() => {
     api?.scrollNext();
   }, [api]);
-  // const ar = [] as [];
+  const ar = [] as [];
   return (
     <>
       {billboards ? (
-        billboards.length === 0 ? (
+        ar.length === 0 ? (
           <div
             className=" flex bg-slate-200 w-full h-[150px] sm:h-[250px] md:h-[350px]  justify-center 
-          items-center md:text-xl lg:h-[550px] lg:text-2xl"
+          items-center  md:text-xl lg:h-[550px] lg:text-2xl"
           >
             The slider is empty
           </div>
@@ -92,8 +92,8 @@ const Billboard: FC<BillboardPropsType> = ({ billboards }) => {
         )
       ) : (
         <div
-          className=" flex bg-slate-200 w-full h-[350px] md:h-[450px]  text-red-500 justify-center 
-        items-center md:text-xl lg:h-[550px] lg:text-2xl"
+          className=" flex bg-slate-200 w-full h-[150px] sm:h-[250px] md:h-[350px]  justify-center 
+        items-center md:text-xl lg:h-[550px] lg:text-2xl text-red-500"
         >
           The slider is not loaded, something went wrong!
         </div>

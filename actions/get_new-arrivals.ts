@@ -1,6 +1,6 @@
 import { GetProductsType } from '../types/get_products_type';
 
-export const getNewArrivals = async (): Promise<GetProductsType> => {
+export const getNewArrivals = async (): Promise<GetProductsType | null> => {
   const res = await fetch(
     `${process.env.NEXTAUTH_URL}/api/product-filter?limit=30`,
     {
@@ -9,7 +9,8 @@ export const getNewArrivals = async (): Promise<GetProductsType> => {
   );
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data');
+    // throw new Error('Failed to fetch data');
+    return null;
   }
   const newArrivals = res.json();
   return newArrivals;
