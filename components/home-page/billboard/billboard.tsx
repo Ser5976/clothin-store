@@ -44,7 +44,7 @@ const Billboard: FC<BillboardPropsType> = ({ billboards }) => {
   return (
     <>
       {billboards ? (
-        ar.length === 0 ? (
+        billboards.length === 0 ? (
           <div
             className=" flex bg-slate-200 w-full h-[150px] sm:h-[250px] md:h-[350px]  justify-center 
           items-center  md:text-xl lg:h-[550px] lg:text-2xl"

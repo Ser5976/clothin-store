@@ -44,7 +44,7 @@ export default async function Home() {
 
   // console.log('purchasedGoods:', purchasedGoods);
   return (
-    <main className="flex  flex-col ">
+    <main className="flex  flex-col overflow-x-hidden ">
       <Billboard billboards={billboards} />
       <NewArrivals products={newArrivals} />
       <Collection collections={collections} />
