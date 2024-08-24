@@ -9,12 +9,10 @@ import {
 import { HomeIcon } from 'lucide-react';
 
 type BreadcrumbCollectionType = {
-  collectionId: string;
   collectionName: string;
 };
 
 export const BreadcrumbCollection = ({
-  collectionId,
   collectionName,
 }: BreadcrumbCollectionType) => {
   return (

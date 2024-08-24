@@ -42,10 +42,7 @@ const Collection = async ({
       <div className="bg-[#F4F5F6] py-4">
         <div className="shared_container">
           <Suspense>
-            <BreadcrumbCollection
-              collectionId={searchParams.collectionId}
-              collectionName={collection.name}
-            />
+            <BreadcrumbCollection collectionName={collection.name} />
           </Suspense>
         </div>
       </div>

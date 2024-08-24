@@ -75,7 +75,7 @@ export const NewArrivals: FC<NewArrivalsProps> = ({ products }) => {
                       </CarouselItem>
                     );
                   })
-                : products?.product.map((product) => (
+                : products.product.map((product) => (
                     <CarouselItem
                       className="basis-1/6 max-lg:basis-1/5 max-sm:basis-1/4 pl-[0.1%] "
                       key={product.id}
