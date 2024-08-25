@@ -4,7 +4,6 @@ import { getColors } from '@/actions/get_colors';
 import { getMaterials } from '@/actions/get_materials';
 import { getSizes } from '@/actions/get_size';
 import { getTypes } from '@/actions/get_type';
-import { CategoryPage } from '@/components/category-page/category-page';
 import { BreadcrumbPopularType } from '@/components/popular-type-page/breadcrumb-popular-type';
 import { PopularTypePage } from '@/components/popular-type-page/popular-type-page';
 import { Loader } from 'lucide-react';

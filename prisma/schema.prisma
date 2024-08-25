@@ -458,6 +458,7 @@ model CollectionItem {
   popularTypesId String @unique
   popularTypes PopularTypes @relation(fields: [popularTypesId],references: [id],onDelete: Cascade) 
 }
+// модель для отзывов магазина
 model StoreReviews{
   id String @id @default(uuid())
   content String @db.LongText
