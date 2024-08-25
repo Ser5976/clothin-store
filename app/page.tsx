@@ -50,7 +50,7 @@ export default async function Home() {
       <Collection collections={collections} />
       <PopularTypes popularTypes={popularTypes} />
       <NowTrending nowTrending={purchasedGoods} />
-      <Discount discount={discount.product} />
+      <Discount discount={discount} />
     </main>
   );
 }

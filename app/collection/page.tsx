@@ -17,6 +17,13 @@ const Collection = async ({
     collectionId: string;
   };
 }) => {
+  // проверка , если нет collectionId
+  if (!searchParams.collectionId)
+    return (
+      <div className=" text-center pt-32 text-red-500 text-xl">
+        The collection is not selected
+      </div>
+    );
   const colectionPromise = getCollection(searchParams.collectionId);
   const typesPromise = getTypes();
   const sizesPromise = getSizes();

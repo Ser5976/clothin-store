@@ -25,7 +25,7 @@ export const NowTrending: FC<NowTrendingTypesProps> = ({ nowTrending }) => {
   const scrollNext = useCallback(() => {
     api?.scrollNext();
   }, [api]);
-
+  // const ar = [] as [];
   return (
     <section className={styles.section}>
       <div className={styles.container}>
@@ -34,7 +34,9 @@ export const NowTrending: FC<NowTrendingTypesProps> = ({ nowTrending }) => {
         {!nowTrending ? (
           <div className=" text-red-500">Samething went wrong!</div>
         ) : nowTrending.length === 0 ? (
-          <div>Unfortunately, not a single product has been purchased!</div>
+          <div className=" text-red-500">
+            Unfortunately, not a single product has been purchased!
+          </div>
         ) : (
           <Carousel
             setApi={setApi}

@@ -10,7 +10,7 @@ type PopularTypesProps = {
 };
 
 export const PopularTypes: FC<PopularTypesProps> = ({ popularTypes }) => {
-  const ar = [] as [];
+  //const ar = [] as [];
   return (
     <section className={styles.section}>
       <p className={styles.title}>Popular categories</p>
@@ -18,13 +18,13 @@ export const PopularTypes: FC<PopularTypesProps> = ({ popularTypes }) => {
         <div className=" text-red-500 text-center pb-2 md:text:lg lg:text-xl">
           The popular categories is not loaded, something went wrong!
         </div>
-      ) : ar.length === 0 ? (
+      ) : popularTypes.length === 0 ? (
         <div className=" text-red-500 text-center pb-2 md:text:lg lg:text-xl">
           The popular categories is empty, add products!
         </div>
       ) : null}
       <div className={styles.row}>
-        {!popularTypes || ar.length === 0
+        {!popularTypes || popularTypes.length === 0
           ? Array.from({ length: 6 }).map((_, index) => {
               return (
                 <div

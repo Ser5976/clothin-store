@@ -1,6 +1,5 @@
 'use client';
 import CardProduct from '@/components/card-product/card-product';
-import { ProductType } from '@/types/product_type';
 import Link from 'next/link';
 import { FC, useCallback, useState } from 'react';
 import styles from './discount.module.css';
@@ -12,9 +11,10 @@ import {
 } from '@/components/ui/carousel';
 import { Arrows } from './arrows/arrows';
 import { CustomButton } from '@/components/ui/custom-ui/custom-button/custom-button';
+import { GetProductsType } from '@/types/get_products_type';
 
 type DiscountTypesProps = {
-  discount: ProductType[];
+  discount: GetProductsType | null;
 };
 
 export const Discount: FC<DiscountTypesProps> = ({ discount }) => {
@@ -27,12 +27,16 @@ export const Discount: FC<DiscountTypesProps> = ({ discount }) => {
   const scrollNext = useCallback(() => {
     api?.scrollNext();
   }, [api]);
-
+  const ar = [] as [];
   return (
     <section className={styles.section}>
       <div className={styles.container}>
         <p className={styles.title}>Sale up to 70%</p>
-
+        {!discount ? (
+          <div className=" text-red-500">Samething went wrong!</div>
+        ) : discount.product.length === 0 ? (
+          <div className=" text-red-500">The list is empty!</div>
+        ) : null}
         <Carousel
           setApi={setApi}
           className=" relative mt-[3%] mb-[7%]"
@@ -42,18 +46,22 @@ export const Discount: FC<DiscountTypesProps> = ({ discount }) => {
           }}
         >
           <CarouselContent>
-            {discount.map((product) => (
-              <CarouselItem className="basis-1/3 " key={product.id}>
-                <CardProduct product={product} />
-              </CarouselItem>
-            ))}
+            {!discount || discount.product.length === 0
+              ? null
+              : discount.product.map((product) => (
+                  <CarouselItem className="basis-1/3 " key={product.id}>
+                    <CardProduct product={product} />
+                  </CarouselItem>
+                ))}
           </CarouselContent>
           {/* кастомный компонент стрелок */}
           <Arrows scrollNext={scrollNext} scrollPrev={scrollPrev} />
         </Carousel>
-        <Link href="./discount" className="self-center">
-          <CustomButton>See all sale products</CustomButton>
-        </Link>
+        {!discount || discount.product.length === 0 ? null : (
+          <Link href="./discount?discount=true" className="self-center">
+            <CustomButton>See all sale products</CustomButton>
+          </Link>
+        )}
       </div>
     </section>
   );
