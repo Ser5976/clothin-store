@@ -71,7 +71,7 @@ const Billboard: FC<BillboardPropsType> = ({ billboards }) => {
             </Carousel>
             {/*  кастомный компонент - номер слайда */}
             <div className="shared_container">
-              <div className=" absolute bottom-[19%] top-0 w-full">
+              <div className=" absolute top-[70%] w-full">
                 <div className={styles.row}>
                   {api?.scrollSnapList().map((_, index) => {
                     return (

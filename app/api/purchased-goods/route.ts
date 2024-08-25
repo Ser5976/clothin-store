@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 // запрос на получение товаров,которые чаще всего покупают, отсортированный по количеству покупок от большего к меньшему
 export async function GET(request: Request) {
   try {
-    // сначало, при помощи групировки, получаем сгрупированные данне: Id товара + количество товара в  orderItem
+    // сначала, при помощи групировки, получаем сгрупированные данне: Id товара + количество товара в  orderItem
     const purchasedGoods = await prismadb.orderItem.groupBy({
       by: ['productId'],
       _count: { id: true },
@@ -15,7 +15,7 @@ export async function GET(request: Request) {
       },
     });
     // получаем такую структуру[{ _count: { id: 7 },productId: '9baeec6a-07a5-41d6-ab22-9548271cdae8'},-//-],
-    // делаем услщвие ,на случай пустого OrderItem
+    // делаем условие ,на случай пустого OrderItem
     if (purchasedGoods.length > 0) {
       // подготавливаем структу данных,  Id товаров, для запроса на получение в модель товаров
       const productsId = purchasedGoods.map((item) => item.productId);

@@ -3,14 +3,14 @@
 }
 
 .img_wrapper {
-  @apply absolute left-0 top-0 w-full h-full overflow-hidden   -z-10;
+  @apply absolute left-0 top-0 w-full h-full overflow-hidden -z-10;
 }
 .img_wrapper img {
   @apply w-full h-full object-cover object-top;
 }
 
 .content {
-  @apply flex flex-col max-w-[450px] items-start gap-[20px] py-[5%]
+  @apply relative flex flex-col max-w-[450px] items-start gap-[20px] py-[5%] 
   max-xl:max-w-[400px]
   max-[1100px]:max-w-[300px]
   max-lg:max-w-[300px]

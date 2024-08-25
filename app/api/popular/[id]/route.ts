@@ -27,7 +27,7 @@ export async function PUT(
     console.log('id:', params.id);
 
     // изменения значения в базе
-    await prismadb.topCategories.update({
+    await prismadb.popularTypes.update({
       where: { id: params.id },
       data: {
         title: body.title,
@@ -55,7 +55,7 @@ export async function DELETE(
     } */
 
     // удаление значения в базе
-    await prismadb.topCategories.delete({
+    await prismadb.popularTypes.delete({
       where: { id: params.id },
     });
     return NextResponse.json({ message: 'PopularTypes removed' });
