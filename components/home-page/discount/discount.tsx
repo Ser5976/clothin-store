@@ -33,9 +33,9 @@ export const Discount: FC<DiscountTypesProps> = ({ discount }) => {
       <div className={styles.container}>
         <p className={styles.title}>Sale up to 70%</p>
         {!discount ? (
-          <div className=" text-red-500">Samething went wrong!</div>
+          <div className=" text-red-500 text-lg ">Samething went wrong!</div>
         ) : discount.product.length === 0 ? (
-          <div className=" text-red-500">The list is empty!</div>
+          <div className=" text-red-500 text-lg">The list is empty!</div>
         ) : null}
         <Carousel
           setApi={setApi}
@@ -55,7 +55,9 @@ export const Discount: FC<DiscountTypesProps> = ({ discount }) => {
                 ))}
           </CarouselContent>
           {/* кастомный компонент стрелок */}
-          <Arrows scrollNext={scrollNext} scrollPrev={scrollPrev} />
+          {!discount || discount.product.length === 0 ? null : (
+            <Arrows scrollNext={scrollNext} scrollPrev={scrollPrev} />
+          )}
         </Carousel>
         {!discount || discount.product.length === 0 ? null : (
           <Link href="./discount?discount=true" className="self-center">
