@@ -10,7 +10,6 @@ type PopularTypesProps = {
 };
 
 export const PopularTypes: FC<PopularTypesProps> = ({ popularTypes }) => {
-  //const ar = [] as [];
   return (
     <section className={styles.section}>
       <p className={styles.title}>Popular categories</p>

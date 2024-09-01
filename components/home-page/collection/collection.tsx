@@ -8,7 +8,7 @@ import styles from './collection.module.css';
 interface ICollectionProps {
   collections: TypeCollection[] | null;
 }
-//const ar = [] as [];
+
 export const Collection: FC<ICollectionProps> = ({ collections }) => {
   return (
     <section className={styles.section}>

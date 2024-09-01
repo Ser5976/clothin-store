@@ -8,6 +8,7 @@ import { cache } from 'react';
 export const revalidate = 60;
 export const getCategories = cache(async () => {
   try {
+    //throw new Error();
     const categories = await prismadb.category.findMany({
       include: { types: true },
     });

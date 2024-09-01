@@ -40,23 +40,29 @@ export const BrandFilter: FC<BrandFilterType> = ({ brands }) => {
       </AccordionTrigger>
       <AccordionContent className="custom-scroll-filter">
         <ul className=" space-y-2">
-          {brands?.map((item, i) => {
-            return (
-              <li className=" flex items-center space-x-2" key={item.id}>
-                <Checkbox
-                  id={`brand${i}`}
-                  checked={searchParams.getAll('brandId').includes(item.id)}
-                  onCheckedChange={() => changingFilter('brandId', item.id)}
-                />
-                <label
-                  htmlFor={`brand${i}`}
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  {item.name}
-                </label>
-              </li>
-            );
-          })}
+          {!brands ? (
+            <div className="text-base text-red-500">Something went wrong!</div>
+          ) : brands.length === 0 ? (
+            <div className="text-base">The brands list is empty!</div>
+          ) : (
+            brands?.map((item, i) => {
+              return (
+                <li className=" flex items-center space-x-2" key={item.id}>
+                  <Checkbox
+                    id={`brand${i}`}
+                    checked={searchParams.getAll('brandId').includes(item.id)}
+                    onCheckedChange={() => changingFilter('brandId', item.id)}
+                  />
+                  <label
+                    htmlFor={`brand${i}`}
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {item.name}
+                  </label>
+                </li>
+              );
+            })
+          )}
         </ul>
       </AccordionContent>
     </AccordionItem>

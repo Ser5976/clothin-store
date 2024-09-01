@@ -95,10 +95,10 @@ export const CategoryPage: FC<CategoryPageType> = ({
             isError={isError}
             isLoading={isLoading}
             filteredProducts={data}
-            categories={undefined}
+            categories={null}
             materials={materials}
             colors={colors}
-            types={undefined}
+            types={null}
             brands={brands}
             sizes={sizes}
           />

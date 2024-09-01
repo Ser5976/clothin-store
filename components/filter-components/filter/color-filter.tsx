@@ -24,23 +24,29 @@ export const ColorFilter: FC<ColorFilterType> = ({ colors }) => {
       </AccordionTrigger>
       <AccordionContent className="custom-scroll-filter">
         <ul className=" space-y-2">
-          {colors?.map((item, i) => {
-            return (
-              <li className=" flex items-center space-x-2" key={item.id}>
-                <Checkbox
-                  id={`colors${i}`}
-                  checked={searchParams.getAll('colorId').includes(item.id)}
-                  onCheckedChange={() => changingFilter('colorId', item.id)}
-                />
-                <label
-                  htmlFor={`colors${i}`}
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  {item.name}
-                </label>
-              </li>
-            );
-          })}
+          {!colors ? (
+            <div className="text-base text-red-500">Something went wrong!</div>
+          ) : colors.length === 0 ? (
+            <div className="text-base">The colors list is empty!</div>
+          ) : (
+            colors.map((item, i) => {
+              return (
+                <li className=" flex items-center space-x-2" key={item.id}>
+                  <Checkbox
+                    id={`colors${i}`}
+                    checked={searchParams.getAll('colorId').includes(item.id)}
+                    onCheckedChange={() => changingFilter('colorId', item.id)}
+                  />
+                  <label
+                    htmlFor={`colors${i}`}
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {item.name}
+                  </label>
+                </li>
+              );
+            })
+          )}
         </ul>
       </AccordionContent>
     </AccordionItem>

@@ -40,25 +40,31 @@ export const TypeFilter: FC<TypeFilterType> = ({ types }) => {
       </AccordionTrigger>
       <AccordionContent className="custom-scroll-filter">
         <ul className=" space-y-2">
-          {types?.map((item, i) => {
-            return (
-              <li className=" flex items-center space-x-2" key={item.id}>
-                <Checkbox
-                  checked={searchParams
-                    .getAll('typeId')
-                    .includes(item.id as never)}
-                  id={`type${i}`}
-                  onCheckedChange={() => changingFilter('typeId', item.id)}
-                />
-                <label
-                  htmlFor={`type${i}`}
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  {item.name}
-                </label>
-              </li>
-            );
-          })}
+          {!types ? (
+            <div className="text-base text-red-500">Something went wrong!</div>
+          ) : types.length === 0 ? (
+            <div className="text-base">The clothes list is empty!</div>
+          ) : (
+            types.map((item, i) => {
+              return (
+                <li className=" flex items-center space-x-2" key={item.id}>
+                  <Checkbox
+                    checked={searchParams
+                      .getAll('typeId')
+                      .includes(item.id as never)}
+                    id={`type${i}`}
+                    onCheckedChange={() => changingFilter('typeId', item.id)}
+                  />
+                  <label
+                    htmlFor={`type${i}`}
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {item.name}
+                  </label>
+                </li>
+              );
+            })
+          )}
         </ul>
       </AccordionContent>
     </AccordionItem>

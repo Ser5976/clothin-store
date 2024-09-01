@@ -30,23 +30,24 @@ export const PopularTypePage: FC<PopularPageType> = ({
 }) => {
   //получаем параметры запроса
   const searchParams = useSearchParams();
-
+  //проверка на наличие квэри параметров
+  const hasAnyParams = [...searchParams.entries()].length > 0;
   const session = useSession();
   // делаем запрос  в базу данных для получения отфильтрованных продуктов, если квэри параметров нет(typeName)
   // блокируем запрос
   // кастомный хук useQuery
   const { data, isError, isLoading, refetch } = useProductFilterQuery(
     searchParams,
-    !!typeName
+    hasAnyParams
   );
   useEffect(() => {
-    if (typeName) refetch();
+    if (hasAnyParams) refetch();
   }, [searchParams]);
   // console.log('data-filter:', data);
   //определяем имя  типа одежды
 
   // если квэри параметров нет, рэндерим только это
-  if (!typeName)
+  if (!hasAnyParams)
     return (
       <div className=" text-center pt-32 text-red-500 text-xl">
         The popular categories is not selected
@@ -76,7 +77,7 @@ export const PopularTypePage: FC<PopularPageType> = ({
             categories={categories}
             materials={materials}
             colors={colors}
-            types={undefined}
+            types={null}
             brands={brands}
             sizes={sizes}
           />

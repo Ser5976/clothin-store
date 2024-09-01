@@ -27,7 +27,7 @@ export const Discount: FC<DiscountTypesProps> = ({ discount }) => {
   const scrollNext = useCallback(() => {
     api?.scrollNext();
   }, [api]);
-  const ar = [] as [];
+
   return (
     <section className={styles.section}>
       <div className={styles.container}>

@@ -39,23 +39,33 @@ export const MaterialFilter: FC<MaterialFilterType> = ({ materials }) => {
       </AccordionTrigger>
       <AccordionContent className="custom-scroll-filter">
         <ul className=" space-y-2">
-          {materials?.map((item, i) => {
-            return (
-              <li className=" flex items-center space-x-2" key={item.id}>
-                <Checkbox
-                  id={`material${i}`}
-                  checked={searchParams.getAll('materialId').includes(item.id)}
-                  onCheckedChange={() => changingFilter('materialId', item.id)}
-                />
-                <label
-                  htmlFor={`material${i}`}
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  {item.name}
-                </label>
-              </li>
-            );
-          })}
+          {!materials ? (
+            <div className="text-base text-red-500">Something went wrong!</div>
+          ) : materials.length === 0 ? (
+            <div className="text-base">The materials list is empty!</div>
+          ) : (
+            materials.map((item, i) => {
+              return (
+                <li className=" flex items-center space-x-2" key={item.id}>
+                  <Checkbox
+                    id={`material${i}`}
+                    checked={searchParams
+                      .getAll('materialId')
+                      .includes(item.id)}
+                    onCheckedChange={() =>
+                      changingFilter('materialId', item.id)
+                    }
+                  />
+                  <label
+                    htmlFor={`material${i}`}
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {item.name}
+                  </label>
+                </li>
+              );
+            })
+          )}
         </ul>
       </AccordionContent>
     </AccordionItem>

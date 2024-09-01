@@ -32,12 +32,12 @@ const PopularType = async ({
       typesPromise,
     ]);
   // определяем name type
-  const nameType = types.find((type) => type.id === searchParams.typeId);
+  const nameType = types?.find((type) => type.id === searchParams.typeId);
   return (
     <main className="min-h-screen">
       <div className="bg-[#F4F5F6] py-4">
         <div className="shared_container">
-          {nameType ? <BreadcrumbPopularType name={nameType?.name} /> : null}
+          <BreadcrumbPopularType name={nameType?.name} />
         </div>
       </div>
       <Suspense fallback={<PopularTypeBarFallback />}>

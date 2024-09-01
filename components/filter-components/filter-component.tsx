@@ -16,12 +16,12 @@ type FilterComponentType = {
   isLoading: boolean;
   isError: boolean;
   filteredProducts: ProductFilterType | undefined;
-  categories: CategoryType[] | undefined;
+  categories: CategoryType[] | undefined | null;
   materials: MaterialType[] | undefined;
   colors: ColorType[] | undefined;
   sizes: SizeType[] | undefined;
   brands: BrandType[] | undefined;
-  types: TypeType[] | undefined;
+  types: TypeType[] | undefined | null;
 };
 
 export const FilterComponent: FC<FilterComponentType> = ({

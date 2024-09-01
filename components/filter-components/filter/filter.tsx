@@ -17,12 +17,12 @@ import { createDefaultValue } from './createDefaultValue';
 import { PriceFilter } from './price-filter';
 
 type FilterType = {
-  categories: CategoryType[] | undefined;
+  categories: CategoryType[] | undefined | null;
   materials: MaterialType[] | undefined;
   colors: ColorType[] | undefined;
   sizes: SizeType[] | undefined;
   brands: BrandType[] | undefined;
-  types: TypeType[] | undefined;
+  types: TypeType[] | undefined | null;
 };
 
 export const Filter: FC<FilterType> = ({
@@ -49,8 +49,8 @@ export const Filter: FC<FilterType> = ({
         defaultValue={defaultValue()}
         className="w-full"
       >
-        {categories ? <GenderFilter categories={categories} /> : null}
-        {types ? <TypeFilter types={types} /> : null}
+        {categories === null ? null : <GenderFilter categories={categories} />}
+        {types === null ? null : <TypeFilter types={types} />}
         <BrandFilter brands={brands} />
         <MaterialFilter materials={materials} />
         <ColorFilter colors={colors} />

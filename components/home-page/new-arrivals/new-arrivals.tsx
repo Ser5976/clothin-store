@@ -33,7 +33,6 @@ export const NewArrivals: FC<NewArrivalsProps> = ({ products }) => {
   }, [api]);
 
   const scrollTo = useCallback((index: number) => api?.scrollTo(index), [api]);
-  // const ar = [] as [];
 
   return (
     <section className={styles.section}>

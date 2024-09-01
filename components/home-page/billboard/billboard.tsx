@@ -40,7 +40,7 @@ const Billboard: FC<BillboardPropsType> = ({ billboards }) => {
   const scrollNext = useCallback(() => {
     api?.scrollNext();
   }, [api]);
-  const ar = [] as [];
+
   return (
     <>
       {billboards ? (

@@ -8,7 +8,11 @@ import {
 } from '@/components/ui/breadcrumb';
 import { HomeIcon } from 'lucide-react';
 
-export const BreadcrumbPopularType = ({ name }: { name: string }) => {
+export const BreadcrumbPopularType = ({
+  name,
+}: {
+  name: string | undefined;
+}) => {
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -19,7 +23,16 @@ export const BreadcrumbPopularType = ({ name }: { name: string }) => {
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbPage>{name}</BreadcrumbPage>
+          <BreadcrumbPage>
+            {name ? (
+              name
+            ) : (
+              <div className="text-red-500">
+                {' '}
+                ? <span className="text-xs">something went wrong</span>{' '}
+              </div>
+            )}
+          </BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>

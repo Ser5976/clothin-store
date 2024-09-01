@@ -18,12 +18,12 @@ import { FC } from 'react';
 import { Filter } from './filter';
 
 type FilterMobileType = {
-  categories: CategoryType[] | undefined;
+  categories: CategoryType[] | undefined | null;
   materials: MaterialType[] | undefined;
   colors: ColorType[] | undefined;
   sizes: SizeType[] | undefined;
   brands: BrandType[] | undefined;
-  types: TypeType[] | undefined;
+  types: TypeType[] | undefined | null;
 };
 
 export const FilterMobile: FC<FilterMobileType> = ({

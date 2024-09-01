@@ -24,23 +24,31 @@ export const GenderFilter: FC<GenderFilterType> = ({ categories }) => {
       </AccordionTrigger>
       <AccordionContent>
         <ul className=" space-y-2">
-          {categories?.map((item, i) => {
-            return (
-              <li className=" flex items-center space-x-2" key={item.id}>
-                <Checkbox
-                  checked={searchParams.get('categoryId') === item.id}
-                  id={`gender${i}`}
-                  onCheckedChange={() => changingFilter('categoryId', item.id)}
-                />
-                <label
-                  htmlFor={`gender${i}`}
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  {item.name}
-                </label>
-              </li>
-            );
-          })}
+          {!categories ? (
+            <div className="text-base text-red-500">Something went wrong!</div>
+          ) : categories.length === 0 ? (
+            <div className="text-base">The categories list is empty!</div>
+          ) : (
+            categories.map((item, i) => {
+              return (
+                <li className=" flex items-center space-x-2" key={item.id}>
+                  <Checkbox
+                    checked={searchParams.get('categoryId') === item.id}
+                    id={`gender${i}`}
+                    onCheckedChange={() =>
+                      changingFilter('categoryId', item.id)
+                    }
+                  />
+                  <label
+                    htmlFor={`gender${i}`}
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {item.name}
+                  </label>
+                </li>
+              );
+            })
+          )}
         </ul>
       </AccordionContent>
     </AccordionItem>

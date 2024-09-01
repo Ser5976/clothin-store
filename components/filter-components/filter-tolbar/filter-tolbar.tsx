@@ -17,12 +17,12 @@ type FilterTolbarType = {
   pageQty: number | undefined;
   openFilter: boolean;
   setOpenFilter: React.Dispatch<React.SetStateAction<boolean>>;
-  categories: CategoryType[] | undefined;
+  categories: CategoryType[] | undefined | null;
   materials: MaterialType[] | undefined;
   colors: ColorType[] | undefined;
   sizes: SizeType[] | undefined;
   brands: BrandType[] | undefined;
-  types: TypeType[] | undefined;
+  types: TypeType[] | undefined | null;
 };
 
 //FilterTolbar  сделал без участия состояния(useState(), только с помощью URL(адресной строки))
