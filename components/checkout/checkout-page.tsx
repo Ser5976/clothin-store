@@ -15,6 +15,7 @@ import { OrderTotals } from './order-totals';
 import { DeliveryType } from '@/types/delivery_type';
 import { useOrderPost } from '@/react-queries/useOrderPost';
 import { Form } from '../ui/form';
+import { toast } from 'react-toastify';
 
 type SelectedOrderType = {
   items: CartItemType[];
@@ -32,7 +33,6 @@ export const CheckoutPage = ({ delivery }: { delivery: DeliveryType[] }) => {
   // для редиректа на главную, если нет товаров
   const route = useRouter();
   //получение данных корзины из стора
-
   const { refetch, cartBase, updateQuantityProduct, deleteProduct } =
     useCartStore((state) => state);
   //выбор места откуда берём массив товаров корзины(база или стор)
@@ -62,6 +62,7 @@ export const CheckoutPage = ({ delivery }: { delivery: DeliveryType[] }) => {
 
   //кастомный хук useMutation,добавляет заказ в базу
   const mutationPostOrder = useOrderPost();
+  mutationPostOrder.isError;
 
   //подключаем react-hook-form
   const form = useForm<FormSchemaType>({
@@ -133,6 +134,10 @@ export const CheckoutPage = ({ delivery }: { delivery: DeliveryType[] }) => {
     };
     console.log('order:', order);
     const request = await mutationPostOrder.mutateAsync(order);
+    if (mutationPostOrder.isError) {
+      toast.error('The order has not been sent,an error has occurred');
+      return;
+    }
     console.log('заказ:', request.confirmation.confirmation_url);
     route.push(request.confirmation.confirmation_url);
   };
