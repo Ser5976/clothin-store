@@ -1,9 +1,13 @@
-import styles from './pagination-filter.module.css';
-import { memo, useEffect, useState } from 'react';
+import styles from './pagination-store-reviews.module.css';
+import { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-const PaginationFilter = ({ pageQty }: { pageQty: number | undefined }) => {
+export const PaginationStoreReviews = ({
+  pageQty,
+}: {
+  pageQty: number | undefined;
+}) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -44,5 +48,3 @@ const PaginationFilter = ({ pageQty }: { pageQty: number | undefined }) => {
     />
   );
 };
-
-export default memo(PaginationFilter);

@@ -22,7 +22,7 @@ export default async function RootLayout({
       <body className=" overflow-y-scroll min-w-[320px]   h-full ">
         <Providers>
           <div className=" flex flex-col">
-            <Suspense fallback={<CategoriesBarFallback />}>
+            <Suspense fallback={<LayoutBarFallback />}>
               <NavBar />
               <div className=" grow  min-h-screen ">{children}</div>
               <Footer />
@@ -33,7 +33,7 @@ export default async function RootLayout({
     </html>
   );
 }
-function CategoriesBarFallback() {
+function LayoutBarFallback() {
   return (
     <div className=" w-[32px] lg:w-[50px] mx-auto my-[300px] animate-spin">
       <Loader size={32} color="#17696a" />

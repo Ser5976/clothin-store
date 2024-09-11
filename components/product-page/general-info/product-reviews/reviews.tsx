@@ -1,7 +1,6 @@
 import { TypeReviews } from '@/types/type_reviews';
 import { dateFormatting } from '@/utils/date-formatting';
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
 import { FC } from 'react';
 import VoteReview from './vote_review';
 import styles from './product-reviews.module.css';
