@@ -1,5 +1,5 @@
 import prismadb from '@/lib/prismadb';
-import { SizeType } from '../profile/get-size';
+import { SizeType } from '../trening/get-size';
 import { ImageForm } from './image-form';
 
 const getSize = async (): Promise<SizeType[] | undefined> => {

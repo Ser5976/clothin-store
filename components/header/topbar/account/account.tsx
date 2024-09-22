@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { AccountSkeleton } from './account-skeleton';
 import styles from './account.module.css';
+import { ProfileMenu } from './profile-menu';
 
 export const Account = () => {
   const session = useSession();
@@ -32,23 +33,7 @@ export const Account = () => {
 
       {session.status === 'authenticated' && (
         <>
-          {session.data?.user.image ? (
-            <div className={cn(styles.login, styles.login_active)}>
-              <Image
-                src={session.data.user.image}
-                className="w-[20px] h-[20px] rounded-full"
-                alt="картинка"
-                width={20}
-                height={20}
-              />
-              Account
-            </div>
-          ) : (
-            <div className={cn(styles.login, styles.login_active)}>
-              <UserCircle2 size={20} color="white" strokeWidth={1.5} />
-              Account
-            </div>
-          )}
+          <ProfileMenu />
           <span> |</span>
           <div className={styles.register}>
             <Link
@@ -59,7 +44,7 @@ export const Account = () => {
                 })
               }
             >
-              Sine Out
+              Log Out
             </Link>
           </div>
         </>

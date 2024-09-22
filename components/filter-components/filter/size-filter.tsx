@@ -5,9 +5,10 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Checkbox } from '@/components/ui/checkbox';
-import { SizeType } from '@/app/profile/get-size';
+
 import { useSearchParams } from 'next/navigation';
 import { useChangingFilter } from './useChangingFilter';
+import { SizeType } from '@/types/size_type';
 
 type SizeFilterType = {
   sizes: SizeType[] | undefined;
