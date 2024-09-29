@@ -8,6 +8,7 @@ import { TypeReviews } from './type_reviews';
 export type UserType = {
   catr: CartType;
   email: string;
+  phone: string;
   favorites: TypeFavourites[];
   id: string;
   image: string;

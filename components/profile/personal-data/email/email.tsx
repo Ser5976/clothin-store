@@ -7,26 +7,24 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { useState } from 'react';
-import { Minus, Pencil, User } from 'lucide-react';
-import { PersonalForm } from './personal-form';
+import { Mail, Pencil } from 'lucide-react';
+import { EmailForm } from './email-form';
 
-export const Personal = ({ name }: { name: string }) => {
+export const Email = ({ email }: { email: string }) => {
   //открытие модального окна для редактирование имени юзера
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <div className="relative flex py-3 px-5 border-b sm:px-10 text-xs sm:text-base">
-        <User
+      <div className="relative flex py-3 px-5 sm:px-10 text-xs sm:text-base border-b">
+        <Mail
           color="#4b5563"
           className="absolute top-4 left-0 w-4 h-4 sm:w-8 sm:h-8 "
         />
+
         <div className=" text-gray-400">
-          <div>Name</div>
-          {name ? (
-            <span className="text-gray-600 font-semibold">{name}</span>
-          ) : (
-            <Minus />
-          )}
+          <div>Email</div>
+
+          <span className="text-gray-600 font-semibold">{email}</span>
         </div>
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
@@ -37,12 +35,12 @@ export const Personal = ({ name }: { name: string }) => {
           </DialogTrigger>
           <DialogContent className=" max-w-[325px]">
             <DialogHeader>
-              <DialogTitle>Edit name</DialogTitle>
+              <DialogTitle>Edit email</DialogTitle>
               <DialogDescription>
-                Make changes to your name here. Click save when you're done.
+                Make changes to your email here. Click save when you're done.
               </DialogDescription>
             </DialogHeader>
-            <PersonalForm setIsOpen={setIsOpen} name={name} />
+            <EmailForm setIsOpen={setIsOpen} email={email} />
           </DialogContent>
         </Dialog>
       </div>

@@ -7,25 +7,26 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { useState } from 'react';
-import { Minus, Pencil, User } from 'lucide-react';
-import { PersonalForm } from './personal-form';
+import { Pencil, PhoneOutgoing } from 'lucide-react';
+import { PhoneForm } from './phone-form';
 
-export const Personal = ({ name }: { name: string }) => {
+export const Phone = ({ phone }: { phone: string }) => {
   //открытие модального окна для редактирование имени юзера
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       <div className="relative flex py-3 px-5 border-b sm:px-10 text-xs sm:text-base">
-        <User
+        <PhoneOutgoing
           color="#4b5563"
           className="absolute top-4 left-0 w-4 h-4 sm:w-8 sm:h-8 "
         />
+
         <div className=" text-gray-400">
-          <div>Name</div>
-          {name ? (
-            <span className="text-gray-600 font-semibold">{name}</span>
+          <div>Phone</div>
+          {phone ? (
+            <span className="text-gray-600 font-semibold">{phone}</span>
           ) : (
-            <Minus />
+            <span>-</span>
           )}
         </div>
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -37,12 +38,12 @@ export const Personal = ({ name }: { name: string }) => {
           </DialogTrigger>
           <DialogContent className=" max-w-[325px]">
             <DialogHeader>
-              <DialogTitle>Edit name</DialogTitle>
+              <DialogTitle>Edit phone</DialogTitle>
               <DialogDescription>
-                Make changes to your name here. Click save when you're done.
+                Make changes to your phone here. Click save when you're done.
               </DialogDescription>
+              <PhoneForm phone={phone} setIsOpen={setIsOpen} />
             </DialogHeader>
-            <PersonalForm setIsOpen={setIsOpen} name={name} />
           </DialogContent>
         </Dialog>
       </div>

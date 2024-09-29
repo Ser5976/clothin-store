@@ -6,27 +6,5 @@
   max-[400px]:px-[15px] cursor-pointer;
 }
 .menu_link_text {
-  @apply text-center text-zinc-400 text-[16px] font-bold  leading-[160%]
-  max-lg:text-[15px]
-  max-md:text-[14px] 
-  max-sm:text-[12px]
-  max-[400px]:text-[10px];
-}
-.menu_link_review {
-  @apply justify-start items-start gap-1 flex;
-}
-
-.menu_link_review_count {
-  @apply text-zinc-400 text-[10px] font-black  leading-[150%]
-  max-[400px]:text-[8px];
-}
-.menu_link_active {
-  @apply rounded  border border-cyan-800;
-}
-.menu_link_text_active {
-  @apply text-cyan-800;
-}
-.menu_link_review_count_error {
-  @apply text-red-500 text-[10px] font-black  leading-[150%]
-  max-[400px]:text-[8px];
+  @apply text-center text-zinc-400 text-xs sm:text-[16px] font-bold  leading-[160%];
 }

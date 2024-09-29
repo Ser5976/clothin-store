@@ -7,42 +7,41 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { useState } from 'react';
-import { Minus, Pencil, User } from 'lucide-react';
-import { PersonalForm } from './personal-form';
+import { KeyRound, Pencil } from 'lucide-react';
+import { PasswordForm } from './password-form';
 
-export const Personal = ({ name }: { name: string }) => {
+export const Password = () => {
   //открытие модального окна для редактирование имени юзера
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       <div className="relative flex py-3 px-5 border-b sm:px-10 text-xs sm:text-base">
-        <User
+        <KeyRound
           color="#4b5563"
           className="absolute top-4 left-0 w-4 h-4 sm:w-8 sm:h-8 "
         />
-        <div className=" text-gray-400">
-          <div>Name</div>
-          {name ? (
-            <span className="text-gray-600 font-semibold">{name}</span>
-          ) : (
-            <Minus />
-          )}
+        <div className=" text-gray-400 ">
+          <div>Password</div>
+
+          <span className="text-gray-600 font-semibold text-xl sm:text-3xl">
+            ..........
+          </span>
         </div>
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
             <Pencil
               color="#4b5563"
-              className="absolute top-5 right-0 w-4 h-4 sm:w-6 sm:h-6  fill-gray-600 cursor-pointer"
+              className="absolute top-5 right-0 w-4 h-4 sm:w-6 sm:h-6 fill-gray-600 cursor-pointer"
             />
           </DialogTrigger>
           <DialogContent className=" max-w-[325px]">
             <DialogHeader>
-              <DialogTitle>Edit name</DialogTitle>
+              <DialogTitle>Edit password</DialogTitle>
               <DialogDescription>
-                Make changes to your name here. Click save when you're done.
+                Make changes to your password here. Click save when you're done.
               </DialogDescription>
+              <PasswordForm setIsOpen={setIsOpen} />
             </DialogHeader>
-            <PersonalForm setIsOpen={setIsOpen} name={name} />
           </DialogContent>
         </Dialog>
       </div>
