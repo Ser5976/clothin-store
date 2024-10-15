@@ -61,8 +61,8 @@ export const FormRegistration = () => {
         if (!login?.error) {
           //если  удачно залогинились,редиректим
           const url = callbackUrl.slice(callbackUrl.lastIndexOf('/') + 1);
-          // window.location.href = `/${url}`;
-          router.push(`/${url}`);
+          window.location.href = `/${url}`;
+          // router.push(`/${url}`);
         }
       }
     } catch (error) {

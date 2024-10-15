@@ -16,7 +16,7 @@ export const Address = ({ address }: { address: AddressType | null }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <div className="relative grid grid-cols-4  py-3 px-5 sm:px-10 border-b text-gray-600 font-semibold text-xs  sm:text-base gap-4">
+      <div className="relative grid grid-cols-4  py-3 px-5 sm:px-10 border-b text-gray-600 font-semibold text-base max-sm:text-xs gap-4">
         <MapPin
           color="#4b5563"
           className="absolute top-4 left-0 w-4 h-4 sm:w-8 sm:h-8 "
@@ -64,7 +64,7 @@ export const Address = ({ address }: { address: AddressType | null }) => {
           <DialogTrigger asChild>
             <Pencil
               color="#4b5563"
-              className="absolute top-5 right-0 w-4 h-4 sm:w-6 sm:h-6  fill-gray-600 cursor-pointer"
+              className="absolute top-5 right-0 w-4 h-4 sm:w-6 sm:h-6   cursor-pointer"
             />
           </DialogTrigger>
           <DialogContent className=" max-w-[325px]">

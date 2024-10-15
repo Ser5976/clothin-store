@@ -14,12 +14,16 @@ interface ITopBarProps {
   categories: CategoryType[] | undefined;
   customers: CustomersType[] | undefined;
   requisites: RequisitesType[] | undefined;
+  avatar: string | undefined;
+  email: string | undefined;
 }
 
 export const TopBar: FC<ITopBarProps> = ({
   categories,
   customers,
   requisites,
+  avatar,
+  email,
 }) => {
   const pathname = usePathname();
 
@@ -64,7 +68,7 @@ export const TopBar: FC<ITopBarProps> = ({
               })
             )}
           </nav>
-          <Account />
+          <Account avatar={avatar} email={email} />
         </div>
       </div>
     </section>

@@ -5,12 +5,8 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import styles from './account.module.css';
@@ -20,19 +16,24 @@ import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export function ProfileMenu() {
-  const session = useSession();
+export function ProfileMenu({
+  avatar,
+  email,
+}: {
+  avatar: string | undefined;
+  email: string | undefined;
+}) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        {session.data?.user.image ? (
+        {avatar ? (
           <div className={cn(styles.login, styles.login_active)}>
             <Image
-              src={session.data.user.image}
+              src={avatar}
               className="w-[20px] h-[20px] rounded-full"
               alt="картинка"
-              width={20}
-              height={20}
+              width={100}
+              height={100}
             />
             Account
           </div>
@@ -47,14 +48,14 @@ export function ProfileMenu() {
         <DropdownMenuLabel>
           <div className=" flex flex-col items-center">
             <div>
-              {session.data?.user.image ? (
+              {avatar ? (
                 <div>
                   <Image
-                    src={session.data.user.image}
+                    src={avatar}
                     className="w-[50px] h-[50px] rounded-full"
                     alt="картинка"
-                    width={20}
-                    height={20}
+                    width={150}
+                    height={150}
                   />
                 </div>
               ) : (
@@ -64,7 +65,7 @@ export function ProfileMenu() {
               )}
             </div>
             <div className=" font-normal text-gray-400">
-              {session.data?.user.email}
+              {email ? email : ''}
             </div>
           </div>
         </DropdownMenuLabel>

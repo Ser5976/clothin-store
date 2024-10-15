@@ -8,3 +8,9 @@
 .menu_link_text {
   @apply text-center text-zinc-400 text-xs sm:text-[16px] font-bold  leading-[160%];
 }
+.menu_link_active {
+  @apply rounded  border border-cyan-800;
+}
+.menu_link_text_active {
+  @apply text-cyan-800;
+}

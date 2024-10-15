@@ -15,7 +15,7 @@ export const Personal = ({ name }: { name: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <div className="relative flex py-3 px-5 border-b sm:px-10 text-xs sm:text-base">
+      <div className="relative flex py-3 px-5 border-b sm:px-10 text-base max-sm:text-xs">
         <User
           color="#4b5563"
           className="absolute top-4 left-0 w-4 h-4 sm:w-8 sm:h-8 "
@@ -32,7 +32,7 @@ export const Personal = ({ name }: { name: string }) => {
           <DialogTrigger asChild>
             <Pencil
               color="#4b5563"
-              className="absolute top-5 right-0 w-4 h-4 sm:w-6 sm:h-6  fill-gray-600 cursor-pointer"
+              className="absolute top-5 right-0 w-4 h-4 sm:w-6 sm:h-6   cursor-pointer"
             />
           </DialogTrigger>
           <DialogContent className=" max-w-[325px]">

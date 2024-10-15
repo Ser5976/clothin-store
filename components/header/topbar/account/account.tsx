@@ -7,7 +7,13 @@ import { AccountSkeleton } from './account-skeleton';
 import styles from './account.module.css';
 import { ProfileMenu } from './profile-menu';
 
-export const Account = () => {
+export const Account = ({
+  avatar,
+  email,
+}: {
+  avatar: string | undefined;
+  email: string | undefined;
+}) => {
   const session = useSession();
   return (
     <div className={styles.account}>
@@ -33,7 +39,7 @@ export const Account = () => {
 
       {session.status === 'authenticated' && (
         <>
-          <ProfileMenu />
+          <ProfileMenu avatar={avatar} email={email} />
           <span> |</span>
           <div className={styles.register}>
             <Link

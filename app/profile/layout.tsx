@@ -1,6 +1,5 @@
 import { BreadcrumbProfile } from '@/components/profile/breadcrumb-profile';
 import { ProfileNavigation } from '@/components/profile/profile-navigation';
-import { Suspense } from 'react';
 
 export default async function ProfileLayout({
   children,
