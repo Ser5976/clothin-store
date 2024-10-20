@@ -1,11 +1,12 @@
 import { CartItemType } from '@/types/cart_type';
+import { OrderItem, OrderType } from '@/types/order_type';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
 import styles from './order-page.module.css';
 
 type ItemReviewPropsType = {
-  item: CartItemType;
+  item: OrderItem;
 };
 
 export const ItemReview: FC<ItemReviewPropsType> = ({ item }) => {

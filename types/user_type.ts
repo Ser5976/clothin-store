@@ -17,5 +17,5 @@ export type UserType = {
   address: Address;
   review: TypeReviews[];
   storeReviews: StoreReviewType[];
-  order: OrderType;
+  order: OrderType[];
 };

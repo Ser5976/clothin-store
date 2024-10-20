@@ -133,7 +133,7 @@ const PersonalData = ({ user }: { user: UserType | null }) => {
       <ul className=" lg:col-span-3">
         {!user ? (
           <h1 className=" text-center font-semibold text-red-600 mt-2">
-            Что то пошло не так!
+            Something went wrong!
           </h1>
         ) : (
           <>

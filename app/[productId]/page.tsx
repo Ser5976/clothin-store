@@ -1,4 +1,3 @@
-import { getAllProducts } from '@/actions/get_all_products ';
 import { getDelivery } from '@/actions/get_delivery';
 import { getProduct } from '@/actions/get_product';
 import { BreadcrumbComponent } from '@/components/product-page/breadcrumb';
