@@ -50,7 +50,7 @@ export const ProfileNavigation = () => {
                 '/profile/order-profile' === pathname,
             })}
           >
-            Your oreder
+            Your order
           </Link>
         </div>
       </div>

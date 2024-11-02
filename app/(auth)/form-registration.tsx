@@ -23,7 +23,7 @@ import {
   RegisterValidator,
 } from '@/validators/register-validator';
 
-//здесь использую библиотеку компонентов shadcn/ui,классая штука
+//здесь использую библиотеку компонентов shadcn/ui,классная штука
 
 export const FormRegistration = () => {
   const [isLoading, setIsLoading] = useState(false);
