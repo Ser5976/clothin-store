@@ -28,8 +28,9 @@ export const UsersPage = () => {
   console.log('useres:', userList);
   return (
     <main className=" flex flex-col gap-5">
-      <h1 className=" flex justify-between  text-zinc-800 font-semibold  leading-[130%]  text-xl lg:text-3xl">
+      <h1 className=" flex justify-between items-baseline border  text-zinc-800 font-semibold  leading-[130%]  text-xl lg:text-3xl">
         <span>Users</span>
+        <span className="text-lg lg:text-xl">{userList?.length}</span>
       </h1>
       {isError || userList?.length === 0 ? null : (
         <div className=" relative w-[250px]">
