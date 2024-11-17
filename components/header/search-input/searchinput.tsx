@@ -5,9 +5,8 @@ import { cn } from '@/lib/utils';
 import { useSearchQuery } from '@/react-queries/useSearchQuery';
 import { useSearchNameStore } from '@/stores/useSearchNameStore';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import styles from './searchinput.module.css';
 
 //SearchInput используем в двух компонентах, из-за отличий в css делаем условия
@@ -27,7 +26,7 @@ export const SearchInput: FC<SearchInputProps> = ({ mark, isBurger }) => {
     setQuery('');
     router.push(`/search?${search}=${id}`);
   };
-  //закрываем область поиска
+  //обработка инпута
   const handlerInput = (e: ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
   };

@@ -25,3 +25,23 @@ export async function GET(
     return NextResponse.json('Something went wrong', { status: 500 });
   }
 }
+
+export async function DELETE(
+  request: Request,
+  { params }: { params: { userId: string } }
+) {
+  try {
+    /* const session = await getServerSession(authOptions);
+    if (!session?.user) {
+      return NextResponse.json('Unauthorized', { status: 401 });
+    } */
+
+    // удаление пользователя
+    await prismadb.user.delete({
+      where: { id: params.userId },
+    });
+    return NextResponse.json({ message: 'User removed' });
+  } catch (error) {
+    return NextResponse.json('The User is not remoed', { status: 500 });
+  }
+}

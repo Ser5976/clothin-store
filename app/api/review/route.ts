@@ -10,7 +10,7 @@ import { authOptions } from '../auth/config/auth_options';
 export async function POST(request: Request) {
   try {
     const session = await getServerSession(authOptions);
-    // console.log('review-session:', session);
+    console.log('review-session:', session?.user.role);
     if (!session?.user) {
       return NextResponse.json('Unauthorized', { status: 401 });
     }

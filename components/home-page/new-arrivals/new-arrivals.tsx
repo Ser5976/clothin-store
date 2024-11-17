@@ -11,7 +11,6 @@ import {
 } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
 import { GetProductsType } from '@/types/get_products_type';
-import { Divide } from 'lucide-react';
 
 type NewArrivalsProps = {
   products: GetProductsType | null;

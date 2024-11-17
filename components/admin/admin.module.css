@@ -1,0 +1,27 @@
+.link {
+  @apply relative pl-9 block py-1  text-gray-400 text-lg cursor-default;
+}
+.hover {
+  @apply hover:bg-green-100 hover:text-[#17696A] cursor-pointer;
+}
+.activeLink {
+  @apply text-[#17696A];
+}
+.icons {
+  @apply absolute top-[6px] left-2 w-5 h-5 text-gray-400;
+}
+.activeIcons {
+  @apply text-[#17696A];
+}
+.bage {
+  @apply inline-flex  justify-center  absolute top-1 right-3 rounded-full  bg-gray-400 text-white text-[10px] px-[11px];
+}
+.activeBage {
+  @apply bg-[#17696A];
+}
+.hover:hover .icons {
+  @apply text-[#17696A];
+}
+.hover:hover .bage {
+  @apply bg-[#17696A];
+}

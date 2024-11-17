@@ -1,3 +1,4 @@
+import { TypeReviews } from '@/types/type_reviews';
 import {
   getReviewsProductServise,
   SortType,
