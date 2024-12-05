@@ -22,7 +22,7 @@ export async function POST(request: Request) {
 
     // console.log('BODY:', body);
     // добавление в модель категорию тип товара
-    // сначало получаем нужную категорию
+    // сначала получаем нужную категорию
     const selectedCategory = await prismadb.category.findUnique({
       where: { id: body.categoryId },
       include: { types: true },
@@ -107,8 +107,26 @@ export async function POST(request: Request) {
 
 export async function GET(request: Request) {
   try {
-    const allProduct = await prismadb.product.findMany();
-    return NextResponse.json(allProduct);
+    const { searchParams } = new URL(request.url);
+    const query = searchParams.get('query');
+    let products;
+    // количество всех товаров
+    const count = await prismadb.product.count();
+    //получение товаров
+    if (query) {
+      products = await prismadb.product.findMany({
+        where: {
+          OR: [{ name: { contains: query } }],
+        },
+      });
+    } else {
+      products = await prismadb.product.findMany({
+        take: 100,
+      });
+    }
+    const productData = { count, products };
+
+    return NextResponse.json(productData);
   } catch (error) {
     console.log(error);
   }

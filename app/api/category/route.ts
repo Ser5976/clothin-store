@@ -6,6 +6,7 @@ import {
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 import { authOptions } from '../auth/config/auth_options';
+import { CustomError } from '@/lib/utils';
 
 export async function GET(request: Request) {
   try {
@@ -40,12 +41,24 @@ export async function POST(request: Request) {
     if (candidate) {
       return NextResponse.json('This category already exist', { status: 400 });
     }
+    // проверка на количество категорий(создавать будем не больше 4-х)
+    const numberCategories = await prismadb.category.count();
+    if (numberCategories === 4) {
+      //пример кастомного класса ошибки(сделал ради учёбы,
+      //потому что NextResponse.json('', { status: }), проще )
+      throw new CustomError('You can create no more than 4 categories', 400, {
+        categoryNumber: true,
+      });
+    }
     // сохранения значения в базе
     await prismadb.category.create({
       data: body,
     });
     return NextResponse.json({ message: 'Data is saved' });
-  } catch (error) {
+  } catch (error: any) {
+    if (error?.details.categoryNumber) {
+      return NextResponse.json(error.message, { status: error.code });
+    }
     return NextResponse.json('Data is not saved', { status: 500 });
   }
 }

@@ -3,7 +3,7 @@ import { getUserServise } from './servises/getUserServise';
 
 export const useUserQuery = (query: string) => {
   return useQuery({
-    queryKey: ['user-search'],
+    queryKey: ['user-search', query],
     queryFn: () => getUserServise(query),
   });
 };

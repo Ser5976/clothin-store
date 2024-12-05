@@ -24,6 +24,7 @@ export async function GET(request: Request) {
       });
     } else {
       users = await prismadb.user.findMany({
+        take: 100,
         include: {
           favorites: true,
           catr: true,

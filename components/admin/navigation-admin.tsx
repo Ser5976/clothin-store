@@ -2,8 +2,7 @@
 import styles from './admin.module.css';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-
-import { LogOut, Shield, Users } from 'lucide-react';
+import { ListChecks, LogOut, Shield, ShoppingCart, Users } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
 export const NavigationAdmin = () => {
@@ -31,14 +30,36 @@ export const NavigationAdmin = () => {
               [styles.activeIcons]: `${pathName.split('/')[2]}` === 'users',
             })}
           />
-          {/* <span
-            className={cn(styles.bage, {
-              [styles.activeBage]: `${pathName.split('/')[2]}` === 'users',
-            })}
-          >
-            500 000 000
-          </span> */}
           <span>Users</span>
+        </Link>
+        <Link
+          href="/admin/products"
+          className={cn(styles.link, {
+            [styles.activeLink]: `${pathName.split('/')[2]}` === 'products',
+            [styles.hover]: `${pathName.split('/')[2]}` !== 'products',
+          })}
+        >
+          <ShoppingCart
+            className={cn(styles.icons, {
+              [styles.activeIcons]: `${pathName.split('/')[2]}` === 'products',
+            })}
+          />
+          <span>Products</span>
+        </Link>
+        <Link
+          href="/admin/categories"
+          className={cn(styles.link, {
+            [styles.activeLink]: `${pathName.split('/')[2]}` === 'categories',
+            [styles.hover]: `${pathName.split('/')[2]}` !== 'categories',
+          })}
+        >
+          <ListChecks
+            className={cn(styles.icons, {
+              [styles.activeIcons]:
+                `${pathName.split('/')[2]}` === 'categories',
+            })}
+          />
+          <span>Categories</span>
         </Link>
       </ul>
       <div className="px-5 m-3 bg-transparent border-b"></div>

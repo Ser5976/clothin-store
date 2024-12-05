@@ -17,7 +17,7 @@ export const ProductValidator = z.object({
   categoryId: z.string().min(1, 'Category is required'),
   typeId: z.string().min(1, 'Type is required'),
   sizeId: z.array(z.string()).nonempty('Size is required'),
-  colorId: z.string().array().nonempty('Image is required'),
+  colorId: z.string().array().nonempty('Color is required'),
   materialId: z.string().min(1, 'Material is required'),
   brandId: z.string().min(1, 'Brand is required'),
 });

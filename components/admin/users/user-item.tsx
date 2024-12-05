@@ -5,7 +5,7 @@ import { RotateCw, X } from 'lucide-react';
 import { useUserDelete } from '@/react-queries/admin/useUserDelete';
 
 export const UserItem = ({ user }: { user: UserType }) => {
-  //кастомный хук useMutation, удаляет товар из базе корзины
+  //кастомный хук useMutation, удаляет пользователя
   const mutationDeleteUser = useUserDelete();
   // удаление пользователя
   const userDelete = () => {

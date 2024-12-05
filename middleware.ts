@@ -10,7 +10,7 @@ export default withAuth(
       req.nextUrl.pathname === '/admin' &&
       req.nextauth.token?.role !== 'ADMIN'
     ) {
-      req.nextUrl.pathname = '/admin/role';
+      req.nextUrl.pathname = '/role';
       return NextResponse.redirect(req.nextUrl);
     }
   },

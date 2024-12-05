@@ -67,7 +67,12 @@ export const BreadcrumbAdmin = () => {
           <>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>User</BreadcrumbPage>
+              <BreadcrumbLink
+                href={`/admin/${thirdPath}`}
+                className={' text-gray-900'}
+              >
+                {capitalizeFirstLetter(thirdPath)}
+              </BreadcrumbLink>
             </BreadcrumbItem>
           </>
         ) : null}
