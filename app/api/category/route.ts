@@ -46,9 +46,11 @@ export async function POST(request: Request) {
     if (numberCategories === 4) {
       //пример кастомного класса ошибки(сделал ради учёбы,
       //потому что NextResponse.json('', { status: }), проще )
-      throw new CustomError('You can create no more than 4 categories', 400, {
-        categoryNumber: true,
-      });
+      throw new CustomError(
+        'You can create no more than 4 categories',
+        400,
+        'numberCategories'
+      );
     }
     // сохранения значения в базе
     await prismadb.category.create({
@@ -56,7 +58,7 @@ export async function POST(request: Request) {
     });
     return NextResponse.json({ message: 'Data is saved' });
   } catch (error: any) {
-    if (error?.details.categoryNumber) {
+    if (error?.details === 'numberCategories') {
       return NextResponse.json(error.message, { status: error.code });
     }
     return NextResponse.json('Data is not saved', { status: 500 });

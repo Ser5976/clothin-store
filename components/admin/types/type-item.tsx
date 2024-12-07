@@ -2,34 +2,36 @@ import React from 'react';
 import { RotateCw, X } from 'lucide-react';
 import { CategoryType } from '@/types/category_type';
 import { useCategoryDelete } from '@/react-queries/admin/useCategoryDelete';
-import { ModalUpdateCategory } from './modal-category/modal-update-category';
+import { TypeType } from '@/types/type_type';
+import { useTypeDelete } from '@/react-queries/admin/useTypeDelete';
+import { ModalUpdateType } from './modal-type/modal-update-type';
 
-export const CategoryItem = ({ category }: { category: CategoryType }) => {
-  //кастомный хук useMutation, удаляет категорию
-  const mutationDeleteCategory = useCategoryDelete();
-  // удаление категории
-  const categoryDelete = () => {
+export const TypeItem = ({ type }: { type: TypeType }) => {
+  //кастомный хук useMutation, удаляет тип
+  const mutationDeleteType = useTypeDelete();
+  // удаление типа
+  const typeDelete = () => {
     const userConfirmed = window.confirm(
-      `Are you sure you want to delete category ${category.name}`
+      `Are you sure you want to delete type ${type.name}`
     );
     if (userConfirmed) {
-      mutationDeleteCategory.mutate(category.id);
+      mutationDeleteType.mutate(type.id);
     }
   };
   return (
     <div className=" flex justify-between border-t border-gray-400  text-gray-400 ">
-      <div>{category.name}</div>
+      <div>{type.name}</div>
 
       <div className=" flex gap-3">
-        <ModalUpdateCategory category={category} />
+        <ModalUpdateType type={type} />
         <div className="">
-          {mutationDeleteCategory.isLoading ? (
+          {mutationDeleteType.isLoading ? (
             <RotateCw size={20} className="   animate-spin" />
           ) : (
             <X
               size={20}
               className=" hover:text-gray-800 cursor-pointer"
-              onClick={categoryDelete}
+              onClick={typeDelete}
             />
           )}
         </div>

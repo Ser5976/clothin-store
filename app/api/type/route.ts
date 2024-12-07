@@ -40,8 +40,26 @@ export async function POST(request: Request) {
 
 export async function GET(request: Request) {
   try {
-    const type = await prismadb.type.findMany();
-    return NextResponse.json(type);
+    const { searchParams } = new URL(request.url);
+    const query = searchParams.get('query');
+    let types;
+    // количество всех типов
+    const count = await prismadb.type.count();
+    //получение товаров
+    if (query) {
+      types = await prismadb.type.findMany({
+        where: {
+          OR: [{ name: { contains: query } }],
+        },
+      });
+    } else {
+      types = await prismadb.type.findMany({
+        take: 100,
+      });
+    }
+    const typeData = { count, types };
+
+    return NextResponse.json(typeData);
   } catch (error) {
     console.log(error);
   }

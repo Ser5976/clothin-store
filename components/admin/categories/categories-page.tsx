@@ -1,5 +1,4 @@
 'use client';
-
 import { useCategoryQuery } from '@/react-queries/admin/useCategoryrQuery';
 import { Loader, RotateCw } from 'lucide-react';
 import React from 'react';
@@ -36,7 +35,7 @@ export const CategoryPage = () => {
         </div>
       ) : categoriesList.length === 0 ? (
         <h1 className=" text-center font-semibold mt-2">
-          The list of users is empty !
+          The list of types is empty !
         </h1>
       ) : (
         categoriesList.map((category) => {

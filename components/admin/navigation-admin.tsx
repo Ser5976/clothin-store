@@ -2,7 +2,14 @@
 import styles from './admin.module.css';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { ListChecks, LogOut, Shield, ShoppingCart, Users } from 'lucide-react';
+import {
+  ListChecks,
+  LogOut,
+  Rows,
+  Shield,
+  ShoppingCart,
+  Users,
+} from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
 export const NavigationAdmin = () => {
@@ -60,6 +67,20 @@ export const NavigationAdmin = () => {
             })}
           />
           <span>Categories</span>
+        </Link>
+        <Link
+          href="/admin/types"
+          className={cn(styles.link, {
+            [styles.activeLink]: `${pathName.split('/')[2]}` === 'types',
+            [styles.hover]: `${pathName.split('/')[2]}` !== 'types',
+          })}
+        >
+          <Rows
+            className={cn(styles.icons, {
+              [styles.activeIcons]: `${pathName.split('/')[2]}` === 'types',
+            })}
+          />
+          <span>Types</span>
         </Link>
       </ul>
       <div className="px-5 m-3 bg-transparent border-b"></div>
