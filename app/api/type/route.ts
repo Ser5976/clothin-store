@@ -53,9 +53,7 @@ export async function GET(request: Request) {
         },
       });
     } else {
-      types = await prismadb.type.findMany({
-        take: 100,
-      });
+      types = await prismadb.type.findMany({});
     }
     const typeData = { count, types };
 

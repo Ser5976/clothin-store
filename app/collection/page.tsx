@@ -33,16 +33,23 @@ const Collection = async ({
   const brandsPromise = getBrands();
   // при помощи промиса делаем так, чтобы все запросы на этой странице были параллельными, а не последовательными
   // это улучшает скорость загрузки
-  const [categories, brands, sizes, colors, materials, collection, types] =
-    await Promise.all([
-      categoriesPromise,
-      brandsPromise,
-      sizesPromise,
-      colorsPromise,
-      materialPromise,
-      colectionPromise,
-      typesPromise,
-    ]);
+  const [
+    categories,
+    brands,
+    sizes,
+    colors,
+    materials,
+    collection,
+    generalTypes,
+  ] = await Promise.all([
+    categoriesPromise,
+    brandsPromise,
+    sizesPromise,
+    colorsPromise,
+    materialPromise,
+    colectionPromise,
+    typesPromise,
+  ]);
 
   return (
     <main className="min-h-screen">
@@ -61,7 +68,7 @@ const Collection = async ({
           colors={colors}
           brands={brands}
           sizes={sizes}
-          types={types}
+          types={generalTypes?.types}
         />
       </Suspense>
     </main>

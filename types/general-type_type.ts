@@ -1,6 +1,6 @@
 import { TypeType } from './type_type';
 
-export type AdminTypeDataType = {
+export type GeneralTypeType = {
   count: number;
   types: TypeType[];
 };
