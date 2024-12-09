@@ -1,16 +1,16 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import { postTypeServise } from './servises/postTypeServise';
+import { postBrandServise } from './servises/postBrandServise';
 
-export const useTypePost = (
+export const useBrandPost = (
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: postTypeServise,
+    mutationFn: postBrandServise,
 
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['admin-type-search'] });
+      queryClient.invalidateQueries({ queryKey: ['admin-brand-search'] });
       toast.success(data.message);
       setIsOpen(false);
     },

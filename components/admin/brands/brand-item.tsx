@@ -1,35 +1,35 @@
 import React from 'react';
 import { RotateCw, X } from 'lucide-react';
-import { TypeType } from '@/types/type_type';
-import { useTypeDelete } from '@/react-queries/admin/useTypeDelete';
-import { ModalUpdateType } from './modal-type/modal-update-type';
+import { BrandType } from '@/types/brand_type';
+import { useBrandDelete } from '@/react-queries/admin/useBrandDelete';
+import { ModalUpdateBrand } from './modal-brand/modal-update-brand';
 
-export const TypeItem = ({ type }: { type: TypeType }) => {
+export const BrandItem = ({ brand }: { brand: BrandType }) => {
   //кастомный хук useMutation, удаляет тип
-  const mutationDeleteType = useTypeDelete();
+  const mutationDeleteBrand = useBrandDelete();
   // удаление типа
-  const typeDelete = () => {
+  const brandDelete = () => {
     const userConfirmed = window.confirm(
-      `Are you sure you want to delete type ${type.name}`
+      `Are you sure you want to delete type ${brand.name}`
     );
     if (userConfirmed) {
-      mutationDeleteType.mutate(type.id);
+      mutationDeleteBrand.mutate(brand.id);
     }
   };
   return (
     <div className=" flex justify-between border-t border-gray-400  text-gray-400 ">
-      <div>{type.name}</div>
+      <div>{brand.name}</div>
 
       <div className=" flex gap-3">
-        <ModalUpdateType type={type} />
+        <ModalUpdateBrand brand={brand} />
         <div className="">
-          {mutationDeleteType.isLoading ? (
+          {mutationDeleteBrand.isLoading ? (
             <RotateCw size={20} className="   animate-spin" />
           ) : (
             <X
               size={20}
               className=" hover:text-gray-800 cursor-pointer"
-              onClick={typeDelete}
+              onClick={brandDelete}
             />
           )}
         </div>

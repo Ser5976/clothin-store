@@ -82,6 +82,20 @@ export const NavigationAdmin = () => {
           />
           <span>Types</span>
         </Link>
+        <Link
+          href="/admin/brands"
+          className={cn(styles.link, {
+            [styles.activeLink]: `${pathName.split('/')[2]}` === 'brands',
+            [styles.hover]: `${pathName.split('/')[2]}` !== 'brands',
+          })}
+        >
+          <Rows
+            className={cn(styles.icons, {
+              [styles.activeIcons]: `${pathName.split('/')[2]}` === 'brands',
+            })}
+          />
+          <span>Brands</span>
+        </Link>
       </ul>
       <div className="px-5 m-3 bg-transparent border-b"></div>
       <div

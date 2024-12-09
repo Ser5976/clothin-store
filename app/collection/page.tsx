@@ -35,7 +35,7 @@ const Collection = async ({
   // это улучшает скорость загрузки
   const [
     categories,
-    brands,
+    generalBrands,
     sizes,
     colors,
     materials,
@@ -66,7 +66,7 @@ const Collection = async ({
           categories={categories}
           materials={materials}
           colors={colors}
-          brands={brands}
+          brands={generalBrands?.brands}
           sizes={sizes}
           types={generalTypes?.types}
         />

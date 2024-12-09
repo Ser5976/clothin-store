@@ -1,4 +1,5 @@
-import { GeneralTypeType } from '@/types/general-type_type';
+import { GeneralTypeType } from './../../../types/general-type_type';
+
 import axios from 'axios';
 
 export const getTypeServise = async (query: string) => {

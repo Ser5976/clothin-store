@@ -37,10 +37,27 @@ export async function POST(request: Request) {
     return NextResponse.json('Data is not saved', { status: 500 });
   }
 }
+
 export async function GET(request: Request) {
   try {
-    const brands = await prismadb.brand.findMany();
-    return NextResponse.json(brands);
+    const { searchParams } = new URL(request.url);
+    const query = searchParams.get('query');
+    let brands;
+    // количество всех типов
+    const count = await prismadb.brand.count();
+    //получение товаров
+    if (query) {
+      brands = await prismadb.brand.findMany({
+        where: {
+          OR: [{ name: { contains: query } }],
+        },
+      });
+    } else {
+      brands = await prismadb.brand.findMany({});
+    }
+    const brandData = { count, brands };
+
+    return NextResponse.json(brandData);
   } catch (error) {
     console.log(error);
   }

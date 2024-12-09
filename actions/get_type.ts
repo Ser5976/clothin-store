@@ -1,4 +1,4 @@
-import { GeneralTypeType } from '@/types/general-type_type';
+import { GeneralTypeType } from './../types/general-type_type';
 
 export const getTypes = async (): Promise<GeneralTypeType | undefined> => {
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/type`, {

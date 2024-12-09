@@ -18,7 +18,7 @@ const NewArrivals = async () => {
   const brandsPromise = getBrands();
   // при помощи промиса делаем так, чтобы все запросы на этой странице были параллельными, а не последовательными
   // это улучшает скорость загрузки
-  const [generalTypes, categories, brands, sizes, colors, materials] =
+  const [generalTypes, categories, generalBrands, sizes, colors, materials] =
     await Promise.all([
       typesPromise,
       categoriesPromise,
@@ -40,7 +40,7 @@ const NewArrivals = async () => {
           categories={categories}
           materials={materials}
           colors={colors}
-          brands={brands}
+          brands={generalBrands?.brands}
           sizes={sizes}
           types={generalTypes?.types}
         />

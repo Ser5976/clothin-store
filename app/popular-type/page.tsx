@@ -22,7 +22,7 @@ const PopularType = async ({
   const brandsPromise = getBrands();
   // при помощи промиса делаем так, чтобы все запросы на этой странице были параллельными, а не последовательными
   // это улучшает скорость загрузки
-  const [categories, brands, sizes, colors, materials, generalTypes] =
+  const [categories, generalBrands, sizes, colors, materials, generalTypes] =
     await Promise.all([
       categoriesPromise,
       brandsPromise,
@@ -48,7 +48,7 @@ const PopularType = async ({
           categories={categories}
           materials={materials}
           colors={colors}
-          brands={brands}
+          brands={generalBrands?.brands}
           sizes={sizes}
         />
       </Suspense>

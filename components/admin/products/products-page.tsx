@@ -45,34 +45,32 @@ export const ProductsPage = () => {
           )}
         </span>
       </h1>
-      {isError || productData?.products?.length === 0 ? null : (
-        <div className=" flex justify-between">
-          <div className=" relative w-[250px]">
-            <Input
-              type="text"
-              placeholder="Search for products..."
-              className="w-full pt-[11px] px-[16px] pb-[12px] rounded-[4px] border border-[#D7DADD]
+      <div className=" flex justify-between">
+        <div className=" relative w-[250px]">
+          <Input
+            type="text"
+            placeholder="Search for products..."
+            className="w-full pt-[11px] px-[16px] pb-[12px] rounded-[4px] border border-[#D7DADD]
         max-[450px]:w-[200px] focus:outline-none"
-              value={query}
-              onChange={handlerInput}
-            />
+            value={query}
+            onChange={handlerInput}
+          />
 
-            <Image
-              src="/header/search.svg"
-              alt="search"
-              width={16}
-              height={16}
-              className="absolute top-[12px] right-[16px]"
-            />
-          </div>
-          <Button
-            onClick={() => router.push('/admin/products/create-product')}
-            className=" text-[16px] h-[40px] bg-cyan-800 w-[180px] hover:bg-cyan-900 max-md:w-[150px] max-md:text-[14px] "
-          >
-            Add a product
-          </Button>
+          <Image
+            src="/header/search.svg"
+            alt="search"
+            width={16}
+            height={16}
+            className="absolute top-[12px] right-[16px]"
+          />
         </div>
-      )}
+        <Button
+          onClick={() => router.push('/admin/products/create-product')}
+          className=" text-[16px] h-[40px] bg-cyan-800 w-[180px] hover:bg-cyan-900 max-md:w-[150px] max-md:text-[14px] "
+        >
+          Add a product
+        </Button>
+      </div>
 
       {isError ? (
         <h1 className=" text-center font-semibold text-red-600 mt-2">

@@ -1,6 +1,6 @@
-import { BrandType } from '@/types/brand_type';
+import { GeneralBrandType } from '@/types/general-brand_type';
 
-export const getBrands = async (): Promise<BrandType[] | undefined> => {
+export const getBrands = async (): Promise<GeneralBrandType | undefined> => {
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/brand`, {
     next: { revalidate: 60 },
   });

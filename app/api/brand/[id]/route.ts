@@ -43,12 +43,23 @@ export async function DELETE(
     if (!session?.user) {
       return NextResponse.json('Unauthorized', { status: 401 });
     }
-
-    // удаление значения в базе
-    await prismadb.brand.delete({
-      where: { id: params.id },
+    //перед удалением уточняем , что ни один товар не является этим брендом
+    const isBrand = await prismadb.product.findFirst({
+      where: { brandId: params.id },
     });
-    return NextResponse.json({ message: 'Brand removed' });
+    if (isBrand) {
+      return NextResponse.json(
+        'The brand has not been deleted,delete all products that fall into this brand',
+        { status: 400 }
+      );
+    }
+    if (!isBrand) {
+      // удаление значения в базе
+      await prismadb.brand.delete({
+        where: { id: params.id },
+      });
+      return NextResponse.json({ message: 'Brand removed' });
+    }
   } catch (error) {
     return NextResponse.json('The brand is not remoed', { status: 500 });
   }
