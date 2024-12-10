@@ -6,7 +6,6 @@ import {
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 import { authOptions } from '../../auth/config/auth_options';
-import { CustomError } from '@/lib/utils';
 
 export async function PUT(
   request: Request,

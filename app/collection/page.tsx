@@ -35,12 +35,12 @@ const Collection = async ({
   // это улучшает скорость загрузки
   const [
     categories,
-    generalBrands,
+    generalBrand,
     sizes,
     colors,
-    materials,
+    generalMaterial,
     collection,
-    generalTypes,
+    generalType,
   ] = await Promise.all([
     categoriesPromise,
     brandsPromise,
@@ -64,11 +64,11 @@ const Collection = async ({
         <CollectionPage
           collectionName={collection.name}
           categories={categories}
-          materials={materials}
+          materials={generalMaterial?.materials}
           colors={colors}
-          brands={generalBrands?.brands}
+          brands={generalBrand?.brands}
           sizes={sizes}
-          types={generalTypes?.types}
+          types={generalType?.types}
         />
       </Suspense>
     </main>

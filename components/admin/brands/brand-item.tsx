@@ -10,7 +10,7 @@ export const BrandItem = ({ brand }: { brand: BrandType }) => {
   // удаление типа
   const brandDelete = () => {
     const userConfirmed = window.confirm(
-      `Are you sure you want to delete type ${brand.name}`
+      `Are you sure you want to delete brand ${brand.name}`
     );
     if (userConfirmed) {
       mutationDeleteBrand.mutate(brand.id);

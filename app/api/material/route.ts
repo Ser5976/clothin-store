@@ -39,8 +39,24 @@ export async function POST(request: Request) {
 }
 export async function GET(request: Request) {
   try {
-    const materials = await prismadb.material.findMany();
-    return NextResponse.json(materials);
+    const { searchParams } = new URL(request.url);
+    const query = searchParams.get('query');
+    let materials;
+    // количество всех материалов
+    const count = await prismadb.material.count();
+    //получение товаров
+    if (query) {
+      materials = await prismadb.material.findMany({
+        where: {
+          OR: [{ name: { contains: query } }],
+        },
+      });
+    } else {
+      materials = await prismadb.material.findMany({});
+    }
+    const materialData = { count, materials };
+
+    return NextResponse.json(materialData);
   } catch (error) {
     console.log(error);
   }

@@ -18,15 +18,21 @@ const NewArrivals = async () => {
   const brandsPromise = getBrands();
   // при помощи промиса делаем так, чтобы все запросы на этой странице были параллельными, а не последовательными
   // это улучшает скорость загрузки
-  const [generalTypes, categories, generalBrands, sizes, colors, materials] =
-    await Promise.all([
-      typesPromise,
-      categoriesPromise,
-      brandsPromise,
-      sizesPromise,
-      colorsPromise,
-      materialPromise,
-    ]);
+  const [
+    generalType,
+    categories,
+    generalBrand,
+    sizes,
+    colors,
+    generalMaterial,
+  ] = await Promise.all([
+    typesPromise,
+    categoriesPromise,
+    brandsPromise,
+    sizesPromise,
+    colorsPromise,
+    materialPromise,
+  ]);
 
   return (
     <main className="min-h-screen">
@@ -38,11 +44,11 @@ const NewArrivals = async () => {
       <Suspense fallback={<NewArrivalsBarFallback />}>
         <NewArrivalsPage
           categories={categories}
-          materials={materials}
+          materials={generalMaterial?.materials}
           colors={colors}
-          brands={generalBrands?.brands}
+          brands={generalBrand?.brands}
           sizes={sizes}
-          types={generalTypes?.types}
+          types={generalType?.types}
         />
       </Suspense>
     </main>

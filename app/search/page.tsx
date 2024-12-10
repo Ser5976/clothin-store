@@ -18,15 +18,21 @@ const Search = async () => {
   const brandsPromise = getBrands();
   // при помощи промиса делаем так, чтобы все запросы на этой странице были параллельными, а не последовательными
   // это улучшает скорость загрузки
-  const [categories, generalTypes, generalBrands, sizes, colors, materials] =
-    await Promise.all([
-      categoriesPromise,
-      typesPromise,
-      brandsPromise,
-      sizesPromise,
-      colorsPromise,
-      materialPromise,
-    ]);
+  const [
+    categories,
+    generalType,
+    generalBrand,
+    sizes,
+    colors,
+    generalMaterial,
+  ] = await Promise.all([
+    categoriesPromise,
+    typesPromise,
+    brandsPromise,
+    sizesPromise,
+    colorsPromise,
+    materialPromise,
+  ]);
 
   return (
     <main className="min-h-screen">
@@ -38,10 +44,10 @@ const Search = async () => {
       <Suspense fallback={<SearchBarFallback />}>
         <SearchPage
           categories={categories}
-          materials={materials}
+          materials={generalMaterial?.materials}
           colors={colors}
-          types={generalTypes?.types}
-          brands={generalBrands?.brands}
+          types={generalType?.types}
+          brands={generalBrand?.brands}
           sizes={sizes}
         />
       </Suspense>

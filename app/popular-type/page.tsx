@@ -22,17 +22,23 @@ const PopularType = async ({
   const brandsPromise = getBrands();
   // при помощи промиса делаем так, чтобы все запросы на этой странице были параллельными, а не последовательными
   // это улучшает скорость загрузки
-  const [categories, generalBrands, sizes, colors, materials, generalTypes] =
-    await Promise.all([
-      categoriesPromise,
-      brandsPromise,
-      sizesPromise,
-      colorsPromise,
-      materialPromise,
-      typesPromise,
-    ]);
+  const [
+    categories,
+    generalBrand,
+    sizes,
+    colors,
+    generalMaterial,
+    generalType,
+  ] = await Promise.all([
+    categoriesPromise,
+    brandsPromise,
+    sizesPromise,
+    colorsPromise,
+    materialPromise,
+    typesPromise,
+  ]);
   // определяем name type
-  const nameType = generalTypes?.types?.find(
+  const nameType = generalType?.types?.find(
     (type) => type.id === searchParams.typeId
   );
   return (
@@ -46,9 +52,9 @@ const PopularType = async ({
         <PopularTypePage
           typeName={nameType?.name}
           categories={categories}
-          materials={materials}
+          materials={generalMaterial?.materials}
           colors={colors}
-          brands={generalBrands?.brands}
+          brands={generalBrand?.brands}
           sizes={sizes}
         />
       </Suspense>

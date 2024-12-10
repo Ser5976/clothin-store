@@ -1,6 +1,8 @@
-import { MaterialType } from '@/types/material_type';
+import { GeneralMaterialType } from './../types/general-material_type';
 
-export const getMaterials = async (): Promise<MaterialType[] | undefined> => {
+export const getMaterials = async (): Promise<
+  GeneralMaterialType | undefined
+> => {
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/material`, {
     next: { revalidate: 60 },
   });

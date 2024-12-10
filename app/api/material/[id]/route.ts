@@ -43,12 +43,23 @@ export async function DELETE(
     if (!session?.user) {
       return NextResponse.json('Unauthorized', { status: 401 });
     }
-
-    // удаление значения в базе
-    await prismadb.material.delete({
-      where: { id: params.id },
+    //перед удалением уточняем , что ни один материал не содержится в товаре
+    const isMaterial = await prismadb.product.findFirst({
+      where: { materialId: params.id },
     });
-    return NextResponse.json({ message: 'Material removed' });
+    if (isMaterial) {
+      return NextResponse.json(
+        'The material has not been deleted,delete all products that fall into this material',
+        { status: 400 }
+      );
+    }
+    if (!isMaterial) {
+      // удаление значения в базе
+      await prismadb.material.delete({
+        where: { id: params.id },
+      });
+      return NextResponse.json({ message: 'Material removed' });
+    }
   } catch (error) {
     return NextResponse.json('The material is not remoed', { status: 500 });
   }

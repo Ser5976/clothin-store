@@ -16,7 +16,7 @@ const Category = async () => {
   const brandsPromise = getBrands();
   // при помощи промиса делаем так, чтобы все запросы на этой странице были параллельными, а не последовательными
   // это улучшает скорость загрузки
-  const [categories, generalBrands, sizes, colors, materials] =
+  const [categories, generalBrand, sizes, colors, generalMaterial] =
     await Promise.all([
       categoriesPromise,
       brandsPromise,
@@ -35,9 +35,9 @@ const Category = async () => {
       <Suspense fallback={<CategoriesBarFallback />}>
         <CategoryPage
           categories={categories}
-          materials={materials}
+          materials={generalMaterial?.materials}
           colors={colors}
-          brands={generalBrands?.brands}
+          brands={generalBrand?.brands}
           sizes={sizes}
         />
       </Suspense>

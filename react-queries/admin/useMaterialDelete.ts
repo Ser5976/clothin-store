@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import { deleteBrandServise } from './servises/deleteBrandServise';
+import { deleteMaterialServise } from './servises/deleteMaterialServise';
 
-export const useBrandDelete = () => {
+export const useMaterialDelete = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: deleteBrandServise,
+    mutationFn: deleteMaterialServise,
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['admin-brand-search'] });
+      queryClient.invalidateQueries({ queryKey: ['admin-material-search'] });
       toast.success(data.data.message);
     },
     onError: (error: any) => {
