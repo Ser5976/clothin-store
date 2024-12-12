@@ -43,12 +43,28 @@ export async function DELETE(
     if (!session?.user) {
       return NextResponse.json('Unauthorized', { status: 401 });
     }
-
-    // удаление значения в базе
-    await prismadb.size.delete({
-      where: { id: params.id },
+    //перед удалением уточняем , что этого размера нет в товарах
+    const isSize = await prismadb.product.findFirst({
+      where: {
+        sizes: {
+          some: { sizeId: params.id },
+        },
+      },
     });
-    return NextResponse.json({ message: 'Size removed' });
+    if (isSize) {
+      return NextResponse.json(
+        'The size has not been deleted,delete all products that fall into this size',
+        { status: 400 }
+      );
+    }
+    if (!isSize) {
+      // удаление значения в базе(в отличии от отношений type и category, здесь отношения модели size с моделью products
+      // явные , поэтому можно воспользоваться каскадным удалением)
+      await prismadb.size.delete({
+        where: { id: params.id },
+      });
+      return NextResponse.json({ message: 'Size removed' });
+    }
   } catch (error) {
     return NextResponse.json('The size is not remoed', { status: 500 });
   }

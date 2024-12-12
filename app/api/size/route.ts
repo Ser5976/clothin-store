@@ -9,8 +9,8 @@ import { authOptions } from '../auth/config/auth_options';
 
 export async function GET() {
   try {
-    const response = await prismadb.size.findMany();
-    return NextResponse.json(response);
+    const sizes = await prismadb.size.findMany();
+    return NextResponse.json(sizes);
   } catch (error) {
     return NextResponse.json('Something went wrong', { status: 500 });
   }

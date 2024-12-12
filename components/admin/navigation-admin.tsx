@@ -9,6 +9,7 @@ import {
   Shield,
   ShoppingCart,
   Users,
+  Ruler,
 } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -109,6 +110,20 @@ export const NavigationAdmin = () => {
             })}
           />
           <span>Materials</span>
+        </Link>
+        <Link
+          href="/admin/sizes"
+          className={cn(styles.link, {
+            [styles.activeLink]: `${pathName.split('/')[2]}` === 'sizes',
+            [styles.hover]: `${pathName.split('/')[2]}` !== 'sizes',
+          })}
+        >
+          <Ruler
+            className={cn(styles.icons, {
+              [styles.activeIcons]: `${pathName.split('/')[2]}` === 'sizes',
+            })}
+          />
+          <span>Sizes</span>
         </Link>
       </ul>
       <div className="px-5 m-3 bg-transparent border-b"></div>
