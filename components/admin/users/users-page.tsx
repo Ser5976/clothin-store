@@ -72,13 +72,15 @@ export const UsersPage = () => {
           The list of users is empty !
         </h1>
       ) : (
-        userList.map((user) => {
-          return (
-            <div key={user.id}>
-              <UserItem user={user} />
-            </div>
-          );
-        })
+        <div>
+          {userList.map((user) => {
+            return (
+              <div key={user.id}>
+                <UserItem user={user} />
+              </div>
+            );
+          })}
+        </div>
       )}
     </main>
   );

@@ -17,7 +17,7 @@ export const TypeItem = ({ type }: { type: TypeType }) => {
     }
   };
   return (
-    <div className=" flex justify-between border-t border-gray-400  text-gray-400 ">
+    <div className=" flex items-center justify-between border-t border-gray-400  text-gray-400 h-10 ">
       <div>{type.name}</div>
 
       <div className=" flex gap-3">

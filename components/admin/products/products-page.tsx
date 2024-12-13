@@ -85,9 +85,11 @@ export const ProductsPage = () => {
           The list of products is empty !
         </h1>
       ) : (
-        productData.products.map((product) => {
-          return <ProductItem key={product.id} product={product} />;
-        })
+        <div>
+          {productData.products.map((product) => {
+            return <ProductItem key={product.id} product={product} />;
+          })}
+        </div>
       )}
     </main>
   );

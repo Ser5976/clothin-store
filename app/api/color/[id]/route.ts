@@ -43,13 +43,29 @@ export async function DELETE(
     if (!session?.user) {
       return NextResponse.json('Unauthorized', { status: 401 });
     }
-
-    // удаление значения в базе
-    await prismadb.color.delete({
-      where: { id: params.id },
+    //перед удалением уточняем , что этого цвета нет в товарах
+    const isColor = await prismadb.product.findFirst({
+      where: {
+        colors: {
+          some: { colorId: params.id },
+        },
+      },
     });
-    return NextResponse.json({ message: 'Color is removed' });
+    if (isColor) {
+      return NextResponse.json(
+        'The color has not been deleted,delete all products that fall into this color',
+        { status: 400 }
+      );
+    }
+    if (!isColor) {
+      // удаление значения в базе(в отличии от отношений type и category, здесь отношения модели color с моделью products
+      // явные , поэтому можно воспользоваться каскадным удалением)
+      await prismadb.color.delete({
+        where: { id: params.id },
+      });
+      return NextResponse.json({ message: 'Color removed' });
+    }
   } catch (error) {
-    return NextResponse.json('Color is not remoed', { status: 500 });
+    return NextResponse.json('The color is not remoed', { status: 500 });
   }
 }

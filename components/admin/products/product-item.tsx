@@ -10,14 +10,14 @@ export const ProductItem = ({ product }: { product: ProductType }) => {
   // удаление товара
   const productDelete = () => {
     const userConfirmed = window.confirm(
-      `Are you sure you want to delete user ${product.name}`
+      `Are you sure you want to delete product ${product.name}`
     );
     if (userConfirmed) {
       mutationDeleteProduct.mutate(product.id);
     }
   };
   return (
-    <div className=" flex justify-between border-t border-gray-400 text-gray-400  ">
+    <div className=" flex items-center justify-between border-t border-gray-400 text-gray-400 h-10  ">
       <Link
         href={`/${product.id}`}
         className=" hover:text-gray-800 cursor-pointer"

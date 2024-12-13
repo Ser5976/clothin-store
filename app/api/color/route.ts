@@ -23,6 +23,7 @@ export async function POST(request: Request) {
     const candidate = await prismadb.color.findUnique({
       where: {
         value: body.value,
+        name: body.name,
       },
     });
     //console.log('candidate:', candidate);

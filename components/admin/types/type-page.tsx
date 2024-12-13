@@ -73,13 +73,15 @@ export const TypePage = () => {
           The list of types is empty !
         </h1>
       ) : (
-        typeData.types.map((type) => {
-          return (
-            <div key={type.id}>
-              <TypeItem type={type} />
-            </div>
-          );
-        })
+        <div>
+          {typeData.types.map((type) => {
+            return (
+              <div key={type.id}>
+                <TypeItem type={type} />
+              </div>
+            );
+          })}
+        </div>
       )}
     </main>
   );

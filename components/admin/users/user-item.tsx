@@ -17,7 +17,7 @@ export const UserItem = ({ user }: { user: UserType }) => {
     }
   };
   return (
-    <div className=" flex justify-between border-t border-gray-400 text-gray-400  ">
+    <div className=" flex items-center justify-between border-t border-gray-400 text-gray-400 h-10  ">
       <Link
         href={`/admin/users/${user.id}`}
         className=" hover:text-gray-800 cursor-pointer"

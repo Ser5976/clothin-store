@@ -73,13 +73,15 @@ export const BrandPage = () => {
           The list of brands is empty !
         </h1>
       ) : (
-        brandData.brands.map((brand) => {
-          return (
-            <div key={brand.id}>
-              <BrandItem brand={brand} />
-            </div>
-          );
-        })
+        <div>
+          {brandData.brands.map((brand) => {
+            return (
+              <div key={brand.id}>
+                <BrandItem brand={brand} />
+              </div>
+            );
+          })}
+        </div>
       )}
     </main>
   );

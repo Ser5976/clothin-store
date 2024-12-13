@@ -38,13 +38,15 @@ export const CategoryPage = () => {
           The list of types is empty !
         </h1>
       ) : (
-        categoriesList.map((category) => {
-          return (
-            <div key={category.id}>
-              <CategoryItem category={category} />
-            </div>
-          );
-        })
+        <div>
+          {categoriesList.map((category) => {
+            return (
+              <div key={category.id}>
+                <CategoryItem category={category} />
+              </div>
+            );
+          })}
+        </div>
       )}
     </main>
   );

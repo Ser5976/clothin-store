@@ -79,13 +79,15 @@ export const MaterialPage = () => {
           The list of materials is empty !
         </h1>
       ) : (
-        materialData.materials.map((material) => {
-          return (
-            <div key={material.id}>
-              <MaterialItem material={material} />
-            </div>
-          );
-        })
+        <div>
+          {materialData.materials.map((material) => {
+            return (
+              <div key={material.id}>
+                <MaterialItem material={material} />
+              </div>
+            );
+          })}
+        </div>
       )}
     </main>
   );

@@ -10,6 +10,7 @@ import {
   ShoppingCart,
   Users,
   Ruler,
+  Palette,
 } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -124,6 +125,20 @@ export const NavigationAdmin = () => {
             })}
           />
           <span>Sizes</span>
+        </Link>
+        <Link
+          href="/admin/colors"
+          className={cn(styles.link, {
+            [styles.activeLink]: `${pathName.split('/')[2]}` === 'colors',
+            [styles.hover]: `${pathName.split('/')[2]}` !== 'colors',
+          })}
+        >
+          <Palette
+            className={cn(styles.icons, {
+              [styles.activeIcons]: `${pathName.split('/')[2]}` === 'colors',
+            })}
+          />
+          <span>Colors</span>
         </Link>
       </ul>
       <div className="px-5 m-3 bg-transparent border-b"></div>

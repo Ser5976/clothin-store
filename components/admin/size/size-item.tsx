@@ -17,12 +17,12 @@ export const SizeItem = ({ size }: { size: SizeType }) => {
     }
   };
   return (
-    <div className=" flex justify-between border-t border-gray-400  text-gray-400 ">
+    <div className=" flex items-center justify-between border-t border-gray-400  text-gray-400 h-10 ">
       <div>{size.value}</div>
 
       <div className=" flex gap-3">
         <ModalUpdateSize size={size} />
-        <div className="">
+        <div>
           {mutationDeleteSize.isLoading ? (
             <RotateCw size={20} className="   animate-spin" />
           ) : (

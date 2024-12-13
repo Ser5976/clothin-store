@@ -17,12 +17,12 @@ export const MaterialItem = ({ material }: { material: MaterialType }) => {
     }
   };
   return (
-    <div className=" flex justify-between border-t border-gray-400  text-gray-400 ">
+    <div className=" flex items-center justify-between border-t border-gray-400  text-gray-400 h-10 ">
       <div>{material.name}</div>
 
       <div className=" flex gap-3">
         <ModalUpdateMaterial material={material} />
-        <div className="">
+        <div>
           {mutationDeleteMaterial.isLoading ? (
             <RotateCw size={20} className="   animate-spin" />
           ) : (

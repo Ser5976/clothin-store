@@ -17,7 +17,7 @@ export const CategoryItem = ({ category }: { category: CategoryType }) => {
     }
   };
   return (
-    <div className=" flex justify-between border-t border-gray-400  text-gray-400 ">
+    <div className=" flex items-center justify-between border-t border-gray-400  text-gray-400 h-10 ">
       <div>{category.name}</div>
 
       <div className=" flex gap-3">
