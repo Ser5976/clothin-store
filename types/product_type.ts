@@ -12,7 +12,7 @@ export type ProductType = {
   id: string;
   name: string;
   price: string;
-  oldPrice: null | string;
+  oldPrice: null | string | undefined;
   discount: null | string;
   description: string;
   isFeatured: boolean;

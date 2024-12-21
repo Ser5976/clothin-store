@@ -1,4 +1,3 @@
-'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, FormProvider } from 'react-hook-form';
 import * as z from 'zod';
@@ -6,11 +5,10 @@ import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { useState } from 'react';
 import { RotateCw } from 'lucide-react';
-import { toast } from 'react-toastify';
 import {
   ProductDataType,
   ProductValidator,
-} from '@/validators/product-validator ';
+} from '@/validators/product-validator';
 import { NameField } from './form-fields/name-field';
 import { PriceField } from './form-fields/price-field';
 import { OldPriceField } from './form-fields/oldPrice-field';
@@ -25,32 +23,48 @@ import { AvailabilityField } from './form-fields/availability-field';
 import { BestsellerField } from './form-fields/bestseller-field';
 import { FeaturedField } from './form-fields/featured-field';
 import { ImageField } from './form-fields/image-field';
+import { ProductType } from '@/types/product_type';
+import { useProductPost } from '@/react-queries/admin/useProductPost';
+import { useProductUpdate } from '@/react-queries/admin/useProductUpdate';
+import { useRouter } from 'next/navigation';
 
-export const ProductForm = () => {
+export const ProductForm = ({ product }: { product?: ProductType }) => {
+  const route = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<ProductDataType>({
     resolver: zodResolver(ProductValidator),
     defaultValues: {
-      colorId: ['12334354623yi3i4ty2', '67243195842-5'],
-      sizeId: [],
-      name: '',
-      price: 6,
-      oldPrice: 7,
-      typeId: '1',
-      categoryId: '2',
-      materialId: '3',
-      brandId: '4',
-      description: 'hhxjlocko',
+      colorId: product ? product.colors.map((color) => color.color.id) : [],
+      sizeId: product ? product.sizes.map((size) => size.size.id) : [],
+      name: product ? product.name : '',
+      price: product ? product.price : '',
+      oldPrice: product ? (product.oldPrice ? product.oldPrice : '') : '',
+      typeId: product ? product.typeId : '',
+      categoryId: product ? product.categoryId : '',
+      materialId: product ? product.materialId : '',
+      brandId: product ? product.brandId : '',
+      description: product ? product.description : '',
       isAvailability: true,
       isFeatured: false,
       isBestseller: false,
-      image: [],
+      image: product ? product.image : [],
     },
   });
 
+  const createProduct = useProductPost();
+  const updateProduct = useProductUpdate();
+
   const onSubmit = (data: ProductDataType) => {
     console.log('data:', data);
+    if (product) {
+      const dataProduct = { id: product.id, product: data };
+      updateProduct.mutate(dataProduct);
+      route.push('/admin/products');
+    } else {
+      createProduct.mutate(data);
+      route.push('/admin/products');
+    }
   };
 
   return (

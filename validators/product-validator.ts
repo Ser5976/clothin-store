@@ -2,10 +2,8 @@ import { z } from 'zod';
 
 export const ProductValidator = z.object({
   name: z.string().min(1, 'Name is required'),
-  price: z
-    .number({ required_error: 'Price is required' })
-    .positive('The number must be greater bthan 0'),
-  oldPrice: z.number().positive().optional(),
+  price: z.string({ required_error: 'Price is required' }),
+  oldPrice: z.string().optional(),
   description: z.string().optional(),
   isFeatured: z.boolean().default(false).optional(),
   isAvailability: z.boolean().default(true).optional(),

@@ -12,33 +12,43 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useTypeQuery } from '@/react-queries/admin/useTypeQuery';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
-export const CategoryField = () => {
+export const TypeField = () => {
+  const { data: types, isError } = useTypeQuery('');
   const form = useFormContext();
   return (
     <FormField
       control={form.control}
-      name="categoryId"
+      name="typeId"
       render={({ field }) => (
         <FormItem className=" relative ">
           <FormLabel className="text-gray-700 text-sm font-normal">
-            Category
+            Select a type
           </FormLabel>
           <FormControl>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a category" />
+                  <SelectValue placeholder="Select a type" />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                <SelectItem value="1">1</SelectItem>
-                <SelectItem value="2">2</SelectItem>
-                <SelectItem value="3">3</SelectItem>
-                <SelectItem value="4">4</SelectItem>
-                <SelectItem value="5">5</SelectItem>
+                <div className="max-h-60 overflow-y-auto">
+                  {isError ? (
+                    <div className=" text-red-400">Error,no data received</div>
+                  ) : (
+                    types?.types?.map((type) => {
+                      return (
+                        <SelectItem key={type.id} value={type.id}>
+                          {type.name}
+                        </SelectItem>
+                      );
+                    })
+                  )}
+                </div>
               </SelectContent>
             </Select>
           </FormControl>

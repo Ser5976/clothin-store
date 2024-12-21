@@ -4,12 +4,11 @@ import { Input } from '@/components/ui/input';
 import { useProductQuery } from '@/react-queries/admin/useProductQuery';
 import { Loader, RotateCw } from 'lucide-react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { ProductItem } from './product-item';
 
 export const ProductsPage = () => {
-  const router = useRouter();
   // стейт для импута
   const [query, setQuery] = useState('');
   //обработка инпута
@@ -64,12 +63,11 @@ export const ProductsPage = () => {
             className="absolute top-[12px] right-[16px]"
           />
         </div>
-        <Button
-          onClick={() => router.push('/admin/products/create-product')}
-          className=" text-[16px] h-[40px] bg-cyan-800 w-[180px] hover:bg-cyan-900 max-md:w-[150px] max-md:text-[14px] "
-        >
-          Add a product
-        </Button>
+        <Link href="/admin/products/create-product">
+          <Button className=" text-[16px] h-[40px] bg-cyan-800 w-[180px] hover:bg-cyan-900 max-md:w-[150px] max-md:text-[14px] ">
+            Add a product
+          </Button>
+        </Link>
       </div>
 
       {isError ? (

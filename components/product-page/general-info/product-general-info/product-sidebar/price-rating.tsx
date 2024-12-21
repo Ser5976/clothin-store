@@ -14,7 +14,7 @@ const RatingStar = dynamic(
 
 type PriceRatingProps = {
   price: string;
-  oldPrice: null | string;
+  oldPrice: null | string | undefined;
   discount: null | string;
   productId: string;
 };

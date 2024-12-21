@@ -16,7 +16,7 @@ type ProductPageProps = {
 export const ProductPage: FC<ProductPageProps> = ({ product, delivery }) => {
   //получение данных menuActive из стора,для навигации
   const state = useStore(useProductMenuStore, (state) => state);
-
+  //console.log('product:', product);
   // выполняем условие какой компонент визуализировать
   if ('general-info' === state?.menuActive) {
     return (

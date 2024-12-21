@@ -5,29 +5,25 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
-export const DescriptionField = () => {
+export const PriceField = () => {
   const form = useFormContext();
   return (
     <FormField
       control={form.control}
-      name="description"
+      name="price"
       render={({ field }) => (
         <FormItem className=" relative">
           <FormLabel className="text-gray-700 text-sm font-normal">
-            Description
+            Price
           </FormLabel>
           <FormControl>
-            <Textarea
-              placeholder="Description"
-              className="resize-none"
-              {...field}
-            />
+            <Input type="number" {...field} />
           </FormControl>
-          <FormMessage className=" absolute text-[11px] top-[83px] " />
+          <FormMessage className=" absolute text-[11px] top-[62px] " />
         </FormItem>
       )}
     />

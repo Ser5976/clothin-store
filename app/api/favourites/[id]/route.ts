@@ -1,8 +1,4 @@
 import prismadb from '@/lib/prismadb';
-import {
-  ProductDataType,
-  ProductValidator,
-} from '../../../../validators/product-validator ';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 import { authOptions } from '../../auth/config/auth_options';
@@ -17,12 +13,14 @@ export async function DELETE(
       return NextResponse.json('Unauthorized', { status: 401 });
     }
 
-    // удаление товара
+    // удаление избранного
     await prismadb.favorites.deleteMany({
       where: { userId: session.user.id, productId: params.id },
     });
-    return NextResponse.json({ message: 'Product removed' });
+    return NextResponse.json({
+      message: 'The deletion was completed successfully',
+    });
   } catch (error) {
-    return NextResponse.json('The Product is not remoed', { status: 500 });
+    return NextResponse.json('Deletion failed', { status: 500 });
   }
 }

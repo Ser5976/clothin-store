@@ -9,28 +9,19 @@ import { Input } from '@/components/ui/input';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
-export const OldPriceField = () => {
+export const NameField = () => {
   const form = useFormContext();
   return (
     <FormField
       control={form.control}
-      name="oldPrice"
+      name="name"
       render={({ field }) => (
         <FormItem className=" relative">
           <FormLabel className="text-gray-700 text-sm font-normal">
-            Old price
+            Name
           </FormLabel>
           <FormControl>
-            <Input
-              type="number"
-              placeholder="Old price"
-              {...field}
-              onChange={(e) => {
-                // Преобразуем значение в число
-                field.onChange(Number(e.target.value));
-              }}
-              className=" placeholder:text-zinc-400 text-sm font-normal"
-            />
+            <Input type="text" {...field} />
           </FormControl>
           <FormMessage className=" absolute text-[11px] top-[62px] " />
         </FormItem>

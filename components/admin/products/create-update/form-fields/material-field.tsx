@@ -12,33 +12,43 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useMaterialQuery } from '@/react-queries/admin/useMaterialQuery';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
-export const TypeField = () => {
+export const MaterialField = () => {
+  const { data: materials, isError } = useMaterialQuery('');
   const form = useFormContext();
   return (
     <FormField
       control={form.control}
-      name="typeId"
+      name="materialId"
       render={({ field }) => (
         <FormItem className=" relative ">
           <FormLabel className="text-gray-700 text-sm font-normal">
-            Type
+            Select a material
           </FormLabel>
           <FormControl>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a type" />
+                  <SelectValue placeholder="Select a material" />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                <SelectItem value="1">1</SelectItem>
-                <SelectItem value="2">2</SelectItem>
-                <SelectItem value="3">3</SelectItem>
-                <SelectItem value="4">4</SelectItem>
-                <SelectItem value="5">5</SelectItem>
+                <div className="max-h-60 overflow-y-auto">
+                  {isError ? (
+                    <div className=" text-red-400">Error,no data received</div>
+                  ) : (
+                    materials?.materials?.map((material) => {
+                      return (
+                        <SelectItem key={material.id} value={material.id}>
+                          {material.name}
+                        </SelectItem>
+                      );
+                    })
+                  )}
+                </div>
               </SelectContent>
             </Select>
           </FormControl>

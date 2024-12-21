@@ -2,7 +2,7 @@ import prismadb from '@/lib/prismadb';
 import {
   ProductDataType,
   ProductValidator,
-} from '../../../../validators/product-validator ';
+} from '../../../../validators/product-validator';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 import { authOptions } from '../../auth/config/auth_options';
@@ -54,7 +54,9 @@ export async function PUT(
     //вычисление скидки
     let discount;
     if (body.oldPrice) {
-      const result = ((body.oldPrice - body.price) / body.oldPrice) * 100;
+      const result =
+        ((Number(body.oldPrice) - Number(body.price)) / Number(body.oldPrice)) *
+        100;
       //функция для округления результата
       const roundToNearestHalf = (number: number) => {
         const decimalPart = number - Math.floor(number);
@@ -75,8 +77,8 @@ export async function PUT(
       where: { id: params.id },
       data: {
         name: body.name,
-        price: body.price,
-        oldPrice: body.oldPrice,
+        price: Number(body.price),
+        oldPrice: body.oldPrice ? Number(body.oldPrice) : undefined,
         description: body.description,
         categoryId: body.categoryId,
         typeId: body.typeId,

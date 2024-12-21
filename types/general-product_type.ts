@@ -1,6 +1,6 @@
 import { ProductType } from './product_type';
 
-export type AdminProductDataType = {
+export type GeneralProductDataType = {
   count: number;
   products: ProductType[];
 };

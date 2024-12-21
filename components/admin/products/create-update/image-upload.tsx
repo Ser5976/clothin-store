@@ -1,17 +1,19 @@
-'use client';
 import '@uploadthing/react/styles.css';
 import Image from 'next/image';
 import { Trash } from 'lucide-react';
 import { UploadButton } from '@/utils/uploadthing';
 import { deleteImg } from '@/utils/utapi-delete';
+import { useImageDelete } from '@/react-queries/admin/useImageDelete';
 
 // кастомный компонент заточенный для загрузки изображений на uploadthign
 // используем компонет в reac hook form
+type ImageType = { url: string; fileKey: string; id?: string };
+
 interface ImageUploadProps {
   disabled?: boolean;
   onChange: (value: { url: string; fileKey: string }[]) => void;
   onRemove: (value: { url: string; fileKey: string }[]) => void;
-  value: { url: string; fileKey: string; id?: string }[];
+  value: ImageType[];
 }
 
 const ImageUpload: React.FC<ImageUploadProps> = ({
@@ -28,7 +30,14 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     const newUrl = value.filter((value) => value.fileKey !== fileKey);
     return newUrl;
   };
-  console.log('Value:', value);
+  const deleteImageBase = useImageDelete();
+  // общая функция удаление картинки
+  const deleteImageEverywhere = async (value: ImageType) => {
+    onRemove(remove(value.fileKey)); // удаляем картинку из reac hook form
+    await deleteImg(value.fileKey); // удаляем картинку из uploadthign
+    value.id && deleteImageBase.mutate(value.id); //запрос на удаление картинки из бызы данных
+  };
+  //console.log('Value:', value);
   return (
     <div className=" flex-col">
       <div className=" mb-4 flex flex-wrap gap-4">
@@ -42,11 +51,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                 <Trash
                   className="h-[12px] w-[12px] cursor-pointer"
                   color="red"
-                  onClick={async () => {
-                    onRemove(remove(url.fileKey)); // удаляем картинку из reac hook form
-                    await deleteImg(url.fileKey); // удаляем картинку из uploadthign
-                    // url.id &&  запрос на удаление картинки из бызы данных
-                  }}
+                  onClick={() => deleteImageEverywhere(url)}
                 />
               </div>
               <div className=" relative w-[100px] h-[100px] rounded-md overflow-hidden">

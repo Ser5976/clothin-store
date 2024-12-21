@@ -1,4 +1,4 @@
-import { CreateProductPage } from '@/components/admin/products/create-product-page/create-product-page';
+import { CreateProductPage } from '@/components/admin/products/create-update/create-product-page';
 
 const CreateProduct = () => {
   return <CreateProductPage />;
