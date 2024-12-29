@@ -18,13 +18,15 @@ export async function PUT(
     } */
 
     const body: BillboardDataType = await request.json();
+
     // валидация body при помощи zod
     const validation = BillboardValidator.safeParse(body);
     // console.log('validation:', validation);
     if (!validation.success)
-      return NextResponse.json(validation.error.errors, { status: 400 });
+      return NextResponse.json('Uncorrected data', { status: 400 });
 
     // изменения значения в базе
+
     await prismadb.billboard.update({
       where: { id: params.id },
       data: {
@@ -34,6 +36,7 @@ export async function PUT(
         image: { update: body.image },
       },
     });
+
     return NextResponse.json({ message: 'Billboard changed' });
   } catch (error) {
     return NextResponse.json('Billboard is not changed', { status: 500 });

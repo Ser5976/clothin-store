@@ -11,6 +11,7 @@ import {
   Users,
   Ruler,
   Palette,
+  GalleryThumbnails,
 } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -139,6 +140,21 @@ export const NavigationAdmin = () => {
             })}
           />
           <span>Colors</span>
+        </Link>
+        <Link
+          href="/admin/billboards"
+          className={cn(styles.link, {
+            [styles.activeLink]: `${pathName.split('/')[2]}` === 'billboards',
+            [styles.hover]: `${pathName.split('/')[2]}` !== 'billboards',
+          })}
+        >
+          <GalleryThumbnails
+            className={cn(styles.icons, {
+              [styles.activeIcons]:
+                `${pathName.split('/')[2]}` === 'billboards',
+            })}
+          />
+          <span>Billboards</span>
         </Link>
       </ul>
       <div className="px-5 m-3 bg-transparent border-b"></div>

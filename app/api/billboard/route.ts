@@ -33,6 +33,13 @@ export async function POST(request: Request) {
     if (!validation.success)
       return NextResponse.json(validation.error.errors, { status: 400 });
 
+    //билбордов у нас должно быть не больше 4-х, поэтому делаем проверку
+    const countBilboard = await prismadb.billboard.count();
+    if (countBilboard === 4)
+      return NextResponse.json('There should be no more than 4 billboards', {
+        status: 400,
+      });
+    console.log('billboard-data-create:', body);
     // сохранения значения в базе
     const billboard = await prismadb.billboard.create({
       data: {
