@@ -15,16 +15,17 @@ import { usePathname } from 'next/navigation';
 export const BreadcrumbAdmin = () => {
   // Т.к. много путей , пришлось костылить
   const pathname = usePathname();
-  // форматоривание адресной стоки в массив значений, по разделителю('/'),f
-  //ilter(Boolean), чтобы убрать пустые значения сначала и конца
+  // форматоривание адресной стоки в массив значений, по разделителю('/'),
+  //filter(Boolean), чтобы убрать пустые значения сначала и конца
   const arrayPathname = pathname.split('/').filter(Boolean);
   const secondPath = arrayPathname[1];
   const thirdPath = arrayPathname[2];
   // функция изменения первой буквы на заглавную
-  function capitalizeFirstLetter(word: string | undefined) {
-    if (!word) return;
+  function capitalizeFirstLetter(word: string) {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
+  // метод преобразования строки из URL-кодированного формата в нормальный текст(не пригодился)
+  // const thirdPathDecod = decodeURIComponent(thirdPath);
 
   return (
     <Breadcrumb>
@@ -71,7 +72,9 @@ export const BreadcrumbAdmin = () => {
                 href={`/admin/${thirdPath}`}
                 className={' text-gray-900'}
               >
-                {capitalizeFirstLetter(thirdPath)}
+                {secondPath === 'users'
+                  ? 'User'
+                  : capitalizeFirstLetter(thirdPath)}
               </BreadcrumbLink>
             </BreadcrumbItem>
           </>

@@ -6,7 +6,6 @@ export type TypeCollection = {
   image: { id: string; url: string; fileKey: string };
   collectionItem: {
     id: string;
-    productCollectionId: string;
     productId: string;
     product: ProductType;
   }[];

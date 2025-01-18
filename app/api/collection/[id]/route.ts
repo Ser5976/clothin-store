@@ -82,3 +82,22 @@ export async function GET(
     console.log(error);
   }
 }
+export async function DELETE(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user) {
+      return NextResponse.json('Unauthorized', { status: 401 });
+    }
+
+    // удаление значения в базе
+    await prismadb.productCollection.delete({
+      where: { id: params.id },
+    });
+    return NextResponse.json({ message: 'Collection removed' });
+  } catch (error) {
+    return NextResponse.json('The collection is not remoed', { status: 500 });
+  }
+}

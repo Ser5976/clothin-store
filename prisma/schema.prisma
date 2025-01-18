@@ -398,7 +398,7 @@ model Delivery{
 // модели  колекции товаров для главной страницы
 model ProductCollection{
   id String @id @default(uuid())
-  name String
+  name String @unique
   description String
   image ProductCollectionImg?
   collectionItem CollectionItem[]

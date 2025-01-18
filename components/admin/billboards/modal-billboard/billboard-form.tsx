@@ -24,7 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useCategoryQuery } from '@/react-queries/admin/useCategoryrQuery';
+import { useCategoryQuery } from '@/react-queries/admin/useCategoryQuery';
 import { deleteImg } from '@/utils/utapi-delete';
 import BillboardImageUpload from './billboard-image-upload';
 import { useEffect } from 'react';
@@ -70,7 +70,9 @@ export const BillboardForm = ({
     console.log('billboard:', data);
     if (billboard) {
       updateBillboard.mutate({ billboard: data, id: billboard.id });
-      await deleteImg(billboard.image.fileKey); // удаляем дефолтную  картинку из uploadthign
+      if (billboard.image.fileKey !== data.image.fileKey) {
+        await deleteImg(billboard.image.fileKey); // удаляем дефолтную  картинку из uploadthign
+      }
     } else {
       createBillboard.mutate(data);
     }

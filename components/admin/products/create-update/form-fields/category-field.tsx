@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useCategoryQuery } from '@/react-queries/admin/useCategoryrQuery';
+import { useCategoryQuery } from '@/react-queries/admin/useCategoryQuery';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 

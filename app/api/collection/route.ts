@@ -21,12 +21,12 @@ export async function POST(request: Request) {
     if (!validation.success)
       return NextResponse.json(validation.error.errors, { status: 400 });
 
-    // console.log('BODY:', body);
-
-    // сохранения значения в базе
-    // из-за onDelete:Cascade для Size и Color (автоматическое удаление связанного товара в моделях Size и Color)
-    //пришлось сделать отношение многие ко многим явными(т.е. создать объединяющую таблицу)
-    // а это немного усложнило подключение к Size и Color
+    //коллекций  у нас должно быть не больше 4-х, поэтому делаем проверку
+    /* const countCollection = await prismadb.productCollection.count();
+    if (countCollection === 4)
+      return NextResponse.json('There should be no more than 4 collection', {
+        status: 400,
+      }); */
     await prismadb.productCollection.create({
       data: {
         name: body.name,

@@ -15,7 +15,7 @@ export const ProductsPage = () => {
   const handlerInput = (e: ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
   };
-  // кастомный хук useQuery,делаем запрос на получение всех пользователей, или , если есть поиск,одного пользователя
+  // кастомный хук useQuery,делаем запрос на получение всех продуктов, или , если есть поиск,одного продукта
   const {
     data: productData,
     isLoading,

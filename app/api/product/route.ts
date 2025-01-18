@@ -120,10 +120,16 @@ export async function GET(request: Request) {
         where: {
           OR: [{ name: { contains: query } }],
         },
+        include: {
+          image: true,
+        },
       });
     } else {
       products = await prismadb.product.findMany({
         take: 100,
+        include: {
+          image: true,
+        },
       });
     }
     const productData = { count, products };
