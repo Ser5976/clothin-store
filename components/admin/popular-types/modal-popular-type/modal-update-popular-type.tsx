@@ -1,17 +1,21 @@
-import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { PopularTypesType } from '@/types/popular_types_type';
 import { deleteImg } from '@/utils/utapi-delete';
+import { Pencil } from 'lucide-react';
 import { useState } from 'react';
-import { BillboardForm } from './billboard-form';
+import { PopularTypeForm } from './popular-type-form';
 
-export const ModalCreateBillboard = () => {
+export const ModalUpdatePopularType = ({
+  popularType,
+}: {
+  popularType: PopularTypesType;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   // есть ещё один сценарий,когда пользователь выбирает картинку,
   //но потом закрывает модальное окно(соответственно картинка остаётся в aploadthing )
@@ -20,7 +24,7 @@ export const ModalCreateBillboard = () => {
   const [selectedImg, setSelectedImg] = useState<string | undefined>(undefined);
   const handleModalClose = async (isOpen: boolean) => {
     setIsOpen(isOpen);
-    if (selectedImg) {
+    if (selectedImg && popularType.image.url !== selectedImg) {
       // получаем fileKey
       const fileKey = selectedImg?.substring(selectedImg.lastIndexOf('/') + 1);
       await deleteImg(fileKey);
@@ -35,18 +39,17 @@ export const ModalCreateBillboard = () => {
       }}
     >
       <DialogTrigger asChild>
-        <Button className=" text-[16px] h-[35px] bg-cyan-800  hover:bg-cyan-900  max-md:text-[14px] ">
-          Add a billboard
-        </Button>
+        <Pencil size={18} className=" hover:text-gray-800 cursor-pointer" />
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add billboard</DialogTitle>
-          <DialogDescription>
-            You can create no more than 4 billboards
-          </DialogDescription>
+          <DialogTitle>Updating the popular type</DialogTitle>
         </DialogHeader>
-        <BillboardForm setIsOpen={setIsOpen} setSelectedImg={setSelectedImg} />
+        <PopularTypeForm
+          setIsOpen={setIsOpen}
+          popularType={popularType}
+          setSelectedImg={setSelectedImg}
+        />
       </DialogContent>
     </Dialog>
   );

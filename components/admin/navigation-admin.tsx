@@ -172,6 +172,21 @@ export const NavigationAdmin = () => {
           />
           <span>Collections</span>
         </Link>
+        <Link
+          href="/admin/popular-types"
+          className={cn(styles.link, {
+            [styles.activeLink]: `${pathName.split('/')[2]}` === 'popular-type',
+            [styles.hover]: `${pathName.split('/')[2]}` !== 'popular-type',
+          })}
+        >
+          <Rows
+            className={cn(styles.icons, {
+              [styles.activeIcons]:
+                `${pathName.split('/')[2]}` === 'popular-type',
+            })}
+          />
+          <span>Popular types</span>
+        </Link>
       </ul>
       <div className="px-5 m-3 bg-transparent border-b"></div>
       <div

@@ -24,54 +24,60 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useCategoryQuery } from '@/react-queries/admin/useCategoryQuery';
 import { deleteImg } from '@/utils/utapi-delete';
-import BillboardImageUpload from './billboard-image-upload';
 import { useEffect } from 'react';
+import { PopularTypesType } from '@/types/popular_types_type';
+import { useTypeQuery } from '@/react-queries/admin/useTypeQuery';
+import {
+  PopularTypesDataType,
+  PopularTypesValidator,
+} from '@/validators/popular-types-validator';
+import { usePopularTypePost } from '@/react-queries/admin/usePopularTypePost';
+import { usePopularTypeUpdate } from '@/react-queries/admin/usePopularTypeUpdate';
+import PopularTypeImageUpload from './popular-type-image-upload';
 
-type BillboardFormProps = {
+type PopularTypeFormProps = {
   setSelectedImg: React.Dispatch<React.SetStateAction<string | undefined>>;
-
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  billboard?: BillboardType;
+  popularType?: PopularTypesType;
 };
 
-export const BillboardForm = ({
+export const PopularTypeForm = ({
   setIsOpen,
-  billboard,
+  popularType,
   setSelectedImg,
-}: BillboardFormProps) => {
-  const { data: categories, isError } = useCategoryQuery();
-  const form = useForm<BillboardDataType>({
-    resolver: zodResolver(BillboardValidator),
+}: PopularTypeFormProps) => {
+  const { data: types, isError } = useTypeQuery('');
+  const form = useForm<PopularTypesDataType>({
+    resolver: zodResolver(PopularTypesValidator),
     defaultValues: {
-      title: billboard?.title ?? '',
-      subTitle: billboard?.subTitle ?? '',
-      link: billboard?.link ?? '',
-      image: billboard?.image ?? {},
+      title: popularType?.title ?? '',
+      link: popularType?.link ?? '',
+      image: popularType?.image ?? {},
     },
   });
   // есть  сценарий,когда пользователь выбирает картинку,
   //но потом закрывает модальное окно(соответственно картинка остаётся в aploadthing )
   // поэтому мы сохраняем картинку  в свой стейт, который
-  //  будем использовать в modal-update-billboard, для удаления картинки
+  //  будем использовать в modal-update-popular-type, для удаления картинки
 
   useEffect(() => {
     setSelectedImg(form.getValues('image.url'));
   }, [form.getValues('image.url')]);
-  //useMutation для создания биллборда
-  const createBillboard = useBillboardPost(setIsOpen);
-  //useMutation для обновления биллборда
-  const updateBillboard = useBillboardUpdate(setIsOpen);
-  const onSubmit = async (data: BillboardDataType) => {
-    // console.log('billboard:', data);
-    if (billboard) {
-      updateBillboard.mutate({ billboard: data, id: billboard.id });
-      if (billboard.image.fileKey !== data.image.fileKey) {
-        await deleteImg(billboard.image.fileKey); // удаляем дефолтную  картинку из uploadthign
+
+  //useMutation для создания populat type
+  const createPopularType = usePopularTypePost(setIsOpen);
+  //useMutation для обновления popular type
+  const updatePopularType = usePopularTypeUpdate(setIsOpen);
+  const onSubmit = async (data: PopularTypesDataType) => {
+    //console.log('popular:', data);
+    if (popularType) {
+      updatePopularType.mutate({ popularType: data, id: popularType.id });
+      if (popularType.image.fileKey !== data.image.fileKey) {
+        await deleteImg(popularType.image.fileKey); // удаляем дефолтную  картинку из uploadthign
       }
     } else {
-      createBillboard.mutate(data);
+      createPopularType.mutate(data);
     }
   };
 
@@ -97,28 +103,14 @@ export const BillboardForm = ({
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="subTitle"
-          render={({ field }) => (
-            <FormItem className=" relative">
-              <FormLabel className="text-gray-700 text-sm font-normal">
-                Subtitle
-              </FormLabel>
-              <FormControl>
-                <Input type="text" {...field} />
-              </FormControl>
-              <FormMessage className=" absolute text-[11px] top-[62px] " />
-            </FormItem>
-          )}
-        />
+
         <FormField
           control={form.control}
           name="link"
           render={({ field }) => (
             <FormItem className=" relative ">
               <FormLabel className="text-gray-700 text-sm font-normal">
-                Select a category
+                Select a type
               </FormLabel>
               <FormControl>
                 <Select
@@ -127,7 +119,7 @@ export const BillboardForm = ({
                 >
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select a category" />
+                      <SelectValue placeholder="Select a type" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -137,10 +129,10 @@ export const BillboardForm = ({
                           Error,no data received
                         </div>
                       ) : (
-                        categories?.map((category) => {
+                        types?.types?.map((type) => {
                           return (
-                            <SelectItem key={category.id} value={category.id}>
-                              {category.name}
+                            <SelectItem key={type.id} value={type.id}>
+                              {type.name}
                             </SelectItem>
                           );
                         })
@@ -162,8 +154,8 @@ export const BillboardForm = ({
                 Images
               </FormLabel>
               <FormControl>
-                <BillboardImageUpload
-                  defaultImg={billboard?.image}
+                <PopularTypeImageUpload
+                  defaultImg={popularType?.image}
                   value={field.value}
                   onChange={(url) => field.onChange(url)}
                   onRemove={(url) => field.onChange(url)}
@@ -178,7 +170,7 @@ export const BillboardForm = ({
             type="submit"
             className=" w-[35%] h-10 bg-cyan-800 hover:bg-cyan-900 mt-[12px] "
           >
-            Save billboard
+            Save popular type
           </Button>
         </div>
       </form>

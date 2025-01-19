@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 import { authOptions } from '@/app/api/auth/config/auth_options';
 import {
   PopularTypesValidator,
-  PopularTypesValidatorDataType,
+  PopularTypesDataType,
 } from '@/validators/popular-types-validator';
 
 export async function PUT(
@@ -18,7 +18,7 @@ export async function PUT(
       return NextResponse.json('Unauthorized', { status: 401 });
     } */
 
-    const body: PopularTypesValidatorDataType = await request.json();
+    const body: PopularTypesDataType = await request.json();
     // валидация body при помощи zod
     const validation = PopularTypesValidator.safeParse(body);
     // console.log('validation:', validation);

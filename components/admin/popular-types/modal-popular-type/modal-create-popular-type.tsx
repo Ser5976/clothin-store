@@ -9,9 +9,9 @@ import {
 } from '@/components/ui/dialog';
 import { deleteImg } from '@/utils/utapi-delete';
 import { useState } from 'react';
-import { BillboardForm } from './billboard-form';
+import { PopularTypeForm } from './popular-type-form';
 
-export const ModalCreateBillboard = () => {
+export const ModalCreatePopularType = () => {
   const [isOpen, setIsOpen] = useState(false);
   // есть ещё один сценарий,когда пользователь выбирает картинку,
   //но потом закрывает модальное окно(соответственно картинка остаётся в aploadthing )
@@ -36,17 +36,20 @@ export const ModalCreateBillboard = () => {
     >
       <DialogTrigger asChild>
         <Button className=" text-[16px] h-[35px] bg-cyan-800  hover:bg-cyan-900  max-md:text-[14px] ">
-          Add a billboard
+          Add a popular type
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add billboard</DialogTitle>
+          <DialogTitle>Add popular type</DialogTitle>
           <DialogDescription>
-            You can create no more than 4 billboards
+            You can create no more than 7 popular type
           </DialogDescription>
         </DialogHeader>
-        <BillboardForm setIsOpen={setIsOpen} setSelectedImg={setSelectedImg} />
+        <PopularTypeForm
+          setIsOpen={setIsOpen}
+          setSelectedImg={setSelectedImg}
+        />
       </DialogContent>
     </Dialog>
   );

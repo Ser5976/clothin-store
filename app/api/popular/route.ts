@@ -1,7 +1,7 @@
 import prismadb from '@/lib/prismadb';
 import {
   PopularTypesValidator,
-  PopularTypesValidatorDataType,
+  PopularTypesDataType,
 } from '@/validators/popular-types-validator';
 
 import { getServerSession } from 'next-auth';
@@ -20,20 +20,24 @@ export async function GET(request: Request) {
   }
 }
 export async function POST(request: Request) {
-  console.log('работает популар');
   try {
     /* const session = await getServerSession(authOptions);
     if (!session?.user) {
       return NextResponse.json('Unauthorized', { status: 401 });
     } */
-    const body: PopularTypesValidatorDataType = await request.json();
-    console.log('popular:', body);
+    const body: PopularTypesDataType = await request.json();
+
     // валидация body при помощи zod
     const validation = PopularTypesValidator.safeParse(body);
     // console.log('validation:', validation);
     if (!validation.success)
       return NextResponse.json(validation.error.errors, { status: 400 });
-
+    //popular type у нас должно быть не больше 7-х, поэтому делаем проверку
+    const countPopularType = await prismadb.popularTypes.count();
+    if (countPopularType === 7)
+      return NextResponse.json('There should be no more than 7 billboards', {
+        status: 400,
+      });
     // сохранения значения в базе
     const popularTypes = await prismadb.popularTypes.create({
       data: {

@@ -22,11 +22,11 @@ export async function POST(request: Request) {
       return NextResponse.json(validation.error.errors, { status: 400 });
 
     //коллекций  у нас должно быть не больше 4-х, поэтому делаем проверку
-    /* const countCollection = await prismadb.productCollection.count();
+    const countCollection = await prismadb.productCollection.count();
     if (countCollection === 4)
       return NextResponse.json('There should be no more than 4 collection', {
         status: 400,
-      }); */
+      });
     await prismadb.productCollection.create({
       data: {
         name: body.name,

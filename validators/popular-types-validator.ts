@@ -6,6 +6,4 @@ export const PopularTypesValidator = z.object({
   image: z.object({ url: z.string(), fileKey: z.string() }),
 });
 
-export type PopularTypesValidatorDataType = z.infer<
-  typeof PopularTypesValidator
->;
+export type PopularTypesDataType = z.infer<typeof PopularTypesValidator>;
