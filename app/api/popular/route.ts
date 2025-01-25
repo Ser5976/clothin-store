@@ -5,9 +5,14 @@ import {
 } from '@/validators/popular-types-validator';
 
 import { getServerSession } from 'next-auth';
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
+import { authOptions } from '../auth/config/auth_options';
 
 export async function GET(request: Request) {
+  // const token = request.cookies.get('accessToken')?.value;
+  //  const session = await getServerSession(authOptions);
+  // console.log('token from popular:', token);
+  // console.log('sesion from popular:', session);
   try {
     const popularTypes = await prismadb.popularTypes.findMany({
       include: {
@@ -39,7 +44,7 @@ export async function POST(request: Request) {
         status: 400,
       });
     // сохранения значения в базе
-    const popularTypes = await prismadb.popularTypes.create({
+    const poularType = await prismadb.popularTypes.create({
       data: {
         title: body.title,
         link: body.link,
@@ -48,7 +53,7 @@ export async function POST(request: Request) {
         },
       },
     });
-    return NextResponse.json(popularTypes);
+    return NextResponse.json({ message: `${poularType.title} is saved` });
   } catch (error) {
     return NextResponse.json('Data is not saved', { status: 500 });
   }

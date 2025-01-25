@@ -13,6 +13,7 @@ export const useStoreReviewPost = () => {
       queryClient.invalidateQueries({
         queryKey: ['store-review'],
       });
+      toast.success('Your review has been saved');
 
       // поэтому изваращаюсь с refetch
       // refetchEstimation();

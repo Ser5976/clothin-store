@@ -9,7 +9,7 @@ const StoreReviewPage = () => {
           <BreadcrumbStoreReviews />
         </div>
       </div>
-      <StoreReview />;
+      <StoreReview />
     </main>
   );
 };

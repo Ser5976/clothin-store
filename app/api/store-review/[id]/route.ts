@@ -1,13 +1,13 @@
-import prismadb from '@/lib/prismadb';
 import {
-  ReviewUpdateDataType,
-  ReviewUpdateValidator,
-} from '../../../../validators/reviewUpdate-validator';
+  StoreReviewDataType,
+  StoreReviewValidator,
+} from './../../../../validators/store-review-validator';
+import prismadb from '@/lib/prismadb';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 import { authOptions } from '../../auth/config/auth_options';
 
-export async function PUT(
+export async function PATCH(
   request: Request,
   { params }: { params: { id: string } }
 ) {
@@ -17,9 +17,9 @@ export async function PUT(
       return NextResponse.json('Unauthorized', { status: 401 });
     } */
 
-    const body: ReviewUpdateDataType = await request.json();
+    const body: StoreReviewDataType = await request.json();
     // валидация body при помощи zod
-    const validation = ReviewUpdateValidator.safeParse(body);
+    const validation = StoreReviewValidator.safeParse(body);
     // console.log('validation:', validation);
     if (!validation.success)
       return NextResponse.json(validation.error.errors, { status: 400 });
@@ -27,7 +27,9 @@ export async function PUT(
     // изменения значения в базе
     await prismadb.storeReviews.update({
       where: { id: params.id },
-      data: { content: body.content },
+      data: body.response
+        ? { response: body.response }
+        : { content: body.content },
     });
     return NextResponse.json({ message: 'Review changed' });
   } catch (error) {

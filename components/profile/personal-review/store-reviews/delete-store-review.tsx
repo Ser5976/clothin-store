@@ -1,5 +1,4 @@
 'use client';
-import { deleteProductReviewAction } from '@/server-action/user/delete-product-review-action';
 import { deleteStoreProductReviewAction } from '@/server-action/user/delete-store-review-action';
 import { RotateCw, Trash } from 'lucide-react';
 import React, { useState } from 'react';

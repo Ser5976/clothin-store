@@ -8,7 +8,7 @@ export const ProductItem = ({ product }: { product: ProductType }) => {
   //кастомный хук useMutation, удаляет товар из базе корзины
   const mutationDeleteProduct = useProductDelete();
   // удаление товара
-  const productDelete = async () => {
+  const productDelete = () => {
     const userConfirmed = window.confirm(
       `Are you sure you want to delete product ${product.name}`
     );

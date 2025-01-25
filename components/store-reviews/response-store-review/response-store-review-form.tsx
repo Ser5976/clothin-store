@@ -13,30 +13,39 @@ import { toast } from 'react-toastify';
 import { Textarea } from '@/components/ui/textarea';
 import { FC } from 'react';
 import { useStoreReviewPost } from '@/react-queries/useStoreReviewPost';
-import {
-  StoreReviewDataType,
-  StoreReviewValidator,
-} from '@/validators/store-review-validator';
 
-type LeaveStoreReviewFormProps = {
+import {
+  StoreResponseDataType,
+  StoreResponseValidator,
+} from '@/validators/response-review-validator';
+import { StoreReviewType } from '@/types/stor_review_type';
+import reviewsInfo from '@/components/product-page/general-info/product-reviews/reviews-info';
+import { useStoreReviewUpdate } from '@/react-queries/useStoreReviewUpdate';
+
+type ResponseStoreReviewFormProps = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  review: StoreReviewType;
 };
 
-export const LeaveStoreReviewForm: FC<LeaveStoreReviewFormProps> = ({
+export const ResponseStoreReviewForm: FC<ResponseStoreReviewFormProps> = ({
   setIsOpen,
+  review,
 }) => {
-  const form = useForm<StoreReviewDataType>({
-    resolver: zodResolver(StoreReviewValidator),
+  const form = useForm<StoreResponseDataType>({
+    resolver: zodResolver(StoreResponseValidator),
     defaultValues: {
-      content: '',
+      response: '',
     },
   });
 
-  const mutationStoreRiview = useStoreReviewPost();
-  const onSubmit = (data: StoreReviewDataType) => {
+  const mutationStoreRiviewUpdate = useStoreReviewUpdate();
+  const onSubmit = (data: StoreResponseDataType) => {
     //console.log('data:', data);
 
-    mutationStoreRiview.mutateAsync(data);
+    mutationStoreRiviewUpdate.mutate({
+      id: review.id,
+      storeReview: { content: review.content, response: data.response },
+    });
     setIsOpen(false);
   };
 
@@ -48,15 +57,15 @@ export const LeaveStoreReviewForm: FC<LeaveStoreReviewFormProps> = ({
       >
         <FormField
           control={form.control}
-          name="content"
+          name="response"
           render={({ field }) => (
             <FormItem className=" relative">
               <FormLabel className="text-gray-700 text-sm font-normal">
-                Review
+                Response
               </FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="leave a review"
+                  placeholder="response to the review"
                   className="resize-none min-h-[150px]"
                   {...field}
                 />
@@ -70,7 +79,7 @@ export const LeaveStoreReviewForm: FC<LeaveStoreReviewFormProps> = ({
           type="submit"
           className=" w-full bg-cyan-800 hover:bg-cyan-900 mt-[12px] text-center text-white text-sm font-bold "
         >
-          Submit a store review
+          Submit a store response
         </Button>
       </form>
     </Form>
