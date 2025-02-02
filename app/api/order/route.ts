@@ -73,3 +73,37 @@ export async function POST(request: Request) {
     return NextResponse.json(error);
   }
 }
+
+export async function GET(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const query = searchParams.get('query');
+    let orders;
+    // количество всех заказов
+    const count = await prismadb.order.count();
+    //получение получение заказов
+    if (query) {
+      orders = await prismadb.order.findMany({
+        where: {
+          OR: [{ email: { contains: query } }],
+        },
+        include: {
+          orderItems: true,
+        },
+      });
+    } else {
+      orders = await prismadb.order.findMany({
+        take: 100,
+        include: {
+          orderItems: true,
+        },
+        orderBy: { createdAt: 'desc' },
+      });
+    }
+    const orderData = { count, orders };
+    // console.log('ORDER:', orders);
+    return NextResponse.json(orderData);
+  } catch (error) {
+    console.log('ORDER ERRROR:', error);
+  }
+}

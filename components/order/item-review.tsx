@@ -11,7 +11,7 @@ type ItemReviewPropsType = {
 
 export const ItemReview: FC<ItemReviewPropsType> = ({ item }) => {
   return (
-    <div className="flex py-4 border-b border-slate-200  gap-[3%] ">
+    <div className="flex py-4 border-b border-slate-200 last:border-none gap-[3%] ">
       <Link
         href={`/${item.productId}`}
         className=" w-[15%] h-[15%] cursor-pointer"

@@ -7,7 +7,7 @@ import { ModalUpdateBrand } from './modal-brand/modal-update-brand';
 export const BrandItem = ({ brand }: { brand: BrandType }) => {
   //кастомный хук useMutation, удаляет тип
   const mutationDeleteBrand = useBrandDelete();
-  // удаление типа
+  // удаление брэнда
   const brandDelete = () => {
     const userConfirmed = window.confirm(
       `Are you sure you want to delete brand ${brand.name}`

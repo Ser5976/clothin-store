@@ -13,6 +13,7 @@ import {
   Palette,
   GalleryThumbnails,
   ImagePlus,
+  ListOrdered,
 } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -186,6 +187,20 @@ export const NavigationAdmin = () => {
             })}
           />
           <span>Popular types</span>
+        </Link>
+        <Link
+          href="/admin/orders"
+          className={cn(styles.link, {
+            [styles.activeLink]: `${pathName.split('/')[2]}` === 'orders',
+            [styles.hover]: `${pathName.split('/')[2]}` !== 'orders',
+          })}
+        >
+          <ListOrdered
+            className={cn(styles.icons, {
+              [styles.activeIcons]: `${pathName.split('/')[2]}` === 'orders',
+            })}
+          />
+          <span>Orders</span>
         </Link>
       </ul>
       <div className="px-5 m-3 bg-transparent border-b"></div>

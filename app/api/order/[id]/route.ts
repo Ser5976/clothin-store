@@ -16,7 +16,7 @@ export async function GET(
         orderItems: true,
       },
     });
-    console.log('ORDER:', order);
+    // console.log('ORDER:', order);
     return NextResponse.json(order);
   } catch (error) {
     console.log('ERRROR:', error);

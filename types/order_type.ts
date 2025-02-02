@@ -32,3 +32,8 @@ export type OrderType = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type OrdersDataType = {
+  count: number;
+  orders: OrderType[];
+};
