@@ -28,6 +28,7 @@ const Product = async ({ params }: { params: { productId: string } }) => {
     productPromise,
     deliveryPromise,
   ]);
+
   return (
     <Suspense fallback={<ProductBarFallback />}>
       <ProductComponent product={product} delivery={delivery} />

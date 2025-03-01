@@ -29,6 +29,12 @@ export async function POST(request: Request) {
     // console.log('validation:', validation);
     if (!validation.success)
       return NextResponse.json(validation.error.errors, { status: 400 });
+    //для клиентов  у нас должно быть не больше 4-х, поэтому делаем проверку
+    const countCustomers = await prismadb.customers.count();
+    if (countCustomers === 4)
+      return NextResponse.json('There should be no more than 4 billboards', {
+        status: 400,
+      });
     // проверка на существования такого же значения
     const candidate = await prismadb.customers.findUnique({
       where: {

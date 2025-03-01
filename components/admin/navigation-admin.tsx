@@ -202,6 +202,20 @@ export const NavigationAdmin = () => {
           />
           <span>Orders</span>
         </Link>
+        <Link
+          href="/admin/customers"
+          className={cn(styles.link, {
+            [styles.activeLink]: `${pathName.split('/')[2]}` === 'customers',
+            [styles.hover]: `${pathName.split('/')[2]}` !== 'customers',
+          })}
+        >
+          <ListOrdered
+            className={cn(styles.icons, {
+              [styles.activeIcons]: `${pathName.split('/')[2]}` === 'customers',
+            })}
+          />
+          <span>for Customers</span>
+        </Link>
       </ul>
       <div className="px-5 m-3 bg-transparent border-b"></div>
       <div

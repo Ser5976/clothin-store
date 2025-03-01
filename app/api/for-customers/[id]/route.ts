@@ -34,6 +34,20 @@ export async function PUT(
     return NextResponse.json('Customers is not changed', { status: 500 });
   }
 }
+
+export async function GET(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const customer = await prismadb.customers.findFirst({
+      where: { id: params.id },
+    });
+    return NextResponse.json(customer);
+  } catch (error) {
+    console.log(error);
+  }
+}
 export async function DELETE(
   request: Request,
   { params }: { params: { id: string } }
