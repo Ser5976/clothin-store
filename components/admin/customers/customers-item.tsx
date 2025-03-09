@@ -21,9 +21,13 @@ export const CustomerItem = ({ customer }: { customer: CustomersType }) => {
       <div>{customer.name}</div>
 
       <div className=" flex gap-3">
-        <Link href={`/admin/customers/update-customer/${customer.id}`}>
+        <button
+          onClick={() =>
+            (window.location.href = `/admin/customers/update-customer/${customer.id}`)
+          }
+        >
           <Pencil size={18} className=" hover:text-gray-800 " />
-        </Link>
+        </button>
         <div className="">
           {mutationDeleteCustomer.isLoading ? (
             <RotateCw size={20} className="   animate-spin" />

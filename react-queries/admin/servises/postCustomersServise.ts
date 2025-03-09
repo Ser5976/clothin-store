@@ -1,4 +1,4 @@
-import { CustomersDataType } from './../../../validators/customers-validator';
+import { CustomersDataType } from '../../../validators/customers-validator';
 
 import axios from 'axios';
 

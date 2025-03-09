@@ -14,6 +14,7 @@ import {
   GalleryThumbnails,
   ImagePlus,
   ListOrdered,
+  Phone,
 } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -215,6 +216,21 @@ export const NavigationAdmin = () => {
             })}
           />
           <span>for Customers</span>
+        </Link>
+        <Link
+          href="/admin/requisites"
+          className={cn(styles.link, {
+            [styles.activeLink]: `${pathName.split('/')[2]}` === 'requisites',
+            [styles.hover]: `${pathName.split('/')[2]}` !== 'requisites',
+          })}
+        >
+          <Phone
+            className={cn(styles.icons, {
+              [styles.activeIcons]:
+                `${pathName.split('/')[2]}` === 'requisites',
+            })}
+          />
+          <span>Requisites</span>
         </Link>
       </ul>
       <div className="px-5 m-3 bg-transparent border-b"></div>

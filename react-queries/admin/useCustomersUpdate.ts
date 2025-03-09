@@ -8,7 +8,7 @@ export const useCustomersUpdate = () => {
     mutationFn: updateCustomersServise,
     onSuccess: (data) => {
       queryClient.invalidateQueries({
-        queryKey: ['admin-customer', 'admin-customers'],
+        queryKey: ['admin-customers', 'admin-customer'],
       });
       toast.success(data.message);
     },

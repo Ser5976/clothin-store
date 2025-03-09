@@ -13,7 +13,14 @@ import styles from './topbar.module.css';
 interface ITopBarProps {
   categories: CategoryType[] | undefined;
   customers: CustomersType[] | undefined;
-  requisites: RequisitesType[] | undefined;
+  requisites:
+    | {
+        id: string;
+        title: string | null;
+        phone: string;
+        email: string;
+      }[]
+    | undefined;
   avatar: string | undefined;
   email: string | undefined;
 }

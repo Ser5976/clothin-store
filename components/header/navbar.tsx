@@ -4,7 +4,6 @@ import { getRequisites } from '@/actions/get_requisites';
 import { getUser } from '@/actions/get_user';
 import { authOptions } from '@/app/api/auth/config/auth_options';
 import { getServerSession } from 'next-auth';
-import { Suspense } from 'react';
 import { BottomBar } from './bottombar/bottombar';
 import { MedianBar } from './medianbar/medianbar';
 import { TopBar } from './topbar/topbar';

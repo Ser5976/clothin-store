@@ -1,6 +1,6 @@
 export type RequisitesType = {
   id: string;
-  title: string | null;
+  title: string | undefined;
   phone: string;
   email: string;
 };

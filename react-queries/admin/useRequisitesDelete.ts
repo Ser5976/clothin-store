@@ -1,17 +1,15 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import { postCustomersServise } from './servises/postCustomersServise';
+import { deleteRequisitesServise } from './servises/deleteRequisitesServise';
 
-export const useCustomersPost = () => {
+export const useRequisitesDelete = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: postCustomersServise,
-
+    mutationFn: deleteRequisitesServise,
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['admin-customers'] });
-      toast.success(data.message);
+      queryClient.invalidateQueries({ queryKey: ['admin-requisites'] });
+      toast.success(data.data.message);
     },
-
     onError: (error: any) => {
       toast.error(error.response.data);
     },

@@ -5,7 +5,7 @@ import { useBrandDelete } from '@/react-queries/admin/useBrandDelete';
 import { ModalUpdateBrand } from './modal-brand/modal-update-brand';
 
 export const BrandItem = ({ brand }: { brand: BrandType }) => {
-  //кастомный хук useMutation, удаляет тип
+  //кастомный хук useMutation, удаляет брэнд
   const mutationDeleteBrand = useBrandDelete();
   // удаление брэнда
   const brandDelete = () => {

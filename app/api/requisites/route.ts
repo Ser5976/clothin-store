@@ -29,6 +29,12 @@ export async function POST(request: Request) {
     // console.log('validation:', validation);
     if (!validation.success)
       return NextResponse.json(validation.error.errors, { status: 400 });
+    //реквизит  у нас должно быть один, поэтому делаем проверку
+    const countCollection = await prismadb.requisites.count();
+    if (countCollection === 1)
+      return NextResponse.json('There should be no more than 1 reaquisites', {
+        status: 400,
+      });
     // сохранения значения в базе
     await prismadb.requisites.create({
       data: body,

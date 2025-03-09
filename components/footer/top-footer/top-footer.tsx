@@ -6,7 +6,14 @@ import Link from 'next/link';
 
 type TopFooterProps = {
   customers: CustomersType[] | undefined;
-  requisites: RequisitesType[] | undefined;
+  requisites:
+    | {
+        id: string;
+        title: string | null;
+        phone: string;
+        email: string;
+      }[]
+    | undefined;
 };
 
 export const TopFooter: FC<TopFooterProps> = ({ customers, requisites }) => {

@@ -26,9 +26,13 @@ export const CollectionItem = ({
       <div>{collection.name}</div>
 
       <div className=" flex gap-3">
-        <Link href={`/admin/collections/update-collection/${collection.id}`}>
+        <button
+          onClick={() =>
+            (window.location.href = `/admin/collections/update-collection/${collection.id}`)
+          }
+        >
           <Pencil size={18} className=" hover:text-gray-800 " />
-        </Link>
+        </button>
         <div className="">
           {mutationDeleteCollection.isLoading ? (
             <RotateCw size={20} className="   animate-spin" />

@@ -32,10 +32,10 @@ export const CustomerForm = ({ customer }: { customer?: CustomersType }) => {
     if (customer) {
       const dataCustomer = { id: customer.id, customers: data };
       updateCustomers.mutate(dataCustomer);
-      window.location.href = '/admin/customers';
+      route.push('/admin/customers');
     } else {
       createCustomers.mutate(data);
-      window.location.href = '/admin/customers';
+      route.push('/admin/customers');
     }
   };
 
