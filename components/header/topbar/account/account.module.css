@@ -17,3 +17,6 @@
 .login_active {
   @apply text-white opacity-[1];
 }
+.admin_active {
+  @apply opacity-30 pointer-events-none;
+}

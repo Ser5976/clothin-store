@@ -23,6 +23,8 @@ export function ProfileMenu({
   avatar: string | undefined;
   email: string | undefined;
 }) {
+  const session = useSession();
+  session.data?.user.role === 'ADMIN';
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -84,9 +86,18 @@ export function ProfileMenu({
             <Link href="/profile/order-profile">Youre orders</Link>
             <DropdownMenuShortcut>⌘O</DropdownMenuShortcut>
           </DropdownMenuItem>
+          <DropdownMenuItem
+            className={cn({
+              [styles.admin_active]: session.data?.user.role !== 'ADMIN',
+            })}
+          >
+            <Link href="/admin">Dashboard</Link>
+            <DropdownMenuShortcut>⌘D</DropdownMenuShortcut>
+          </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem
+          className=" cursor-pointer"
           onClick={() =>
             signOut({
               callbackUrl: '/',
