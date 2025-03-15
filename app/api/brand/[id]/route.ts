@@ -13,8 +13,8 @@ export async function PUT(
 ) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session?.user) {
-      return NextResponse.json('Unauthorized', { status: 401 });
+    if (session?.user.role !== 'ADMIN') {
+      return NextResponse.json('Forbidden', { status: 403 });
     }
 
     const body: BrandDataType = await request.json();
@@ -40,8 +40,8 @@ export async function DELETE(
 ) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session?.user) {
-      return NextResponse.json('Unauthorized', { status: 401 });
+    if (session?.user.role !== 'ADMIN') {
+      return NextResponse.json('Forbidden', { status: 403 });
     }
     //перед удалением уточняем , что ни один товар не является этим брендом
     const isBrand = await prismadb.product.findFirst({

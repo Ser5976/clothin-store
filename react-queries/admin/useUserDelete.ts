@@ -10,8 +10,8 @@ export const useUserDelete = () => {
       queryClient.invalidateQueries({ queryKey: ['user-search'] });
       toast.success('The user has been deleted');
     },
-    onError: () => {
-      toast.error('Something went wrong');
+    onError: (error: any) => {
+      toast.error(error.response.data);
     },
   });
 };

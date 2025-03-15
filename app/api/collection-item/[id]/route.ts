@@ -1,8 +1,4 @@
 import prismadb from '@/lib/prismadb';
-import {
-  CollectionDataType,
-  CollectionValidator,
-} from '../../../../validators/collection-validator';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 import { authOptions } from '../../auth/config/auth_options';
@@ -13,8 +9,8 @@ export async function DELETE(
 ) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session?.user) {
-      return NextResponse.json('Unauthorized', { status: 401 });
+    if (session?.user.role !== 'ADMIN') {
+      return NextResponse.json('Forbidden', { status: 403 });
     }
 
     // удаление значения в базе

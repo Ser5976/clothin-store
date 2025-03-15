@@ -10,10 +10,10 @@ import { authOptions } from '../auth/config/auth_options';
 
 export async function POST(request: Request) {
   try {
-    /*  const session = await getServerSession(authOptions);
-    if (!session?.user) {
-      return NextResponse.json('Unauthorized', { status: 401 });
-    } */
+    const session = await getServerSession(authOptions);
+    if (session?.user.role !== 'ADMIN') {
+      return NextResponse.json('Forbidden', { status: 403 });
+    }
     const body: CollectionDataType = await request.json();
     // валидация body при помощи zod
     const validation = CollectionValidator.safeParse(body);

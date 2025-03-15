@@ -25,7 +25,7 @@ export const UsersPage = () => {
     return () => clearTimeout(debounceFetch);
   }, [query, refetch]);
 
-  console.log('useres:', userList);
+  // console.log('useres:', userList);
   return (
     <main className=" flex flex-col gap-5">
       <h1 className=" flex justify-between items-baseline   text-zinc-800 font-semibold  leading-[130%]  text-xl lg:text-3xl">
@@ -42,7 +42,7 @@ export const UsersPage = () => {
         <div className=" relative w-[250px]">
           <Input
             type="text"
-            placeholder="Search for products..."
+            placeholder="Search for users..."
             className="w-full pt-[11px] px-[16px] pb-[12px] rounded-[4px] border border-[#D7DADD]
         max-[450px]:w-[200px] focus:outline-none"
             value={query}

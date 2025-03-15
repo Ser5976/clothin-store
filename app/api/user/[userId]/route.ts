@@ -1,5 +1,7 @@
 import prismadb from '@/lib/prismadb';
+import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
+import { authOptions } from '../../auth/config/auth_options';
 
 export async function GET(
   request: Request,
@@ -31,10 +33,10 @@ export async function DELETE(
   { params }: { params: { userId: string } }
 ) {
   try {
-    /* const session = await getServerSession(authOptions);
-    if (!session?.user) {
-      return NextResponse.json('Unauthorized', { status: 401 });
-    } */
+    const session = await getServerSession(authOptions);
+    if (session?.user.role !== 'ADMIN') {
+      return NextResponse.json('Forbidden', { status: 403 });
+    }
 
     // удаление пользователя
     await prismadb.user.delete({

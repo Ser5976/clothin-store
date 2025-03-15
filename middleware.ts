@@ -23,4 +23,4 @@ export default withAuth(
   }
 );
 // здесь вносим в массив страницы ,которые будем защищать
-export const config = { matcher: ['/checkout', '/admin', '/profile'] };
+export const config = { matcher: ['/checkout', '/profile'] };

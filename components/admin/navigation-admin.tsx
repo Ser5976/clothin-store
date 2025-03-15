@@ -177,14 +177,15 @@ export const NavigationAdmin = () => {
         <Link
           href="/admin/popular-types"
           className={cn(styles.link, {
-            [styles.activeLink]: `${pathName.split('/')[2]}` === 'popular-type',
-            [styles.hover]: `${pathName.split('/')[2]}` !== 'popular-type',
+            [styles.activeLink]:
+              `${pathName.split('/')[2]}` === 'popular-types',
+            [styles.hover]: `${pathName.split('/')[2]}` !== 'popular-types',
           })}
         >
           <Rows
             className={cn(styles.icons, {
               [styles.activeIcons]:
-                `${pathName.split('/')[2]}` === 'popular-type',
+                `${pathName.split('/')[2]}` === 'popular-types',
             })}
           />
           <span>Popular types</span>

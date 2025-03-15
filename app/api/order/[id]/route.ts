@@ -1,7 +1,5 @@
 import prismadb from '@/lib/prismadb';
-import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
-import { authOptions } from '../../auth/config/auth_options';
 
 export async function GET(
   request: Request,

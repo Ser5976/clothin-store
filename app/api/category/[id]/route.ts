@@ -12,10 +12,10 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    /*  const session = await getServerSession(authOptions);
-    if (!session?.user) {
-      return NextResponse.json('Unauthorized', { status: 401 });
-    } */
+    const session = await getServerSession(authOptions);
+    if (session?.user.role !== 'ADMIN') {
+      return NextResponse.json('Forbidden', { status: 403 });
+    }
 
     const body: CategoryDataType = await request.json();
     // валидация body при помощи zod
@@ -40,8 +40,8 @@ export async function DELETE(
 ) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session?.user) {
-      return NextResponse.json('Unauthorized', { status: 401 });
+    if (session?.user.role !== 'ADMIN') {
+      return NextResponse.json('Forbidden', { status: 403 });
     }
     //перед удалением уточняем , что ни один товар не входит в эту категорию
     const isCategory = await prismadb.product.findFirst({

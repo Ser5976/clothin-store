@@ -46,7 +46,7 @@ export const OrdersPage = () => {
         <div className=" relative w-[250px]">
           <Input
             type="text"
-            placeholder="Search for products..."
+            placeholder="Search for orders..."
             className="w-full pt-[11px] px-[16px] pb-[12px] rounded-[4px] border border-[#D7DADD]
         max-[450px]:w-[200px] focus:outline-none"
             value={query}
