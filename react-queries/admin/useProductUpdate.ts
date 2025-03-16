@@ -7,7 +7,9 @@ export const useProductUpdate = () => {
   return useMutation({
     mutationFn: updateProductServise,
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['admin-product-search'] });
+      queryClient.invalidateQueries({
+        queryKey: ['admin-product-search', 'admin-product'],
+      });
       toast.success(data.message);
     },
     onError: (error: any) => {

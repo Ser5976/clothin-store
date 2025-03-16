@@ -25,9 +25,13 @@ export const ProductItem = ({ product }: { product: ProductType }) => {
         {product.name}
       </Link>
       <div className=" flex gap-2">
-        <Link href={`/admin/products/update-product/${product.id}`}>
+        <button
+          onClick={() =>
+            (window.location.href = `/admin/products/update-product/${product.id}`)
+          }
+        >
           <Pencil size={18} className=" hover:text-gray-800 " />
-        </Link>
+        </button>
 
         {mutationDeleteProduct.isLoading ? (
           <RotateCw size={20} className="   animate-spin" />

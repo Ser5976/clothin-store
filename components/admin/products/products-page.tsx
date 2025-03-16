@@ -1,7 +1,7 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useProductQuery } from '@/react-queries/admin/useProductQuery';
+import { useProductsQuery } from '@/react-queries/admin/useProductsQuery';
 import { Loader, RotateCw } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -21,7 +21,7 @@ export const ProductsPage = () => {
     isLoading,
     isError,
     refetch,
-  } = useProductQuery(query);
+  } = useProductsQuery(query);
   //т.к. при  вводе данных в поисковую строку результаты будут загружаться в реальном времени,делаем задержку
   // чтобы было меньше запросов
   useEffect(() => {

@@ -1,9 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
 import { getProductServise } from './servises/getProductServise';
+import { useQuery } from '@tanstack/react-query';
 
-export const useProductQuery = (query: string) => {
+export const useProductQuery = (productId: string) => {
   return useQuery({
-    queryKey: ['admin-product-search', query],
-    queryFn: () => getProductServise(query),
+    queryKey: ['admin-product', productId],
+    queryFn: () => getProductServise(productId),
   });
 };
