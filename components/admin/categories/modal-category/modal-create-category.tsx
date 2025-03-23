@@ -19,7 +19,7 @@ export const ModalCreateCategory = () => {
           Add a category
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Add category</DialogTitle>
           <DialogDescription>

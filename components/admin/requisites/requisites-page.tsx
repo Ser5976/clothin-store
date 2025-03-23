@@ -7,12 +7,6 @@ import { ModalCreateRequisites } from './modal-requisites/modal-create-requisite
 import { RequisitesItem } from './requisites-item';
 
 export const RequisitesPage = () => {
-  // стейт для импута
-  const [query, setQuery] = useState('');
-  //обработка инпута
-  const handlerInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-  };
   // кастомный хук useQuery,делаем запрос на получение requisitez
   const { data: requisites, isLoading, isError } = useRequisitesQuery();
 

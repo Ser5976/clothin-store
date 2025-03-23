@@ -10,13 +10,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { BillboardType } from '@/types/carousel_type';
-import {
-  BillboardDataType,
-  BillboardValidator,
-} from '@/validators/billboard-validator ';
-import { useBillboardPost } from '@/react-queries/admin/useBillboardPost';
-import { useBillboardUpdate } from '@/react-queries/admin/useBillboardUpdate';
 import {
   Select,
   SelectContent,
@@ -168,7 +161,7 @@ export const PopularTypeForm = ({
         <div className=" flex justify-end">
           <Button
             type="submit"
-            className=" w-[35%] h-10 bg-cyan-800 hover:bg-cyan-900 mt-[12px] "
+            className="   bg-cyan-800 hover:bg-cyan-900 mt-[12px] "
           >
             Save popular type
           </Button>

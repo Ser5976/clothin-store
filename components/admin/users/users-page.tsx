@@ -54,7 +54,7 @@ export const UsersPage = () => {
             alt="search"
             width={16}
             height={16}
-            className="absolute top-[12px] right-[16px]"
+            className="absolute top-[12px] right-[16px] max-[450px]:right-[66px]"
           />
         </div>
       )}

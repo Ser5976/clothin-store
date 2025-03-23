@@ -44,13 +44,13 @@ export const ProductsPage = () => {
           )}
         </span>
       </h1>
-      <div className=" flex justify-between">
+      <div className=" flex justify-between max-[555px]:flex-col max-[555px]:gap-4">
         <div className=" relative w-[250px]">
           <Input
             type="text"
             placeholder="Search for products..."
             className="w-full pt-[11px] px-[16px] pb-[12px] rounded-[4px] border border-[#D7DADD]
-        max-[450px]:w-[200px] focus:outline-none"
+        max-[450px]:w-[200px]  focus:outline-none"
             value={query}
             onChange={handlerInput}
           />
@@ -60,7 +60,7 @@ export const ProductsPage = () => {
             alt="search"
             width={16}
             height={16}
-            className="absolute top-[12px] right-[16px]"
+            className="absolute top-[12px] right-[16px] max-[450px]:right-[66px]"
           />
         </div>
         <Link href="/admin/products/create-product">

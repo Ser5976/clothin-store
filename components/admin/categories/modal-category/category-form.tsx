@@ -48,7 +48,7 @@ export const CategoryForm = ({ setIsOpen, category }: CategoryFormProps) => {
       <form
         noValidate
         onSubmit={form.handleSubmit(onSubmit)}
-        className=" flex flex-col gap-4  "
+        className=" flex flex-col gap-4 "
       >
         <FormField
           control={form.control}

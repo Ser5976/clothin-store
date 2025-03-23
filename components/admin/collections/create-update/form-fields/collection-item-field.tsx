@@ -70,7 +70,7 @@ export const CollectionItemField = ({
   };
 
   return (
-    <div className="grid grid-cols-3 gap-[10px]">
+    <div className="grid grid-cols-3 gap-[10px] max-[770px]:grid-cols-1">
       <div className=" col-span-1 flex flex-col gap-2">
         <div className=" relative max-w-[250px]">
           <Input
@@ -87,7 +87,7 @@ export const CollectionItemField = ({
             alt="search"
             width={16}
             height={16}
-            className="absolute top-[12px] right-[16px]"
+            className="absolute top-[12px] right-[16px] max-[450px]:right-[66px]"
           />
         </div>
         {isError ? (

@@ -6,7 +6,6 @@ import {
   ListChecks,
   LogOut,
   Rows,
-  Shield,
   ShoppingCart,
   Users,
   Ruler,
@@ -18,19 +17,19 @@ import {
 } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
-export const NavigationAdmin = () => {
+export const NavigationAdmin = ({
+  closeSheet,
+}: {
+  closeSheet?: () => void;
+}) => {
   const router = useRouter();
   const pathName = usePathname();
   // console.log('pathName:', pathName);
 
   return (
     <div className=" col-span-1">
-      <div className="relative pl-9  py-1">
-        <Shield className="absolute top-[7px] left-2 w-5 h-5" />
-        <span className="text-lg">The admin panel</span>
-      </div>
       <div className="px-5 m-3 bg-transparent border-b"></div>
-      <ul>
+      <ul onClick={closeSheet}>
         <Link
           href="/admin/users"
           className={cn(styles.link, {
@@ -45,6 +44,7 @@ export const NavigationAdmin = () => {
           />
           <span>Users</span>
         </Link>
+
         <Link
           href="/admin/products"
           className={cn(styles.link, {

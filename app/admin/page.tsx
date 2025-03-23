@@ -5,9 +5,6 @@ const Admin = async () => {
   const salesData = await getSales();
   return (
     <main className=" flex flex-col gap-5">
-      <h1 className="text-zinc-800 font-semibold  leading-[130%]  text-xl lg:text-3xl text-center">
-        The admin panel
-      </h1>
       {salesData ? (
         <AdminPage salesData={salesData} />
       ) : (

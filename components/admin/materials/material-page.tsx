@@ -44,13 +44,13 @@ export const MaterialPage = () => {
           )}
         </span>
       </h1>
-      <div className=" flex justify-between">
+      <div className=" flex justify-between max-[525px]:flex-col max-[525px]:gap-4">
         <div className=" relative w-[250px]">
           <Input
             type="text"
             placeholder="Search for materials..."
             className="w-full pt-[11px] px-[16px] pb-[12px] rounded-[4px] border border-[#D7DADD]
-        max-[450px]:w-[200px] focus:outline-none"
+        max-[450px]:w-[200px]  focus:outline-none"
             value={query}
             onChange={handlerInput}
           />
@@ -60,10 +60,12 @@ export const MaterialPage = () => {
             alt="search"
             width={16}
             height={16}
-            className="absolute top-[12px] right-[16px]"
+            className="absolute top-[12px] right-[16px] max-[450px]:right-[66px]"
           />
         </div>
-        <ModalCreateMaterial />
+        <div className="max-[525px]:w-[200px]">
+          <ModalCreateMaterial />
+        </div>
       </div>
 
       {isError ? (

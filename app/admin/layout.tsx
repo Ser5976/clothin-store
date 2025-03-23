@@ -1,3 +1,4 @@
+import { AdminHeader } from '@/components/admin/admin-header';
 import { BreadcrumbAdmin } from '@/components/admin/breadcrumb-admin';
 import { NavigationAdmin } from '@/components/admin/navigation-admin';
 
@@ -13,10 +14,15 @@ export default async function AdminLayout({
           <BreadcrumbAdmin />
         </div>
       </div>
+      <div className="shared_container">
+        <AdminHeader />
+      </div>
+      <div className="shared_container  pt-[2%] pb-[5%] grid grid-cols-1 gap-5 min-[900px]:grid-cols-4">
+        <div className="hidden min-[900px]:block ">
+          <NavigationAdmin />
+        </div>
 
-      <div className="shared_container  pt-[2%] pb-[5%] grid grid-cols-4 gap-5">
-        <NavigationAdmin />
-        <div className=" col-span-3">{children}</div>
+        <div className=" col-span-1 min-[900px]:col-span-3">{children}</div>
       </div>
     </div>
   );

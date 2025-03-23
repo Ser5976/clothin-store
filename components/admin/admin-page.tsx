@@ -17,10 +17,10 @@ const AdminPage = ({ salesData }: { salesData: SalesDataType[] }) => {
   return (
     <div>
       <h2 className="text-lg font-semibold mb-4">Sales by month</h2>
-      <div className="  block md:hidden">
+      <div className=" min-[900px]:hidden">
         <SalesChartMobil data={salesData} />
       </div>
-      <div className="hidden md:block  ">
+      <div className="hidden min-[900px]:block  ">
         <SalesChartDesktop data={salesData} />
       </div>
     </div>
@@ -31,7 +31,7 @@ export default AdminPage;
 
 const SalesChartMobil = ({ data }: { data: SalesDataType[] }) => {
   return (
-    <ResponsiveContainer width="100%" height={400}>
+    <ResponsiveContainer width="100%" height={650}>
       <BarChart
         layout="vertical" // <-- Делаем диаграмму вертикальной
         data={data}
