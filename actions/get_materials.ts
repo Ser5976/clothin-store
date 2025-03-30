@@ -3,7 +3,7 @@ import { GeneralMaterialType } from './../types/general-material_type';
 export const getMaterials = async (): Promise<
   GeneralMaterialType | undefined
 > => {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/material`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/material`, {
     next: { revalidate: 60 },
   });
   if (!res.ok) {

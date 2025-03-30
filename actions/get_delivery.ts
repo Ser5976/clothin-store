@@ -1,7 +1,7 @@
 import { DeliveryType } from '@/types/delivery_type';
 
 export const getDelivery = async (): Promise<DeliveryType[]> => {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/delivery`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/delivery`, {
     next: { revalidate: 60 },
   });
   if (!res.ok) {

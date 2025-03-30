@@ -1,6 +1,6 @@
 import { BillboardType } from './../types/carousel_type';
 export const getBillboard = async (): Promise<BillboardType[] | null> => {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/billboard`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/billboard`, {
     next: { revalidate: 60 },
   });
   if (!res.ok) {

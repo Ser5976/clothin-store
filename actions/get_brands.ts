@@ -1,7 +1,7 @@
 import { GeneralBrandType } from '@/types/general-brand_type';
 
 export const getBrands = async (): Promise<GeneralBrandType | undefined> => {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/brand`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/brand`, {
     next: { revalidate: 60 },
   });
   if (!res.ok) {

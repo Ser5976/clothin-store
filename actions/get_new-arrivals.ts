@@ -2,7 +2,7 @@ import { GetProductsType } from '../types/get_products_type';
 
 export const getNewArrivals = async (): Promise<GetProductsType | null> => {
   const res = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/product-filter?limit=30`,
+    `${process.env.NEXT_PUBLIC_DOMAIN}/api/product-filter?limit=30`,
     {
       next: { revalidate: 60 },
     }

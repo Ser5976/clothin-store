@@ -1,7 +1,7 @@
 import { ColorType } from '@/types/color_type';
 
 export const getColors = async (): Promise<ColorType[] | undefined> => {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/color`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/color`, {
     next: { revalidate: 60 },
   });
   if (!res.ok) {

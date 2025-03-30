@@ -2,7 +2,7 @@ import { GetProductsType } from '../types/get_products_type';
 
 export const getDiscount = async (): Promise<GetProductsType | null> => {
   const res = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/product-filter?discount=true`,
+    `${process.env.NEXT_PUBLIC_DOMAIN}/api/product-filter?discount=true`,
     {
       next: { revalidate: 60 },
     }
