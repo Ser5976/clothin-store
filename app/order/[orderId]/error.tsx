@@ -15,7 +15,10 @@ export default function Error({
   }, [error]);
 
   return (
-    <div>
+    <div
+      className="flex sm:h-[250px] md:h-[350px]  justify-center 
+    items-center md:text-xl lg:h-[550px] lg:text-2xl text-red-500"
+    >
       <h2>Something went wrong!</h2>
       <button
         onClick={

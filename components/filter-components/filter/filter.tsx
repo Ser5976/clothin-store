@@ -4,7 +4,7 @@ import { ColorType } from '@/types/color_type';
 import { MaterialType } from '@/types/material_type';
 import { SizeType } from '@/types/size_type';
 import { TypeType } from '@/types/type_type';
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback } from 'react';
 import { Accordion } from '@/components/ui/accordion';
 import { GenderFilter } from './gender-filter';
 import { useSearchParams } from 'next/navigation';
