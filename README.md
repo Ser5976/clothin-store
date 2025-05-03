@@ -425,3 +425,7 @@ Order, Checout, страницы администратора, пользова�
 4. Страница с выбранной категорией New Arrivals
 
 ![Image](https://github.com/user-attachments/assets/8e8eb1c0-b2f4-4de2-a098-c1ac851322d4)
+
+5. Поиск
+
+![Image](https://github.com/user-attachments/assets/386aa1dd-9707-4499-861f-63045a560b39)
