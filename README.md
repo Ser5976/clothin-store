@@ -417,3 +417,11 @@ Order, Checout, страницы администратора, пользова�
 2. Выбор типа одежды по категориям
 
 ![Image](https://github.com/user-attachments/assets/ab443b2e-e7ed-45c0-9883-a34e7b2c6e7e)
+
+3. Страница с выбранным типом одежды
+
+![Image](https://github.com/user-attachments/assets/94566c57-fa00-4770-a05a-2013150cf573)
+
+4. Страница с выбранной категорией New Arrivals
+
+![Image](https://github.com/user-attachments/assets/8e8eb1c0-b2f4-4de2-a098-c1ac851322d4)
