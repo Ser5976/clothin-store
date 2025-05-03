@@ -429,3 +429,55 @@ Order, Checout, страницы администратора, пользова�
 5. Поиск
 
 ![Image](https://github.com/user-attachments/assets/386aa1dd-9707-4499-861f-63045a560b39)
+
+6. Страница товара
+
+![Image](https://github.com/user-attachments/assets/c39716f0-124b-4cdf-8c43-629de316eb74)
+
+7. Страница товара, вкладка отзывы
+
+![Image](https://github.com/user-attachments/assets/87967ba5-dcd6-48d7-9fa1-9719fb5f49ec)
+
+8. Страница товара, оформление отзыва
+
+![Image](https://github.com/user-attachments/assets/b3dd18ed-0fd3-4060-8ef7-ce171704e52a)
+
+9. Личный кабинет пользователя
+
+![Image](https://github.com/user-attachments/assets/b43e96c7-7bb1-4f04-b35f-a606f3cde6ba)
+
+10. Админ панель
+
+![Image](https://github.com/user-attachments/assets/5f7003e9-8a45-4c5d-b13e-d358f5137004)
+
+11. Админ панель(аналитика продаж)
+
+![Image](https://github.com/user-attachments/assets/f5d6ad9d-154d-4b17-8b2c-034a67aa5c7e)
+
+12. Админ панель(вкладка товары)
+
+![Image](https://github.com/user-attachments/assets/84bd6926-fb2c-45c1-aeba-96da9c58dca1)
+
+13. Админ панель(добавление товара)
+
+![Image](https://github.com/user-attachments/assets/5d532433-3904-4bb4-aef2-259f33c14b61)
+
+14. Админ панель(редактирование товара)
+
+![Image](https://github.com/user-attachments/assets/4b4f2955-9d00-4324-b1e3-3f86b2b4a323)
+
+15. Админ панель (редактирование страницы оплаты)
+
+![Image](https://github.com/user-attachments/assets/890d0184-67c9-44f7-a5a6-0f987df2b169)
+
+16. Страница отзывов о магазине(вход с админа)
+
+![Image](https://github.com/user-attachments/assets/ccdf1acd-0ee0-437c-8c85-4147b0007aff)
+
+17. Страница отзывов(добавление отзыва)
+
+![Image](https://github.com/user-attachments/assets/fe10509d-c76d-495e-bb81-31622cffc28b)
+
+18. Страница входа/регистрации
+
+![Image](https://github.com/user-attachments/assets/7a9500d1-9604-4180-b19f-86b42cd57435)
