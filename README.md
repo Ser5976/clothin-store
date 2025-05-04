@@ -481,3 +481,24 @@ Order, Checout, страницы администратора, пользова�
 18. Страница входа/регистрации
 
 ![Image](https://github.com/user-attachments/assets/7a9500d1-9604-4180-b19f-86b42cd57435)
+
+19. Избранные товары
+
+![Image](https://github.com/user-attachments/assets/786c3c7e-790c-4c32-931c-776c46e36707)
+
+20. Корзина
+
+![Image](https://github.com/user-attachments/assets/ee7a7320-fbf8-4f95-8f15-ee57158267fa)
+
+21. Страница заказа
+
+![Image](https://github.com/user-attachments/assets/c7b3040d-5fed-455b-b91f-3734e683d8ff)
+
+22. Оплата через Юкасса
+
+![Image](https://github.com/user-attachments/assets/1b21b997-d6ac-4c5a-96ee-6b173b366228)
+![Image](https://github.com/user-attachments/assets/5507e7f9-b686-4744-add4-c2a68c7fd022)
+
+23. Страница выполнения заказа
+
+![Image](https://github.com/user-attachments/assets/c1217ebb-a3ab-4684-9633-a2c32fda66d1)
