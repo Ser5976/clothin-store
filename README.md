@@ -420,7 +420,7 @@ Order, Checout, страницы администратора, пользова�
 
 3. Страница с выбранным типом одежды
 
-![Image](https://github.com/user-attachments/assets/94566c57-fa00-4770-a05a-2013150cf573)
+![Image](https://github.com/user-attachments/assets/6a116aed-e111-47f1-97f3-d3d680d4ae81)
 
 4. Страница с выбранной категорией New Arrivals
 

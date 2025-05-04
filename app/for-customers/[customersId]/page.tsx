@@ -1,13 +1,9 @@
-import { FC } from 'react';
+import { getCustomer } from '@/actions/get_customer';
+import CustomerPage from '@/components/customer-page/customer-page';
 
-interface CustomersPageProps {
-  params: {
-    customersId: string;
-  };
-}
-
-const Customers: FC<CustomersPageProps> = ({ params }) => {
-  return <div>{params.customersId}</div>;
+const Customers = async ({ params }: { params: { customersId: string } }) => {
+  const customer = await getCustomer(params.customersId);
+  return <CustomerPage customer={customer} />;
 };
 
 export default Customers;

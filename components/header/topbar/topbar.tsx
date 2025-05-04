@@ -2,7 +2,6 @@
 import { cn } from '@/lib/utils';
 import { CategoryType } from '@/types/category_type';
 import { CustomersType } from '@/types/customers_type';
-import { RequisitesType } from '@/types/requisites_type';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FC } from 'react';
@@ -12,7 +11,7 @@ import styles from './topbar.module.css';
 
 interface ITopBarProps {
   categories: CategoryType[] | undefined;
-  customers: CustomersType[] | undefined;
+  customers: CustomersType[] | null;
   requisites:
     | {
         id: string;

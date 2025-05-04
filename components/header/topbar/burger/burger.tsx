@@ -19,7 +19,7 @@ import LinkAccordion from './link-accordion';
 
 interface BurgerProps {
   categories: CategoryType[] | undefined;
-  customers: CustomersType[] | undefined;
+  customers: CustomersType[] | null;
 }
 
 const Burger: FC<BurgerProps> = ({ categories, customers }) => {

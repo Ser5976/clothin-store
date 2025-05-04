@@ -5,7 +5,7 @@ import { RequisitesType } from '@/types/requisites_type';
 import Link from 'next/link';
 
 type TopFooterProps = {
-  customers: CustomersType[] | undefined;
+  customers: CustomersType[] | null;
   requisites:
     | {
         id: string;
