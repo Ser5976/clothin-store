@@ -30,7 +30,11 @@ export const TopFooter: FC<TopFooterProps> = ({ customers, requisites }) => {
             ) : (
               customers?.map((el) => {
                 return (
-                  <Link href="#" className={styles.link} key={el.id}>
+                  <Link
+                    href={`/for-customers/${el.id}`}
+                    className={styles.link}
+                    key={el.id}
+                  >
                     {el.name}
                   </Link>
                 );
@@ -39,13 +43,10 @@ export const TopFooter: FC<TopFooterProps> = ({ customers, requisites }) => {
           </div>
           <div className={styles.wrapper_column}>
             <div className={styles.title}>Shop</div>
-            <Link href="#" className={styles.link}>
+            <Link href="./new-arrivals?limit=30" className={styles.link}>
               New arrivals
             </Link>
-            <Link href="#" className={styles.link}>
-              Trending now
-            </Link>
-            <Link href="#" className={styles.link}>
+            <Link href="./discount?discount=true" className={styles.link}>
               Sales
             </Link>
           </div>
