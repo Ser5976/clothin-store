@@ -45,7 +45,7 @@
 
     ### Auth Providers
 
-    - NEXTAUTH_SECRET
+    - NEXTAUTH_SECRET(генерируешь произвольный пароль)
     - NEXTAUTH_URL='http://localhost:3000'
     - GOOGLE_CLIENT_ID
     - GOOGLE_SECRET
