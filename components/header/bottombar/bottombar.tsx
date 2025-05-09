@@ -16,7 +16,10 @@ export const BottomBar = () => {
             />
             <div className={styles.inner_text}>
               <div className={styles.left_text}>Up to 70% Off. </div>
-              <Link href={'/sale/latest'} className={styles.right_text}>
+              <Link
+                href="./discount?discount=true"
+                className={styles.right_text}
+              >
                 Shop our latest sale styles
               </Link>
             </div>
