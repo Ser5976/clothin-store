@@ -57,7 +57,7 @@ export const BrandForm = ({ setIsOpen, brand }: BrandFormProps) => {
               <FormControl>
                 <Input
                   type="text"
-                  placeholder="Category name"
+                  placeholder="Brand name"
                   {...field}
                   className=" placeholder:text-zinc-400 text-sm font-normal"
                 />
