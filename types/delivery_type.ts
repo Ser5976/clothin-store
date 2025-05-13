@@ -7,3 +7,9 @@ export type DeliveryType = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type EditedDeliveryType = {
+  standartPrice: string;
+  expressPrice: string;
+  orderPrice: string;
+};

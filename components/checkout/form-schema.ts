@@ -10,8 +10,6 @@ export const FormSchema = z.object({
   house: z.string().min(1, 'House is required'),
   flat: z.string().optional(),
   postalCode: z.string().optional(),
-  type: z.enum(['5', '10'], {
-    required_error: 'You need to select a notification type.',
-  }),
+  type: z.string(),
 });
 export type FormSchemaType = z.infer<typeof FormSchema>;
