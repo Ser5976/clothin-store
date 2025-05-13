@@ -60,7 +60,7 @@ export const MaterialForm = ({ setIsOpen, material }: MaterialFormProps) => {
               <FormControl>
                 <Input
                   type="text"
-                  placeholder="Category name"
+                  placeholder="Material name"
                   {...field}
                   className=" placeholder:text-zinc-400 text-sm font-normal"
                 />

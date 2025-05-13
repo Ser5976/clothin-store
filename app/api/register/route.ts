@@ -16,6 +16,9 @@ export async function POST(request: Request) {
   if (!validation.success)
     return NextResponse.json(validation.error.errors, { status: 400 });
 
+  //проверка на сущестовования  админа в базе
+  const admin = await prismadb.user.findFirst({ where: { role: 'ADMIN' } });
+
   //проверка на существование в базе  email
   const candidate = await prismadb.user.findUnique({
     where: {
@@ -30,9 +33,16 @@ export async function POST(request: Request) {
   const salt = await genSalt(7);
   body.password = await hash(body.password, salt);
   // создаём нового пользователя
-  await prismadb.user.create({
+  const user = await prismadb.user.create({
     data: body,
   });
+  // если это первый пользователь, то он будет автоматически админом
+  if (!admin) {
+    await prismadb.user.update({
+      where: { id: user.id },
+      data: { role: 'ADMIN' },
+    });
+  }
 
   return NextResponse.json({ message: 'You are registered' });
 }

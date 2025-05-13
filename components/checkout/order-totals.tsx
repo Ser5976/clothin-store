@@ -1,11 +1,11 @@
-import { DeliveryType } from '@/types/delivery_type';
+import { DeliveryType, EditedDeliveryType } from '@/types/delivery_type';
 import React, { FC } from 'react';
 import { Button } from '../ui/button';
 
 type OrderTotalsType = {
   subtotal: number;
-  delivery: DeliveryType[];
-  standartPrice: boolean;
+  delivery: EditedDeliveryType;
+  deliveryPrice: string;
   orderTotal: number;
   discount: number | null;
 };
@@ -13,18 +13,16 @@ type OrderTotalsType = {
 export const OrderTotals: FC<OrderTotalsType> = ({
   subtotal,
   delivery,
-  standartPrice,
+  deliveryPrice,
   discount,
   orderTotal,
 }) => {
   //определяем стоимость доставки
   const shippingCosts =
-    Number(delivery[0].orderPrice) <= subtotal && standartPrice ? (
+    Number(delivery.orderPrice) <= subtotal ? (
       <span> free</span>
-    ) : standartPrice ? (
-      <span>${delivery[0].standartPrice}</span>
     ) : (
-      <span>${delivery[0].expressPrice}</span>
+      <span>${deliveryPrice}</span>
     );
 
   return (

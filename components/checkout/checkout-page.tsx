@@ -3,7 +3,7 @@ import { useCartStore } from '@/stores/useCartStore';
 import { CartItemType } from '@/types/cart_type';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSession } from 'next-auth/react';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { CheckoutForm } from './checkout-form';
@@ -12,7 +12,7 @@ import { FormSchema, FormSchemaType } from './form-schema';
 import { ItemReview } from './item-review';
 import styles from './checkout-page.module.css';
 import { OrderTotals } from './order-totals';
-import { DeliveryType } from '@/types/delivery_type';
+import { EditedDeliveryType } from '@/types/delivery_type';
 import { useOrderPost } from '@/react-queries/useOrderPost';
 import { Form } from '../ui/form';
 import { toast } from 'react-toastify';
@@ -22,14 +22,16 @@ type SelectedOrderType = {
   sumTotalPrice: number;
   sumTotalOldPrice: number;
 };
-
-export const CheckoutPage = ({ delivery }: { delivery: DeliveryType[] }) => {
+export const CheckoutPage = ({
+  delivery,
+}: {
+  delivery: EditedDeliveryType;
+}) => {
   //проверка авторизации
   const { status } = useSession();
   const isAuth = status === 'authenticated';
   const isLoadingAuth = status === 'loading';
   // для редиректа на логин и обратно при авторизации
-  const path = usePathname();
   // для редиректа на главную, если нет товаров
   const route = useRouter();
   //получение данных корзины из стора
@@ -78,19 +80,20 @@ export const CheckoutPage = ({ delivery }: { delivery: DeliveryType[] }) => {
       house: '',
       flat: '',
       postalCode: '',
-      type: '5',
+      type: delivery.standartPrice,
     },
   });
 
   //определяем,когда будет выбран метод доставки standartPrice, используем в условии для определение цены доставки
-  const standartPrice = form.watch('type') === delivery[0].standartPrice;
+  const deliveryPrice = form.watch('type');
+  console.log('type:', deliveryPrice);
 
   //вычисляем общую сумму
   const orderTotal =
     selectedOrder.sumTotalPrice +
-    (standartPrice
-      ? Number(delivery[0].standartPrice)
-      : Number(delivery[0].expressPrice));
+    (Number(delivery.orderPrice) <= selectedOrder.sumTotalPrice
+      ? 0
+      : Number(deliveryPrice));
 
   //вычисляем скидку
   const discount = selectedOrder.sumTotalOldPrice
@@ -105,9 +108,7 @@ export const CheckoutPage = ({ delivery }: { delivery: DeliveryType[] }) => {
       firstName: data.firstName,
       lastName: data.lastName,
       subtotal: selectedOrder.sumTotalPrice,
-      shippingCost: standartPrice
-        ? Number(delivery[0].standartPrice)
-        : Number(delivery[0].expressPrice),
+      shippingCost: Number(deliveryPrice),
       discount: discount,
       amount: orderTotal,
       address: {
@@ -185,7 +186,7 @@ export const CheckoutPage = ({ delivery }: { delivery: DeliveryType[] }) => {
                 discount={discount}
                 subtotal={selectedOrder.sumTotalPrice}
                 delivery={delivery}
-                standartPrice={standartPrice}
+                deliveryPrice={deliveryPrice}
                 orderTotal={orderTotal}
               />
             </form>
