@@ -22,7 +22,6 @@ type SelectedOrderType = {
   sumTotalPrice: number;
   sumTotalOldPrice: number;
 };
-//We will deliver your purchase anywhere in Belarus
 export const CheckoutPage = ({
   delivery,
 }: {
