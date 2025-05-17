@@ -14,6 +14,7 @@ import {
   ImagePlus,
   ListOrdered,
   Phone,
+  Truck,
 } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -232,6 +233,20 @@ export const NavigationAdmin = ({
             })}
           />
           <span>Requisites</span>
+        </Link>
+        <Link
+          href="/admin/delivery"
+          className={cn(styles.link, {
+            [styles.activeLink]: `${pathName.split('/')[2]}` === 'delivery',
+            [styles.hover]: `${pathName.split('/')[2]}` !== 'delivery',
+          })}
+        >
+          <Truck
+            className={cn(styles.icons, {
+              [styles.activeIcons]: `${pathName.split('/')[2]}` === 'delivery',
+            })}
+          />
+          <span>Delivery</span>
         </Link>
       </ul>
       <div className="px-5 m-3 bg-transparent border-b"></div>

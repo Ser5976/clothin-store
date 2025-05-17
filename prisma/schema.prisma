@@ -457,7 +457,3 @@ model StoreReviews{
   @@index([userId])
 
 }
-
-
-
-

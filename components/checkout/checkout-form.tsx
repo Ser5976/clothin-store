@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { DeliveryType } from '@/types/delivery_type';
+import { DeliveryType, EditedDeliveryType } from '@/types/delivery_type';
 import { UseFormReturn } from 'react-hook-form';
 import { FormSchemaType } from './form-schema';
 
@@ -17,7 +17,7 @@ export const CheckoutForm = ({
   delivery,
 }: {
   form: UseFormReturn<FormSchemaType>;
-  delivery: DeliveryType[];
+  delivery: EditedDeliveryType;
 }) => {
   return (
     <div className="flex flex-col">
@@ -186,25 +186,25 @@ export const CheckoutForm = ({
               <FormControl>
                 <RadioGroup
                   onValueChange={field.onChange}
-                  defaultValue={field.value}
+                  defaultValue={delivery.standartPrice}
                   className="flex flex-col gap-4"
                 >
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
-                      <RadioGroupItem value={delivery[0].standartPrice} />
+                      <RadioGroupItem value={delivery.standartPrice} />
                     </FormControl>
                     <FormLabel className=" flex grow justify-between font-normal">
                       <span> standartPrice</span>
-                      <span>$ {delivery[0].standartPrice}</span>
+                      <span>$ {delivery.standartPrice}</span>
                     </FormLabel>
                   </FormItem>
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
-                      <RadioGroupItem value={delivery[0].expressPrice} />
+                      <RadioGroupItem value={delivery.expressPrice} />
                     </FormControl>
                     <FormLabel className=" flex grow justify-between font-normal">
                       <span> expressPrice</span>
-                      <span>$ {delivery[0].expressPrice}</span>
+                      <span>$ {delivery.expressPrice}</span>
                     </FormLabel>
                   </FormItem>
                 </RadioGroup>

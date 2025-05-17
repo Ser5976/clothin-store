@@ -9,5 +9,6 @@ export const getDelivery = async (): Promise<DeliveryType[]> => {
     throw new Error('Failed to fetch data');
   }
   const delivery = res.json();
+
   return delivery;
 };

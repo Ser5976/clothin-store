@@ -9,16 +9,25 @@ import { authOptions } from '../auth/config/auth_options';
 
 export async function POST(request: Request) {
   try {
-    /* const session = await getServerSession(authOptions);
-    if (!session?.user) {
-      return NextResponse.json('Unauthorized', { status: 401 });
-    } */
+    const session = await getServerSession(authOptions);
+    if (session?.user.role !== 'ADMIN') {
+      return NextResponse.json('Forbidden', { status: 403 });
+    }
     const body: DeliveryDataType = await request.json();
     // валидация body при помощи zod
     const validation = DeliveryValidator.safeParse(body);
     //console.log('validation:', validation);
     if (!validation.success)
       return NextResponse.json(validation.error.errors, { status: 400 });
+    //  у нас должно быть не больше 1-го поля, поэтому делаем проверку
+    const countDelivery = await prismadb.delivery.count();
+    if (countDelivery === 1)
+      return NextResponse.json(
+        'There should be no more than 1 delivery options',
+        {
+          status: 400,
+        }
+      );
 
     // сохранения значения в базе
     await prismadb.delivery.create({

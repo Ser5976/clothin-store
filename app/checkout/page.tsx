@@ -6,6 +6,16 @@ import React, { Suspense } from 'react';
 
 const Checkout = async () => {
   const delivery = await getDelivery();
+  // console.log('delivery:', delivery);
+  const editedDilivery =
+    delivery.length === 0
+      ? { standartPrice: '5', expressPrice: '10', orderPrice: '500' }
+      : {
+          standartPrice: delivery[0].standartPrice,
+          expressPrice: delivery[0].expressPrice,
+          orderPrice: delivery[0].orderPrice,
+        };
+
   return (
     <main>
       <div className="bg-[#F4F5F6] py-4">
@@ -16,7 +26,7 @@ const Checkout = async () => {
 
       <div className="shared_container  pt-[2%]">
         <Suspense fallback={<CheckoutBarFallback />}>
-          <CheckoutPage delivery={delivery} />
+          <CheckoutPage delivery={editedDilivery} />
         </Suspense>
       </div>
     </main>
