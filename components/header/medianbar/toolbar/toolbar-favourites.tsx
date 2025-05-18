@@ -90,7 +90,9 @@ export const ToolbarFavourites = () => {
           <Heart size="20" color="#424551" />
 
           {isAuth && isError ? (
-            <span className="text-red-500 ">?</span>
+            <span className=" text-[20px]   text-red-500 absolute top-[-6px] left-[27px]">
+              ?
+            </span>
           ) : isLoadingAuth || (isAuth && isLoading) ? (
             <RotateCw
               size={16}

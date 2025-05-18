@@ -107,7 +107,9 @@ export const ToolbarCart = () => {
           <ShoppingCart size="20" color="#424551" />
           <div className={styles.badge_cart}>
             {isAuth && isError ? (
-              <span className="text-red-500 ">?</span>
+              <span className=" text-[20px] font-normal   text-red-500 absolute top-[0px] left-[9px]">
+                ?
+              </span>
             ) : isLoadingAuth || (isAuth && isLoading) ? (
               <RotateCw
                 size={14}
