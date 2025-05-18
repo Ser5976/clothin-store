@@ -9,6 +9,8 @@ import { ProductType } from '@/types/product_type';
 import { Loader } from 'lucide-react';
 import { Suspense } from 'react';
 
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata({
   params,
 }: {

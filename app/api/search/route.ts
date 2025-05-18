@@ -1,6 +1,8 @@
 import prismadb from '@/lib/prismadb';
 import { NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 //это я замутил поиск
 // ищу по имени (name) в  моделях type,brand,material,полученные данные из моделей конвертирую,
 //добавляю в объект свойство search, при помощи которого буду потом формировать новый запрос для product-filter

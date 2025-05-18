@@ -4,6 +4,8 @@ import { CheckoutPage } from '@/components/checkout/checkout-page';
 import { Loader } from 'lucide-react';
 import React, { Suspense } from 'react';
 
+export const dynamic = 'force-dynamic';
+
 const Checkout = async () => {
   const delivery = await getDelivery();
   // console.log('delivery:', delivery);
