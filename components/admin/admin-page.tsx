@@ -13,7 +13,7 @@ import {
 import React from 'react';
 
 const AdminPage = ({ salesData }: { salesData: SalesDataType[] }) => {
-  //console.log('salesdata:', salesData);
+  console.log('salesdata:', salesData);
   return (
     <div>
       <h2 className="text-lg font-semibold mb-4">Sales by month</h2>

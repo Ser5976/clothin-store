@@ -3,6 +3,7 @@ import AdminPage from '@/components/admin/admin-page';
 
 const Admin = async () => {
   const salesData = await getSales();
+  //console.log('sales,:', salesData);
   return (
     <main className=" flex flex-col gap-5">
       {salesData ? (

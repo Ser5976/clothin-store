@@ -1,7 +1,7 @@
 import { SalesDataType } from './../types/sales_type';
 
 export const getSales = async (): Promise<SalesDataType[] | null> => {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/get-sales`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/get-sales`, {
     next: { revalidate: 60 },
   });
   if (!res.ok) {

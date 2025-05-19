@@ -2,7 +2,7 @@ import { TypeReviews } from '@/types/type_reviews';
 
 export const getReviews = async (productId: string): Promise<TypeReviews[]> => {
   const res = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/review/${productId}`,
+    `${process.env.NEXT_PUBLIC_DOMAIN}/api/review/${productId}`,
     {
       next: { revalidate: 60 },
     }
