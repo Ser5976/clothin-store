@@ -1,7 +1,7 @@
 import prismadb from '@/lib/prismadb';
-import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
-import { authOptions } from '../auth/config/auth_options';
+
+export const dynamic = 'force-dynamic';
 
 const monthNames = [
   'Jan',

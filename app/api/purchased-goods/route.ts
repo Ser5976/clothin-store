@@ -1,6 +1,8 @@
 import prismadb from '@/lib/prismadb';
 import { NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 // запрос на получение товаров,которые чаще всего покупают, отсортированный по количеству покупок от большего к меньшему
 export async function GET(request: Request) {
   try {
