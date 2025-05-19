@@ -2,7 +2,7 @@ import { SalesDataType } from './../types/sales_type';
 
 export const getSales = async (): Promise<SalesDataType[] | null> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/get-sales`, {
-    next: { revalidate: 60 },
+    next: { revalidate: 0 },
   });
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
