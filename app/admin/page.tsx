@@ -1,6 +1,8 @@
 import { getSales } from '@/actions/get_sales';
 import AdminPage from '@/components/admin/admin-page';
 
+export const dynamic = 'force-dynamic';
+
 const Admin = async () => {
   const salesData = await getSales();
   //console.log('sales,:', salesData);
