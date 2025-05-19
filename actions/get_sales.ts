@@ -2,6 +2,7 @@ import { SalesDataType } from './../types/sales_type';
 
 export const getSales = async (): Promise<SalesDataType[] | null> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/get-sales`, {
+    cache: 'no-store',
     next: { revalidate: 0 },
   });
   if (!res.ok) {
