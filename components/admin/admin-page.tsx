@@ -11,17 +11,41 @@ import {
 } from 'recharts';
 
 import React from 'react';
+import { useSalesQuery } from '@/react-queries/admin/useSalesQuery';
+import { Loader } from 'lucide-react';
 
-const AdminPage = ({ salesData }: { salesData: SalesDataType[] }) => {
+const AdminPage = () => {
+  // кастомный хук useQuery,делаем запрос на получение всех биллбордов
+  const { data: salesData, isLoading, isError } = useSalesQuery();
   console.log('salesdata:', salesData);
   return (
     <div>
       <h2 className="text-lg font-semibold mb-4">Sales by month</h2>
       <div className=" min-[900px]:hidden">
-        <SalesChartMobil data={salesData} />
+        {isError ? (
+          <h1 className=" text-center font-semibold text-red-600 mt-2">
+            Something went wrong!
+          </h1>
+        ) : isLoading ? (
+          <div className=" w-[32px] lg:w-[50px] mx-auto  animate-spin">
+            <Loader size={32} color="#17696a" />
+          </div>
+        ) : (
+          <SalesChartDesktop data={salesData} />
+        )}
       </div>
       <div className="hidden min-[900px]:block  ">
-        <SalesChartDesktop data={salesData} />
+        {isError ? (
+          <h1 className=" text-center font-semibold text-red-600 mt-2">
+            Something went wrong!
+          </h1>
+        ) : isLoading ? (
+          <div className=" w-[32px] lg:w-[50px] mx-auto  animate-spin">
+            <Loader size={32} color="#17696a" />
+          </div>
+        ) : (
+          <SalesChartDesktop data={salesData} />
+        )}
       </div>
     </div>
   );
