@@ -1,7 +1,6 @@
 'use client';
 import CardProduct from '@/components/card-product/card-product';
-import { ProductType } from '@/types/product_type';
-import { FC, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import styles from './now-trending.module.css';
 import {
   Carousel,
@@ -10,12 +9,15 @@ import {
   CarouselItem,
 } from '@/components/ui/carousel';
 import { Arrows } from './arrows/arrows';
+import { useTrendingProductQuery } from '@/react-queries/useTrendingProductQuery';
+import { Loader } from 'lucide-react';
 
-type NowTrendingTypesProps = {
-  nowTrending: ProductType[] | null;
-};
-
-export const NowTrending: FC<NowTrendingTypesProps> = ({ nowTrending }) => {
+// данные  товаров,которые чаще всего покупают, буду получать на клиенте,т.к. на продакшене(Vercel)
+// несмотря ни на что(export const dynamic = 'force-dynamic',{ cache: 'no-store' }) Next.js принудительно кэширует
+// и данные не обновляются
+export const NowTrending = () => {
+  // кастомный хук useQuery,делаем запрос на получение всех товаров
+  const { data: nowTrending, isError, isLoading } = useTrendingProductQuery();
   //эта логика для кастомных стрелок,т.к. свои трудно было отстилизовать
   const [api, setApi] = useState<CarouselApi>();
   const scrollPrev = useCallback(() => {
@@ -31,8 +33,12 @@ export const NowTrending: FC<NowTrendingTypesProps> = ({ nowTrending }) => {
       <div className={styles.container}>
         <p className={styles.title}>Trending now</p>
 
-        {!nowTrending ? (
+        {isError ? (
           <div className=" text-red-500">Samething went wrong!</div>
+        ) : isLoading ? (
+          <div className=" w-[32px] lg:w-[50px] mx-auto  animate-spin">
+            <Loader size={32} color="#17696a" />
+          </div>
         ) : nowTrending.length === 0 ? (
           <div className=" text-red-500">
             Unfortunately, not a single product has been purchased!

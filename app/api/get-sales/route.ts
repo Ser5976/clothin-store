@@ -23,6 +23,7 @@ export async function GET(request: Request) {
     // Получаем все заказы из базы
     const orders = await prismadb.order.findMany({
       where: {
+        isPaid: true,
         createdAt: {
           gte: new Date(`${currentYear}-01-01T00:00:00.000Z`), // От 1 января текущего года
           lt: new Date(`${currentYear + 1}-01-01T00:00:00.000Z`), // До 1 января следующего года

@@ -1,7 +1,4 @@
-import { getSales } from '@/actions/get_sales';
 import AdminPage from '@/components/admin/admin-page';
-import { Loader } from 'lucide-react';
-import { Suspense } from 'react';
 
 export const dynamic = 'force-dynamic';
 

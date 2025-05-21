@@ -1,7 +1,7 @@
 'use client';
 import { ItemReview } from '@/components/order/item-review';
 import { useOrderQuery } from '@/react-queries/admin/useOrderQuery';
-import { Divide, Loader } from 'lucide-react';
+import { Loader } from 'lucide-react';
 
 import React from 'react';
 
@@ -22,7 +22,7 @@ function OrderPage({ orderId }: { orderId: string }) {
         <div className="flex flex-col gap-4">
           <h1 className=" flex justify-between items-baseline   text-zinc-800 font-semibold  leading-[130%]  text-xl lg:text-3xl">
             <div className=""> Order {order?.email}</div>
-            <div className=" text-green-400">
+            <div className={order?.isPaid ? 'text-green-400' : 'text-red-400'}>
               {order?.isPaid ? 'paid for' : 'not paid for'}
             </div>
           </h1>

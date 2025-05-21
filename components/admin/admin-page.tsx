@@ -31,7 +31,7 @@ const AdminPage = () => {
             <Loader size={32} color="#17696a" />
           </div>
         ) : (
-          <SalesChartDesktop data={salesData} />
+          <SalesChartMobil data={salesData} />
         )}
       </div>
       <div className="hidden min-[900px]:block  ">

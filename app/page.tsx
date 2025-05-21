@@ -3,7 +3,6 @@ import { getCollections } from '@/actions/get_collections';
 import { getDiscount } from '@/actions/get_discount';
 import { getNewArrivals } from '@/actions/get_new-arrivals';
 import { getPopularTypes } from '@/actions/get_popular-types';
-import { getPurchasedGoods } from '@/actions/get_purchased-goods';
 import Billboard from '@/components/home-page/billboard/billboard';
 import { Collection } from '@/components/home-page/collection/collection';
 import { Discount } from '@/components/home-page/discount/discount';
@@ -15,8 +14,6 @@ export default async function Home() {
   //запрос для получения billboard, на сервере при помощи fech(динамически)
   const billboardsPromise = getBillboard();
   //запрос для получения topCategories, на сервере при помощи fech(динамически)
-  const purchasedGoodsPromise = getPurchasedGoods();
-  //запрос для получения товаров, на сервере при помощи fech(динамически)
   const newArrivalsPromise = getNewArrivals();
   //запрос для получения коллекции товаров , на сервере при помощи fech(динамически)
   const collectionsPromise = getCollections();
@@ -26,21 +23,14 @@ export default async function Home() {
   const discountPromise = getDiscount();
   //запрос для получения отзывов о магазине, на сервере при помощи fech(динамически)
   // это улучшает скорость закрузки
-  const [
-    billboards,
-    collections,
-    discount,
-    newArrivals,
-    popularTypes,
-    purchasedGoods,
-  ] = await Promise.all([
-    billboardsPromise,
-    collectionsPromise,
-    discountPromise,
-    newArrivalsPromise,
-    popularTypesPromise,
-    purchasedGoodsPromise,
-  ]);
+  const [billboards, collections, discount, newArrivals, popularTypes] =
+    await Promise.all([
+      billboardsPromise,
+      collectionsPromise,
+      discountPromise,
+      newArrivalsPromise,
+      popularTypesPromise,
+    ]);
 
   // console.log('purchasedGoods:', purchasedGoods);
   return (
@@ -49,7 +39,7 @@ export default async function Home() {
       <NewArrivals products={newArrivals} />
       <Collection collections={collections} />
       <PopularTypes popularTypes={popularTypes} />
-      <NowTrending nowTrending={purchasedGoods} />
+      <NowTrending />
       <Discount discount={discount} />
     </main>
   );
