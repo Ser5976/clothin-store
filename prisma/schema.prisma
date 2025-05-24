@@ -2,11 +2,13 @@
 generator client {
   provider = "prisma-client-js"
 }
+ 
 
   datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url = env("DATABASE_URL")
-   relationMode = "prisma"
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+  
  }
 
 model Account {
@@ -80,7 +82,7 @@ model Product{
   price Decimal
   oldPrice Decimal?
   discount      Float? 
-  description   String?@db.LongText
+  description   String?@db.Text
   isFeatured  Boolean   @default(false)
   isAvailability  Boolean   @default(true)
   isBestseller Boolean @default(false)
@@ -211,7 +213,7 @@ model Estimation{
 model Review{
   id String @id @default(uuid())
   name String
-  content String @db.LongText
+  content String @db.Text
   response String?
   estimation Int @default(0)
   userId String 
@@ -372,11 +374,11 @@ model Address{
 model Customers{
   id String @id @default(uuid())
   name String @unique
-  longtext String @db.LongText
+  longtext String @db.Text
 }
 model Delivery{
   id String @id @default(uuid())
-  longtext String @db.LongText
+  longtext String @db.Text
   standartPrice String
   expressPrice String
   orderPrice String
@@ -444,7 +446,7 @@ model CollectionItem {
 // модель для отзывов магазина
 model StoreReviews{
   id String @id @default(uuid())
-  content String @db.LongText
+  content String @db.Text
   response String?
   userId String 
   user User @relation(fields: [userId],references: [id],onDelete: Cascade)
