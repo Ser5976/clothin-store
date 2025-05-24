@@ -33,7 +33,7 @@
 ## Установка проекта
 
 1.  Клонируйте проект на свой компьютер
-    - git clone https://github.com/Ser5976/clothin-store.git (с ветки main, она не дефолтная)
+    - git clone https://github.com/Ser5976/clothin-store.git ((с ветки develop))
 2.  Установка зависимостей
     - откройте папку проекта clothing-store в терминале и наберите команду npm install
 3.  Добавление переменных окружения в .env
