@@ -15,6 +15,7 @@ import { UserCircle2 } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 
 export function ProfileMenu({
   avatar,
@@ -25,8 +26,9 @@ export function ProfileMenu({
 }) {
   const session = useSession();
   session.data?.user.role === 'ADMIN';
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <DropdownMenu>
+    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
         {avatar ? (
           <div className={cn(styles.login, styles.login_active)}>
@@ -74,16 +76,29 @@ export function ProfileMenu({
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <Link href="/profile">Persolan data</Link>
+            <Link href="/profile" onClick={() => setIsOpen(false)}>
+              Persolan data
+            </Link>
 
             <DropdownMenuShortcut>⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link href="/profile/review-profile"> Your reviews</Link>
+            <Link
+              href="/profile/review-profile"
+              onClick={() => setIsOpen(false)}
+            >
+              {' '}
+              Your reviews
+            </Link>
             <DropdownMenuShortcut>⌘R</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link href="/profile/order-profile">Youre orders</Link>
+            <Link
+              href="/profile/order-profile"
+              onClick={() => setIsOpen(false)}
+            >
+              Youre orders
+            </Link>
             <DropdownMenuShortcut>⌘O</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem
@@ -91,7 +106,9 @@ export function ProfileMenu({
               [styles.admin_active]: session.data?.user.role !== 'ADMIN',
             })}
           >
-            <Link href="/admin">Dashboard</Link>
+            <Link href="/admin" onClick={() => setIsOpen(false)}>
+              Dashboard
+            </Link>
             <DropdownMenuShortcut>⌘D</DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuGroup>
