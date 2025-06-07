@@ -13,7 +13,7 @@ export async function GET(request: Request) {
     if (query) {
       users = await prismadb.user.findMany({
         where: {
-          OR: [{ email: { contains: query } }],
+          OR: [{ email: { contains: query,mode: 'insensitive' } }],
         },
         include: {
           favorites: true,

@@ -48,7 +48,7 @@ export async function GET(request: Request) {
     if (query) {
       materials = await prismadb.material.findMany({
         where: {
-          OR: [{ name: { contains: query } }],
+          OR: [{ name: { contains: query,mode: 'insensitive' } }],
         },
       });
     } else {

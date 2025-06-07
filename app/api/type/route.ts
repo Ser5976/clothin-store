@@ -49,7 +49,7 @@ export async function GET(request: Request) {
     if (query) {
       types = await prismadb.type.findMany({
         where: {
-          OR: [{ name: { contains: query } }],
+          OR: [{ name: { contains: query,mode: 'insensitive' } }],
         },
       });
     } else {

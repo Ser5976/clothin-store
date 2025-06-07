@@ -85,7 +85,7 @@ export async function GET(request: Request) {
     if (query) {
       orders = await prismadb.order.findMany({
         where: {
-          OR: [{ email: { contains: query } }],
+          OR: [{ email: { contains: query,mode: 'insensitive' } }],
         },
         include: {
           orderItems: true,
