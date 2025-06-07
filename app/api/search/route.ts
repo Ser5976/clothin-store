@@ -18,21 +18,21 @@ export async function GET(request: Request) {
     //запросы поиска
     const type = await prismadb.type.findMany({
       where: {
-        OR: [{ name: { contains: query } }],
+        OR: [{ name: { contains: query,mode: 'insensitive' } }],
       },
       select: { id: true, name: true },
     });
 
     const brand = await prismadb.brand.findMany({
       where: {
-        OR: [{ name: { contains: query } }],
+        OR: [{ name: { contains: query,mode: 'insensitive' } }],
       },
       select: { id: true, name: true },
     });
 
     const material = await prismadb.material.findMany({
       where: {
-        OR: [{ name: { contains: query } }],
+        OR: [{ name: { contains: query,mode: 'insensitive' } }],
       },
       select: { id: true, name: true },
     });
