@@ -38,7 +38,7 @@ export const UsersPage = () => {
           )}
         </span>
       </h1>
-      {isError || userList?.length === 0 ? null : (
+  
         <div className=" relative w-[250px]">
           <Input
             type="text"
@@ -57,7 +57,7 @@ export const UsersPage = () => {
             className="absolute top-[12px] right-[16px] max-[450px]:right-[66px]"
           />
         </div>
-      )}
+      
 
       {isError ? (
         <h1 className=" text-center font-semibold text-red-600 mt-2">
