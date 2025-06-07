@@ -98,7 +98,10 @@ export async function POST(request: Request) {
           }),
         },
         discount: discount ?? null,
-        rating: { create: {} },
+        rating: { create: {
+          value:0,
+          count:0
+        } },
       },
     });
     return NextResponse.json({ message: 'Data is saved' });
