@@ -108,7 +108,7 @@ export const ProductForm = ({ product }: { product?: ProductType }) => {
                   className="mr-4  animate-spin"
                 />
               ) : null}
-              Add product
+              Save product
             </Button>
           </div>
         </form>

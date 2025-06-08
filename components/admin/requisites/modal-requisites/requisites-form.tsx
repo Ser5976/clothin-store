@@ -10,9 +10,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { BrandDataType, BrandValidator } from '@/validators/brand-validator';
-import { useBrandPost } from '@/react-queries/admin/useBrandPost';
-import { useBrandUpdate } from '@/react-queries/admin/useBrandUpdate';
 import { RequisitesType } from '@/types/requisites_type';
 import {
   RequisitesDataType,

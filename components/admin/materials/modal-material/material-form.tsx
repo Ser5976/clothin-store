@@ -75,7 +75,7 @@ export const MaterialForm = ({ setIsOpen, material }: MaterialFormProps) => {
             type="submit"
             className=" w-[35%] h-10 bg-cyan-800 hover:bg-cyan-900 mt-[12px] "
           >
-            Save type
+            Save 
           </Button>
         </div>
       </form>

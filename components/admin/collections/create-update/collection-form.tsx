@@ -87,7 +87,7 @@ export const CollectionForm = ({
                   className="mr-4  animate-spin"
                 />
               ) : null}
-              Add collection
+              Save collection
             </Button>
           </div>
         </form>
