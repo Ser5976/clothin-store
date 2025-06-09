@@ -1,68 +1,67 @@
-
 generator client {
   provider = "prisma-client-js"
 }
- 
 
-  datasource db {
-  provider = "postgresql"
-  url = env("DATABASE_URL")
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
   directUrl = env("POSTGRES_URL_NON_POOLING")
-  
- }
+}
 
 model Account {
-  id                 String  @id @default(uuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(uuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@index([userId])
-
 }
+
 model Session {
   id           String   @id @default(uuid())
   sessionToken String   @unique
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@index([userId])
 }
 
-model User{
-  id String    @id @default(uuid())
-  name String?
-  email String? @unique
-  phone String?
-  role Role @default(User)
+model User {
+  id            String          @id @default(uuid())
+  name          String?
+  email         String?         @unique
+  phone         String?
+  role          Role            @default(User)
   emailVerified DateTime?
   image         String?
   password      String?
   accounts      Account[]
   sessions      Session[]
-  catr Cart?
-  address Address?
-  review Review[]
-  storeReviews StoreReviews[]
-  favorites Favorites[]
-  estimation Estimation[]
-  order Order[]
-  likeReview LikeReview[]
+  catr          Cart?
+  address       Address?
+  review        Review[]
+  storeReviews  StoreReviews[]
+  favorites     Favorites[]
+  estimation    Estimation[]
+  order         Order[]
+  likeReview    LikeReview[]
   dislikeReview DislikeReview[]
 
- @@index([id,email])
+  @@index([id, email])
 }
+
 model VerificationToken {
   identifier String
   token      String   @unique
@@ -76,384 +75,403 @@ enum Role {
   ADMIN
 }
 
-model Product{
-  id String @id @default(uuid())
-  name String 
-  price Decimal
-  oldPrice Decimal?
-  discount      Float? 
-  description   String?@db.Text
-  isFeatured  Boolean   @default(false)
-  isAvailability  Boolean   @default(true)
-  isBestseller Boolean @default(false)
-  image Image[]
-  orderItems  OrderItem[] 
-  cartItems CartItems[]
+model Product {
+  id              String           @id @default(uuid())
+  name            String
+  price           Decimal
+  oldPrice        Decimal?
+  discount        Float?
+  description     String?          @db.Text
+  isFeatured      Boolean          @default(false)
+  isAvailability  Boolean          @default(true)
+  isBestseller    Boolean          @default(false)
+  image           Image[]
+  orderItems      OrderItem[]
+  cartItems       CartItems[]
   collectionItems CollectionItem[]
-  typeId String
-  type Type @relation(fields: [typeId],references: [id])
-  sizes   ProductOnSize[]
-  colors ProductOnColor[]
-  brandId String
-  brand  Brand @relation(fields: [brandId],references: [id])
-  categoryId String
-  category  Category @relation(fields: [categoryId],references: [id])
-  materialId String
-  material Material @relation(fields: [materialId],references: [id])
-  rating Rating?
-  estimation Estimation[]
-  review Review[]
-  favorites Favorites[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  
+  typeId          String
+  type            Type             @relation(fields: [typeId], references: [id])
+  sizes           ProductOnSize[]
+  colors          ProductOnColor[]
+  brandId         String
+  brand           Brand            @relation(fields: [brandId], references: [id])
+  categoryId      String
+  category        Category         @relation(fields: [categoryId], references: [id])
+  materialId      String
+  material        Material         @relation(fields: [materialId], references: [id])
+  rating          Rating?
+  estimation      Estimation[]
+  review          Review[]
+  favorites       Favorites[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
   @@index([categoryId])
   @@index([typeId])
   @@index([materialId])
   @@index([brandId])
 }
-model Image{
-  id String @id @default(uuid())
-  url String
-  fileKey String
+
+model Image {
+  id        String  @id @default(uuid())
+  url       String
+  fileKey   String
   productId String
-  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
   @@index([productId])
-
 }
-model Category{
-  id String @id @default(uuid())
-  name String @unique
-  types Type[]
-  product Product[]
 
-}
-model Type{
-  id String @id @default(uuid())
-  name  String @unique
+model Category {
+  id      String    @id @default(uuid())
+  name    String    @unique
+  types   Type[]
   product Product[]
+}
+
+model Type {
+  id         String     @id @default(uuid())
+  name       String     @unique
+  product    Product[]
   categories Category[]
-
 }
 
-model Size{
-  id String @id @default(uuid())
-  value String @unique
-  product ProductOnSize[] 
+model Size {
+  id      String          @id @default(uuid())
+  value   String          @unique
+  product ProductOnSize[]
 }
 
 // из-за onDelete:Cascade, пришлось сделать отношение многие ко многим явными(т.е. создать объединяющую таблицу)
-model ProductOnSize{
-  product Product @relation(fields: [productId], references: [id], onDelete:Cascade)
-  productId String 
-  size Size @relation(fields: [sizeId], references: [id],onDelete:Cascade)
-  sizeId String 
+model ProductOnSize {
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId  String
+  size       Size     @relation(fields: [sizeId], references: [id], onDelete: Cascade)
+  sizeId     String
   assignedAt DateTime @default(now())
   assignedBy String
-  
-@@id([sizeId,productId])
-@@index([productId])
-@@index([sizeId])
+
+  @@id([sizeId, productId])
+  @@index([productId])
+  @@index([sizeId])
 }
-model Color{
-  id String @id @default(uuid())
-  name String 
-  value String @unique
+
+model Color {
+  id      String           @id @default(uuid())
+  name    String
+  value   String           @unique
   product ProductOnColor[]
 }
+
 // из-за onDelete:Cascade, пришлось сделать отношение многие ко многим явными(т.е. создать объединяющую таблицу)
-model ProductOnColor{
-  product Product @relation(fields: [productId], references: [id], onDelete:Cascade)
-  productId String 
-  color Color @relation(fields: [colorId],references: [id],onDelete:Cascade)
-  colorId String 
+model ProductOnColor {
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId  String
+  color      Color    @relation(fields: [colorId], references: [id], onDelete: Cascade)
+  colorId    String
   assignedAt DateTime @default(now())
   assignedBy String
 
-@@id([productId,colorId])
-@@index([productId])
-@@index([colorId])
+  @@id([productId, colorId])
+  @@index([productId])
+  @@index([colorId])
 }
-model Material{
-  id String @id @default(uuid())
-  name String @unique
+
+model Material {
+  id      String    @id @default(uuid())
+  name    String    @unique
   product Product[]
 }
-model Brand{
-  id String @id @default(uuid())
-  name String @unique
+
+model Brand {
+  id      String    @id @default(uuid())
+  name    String    @unique
   product Product[]
 }
+
 // модель,куда мы записываем рассчитанный рейтинг и количество оценок
-model Rating{
-  id String @id @default(uuid())
-  value Float @default(0)
-  count Int @default(0)
-  productId String @unique
-  product Product @relation(fields: [productId],references: [id],onDelete: Cascade)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-   @@index([productId])
+model Rating {
+  id        String   @id @default(uuid())
+  value     Float    @default(0)
+  count     Int      @default(0)
+  productId String   @unique
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([productId])
 }
+
 // это оценка от юзера для товара,
 //в роуте рейтинга обрабатываем все оценки конкретного товара и записываем в модель Rating
-model Estimation{
-  id String @id @default(uuid())
-  value Float
-  userId String
-  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
-  productId String 
-  product Product @relation(fields: [productId],references: [id])
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+model Estimation {
+  id        String   @id @default(uuid())
+  value     Float
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId])
   @@index([productId])
 }
-model Review{
-  id String @id @default(uuid())
-  name String
-  content String @db.Text
-  response String?
-  estimation Int @default(0)
-  userId String 
-  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
-  productId String 
-  product Product @relation(fields: [productId],references: [id])
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  likeReview LikeReview[]
+
+model Review {
+  id            String          @id @default(uuid())
+  name          String
+  content       String          @db.Text
+  response      String?
+  estimation    Int             @default(0)
+  userId        String
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId     String
+  product       Product         @relation(fields: [productId], references: [id])
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  likeReview    LikeReview[]
   dislikeReview DislikeReview[]
 
   @@index([userId])
   @@index([productId])
 }
-model LikeReview{
-  id String @id @default(uuid())
-  userId String 
-  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+
+model LikeReview {
+  id       String @id @default(uuid())
+  userId   String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   reviewId String
-  review Review @relation(fields: [reviewId],references: [id],onDelete: Cascade)
-  @@index([userId])
-  @@index([reviewId])
-}
-model DislikeReview{
-  id String @id @default(uuid())
-  userId String 
-  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
-  reviewId String
-  review Review @relation(fields: [reviewId],references: [id],onDelete: Cascade)
+  review   Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
   @@index([userId])
   @@index([reviewId])
 }
 
-model Favorites{
-  id String @id @default(uuid())
-  userId String 
-  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
-  productId String 
-  product Product @relation(fields: [productId],references: [id],onDelete: Cascade)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+model DislikeReview {
+  id       String @id @default(uuid())
+  userId   String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reviewId String
+  review   Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([reviewId])
+}
+
+model Favorites {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId])
   @@index([productId])
 }
+
 model Order {
-  id        String    @id @default(uuid())
-  userId String?
-  user User? @relation(fields: [userId],references: [id],onDelete: Cascade)
-  firstName String
-  lastName String
-  email String
-  orderItems OrderItem[] 
-  isPaid     Boolean   @default(false)
-  subtotal Decimal
+  id           String      @id @default(uuid())
+  userId       String?
+  user         User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  firstName    String
+  lastName     String
+  email        String
+  orderItems   OrderItem[]
+  isPaid       Boolean     @default(false)
+  subtotal     Decimal
   shippingCost Decimal
-  discount Decimal?
-  amount Decimal
-  phone      String  
-  address    Address?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  discount     Decimal?
+  amount       Decimal
+  phone        String
+  address      Address?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
 
   @@index([userId])
 }
 
-
 model OrderItem {
-  id        String  @id @default(uuid())
-  orderId   String  
-  order     Order   @relation(fields: [orderId], references: [id],onDelete: Cascade)
-  productId String  
-  product   Product @relation(fields: [productId], references: [id],onDelete: Cascade)
-  name String 
-  price Decimal
-  oldPrice Decimal?
+  id            String   @id @default(uuid())
+  orderId       String
+  order         Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId     String
+  product       Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  name          String
+  price         Decimal
+  oldPrice      Decimal?
   discount      Float?
-  image String
-  quantity Int @default(1)
-  size String
-  color String
-  totalPrice Decimal @default(0)
-  totalOldPrice Decimal @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  image         String
+  quantity      Int      @default(1)
+  size          String
+  color         String
+  totalPrice    Decimal  @default(0)
+  totalOldPrice Decimal  @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@index([orderId])
   @@index([productId])
 }
+
 model Billboard {
-  id          String @id @default(uuid())
-  title      String?
-  subTitle   String?
-  image    BillboardImg?
-  link String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String        @id @default(uuid())
+  title     String?
+  subTitle  String?
+  image     BillboardImg?
+  link      String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
 }
-model BillboardImg{
-  id          String @id @default(uuid())
-  url String
-  fileKey String
-  billboardId String @unique
-  billboard Billboard @relation(fields: [billboardId],references: [id],onDelete: Cascade)
-  
+
+model BillboardImg {
+  id          String    @id @default(uuid())
+  url         String
+  fileKey     String
+  billboardId String    @unique
+  billboard   Billboard @relation(fields: [billboardId], references: [id], onDelete: Cascade)
 }
-model Cart{
-  id String @id @default(uuid())
-  userId String @unique
-  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
-  items CartItems[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+
+model Cart {
+  id        String      @id @default(uuid())
+  userId    String      @unique
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     CartItems[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
 
   @@index([userId])
 }
-model CartItems{
-  id String @id @default(uuid())
-  cartId String
-  cart Cart @relation(fields: [cartId],references: [id],onDelete: Cascade)
-  productId String
-  product Product @relation(fields: [productId],references: [id],onDelete: Cascade)
-  name String 
-  price Decimal
-  oldPrice Decimal?
+
+model CartItems {
+  id            String   @id @default(uuid())
+  cartId        String
+  cart          Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productId     String
+  product       Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  name          String
+  price         Decimal
+  oldPrice      Decimal?
   discount      Float?
-  image String
-  quantity Int @default(1)
-  size String
-  color String
-  totalPrice Decimal @default(0)
-  totalOldPrice Decimal @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  image         String
+  quantity      Int      @default(1)
+  size          String
+  color         String
+  totalPrice    Decimal  @default(0)
+  totalOldPrice Decimal  @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@index([cartId])
   @@index([productId])
 }
-model Address{
-  id String @id @default(uuid())
-  country String @default("")
-  city String
-  street String
-  house String
-  flat String @default("")
-  postalCode String @default("")
-  userId String? @unique
-  orderId String? @unique
-  order Order? @relation(fields: [orderId],references: [id],onDelete: Cascade)
-  user User? @relation(fields: [userId],references: [id],onDelete: Cascade)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
- 
+
+model Address {
+  id         String   @id @default(uuid())
+  country    String   @default("")
+  city       String
+  street     String
+  house      String
+  flat       String   @default("")
+  postalCode String   @default("")
+  userId     String?  @unique
+  orderId    String?  @unique
+  order      Order?   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
   @@index([orderId])
   @@index([userId])
 }
+
 // модель для статей в TopBar
-model Customers{
-  id String @id @default(uuid())
-  name String @unique
+model Customers {
+  id       String @id @default(uuid())
+  name     String @unique
   longtext String @db.Text
 }
-model Delivery{
-  id String @id @default(uuid())
-  longtext String @db.Text
+
+model Delivery {
+  id            String   @id @default(uuid())
+  longtext      String   @db.Text
   standartPrice String
-  expressPrice String
-  orderPrice String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
+  expressPrice  String
+  orderPrice    String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
- // модель для реквизитов(телефон,email)
- model Requisites{
-  id String @id @default(uuid())
+// модель для реквизитов(телефон,email)
+model Requisites {
+  id    String  @id @default(uuid())
   title String?
-  phone String @unique
+  phone String  @unique
   email String
- }
- 
-// модели  колекции товаров для главной страницы
-model ProductCollection{
-  id String @id @default(uuid())
-  name String @unique
-  description String
-  image ProductCollectionImg?
-  collectionItem CollectionItem[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
 }
-model ProductCollectionImg{
-  id String @id @default(uuid())
-  url String
-  fileKey String
-  productCollectionId String @unique
-  productCollection ProductCollection @relation(fields: [productCollectionId],references: [id],onDelete: Cascade)
+
+// модели  колекции товаров для главной страницы
+model ProductCollection {
+  id             String                @id @default(uuid())
+  name           String                @unique
+  description    String
+  image          ProductCollectionImg?
+  collectionItem CollectionItem[]
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
+}
+
+model ProductCollectionImg {
+  id                  String            @id @default(uuid())
+  url                 String
+  fileKey             String
+  productCollectionId String            @unique
+  productCollection   ProductCollection @relation(fields: [productCollectionId], references: [id], onDelete: Cascade)
 }
 
 model CollectionItem {
-  id        String  @id @default(uuid())
-  productCollectionId String 
-  productCollection ProductCollection @relation(fields: [productCollectionId],references: [id],onDelete: Cascade)
-  productId String  
-  product   Product @relation(fields: [productId], references: [id],onDelete: Cascade)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                  String            @id @default(uuid())
+  productCollectionId String
+  productCollection   ProductCollection @relation(fields: [productCollectionId], references: [id], onDelete: Cascade)
+  productId           String
+  product             Product           @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
 
   @@index([productCollectionId])
   @@index([productId])
 }
 
 //модели  популярного типа товара, для главной страницы 
- model PopularTypes{
-  id String @id @default(uuid())
-  title String
-  link String
-  image PopularTypesImg?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
- }
-  model PopularTypesImg{
-  id String @id @default(uuid())
-  url String
-  fileKey String
-  popularTypesId String @unique
-  popularTypes PopularTypes @relation(fields: [popularTypesId],references: [id],onDelete: Cascade) 
+model PopularTypes {
+  id        String           @id @default(uuid())
+  title     String
+  link      String
+  image     PopularTypesImg?
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
 }
+
+model PopularTypesImg {
+  id             String       @id @default(uuid())
+  url            String
+  fileKey        String
+  popularTypesId String       @unique
+  popularTypes   PopularTypes @relation(fields: [popularTypesId], references: [id], onDelete: Cascade)
+}
+
 // модель для отзывов магазина
-model StoreReviews{
-  id String @id @default(uuid())
-  content String @db.Text
+model StoreReviews {
+  id       String  @id @default(uuid())
+  content  String  @db.Text
   response String?
-  userId String 
-  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
-  
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  userId   String
+  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId])
-
 }
